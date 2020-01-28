@@ -1,0 +1,45 @@
+package com.github.typingtanuki.servermonitor.monitors;
+
+import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.report.MonitorReport;
+import com.github.typingtanuki.servermonitor.report.ProcessMonitorReport;
+import oshi.SystemInfo;
+import oshi.software.os.OSProcess;
+
+import java.util.LinkedList;
+import java.util.List;
+
+public class ProcessMonitor implements Monitor {
+    private MonitorConfig config;
+
+    public ProcessMonitor(MonitorConfig config) {
+        super();
+
+        this.config = config;
+    }
+
+    @Override
+    public List<MonitorReport> monitor(SystemInfo systemInfo) {
+        List<String> processes = config.processes();
+
+        OSProcess[] current = systemInfo.getOperatingSystem().getProcesses();
+        List<MonitorReport> out = new LinkedList<>();
+        for (String proc : processes) {
+            ProcessMonitorReport report = new ProcessMonitorReport(proc);
+            boolean running = false;
+            for (OSProcess c : current) {
+                if (c.getName().contains(proc)) {
+                    running = true;
+                    break;
+                }
+            }
+            if (running) {
+                report.ok();
+            } else {
+                report.ng();
+            }
+            out.add(report);
+        }
+        return out;
+    }
+}
