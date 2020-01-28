@@ -1,6 +1,8 @@
 package com.github.typingtanuki.servermonitor.monitors;
 
 import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.connectors.Connector;
+import com.github.typingtanuki.servermonitor.connectors.TeamsConnector;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import oshi.SystemInfo;
 
@@ -70,14 +72,10 @@ public class ServerMonitor {
             warnIssue(failed);
         }
     }
-    
+
     private void warnIssue(List<MonitorReport> failed) {
-        System.out.println("Server "+config.identity()+" is NG");
-        System.out.println(info.getOperatingSystem());
-        System.out.println(Arrays.toString(info.getHardware().getNetworkIFs()));
-        for (MonitorReport report : failed) {
-            System.out.println(report.shortDescription());
-        }
+        Connector connector = new TeamsConnector(config, info);
+        connector.reportFailure(failed);
     }
 
     public void loadConfig() throws IOException {
