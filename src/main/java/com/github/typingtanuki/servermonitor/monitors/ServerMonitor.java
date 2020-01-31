@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -73,9 +72,11 @@ public class ServerMonitor {
         }
     }
 
-    private void warnIssue(List<MonitorReport> failed) {
+    private void warnIssue(List<MonitorReport> failedMonitorReports) {
         Connector connector = new TeamsConnector(config, info);
-        connector.reportFailure(failed);
+        for (MonitorReport failedMonitorReport : failedMonitorReports) {
+            connector.reportFailure(failedMonitorReport);
+        }
     }
 
     public void loadConfig() throws IOException {

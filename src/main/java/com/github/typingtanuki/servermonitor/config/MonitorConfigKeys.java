@@ -7,5 +7,6 @@ public enum MonitorConfigKeys {
     maxMemoryUsage,
     processes,
     ping,
-    identity
+    identity,
+    teamsHook
 }

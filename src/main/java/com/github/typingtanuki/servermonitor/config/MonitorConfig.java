@@ -13,6 +13,7 @@ public class MonitorConfig {
     private List<String> processes = Collections.emptyList();
     private List<String> ping = Collections.emptyList();
     private String identity = null;
+    private String teamsHook = null;
 
     public void from(List<String> lines) {
         String soFar = null;
@@ -63,6 +64,9 @@ public class MonitorConfig {
                 break;
             case identity:
                 this.identity = singleString(value);
+                break;
+            case teamsHook:
+                this.teamsHook = singleString(value);
         }
     }
 
@@ -87,6 +91,9 @@ public class MonitorConfig {
     private String singleString(String[] value) {
         if (value.length != 1) {
             throw new IllegalArgumentException("Only a single number is possible, got " + String.join(", ", value));
+        }
+        if (value[0] == null || value[0].isBlank()) {
+            return null;
         }
         return value[0];
     }
@@ -136,5 +143,9 @@ public class MonitorConfig {
 
     public String identity() {
         return identity;
+    }
+
+    public String teamsHook() {
+        return teamsHook;
     }
 }
