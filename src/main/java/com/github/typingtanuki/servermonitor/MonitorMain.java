@@ -13,6 +13,7 @@ public class MonitorMain {
         ServerMonitor monitor = new ServerMonitor();
         try {
             monitor.loadConfig();
+            monitor.startServer();
             monitor.startMonitoring();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();

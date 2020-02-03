@@ -8,5 +8,8 @@ public enum MonitorConfigKeys {
     processes,
     ping,
     identity,
-    teamsHook
+    teamsHook,
+    handshakePort,
+    handshake,
+    maxHandshakeTime
 }

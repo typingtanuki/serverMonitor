@@ -4,6 +4,7 @@ import com.github.typingtanuki.servermonitor.config.MonitorConfig;
 import com.github.typingtanuki.servermonitor.connectors.Connector;
 import com.github.typingtanuki.servermonitor.connectors.TeamsConnector;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
+import com.github.typingtanuki.servermonitor.web.WebServer;
 import oshi.SystemInfo;
 
 import java.io.IOException;
@@ -31,6 +32,9 @@ public class ServerMonitor {
     public void startMonitoring() throws InterruptedException {
         config.validate();
 
+        if (!config.handshake().isEmpty()) {
+            monitors.add(new HandshakeMonitor(config));
+        }
         monitors.add(new DiskMonitor(config));
         monitors.add(new CpuMonitor(config));
         monitors.add(new MemoryMonitor(config));
@@ -73,6 +77,10 @@ public class ServerMonitor {
     }
 
     private void warnIssue(List<MonitorReport> failedMonitorReports) {
+        if (config.teamsHook() == null) {
+            return;
+        }
+
         Connector connector = new TeamsConnector(config, info);
         for (MonitorReport failedMonitorReport : failedMonitorReports) {
             connector.reportFailure(failedMonitorReport);
@@ -87,5 +95,11 @@ public class ServerMonitor {
             System.exit(1);
         }
         config.from(Files.readAllLines(configPath));
+    }
+
+    public void startServer() throws IOException {
+        WebServer server = new WebServer(config);
+        server.startServer();
+        server.start();
     }
 }

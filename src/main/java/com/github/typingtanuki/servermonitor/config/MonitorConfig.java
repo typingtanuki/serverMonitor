@@ -14,6 +14,9 @@ public class MonitorConfig {
     private List<String> ping = Collections.emptyList();
     private String identity = null;
     private String teamsHook = null;
+    private int handshakePort = 9191;
+    private List<String> handshake;
+    private int maxHandshakeTime = 2_000;
 
     public void from(List<String> lines) {
         String soFar = null;
@@ -67,6 +70,16 @@ public class MonitorConfig {
                 break;
             case teamsHook:
                 this.teamsHook = singleString(value);
+                break;
+            case handshake:
+                this.handshake = stringList(value);
+                break;
+            case handshakePort:
+                this.handshakePort = singleInt(value);
+                break;
+            case maxHandshakeTime:
+                this.maxHandshakeTime = singleInt(value);
+                break;
         }
     }
 
@@ -139,6 +152,12 @@ public class MonitorConfig {
         if (maxMemoryUsage < 1 || maxMemoryUsage > 99) {
             throw new IllegalStateException("Memory usage should be between 1 and 99%");
         }
+        if (handshakePort < 1 || handshakePort > 65535) {
+            throw new IllegalStateException("Handshake port should be between 1 and 65535");
+        }
+        if (maxHandshakeTime < 1 || maxHandshakeTime > 60_000) {
+            throw new IllegalStateException("Max handshake time should be between 1ms and 1min");
+        }
     }
 
     public String identity() {
@@ -147,5 +166,17 @@ public class MonitorConfig {
 
     public String teamsHook() {
         return teamsHook;
+    }
+
+    public List<String> handshake() {
+        return new ArrayList<>(handshake);
+    }
+
+    public int handshakePort() {
+        return handshakePort;
+    }
+
+    public int maxHandshakeTime() {
+        return maxHandshakeTime;
     }
 }
