@@ -1,8 +1,9 @@
-package com.github.typingtanuki.servermonitor.connectors;
+package com.github.typingtanuki.servermonitor.connectors.teams;
 
+@SuppressWarnings("unused")
 public class TeamsFact {
-private String name;
-private String value ;
+    private String name;
+    private String value;
 
     public TeamsFact() {
         super();

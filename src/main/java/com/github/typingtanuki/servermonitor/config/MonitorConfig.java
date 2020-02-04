@@ -1,7 +1,6 @@
 package com.github.typingtanuki.servermonitor.config;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -83,8 +82,12 @@ public class MonitorConfig {
         }
     }
 
-    private List<String> stringList(String[] value) {
-        return Arrays.asList(value);
+    private List<String> stringList(String[] values) {
+        List<String> out = new ArrayList<>(values.length);
+        for (String value : values) {
+            out.add(value.trim());
+        }
+        return out;
     }
 
     private long singleLong(String[] value) {

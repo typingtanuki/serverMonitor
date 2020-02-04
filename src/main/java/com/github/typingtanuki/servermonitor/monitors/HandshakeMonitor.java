@@ -56,7 +56,6 @@ public class HandshakeMonitor implements Monitor {
             return;
         }
         if (response.getStatus() != 200) {
-            System.out.println("Status " + response.getStatus());
             monitor.noConnect("Status " + response.getStatus() + " not 200");
             return;
         }

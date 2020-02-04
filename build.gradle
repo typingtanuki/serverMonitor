@@ -19,9 +19,11 @@ repositories {
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
-    // The production code uses the SLF4J logging API at compile time
+    def withoutSlf4j = { exclude group: 'org.slf4j', module: 'slf4j-simple' }
+
+
     compile 'org.slf4j:slf4j-api:1.7.25'
-    compile 'com.github.oshi:oshi-dist:4.3.0'
+    compile 'com.github.oshi:oshi-dist:4.3.0', withoutSlf4j
 
     compile 'com.fasterxml.jackson.core:jackson-core:2.9.4'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.4'
@@ -35,6 +37,9 @@ dependencies {
     compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.30'
     compile 'org.eclipse.jetty:jetty-server:9.4.26.v20200117'
     compile 'org.eclipse.jetty:jetty-servlet:9.4.26.v20200117'
+    compile 'ch.qos.logback:logback-core:1.2.3'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+
 
     compile 'javax.xml.bind:jaxb-api:2.3.1'
 

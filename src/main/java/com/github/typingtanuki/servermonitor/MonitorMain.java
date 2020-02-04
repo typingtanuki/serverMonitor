@@ -1,6 +1,8 @@
 package com.github.typingtanuki.servermonitor;
 
 import com.github.typingtanuki.servermonitor.monitors.ServerMonitor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -9,6 +11,8 @@ import java.io.IOException;
  * @since 2020/01/24
  */
 public class MonitorMain {
+    private static final Logger logger = LoggerFactory.getLogger(MonitorMain.class);
+
     public static void main(String... args) {
         ServerMonitor monitor = new ServerMonitor();
         try {
@@ -17,20 +21,16 @@ public class MonitorMain {
             monitor.startMonitoring();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            System.err.println("Monitor interrupted");
-            e.printStackTrace(System.err);
+            logger.warn("Monitor interrupted", e);
             System.exit(20);
         } catch (IOException e) {
-            System.err.println("IO error");
-            e.printStackTrace(System.err);
+            logger.warn("IO error", e);
             System.exit(21);
         } catch (IllegalArgumentException | IllegalStateException e) {
-            System.err.println("Invalid monitor state");
-            e.printStackTrace(System.err);
+            logger.warn("Invalid monitor state", e);
             System.exit(22);
         } catch (RuntimeException e) {
-            System.err.println("Unexpected internal error");
-            e.printStackTrace(System.err);
+            logger.warn("Unexpected internal error", e);
             System.exit(23);
         }
     }

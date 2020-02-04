@@ -2,15 +2,19 @@ package com.github.typingtanuki.servermonitor.monitors;
 
 import com.github.typingtanuki.servermonitor.config.MonitorConfig;
 import com.github.typingtanuki.servermonitor.connectors.Connector;
-import com.github.typingtanuki.servermonitor.connectors.TeamsConnector;
+import com.github.typingtanuki.servermonitor.connectors.LoggerConnector;
+import com.github.typingtanuki.servermonitor.connectors.teams.TeamsConnector;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import com.github.typingtanuki.servermonitor.web.WebServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import oshi.SystemInfo;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,9 +23,12 @@ import java.util.List;
  * @since 2020/01/24
  */
 public class ServerMonitor {
+    private static final Logger logger = LoggerFactory.getLogger(ServerMonitor.class);
+
     private final SystemInfo info;
     private final MonitorConfig config;
     private List<Monitor> monitors = new LinkedList<>();
+    private List<Connector> connectors;
 
     public ServerMonitor() {
         super();
@@ -46,8 +53,6 @@ public class ServerMonitor {
         }
 
         while (true) {
-            System.out.println("-----------------");
-
             List<MonitorReport> reports = new LinkedList<>();
             for (Monitor monitor : monitors) {
                 reports.addAll(monitor.monitor(info));
@@ -64,9 +69,9 @@ public class ServerMonitor {
 
         for (MonitorReport report : reports) {
             if (report.isOK()) {
-                System.out.println("OK: " + report.shortDescription());
+                logger.debug("OK: {}", report.shortDescription());
             } else {
-                System.out.println("NG: " + report.shortDescription());
+                logger.debug("NG: {}", report.shortDescription());
                 failed.add(report);
             }
         }
@@ -77,21 +82,31 @@ public class ServerMonitor {
     }
 
     private void warnIssue(List<MonitorReport> failedMonitorReports) {
-        if (config.teamsHook() == null) {
-            return;
-        }
+        List<Connector> connectors = initConnectors(config);
 
-        Connector connector = new TeamsConnector(config, info);
         for (MonitorReport failedMonitorReport : failedMonitorReports) {
-            connector.reportFailure(failedMonitorReport);
+            for (Connector connector : connectors) {
+                connector.reportFailure(failedMonitorReport);
+            }
         }
+    }
+
+    private synchronized List<Connector> initConnectors(MonitorConfig config) {
+        if (connectors != null) {
+            return new ArrayList<>(connectors);
+        }
+        connectors = new LinkedList<>();
+        connectors.add(new LoggerConnector());
+        if (config.teamsHook() != null) {
+            connectors.add(new TeamsConnector(config, info));
+        }
+        return connectors;
     }
 
     public void loadConfig() throws IOException {
         Path configPath = Paths.get("./conf/monitor.conf");
-        System.out.println(configPath.toFile().getAbsolutePath());
         if (!Files.exists(configPath)) {
-            System.err.println("Missing config file");
+            logger.warn("Missing config file in " + configPath.toFile().getAbsolutePath());
             System.exit(1);
         }
         config.from(Files.readAllLines(configPath));

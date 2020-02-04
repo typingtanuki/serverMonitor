@@ -1,10 +1,13 @@
-package com.github.typingtanuki.servermonitor.connectors;
+package com.github.typingtanuki.servermonitor.connectors.teams;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.connectors.Connector;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import oshi.SystemInfo;
 import oshi.software.os.OperatingSystem;
 
@@ -16,6 +19,8 @@ import javax.ws.rs.core.Response;
 import java.util.Map;
 
 public class TeamsConnector implements Connector {
+    private static Logger logger = LoggerFactory.getLogger(TeamsConnector.class);
+
     private final MonitorConfig config;
     private final SystemInfo info;
 
@@ -55,8 +60,7 @@ public class TeamsConnector implements Connector {
         try {
             payloadJson = mapper.writerFor(TeamsPayload.class).writeValueAsString(payload);
         } catch (JsonProcessingException e) {
-            System.out.println("Error preparing payload");
-            e.printStackTrace();
+            logger.warn("Failure while preparing payload", e);
             return;
         }
         sendPayload(payloadJson);
@@ -69,6 +73,8 @@ public class TeamsConnector implements Connector {
         Invocation.Builder request = resource.request();
         request.accept("application/json");
         Response response = request.buildPost(Entity.json(payloadJson)).invoke();
-        System.out.println("Status " + response.getStatus());
+        if (response.getStatus() != 200) {
+            logger.warn("API responded with wrong error code {}", response.getStatus());
+        }
     }
 }

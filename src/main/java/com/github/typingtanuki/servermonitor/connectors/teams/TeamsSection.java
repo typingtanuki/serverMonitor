@@ -1,8 +1,9 @@
-package com.github.typingtanuki.servermonitor.connectors;
+package com.github.typingtanuki.servermonitor.connectors.teams;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class TeamsSection {
     private final List<TeamsFact> facts = new LinkedList<>();
     private String activityTitle;
