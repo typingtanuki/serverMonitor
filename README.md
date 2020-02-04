@@ -6,10 +6,11 @@ Easy monitor the state of linux and windows servers, as well as the tools runnin
 
 ## How to
 
+1. Make the jar by running `gradlew jar`
 1. Deploy the tool on each server
 1. Copy conf/sample.conf to conf/monitor.conf
-1. Edit the configuration to match your settings
-1. Start MonitorMain
+1. Edit the configuration to match your needs
+1. Start the monitor with `java -jar serverMonitor.jar`
 
 ## What can be monitored ?
 
@@ -29,3 +30,11 @@ Easy monitor the state of linux and windows servers, as well as the tools runnin
 * Printing messages to the console
 * Printing messages to a log file
 * Sending notifications to a MessageCard compatible API (like Microsoft Teams)
+
+## Dependencies
+
+* Oshi is used for system monitoring
+* Jackson for JSON parsing and writing
+* Jersey+jetty for the handshake server
+* RestEasy for the handshake client
+* Logback for logging
