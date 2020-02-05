@@ -5,6 +5,7 @@ import com.github.typingtanuki.servermonitor.connectors.Connector;
 import com.github.typingtanuki.servermonitor.connectors.LoggerConnector;
 import com.github.typingtanuki.servermonitor.connectors.teams.TeamsConnector;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
+import com.github.typingtanuki.servermonitor.updates.UpdateChecker;
 import com.github.typingtanuki.servermonitor.web.WebServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +38,6 @@ public class ServerMonitor {
     }
 
     public void startMonitoring() throws InterruptedException {
-        config.validate();
-
         if (!config.handshake().isEmpty()) {
             monitors.add(new HandshakeMonitor(config));
         }
@@ -51,11 +50,15 @@ public class ServerMonitor {
         if (!config.ping().isEmpty()) {
             monitors.add(new PingMonitor(config));
         }
+        UpdateChecker updateChecker = UpdateChecker.bestChecker();
 
         while (true) {
             List<MonitorReport> reports = new LinkedList<>();
             for (Monitor monitor : monitors) {
                 reports.addAll(monitor.monitor(info));
+            }
+            if (updateChecker != null) {
+                reports.add(updateChecker.check());
             }
 
             handleReports(reports);
@@ -110,6 +113,7 @@ public class ServerMonitor {
             System.exit(1);
         }
         config.from(Files.readAllLines(configPath));
+        config.validate();
     }
 
     public void startServer() throws IOException {
