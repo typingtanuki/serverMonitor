@@ -17,6 +17,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Sends a handshake to another monitor and waits for response
+ * <p>
+ * What is considered a failure:
+ * <ul>
+ *     <li>Could not connect to remote monitor</li>
+ *     <li>Response timestamp is ahead in time from request response</li>
+ *     <li>Remote monitor took too long to respond</li>
+ * </ul>
+ */
 public class HandshakeMonitor implements Monitor {
     private static final ObjectReader reader = new ObjectMapper().readerFor(HandshakeResponse.class);
     private final List<String> targets;
@@ -42,6 +52,7 @@ public class HandshakeMonitor implements Monitor {
 
     private void shakeHand(String target,
                            ShakeMonitorReport monitor) {
+        // Sends the handshake request and wait for response
         Response response;
         try {
             ResteasyClientBuilder builder = new ResteasyClientBuilder();
@@ -60,6 +71,7 @@ public class HandshakeMonitor implements Monitor {
             return;
         }
 
+        // Read the response
         HandshakeResponse handshake;
         try {
             String output = response.readEntity(String.class);
@@ -70,6 +82,7 @@ public class HandshakeMonitor implements Monitor {
             return;
         }
 
+        //Validate the response content
         if (handshake.getResponseTime() < handshake.getRequestTime()) {
             monitor.pingBackInTime(handshake.getRequestTime(), handshake.getResponseTime());
             return;

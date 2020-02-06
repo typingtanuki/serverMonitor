@@ -18,7 +18,8 @@ Easy monitor the state of linux and windows servers, as well as the tools runnin
   * System CPU usage
   * System memory usage
   * Disk usage on all root partitions
-  * If specific processes are currently running on the server or not 
+  * If specific processes are currently running on the server or not
+  * Available system updates (apt-get and apt based only) 
 * Network
   * Pingability of other servers (ICMP based)
   * Handshake with other servers running this tool (custom HTTP handshake)
@@ -38,3 +39,11 @@ Easy monitor the state of linux and windows servers, as well as the tools runnin
 * Jersey+jetty for the handshake server
 * RestEasy for the handshake client
 * Logback for logging
+
+## Planned features
+
+* Yum based system update monitor
+* Windows update monitor (if possible without being admin)
+* A way too fetch current status through REST
+* A way to see current config through REST
+* A way to update current config through REST

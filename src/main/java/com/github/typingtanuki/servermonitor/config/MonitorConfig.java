@@ -16,6 +16,7 @@ public class MonitorConfig {
     private int handshakePort = 9191;
     private List<String> handshake;
     private int maxHandshakeTime = 2_000;
+    private boolean checkUpdates = true;
 
     public void from(List<String> lines) {
         String soFar = null;
@@ -79,6 +80,9 @@ public class MonitorConfig {
             case maxHandshakeTime:
                 this.maxHandshakeTime = singleInt(value);
                 break;
+            case checkUpdates:
+                this.checkUpdates = singleBoolean(value);
+                break;
         }
     }
 
@@ -102,6 +106,13 @@ public class MonitorConfig {
             throw new IllegalArgumentException("Only a single number is possible, got " + String.join(", ", value));
         }
         return Integer.parseInt(value[0]);
+    }
+
+    private boolean singleBoolean(String[] value) {
+        if (value.length != 1) {
+            throw new IllegalArgumentException("Only a single boolean is possible, got " + String.join(", ", value));
+        }
+        return Boolean.parseBoolean(value[0]);
     }
 
     private String singleString(String[] value) {
@@ -181,5 +192,9 @@ public class MonitorConfig {
 
     public int maxHandshakeTime() {
         return maxHandshakeTime;
+    }
+
+    public boolean checkUpdates() {
+        return checkUpdates;
     }
 }

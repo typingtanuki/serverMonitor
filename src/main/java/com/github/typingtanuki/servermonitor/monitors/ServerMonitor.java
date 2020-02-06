@@ -20,6 +20,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Core of the monitoring
+ *
  * @author clerc
  * @since 2020/01/24
  */
@@ -50,7 +52,8 @@ public class ServerMonitor {
         if (!config.ping().isEmpty()) {
             monitors.add(new PingMonitor(config));
         }
-        UpdateChecker updateChecker = UpdateChecker.bestChecker();
+
+        UpdateChecker updateChecker = UpdateChecker.bestChecker(config.checkUpdates());
 
         while (true) {
             List<MonitorReport> reports = new LinkedList<>();

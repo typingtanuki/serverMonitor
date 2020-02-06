@@ -3,6 +3,9 @@ package com.github.typingtanuki.servermonitor.connectors.teams;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * A group of related facts to be presented together
+ */
 @SuppressWarnings("unused")
 public class TeamsSection {
     private final List<TeamsFact> facts = new LinkedList<>();

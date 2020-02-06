@@ -9,6 +9,11 @@ import oshi.software.os.OSProcess;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Monitors running processes on the server.
+ * <p>
+ * If an expected process is not running, a failure will be raised
+ */
 public class ProcessMonitor implements Monitor {
     private MonitorConfig config;
 

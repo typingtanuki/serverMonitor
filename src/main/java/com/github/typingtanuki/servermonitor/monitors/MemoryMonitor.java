@@ -10,6 +10,9 @@ import oshi.hardware.GlobalMemory;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Monitors Memory usage against a max allowed percentage
+ */
 public class MemoryMonitor implements Monitor {
     private MonitorConfig config;
 

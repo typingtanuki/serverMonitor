@@ -9,6 +9,9 @@ import oshi.hardware.CentralProcessor;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Monitors CPU usage against a max allowed percentage
+ */
 public class CpuMonitor implements Monitor {
     private MonitorConfig config;
 

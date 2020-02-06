@@ -12,6 +12,9 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Monitors disk (partition) usage against a max allowed percentage
+ */
 public class DiskMonitor implements Monitor {
     private MonitorConfig config;
 

@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
+ * A connector reporting through the local logger
+ *
  * @author clerc
  * @since 2020/02/04
  */

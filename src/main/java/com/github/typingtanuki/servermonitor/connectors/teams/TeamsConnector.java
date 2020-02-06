@@ -18,6 +18,9 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 import java.util.Map;
 
+/**
+ * Connector for Microsoft Teams
+ */
 public class TeamsConnector implements Connector {
     private static Logger logger = LoggerFactory.getLogger(TeamsConnector.class);
 
@@ -35,6 +38,8 @@ public class TeamsConnector implements Connector {
     public void reportFailure(MonitorReport failedMonitorReport) {
         TeamsPayload payload = new TeamsPayload();
         payload.setSummary("Server is NG");
+
+        // Section with the OS details
         TeamsSection osSection = new TeamsSection();
         osSection.setActivityTitle("Server " + config.identity() + " is NG");
         osSection.setActivitySubtitle("System details");
@@ -45,6 +50,7 @@ public class TeamsConnector implements Connector {
         osSection.addFact(new TeamsFact("version", String.valueOf(os.getVersionInfo().toString())));
         payload.addSection(osSection);
 
+        // Section with the failure information
         TeamsSection payloadSection = new TeamsSection();
         payloadSection.setActivityTitle(failedMonitorReport.title());
         payloadSection.setActivitySubtitle(failedMonitorReport.shortDescription());
@@ -52,8 +58,17 @@ public class TeamsConnector implements Connector {
         for (Map.Entry<String, Object> details : failedMonitorReport.details().entrySet()) {
             payloadSection.addFact(new TeamsFact(details.getKey(), String.valueOf(details.getValue())));
         }
-
         payload.addSection(payloadSection);
+
+        sendPayload(payload);
+    }
+
+    /**
+     * Convert the payload to JSON and send it to the hook
+     *
+     * @param payload The payload to send
+     */
+    private void sendPayload(TeamsPayload payload) {
         ObjectMapper mapper = new ObjectMapper();
         String payloadJson;
 
@@ -66,6 +81,11 @@ public class TeamsConnector implements Connector {
         sendPayload(payloadJson);
     }
 
+    /**
+     * Send the string (json) payload to the hook
+     *
+     * @param payloadJson The json-ified payload to send
+     */
     private void sendPayload(String payloadJson) {
         ResteasyClientBuilder builder = new ResteasyClientBuilder();
         Client client = builder.build();

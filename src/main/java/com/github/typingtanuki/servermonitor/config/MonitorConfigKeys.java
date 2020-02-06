@@ -11,5 +11,6 @@ public enum MonitorConfigKeys {
     teamsHook,
     handshakePort,
     handshake,
-    maxHandshakeTime
+    maxHandshakeTime,
+    checkUpdates
 }

@@ -61,16 +61,16 @@ public abstract class LinuxUpdateChecker extends UpdateChecker {
     }
 
     @Override
-    protected UpdateChecker tryCheck() {
+    protected boolean isAvailable() {
         if (!isGoodOs()) {
             logger.info("Not good os for {}", binaryName());
-            return null;
+            return false;
         }
         if (!hasBinary()) {
             logger.info("Binary {} not installed", binaryName());
-            return null;
+            return false;
         }
         logger.info("Checking updates for {}", binaryName());
-        return this;
+        return true;
     }
 }

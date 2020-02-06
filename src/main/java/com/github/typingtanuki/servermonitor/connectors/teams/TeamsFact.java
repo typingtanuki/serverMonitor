@@ -1,5 +1,10 @@
 package com.github.typingtanuki.servermonitor.connectors.teams;
 
+/**
+ * A fact is a line in the section
+ *
+ * It is key/value based
+ */
 @SuppressWarnings("unused")
 public class TeamsFact {
     private String name;
