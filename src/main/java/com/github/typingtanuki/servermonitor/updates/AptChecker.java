@@ -4,7 +4,12 @@ import com.github.typingtanuki.servermonitor.report.InvalidReport;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
+/**
+ * Experimental, APT CLI is still in beta
+ */
 public class AptChecker extends LinuxUpdateChecker {
     @Override
     protected String binaryName() {
@@ -14,7 +19,7 @@ public class AptChecker extends LinuxUpdateChecker {
     @Override
     public MonitorReport check() {
         ProcessBuilder builder = new ProcessBuilder("apt", "list", "--upgradable");
-        String out;
+        List<String> out;
         try {
             out = runAndReadOutput(builder);
         } catch (IOException e) {
@@ -26,11 +31,13 @@ public class AptChecker extends LinuxUpdateChecker {
             return new InvalidReport();
         }
 
-        if (out.split("\\n", 2).length > 1) {
-            logger.warn("Updates are waiting");
-            return new InvalidReport();
+        List<String> updates = new LinkedList<>();
+        for (String line : out) {
+            if (line.contains("[") && line.contains("]")) {
+                updates.add(line);
+            }
         }
-        logger.warn("No updates");
-        return new InvalidReport();
+
+        return new UpdateReport(updates);
     }
 }

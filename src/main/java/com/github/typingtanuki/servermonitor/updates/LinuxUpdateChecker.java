@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 public abstract class LinuxUpdateChecker extends UpdateChecker {
@@ -19,7 +21,7 @@ public abstract class LinuxUpdateChecker extends UpdateChecker {
 
     protected boolean hasBinary() {
         ProcessBuilder builder = new ProcessBuilder("which", binaryName());
-        String out;
+        List<String> out;
         try {
             out = runAndReadOutput(builder);
         } catch (IOException e) {
@@ -30,28 +32,31 @@ public abstract class LinuxUpdateChecker extends UpdateChecker {
             logger.warn("Interrupted while checking for command {}", binaryName(), e);
             return false;
         }
-        return !out.isBlank();
+        return !out.isEmpty();
     }
 
-    protected String runAndReadOutput(ProcessBuilder builder) throws IOException, InterruptedException {
-        Process process = builder.start();
+    protected List<String> runAndReadOutput(ProcessBuilder builder) throws IOException, InterruptedException {
+        builder.redirectErrorStream(true);
 
+        Process process = builder.start();
         InputStreamReader isReader = new InputStreamReader(process.getInputStream());
         BufferedReader reader = new BufferedReader(isReader);
-        StringBuilder sb = new StringBuilder();
+        List<String> output = new LinkedList<>();
         while (process.isAlive()) {
             Thread.sleep(100);
-            swallowOutput(reader, sb);
+            swallowOutput(reader, output);
         }
         Thread.sleep(100);
-        swallowOutput(reader, sb);
-        return sb.toString();
+        swallowOutput(reader, output);
+        return output;
     }
 
-    private void swallowOutput(BufferedReader reader, StringBuilder sb) throws IOException {
+    private void swallowOutput(BufferedReader reader, List<String> output) throws IOException {
         String str;
         while ((str = reader.readLine()) != null) {
-            sb.append(str);
+            if (!str.isBlank()) {
+                output.add(str.strip());
+            }
         }
     }
 
