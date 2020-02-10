@@ -29,29 +29,35 @@ import java.util.List;
  */
 public class HandshakeMonitor implements Monitor {
     private static final ObjectReader reader = new ObjectMapper().readerFor(HandshakeResponse.class);
-    private final List<String> targets;
-    private final int maxHandshakeTime;
+    private final MonitorConfig config;
 
     public HandshakeMonitor(MonitorConfig config) {
         super();
-
-        targets = config.handshake();
-        maxHandshakeTime = config.maxHandshakeTime();
+        this.config = config;
     }
 
     @Override
     public List<MonitorReport> monitor(SystemInfo systemInfo) {
+        List<String> targets = config.getHandshake();
+        int maxHandshakeTime = config.getMaxHandshakeTime();
+
         List<MonitorReport> out = new ArrayList<>(targets.size());
         for (String target : targets) {
             ShakeMonitorReport monitor = new ShakeMonitorReport(target);
-            shakeHand(target, monitor);
+            shakeHand(target, monitor, maxHandshakeTime);
             out.add(monitor);
         }
         return out;
     }
 
+    @Override
+    public boolean isEnabled() {
+        return config.getHandshake() != null && !config.getHandshake().isEmpty();
+    }
+
     private void shakeHand(String target,
-                           ShakeMonitorReport monitor) {
+                           ShakeMonitorReport monitor,
+                           int maxHandshakeTime) {
         // Sends the handshake request and wait for response
         Response response;
         try {

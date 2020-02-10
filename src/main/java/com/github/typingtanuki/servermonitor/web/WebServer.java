@@ -2,11 +2,15 @@ package com.github.typingtanuki.servermonitor.web;
 
 import com.github.typingtanuki.servermonitor.config.MonitorConfig;
 import com.github.typingtanuki.servermonitor.web.handshake.HandshakeEndpoint;
+import com.github.typingtanuki.servermonitor.web.config.ConfigEndpoint;
+import com.github.typingtanuki.servermonitor.web.status.StatusEndpoint;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 public class WebServer extends Thread {
     private final int port;
@@ -15,7 +19,7 @@ public class WebServer extends Thread {
     public WebServer(MonitorConfig monitorConfig) {
         super();
 
-        this.port = monitorConfig.handshakePort();
+        this.port = monitorConfig.getHandshakePort();
     }
 
     public void startServer() throws IOException {
@@ -29,10 +33,23 @@ public class WebServer extends Thread {
                 org.glassfish.jersey.servlet.ServletContainer.class, "/*");
         jerseyServlet.setInitOrder(0);
 
+        List<Class<?>> endpoints = new LinkedList<>();
+        endpoints.add(HandshakeEndpoint.class);
+        endpoints.add(StatusEndpoint.class);
+        endpoints.add(ConfigEndpoint.class);
+
+        StringBuilder classnames = new StringBuilder();
+        for (Class<?> endpoint : endpoints) {
+            if (classnames.length() > 0) {
+                classnames.append(";");
+            }
+            classnames.append(endpoint.getCanonicalName());
+        }
+
         // Tells the Jersey Servlet which REST service/class to load.
         jerseyServlet.setInitParameter(
                 "jersey.config.server.provider.classnames",
-                HandshakeEndpoint.class.getCanonicalName());
+                classnames.toString());
 
         try {
             jettyServer.start();

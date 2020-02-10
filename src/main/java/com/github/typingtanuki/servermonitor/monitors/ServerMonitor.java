@@ -1,10 +1,14 @@
 package com.github.typingtanuki.servermonitor.monitors;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.typingtanuki.servermonitor.config.MonitorConfig;
 import com.github.typingtanuki.servermonitor.connectors.Connector;
 import com.github.typingtanuki.servermonitor.connectors.LoggerConnector;
 import com.github.typingtanuki.servermonitor.connectors.teams.TeamsConnector;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
+import com.github.typingtanuki.servermonitor.report.Status;
 import com.github.typingtanuki.servermonitor.updates.UpdateChecker;
 import com.github.typingtanuki.servermonitor.web.WebServer;
 import org.slf4j.Logger;
@@ -12,10 +16,12 @@ import org.slf4j.LoggerFactory;
 import oshi.SystemInfo;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,55 +35,53 @@ public class ServerMonitor {
     private static final Logger logger = LoggerFactory.getLogger(ServerMonitor.class);
 
     private final SystemInfo info;
-    private final MonitorConfig config;
+    private final Object configLock = new Object[0];
+    private MonitorConfig config;
     private List<Monitor> monitors = new LinkedList<>();
     private List<Connector> connectors;
+    private Status status;
 
     public ServerMonitor() {
         super();
         info = new SystemInfo();
-        config = new MonitorConfig();
     }
 
     public void startMonitoring() throws InterruptedException {
-        if (!config.handshake().isEmpty()) {
+        synchronized (configLock) {
             monitors.add(new HandshakeMonitor(config));
-        }
-        monitors.add(new DiskMonitor(config));
-        monitors.add(new CpuMonitor(config));
-        monitors.add(new MemoryMonitor(config));
-        if (!config.processes().isEmpty()) {
+            monitors.add(new DiskMonitor(config));
+            monitors.add(new CpuMonitor(config));
+            monitors.add(new MemoryMonitor(config));
             monitors.add(new ProcessMonitor(config));
-        }
-        if (!config.ping().isEmpty()) {
             monitors.add(new PingMonitor(config));
+            monitors.add(UpdateChecker.bestChecker(config));
         }
-
-        UpdateChecker updateChecker = UpdateChecker.bestChecker(config.checkUpdates());
 
         while (true) {
             List<MonitorReport> reports = new LinkedList<>();
-            for (Monitor monitor : monitors) {
-                reports.addAll(monitor.monitor(info));
+            synchronized (configLock) {
+                for (Monitor monitor : monitors) {
+                    if (monitor.isEnabled()) {
+                        reports.addAll(monitor.monitor(info));
+                    }
+                }
             }
-            if (updateChecker != null) {
-                reports.add(updateChecker.check());
-            }
-
             handleReports(reports);
 
-            Thread.sleep(config.monitorTime());
+            Thread.sleep(config.getMonitorTime());
         }
     }
 
     private void handleReports(List<MonitorReport> reports) {
         List<MonitorReport> failed = new LinkedList<>();
 
+        updateStatus(reports);
+
         for (MonitorReport report : reports) {
             if (report.isOK()) {
-                logger.debug("OK: {}", report.shortDescription());
+                logger.debug("OK: {}", report.getDescription());
             } else {
-                logger.debug("NG: {}", report.shortDescription());
+                logger.debug("NG: {}", report.getDescription());
                 failed.add(report);
             }
         }
@@ -88,7 +92,10 @@ public class ServerMonitor {
     }
 
     private void warnIssue(List<MonitorReport> failedMonitorReports) {
-        List<Connector> connectors = initConnectors(config);
+        List<Connector> connectors;
+        synchronized (configLock) {
+            connectors = initConnectors(config);
+        }
 
         for (MonitorReport failedMonitorReport : failedMonitorReports) {
             for (Connector connector : connectors) {
@@ -103,25 +110,69 @@ public class ServerMonitor {
         }
         connectors = new LinkedList<>();
         connectors.add(new LoggerConnector());
-        if (config.teamsHook() != null) {
+        if (config.getTeamsHook() != null) {
             connectors.add(new TeamsConnector(config, info));
         }
         return connectors;
     }
 
     public void loadConfig() throws IOException {
-        Path configPath = Paths.get("./conf/monitor.conf");
-        if (!Files.exists(configPath)) {
-            logger.warn("Missing config file in " + configPath.toFile().getAbsolutePath());
-            System.exit(1);
+        synchronized (configLock) {
+            Path configPath = Paths.get("./conf/monitor.json");
+            if (!Files.exists(configPath)) {
+                logger.warn("Missing config file in " + configPath.toFile().getAbsolutePath());
+                System.exit(1);
+            }
+            config = new ObjectMapper()
+                    .enable(JsonParser.Feature.ALLOW_COMMENTS)
+                    .readerFor(MonitorConfig.class)
+                    .readValue(Files.readString(configPath, StandardCharsets.UTF_8));
+            config.validate();
         }
-        config.from(Files.readAllLines(configPath));
-        config.validate();
     }
 
     public void startServer() throws IOException {
         WebServer server = new WebServer(config);
         server.startServer();
         server.start();
+    }
+
+    private synchronized void updateStatus(List<MonitorReport> reports) {
+        status = new Status(reports);
+    }
+
+    public synchronized Status getStatus() {
+        if (status == null) {
+            return new Status(Collections.emptyList());
+        }
+        return status;
+    }
+
+    public MonitorConfig fetchSettings() {
+        return config;
+    }
+
+    public MonitorConfig updateSettings(MonitorConfig newConfig, boolean persist) throws IOException {
+        synchronized (configLock) {
+            newConfig.validate();
+            newConfig.copyTo(config);
+            if (persist) {
+                saveConfig();
+            }
+            return config;
+        }
+    }
+
+    private void saveConfig() throws IOException {
+        try {
+            String jsonConfig = new ObjectMapper()
+                    .writerFor(MonitorConfig.class)
+                    .withDefaultPrettyPrinter()
+                    .writeValueAsString(config);
+            Path configPath = Paths.get("./conf/monitor.json");
+            Files.writeString(configPath, jsonConfig, StandardCharsets.UTF_8);
+        } catch (JsonProcessingException e) {
+            throw new IOException("Could not convert config object to JSON", e);
+        }
     }
 }

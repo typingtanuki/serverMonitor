@@ -10,17 +10,17 @@ public class InvalidReport implements MonitorReport {
     }
 
     @Override
-    public String title() {
+    public String getTitle() {
         return "State is unknown";
     }
 
     @Override
-    public String shortDescription() {
+    public String getDescription() {
         return "State is unknown";
     }
 
     @Override
-    public Map<String, Object> details() {
+    public Map<String, Object> getDetails() {
         return Collections.emptyMap();
     }
 

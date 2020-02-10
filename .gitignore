@@ -1,6 +1,6 @@
 .idea
 .gradle
 build
-conf/monitor.conf
+conf/monitor.json
 gradle
 *.log

@@ -1,0 +1,26 @@
+{
+  // The name of this server
+  "identity": "",
+  // List of name of processes which must stay running on this machine (empty to disable)
+  "processes": [],
+  // How often the state of the server must be monitored
+  "monitorTime": 30000,
+  // How high the CPU is allowed to be on this server (percent; -1 to disable)
+  "maxCpuUsage": 80,
+  // How high the disk is allowed to be on this server (percent; -1 to disable)
+  "maxDiskUsage": 80,
+  // How high the memory is allowed to be on this server (percent; -1 to disable)
+  "maxMemoryUsage": 80,
+  // A list of servers which must be pingable (through ICMP ping; empty to disable)
+  "ping": [],
+  // A list of servers and ports on which this monitor is supposed to run (empty to disable)
+  "handshake": [],
+  // The port on which this tool listen to handshakes
+  "handshakePort": 9191,
+  // How long a full handshake is supposed to be. Long handshake can be a sign of clock issues.
+  "maxHandshakeTime": 2000,
+  // Webhook URL for Microsoft teams connector (null to disable)
+  "teamsHook": "http://...",
+  // Turn on/off update checker
+  "checkUpdates": true
+}

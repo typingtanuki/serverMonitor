@@ -12,9 +12,10 @@ import java.io.IOException;
  */
 public class MonitorMain {
     private static final Logger logger = LoggerFactory.getLogger(MonitorMain.class);
+    public static ServerMonitor monitor;
 
     public static void main(String... args) {
-        ServerMonitor monitor = new ServerMonitor();
+        monitor = new ServerMonitor();
         try {
             monitor.loadConfig();
             monitor.startServer();

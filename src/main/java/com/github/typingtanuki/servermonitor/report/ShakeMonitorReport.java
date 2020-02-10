@@ -40,17 +40,17 @@ public class ShakeMonitorReport extends AbstractBoolMonitorReport {
     }
 
     @Override
-    public String title() {
+    public String getTitle() {
         return "Handshake test";
     }
 
     @Override
-    public String shortDescription() {
+    public String getDescription() {
         return "Handshake to " + monitored;
     }
 
     @Override
-    public Map<String, Object> details() {
+    public Map<String, Object> getDetails() {
         Map<String, Object> out = new LinkedHashMap<>();
         out.put("server", monitored);
         out.put("reason", reason);

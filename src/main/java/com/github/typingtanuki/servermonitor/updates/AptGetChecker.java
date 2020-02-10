@@ -1,11 +1,16 @@
 package com.github.typingtanuki.servermonitor.updates;
 
+import com.github.typingtanuki.servermonitor.config.MonitorConfig;
 import com.github.typingtanuki.servermonitor.report.InvalidReport;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
+import oshi.SystemInfo;
 
-import java.io.IOException;
-import java.util.LinkedList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Uses apt-get cached data to check for update.
@@ -13,32 +18,33 @@ import java.util.List;
  * Updating the cache itself requires admin priviledges
  */
 public class AptGetChecker extends LinuxUpdateChecker {
+    private static final Pattern APT_GET_LINE = Pattern.compile("[^\\s]+\\s+([^\\s]+)\\s+\\[([^]]+)\\].*");
+
+    public AptGetChecker(MonitorConfig config) {
+        super(config);
+    }
+
     @Override
     protected String binaryName() {
         return "apt-get";
     }
 
+
     @Override
-    public MonitorReport check() {
-        ProcessBuilder builder = new ProcessBuilder("apt-get", "--just-print", "upgrade");
-        List<String> out;
-        try {
-            out = runAndReadOutput(builder);
-        } catch (IOException e) {
-            logger.warn("Failed to get upgrade list", e);
-            return new InvalidReport();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            logger.warn("Interrupted while getting upgrade list", e);
-            return new InvalidReport();
+    public List<MonitorReport> monitor(SystemInfo systemInfo) {
+        List<String> out = runAndReadOutput("apt-get", "--just-print", "upgrade");
+
+        if (out == null) {
+            return Collections.singletonList(new InvalidReport());
         }
 
-        List<String> updates = new LinkedList<>();
+        Map<String, String> updates = new LinkedHashMap<>();
         for (String line : out) {
-            if (line.contains("])")) {
-                updates.add(line);
+            Matcher matcher = APT_GET_LINE.matcher(line);
+            if (matcher.matches()) {
+                updates.put(matcher.group(1), matcher.group(2));
             }
         }
-        return new UpdateReport(updates);
+        return Collections.singletonList(new UpdateReport(updates));
     }
 }

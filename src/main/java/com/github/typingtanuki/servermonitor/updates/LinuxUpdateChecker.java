@@ -1,5 +1,6 @@
 package com.github.typingtanuki.servermonitor.updates;
 
+import com.github.typingtanuki.servermonitor.config.MonitorConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,10 @@ import java.util.Locale;
 
 public abstract class LinuxUpdateChecker extends UpdateChecker {
     protected static final Logger logger = LoggerFactory.getLogger(LinuxUpdateChecker.class);
+
+    public LinuxUpdateChecker(MonitorConfig config) {
+        super(config);
+    }
 
     protected abstract String binaryName();
 
@@ -35,7 +40,23 @@ public abstract class LinuxUpdateChecker extends UpdateChecker {
         return !out.isEmpty();
     }
 
-    protected List<String> runAndReadOutput(ProcessBuilder builder) throws IOException, InterruptedException {
+    protected List<String> runAndReadOutput(String... commands) {
+        ProcessBuilder builder = new ProcessBuilder(commands);
+        List<String> out;
+        try {
+            out = runAndReadOutput(builder);
+        } catch (IOException e) {
+            logger.warn("Failed to get upgrade list", e);
+            return null;
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            logger.warn("Interrupted while getting upgrade list", e);
+            return null;
+        }
+        return out;
+    }
+
+    private List<String> runAndReadOutput(ProcessBuilder builder) throws IOException, InterruptedException {
         builder.redirectErrorStream(true);
 
         Process process = builder.start();

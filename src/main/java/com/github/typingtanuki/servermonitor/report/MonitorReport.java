@@ -5,9 +5,9 @@ import java.util.Map;
 public interface MonitorReport {
     boolean isOK();
 
-    String title();
+    String getTitle();
 
-    String shortDescription();
+    String getDescription();
 
-    Map<String, Object> details();
+    Map<String, Object> getDetails();
 }

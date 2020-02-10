@@ -24,7 +24,7 @@ public class PingMonitor implements Monitor {
 
     @Override
     public List<MonitorReport> monitor(SystemInfo systemInfo) {
-        List<String> ping = config.ping();
+        List<String> ping = config.getPing();
 
         List<MonitorReport> out = new LinkedList<>();
         for (String server : ping) {
@@ -41,5 +41,10 @@ public class PingMonitor implements Monitor {
             out.add(report);
         }
         return out;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return config.getPing() != null && !config.getPing().isEmpty();
     }
 }

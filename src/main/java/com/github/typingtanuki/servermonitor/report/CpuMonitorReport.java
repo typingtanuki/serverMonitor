@@ -9,17 +9,17 @@ public class CpuMonitorReport extends AbstractPercentMonitorReport {
     }
 
     @Override
-    public String title() {
-        return "CPU usage is too high";
+    public String getTitle() {
+        return "CPU usage";
     }
 
     @Override
-    public String shortDescription() {
+    public String getDescription() {
         return "CPU usage " + usage + "% (Maximum allowed " + maxUsage + "%)";
     }
 
     @Override
-    public Map<String, Object> details() {
+    public Map<String, Object> getDetails() {
         Map<String, Object> out = new LinkedHashMap<>();
         out.put("Current Usage", usage + "%");
         out.put("Maximum Usage", maxUsage + "%");

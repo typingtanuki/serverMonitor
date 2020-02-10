@@ -6,6 +6,7 @@ import com.github.typingtanuki.servermonitor.report.ProcessMonitorReport;
 import oshi.SystemInfo;
 import oshi.software.os.OSProcess;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class ProcessMonitor implements Monitor {
 
     @Override
     public List<MonitorReport> monitor(SystemInfo systemInfo) {
-        List<String> processes = config.processes();
+        List<String> processes = new ArrayList<>(config.getProcesses());
 
         OSProcess[] current = systemInfo.getOperatingSystem().getProcesses();
         List<MonitorReport> out = new LinkedList<>();
@@ -46,5 +47,10 @@ public class ProcessMonitor implements Monitor {
             out.add(report);
         }
         return out;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return config.getProcesses() != null && !config.getProcesses().isEmpty();
     }
 }

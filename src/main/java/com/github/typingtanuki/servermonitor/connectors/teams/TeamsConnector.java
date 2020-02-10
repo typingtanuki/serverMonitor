@@ -41,9 +41,9 @@ public class TeamsConnector implements Connector {
 
         // Section with the OS details
         TeamsSection osSection = new TeamsSection();
-        osSection.setActivityTitle("Server " + config.identity() + " is NG");
+        osSection.setActivityTitle("Server " + config.getIdentity() + " is NG");
         osSection.setActivitySubtitle("System details");
-        osSection.addFact(new TeamsFact("identity", config.identity()));
+        osSection.addFact(new TeamsFact("identity", config.getIdentity()));
         OperatingSystem os = info.getOperatingSystem();
         osSection.addFact(new TeamsFact("elevated", String.valueOf(os.isElevated())));
         osSection.addFact(new TeamsFact("family", String.valueOf(os.getFamily())));
@@ -52,10 +52,10 @@ public class TeamsConnector implements Connector {
 
         // Section with the failure information
         TeamsSection payloadSection = new TeamsSection();
-        payloadSection.setActivityTitle(failedMonitorReport.title());
-        payloadSection.setActivitySubtitle(failedMonitorReport.shortDescription());
+        payloadSection.setActivityTitle(failedMonitorReport.getTitle());
+        payloadSection.setActivitySubtitle(failedMonitorReport.getDescription());
 
-        for (Map.Entry<String, Object> details : failedMonitorReport.details().entrySet()) {
+        for (Map.Entry<String, Object> details : failedMonitorReport.getDetails().entrySet()) {
             payloadSection.addFact(new TeamsFact(details.getKey(), String.valueOf(details.getValue())));
         }
         payload.addSection(payloadSection);
@@ -89,7 +89,7 @@ public class TeamsConnector implements Connector {
     private void sendPayload(String payloadJson) {
         ResteasyClientBuilder builder = new ResteasyClientBuilder();
         Client client = builder.build();
-        WebTarget resource = client.target(config.teamsHook());
+        WebTarget resource = client.target(config.getTeamsHook());
         Invocation.Builder request = resource.request();
         request.accept("application/json");
         Response response = request.buildPost(Entity.json(payloadJson)).invoke();

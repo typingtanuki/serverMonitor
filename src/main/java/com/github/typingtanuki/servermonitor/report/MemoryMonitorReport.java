@@ -11,17 +11,20 @@ public class MemoryMonitorReport extends AbstractPercentMonitorReport {
     }
 
     @Override
-    public String title() {
-        return null;
+    public String getTitle() {
+        return "Memory usage";
     }
 
     @Override
-    public String shortDescription() {
-        return "Memory usage " + usage + "% (Maximum allowed " + maxUsage + "%) Free: " + free + " Total: " + total;
+    public String getDescription() {
+        return "Memory usage " + usage + "% (" +
+                "Maximum allowed " + maxUsage + "%) " +
+                "Free: " + bytesToHuman(free) + " " +
+                "Total: " + bytesToHuman(total);
     }
 
     @Override
-    public Map<String, Object> details() {
+    public Map<String, Object> getDetails() {
         Map<String, Object> out = new LinkedHashMap<>();
         out.put("Current Usage", usage + "%");
         out.put("Maximum Usage", maxUsage + "%");

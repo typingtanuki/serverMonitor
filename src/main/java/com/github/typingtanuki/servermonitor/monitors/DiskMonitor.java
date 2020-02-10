@@ -28,6 +28,7 @@ public class DiskMonitor implements Monitor {
     @Override
     public List<MonitorReport> monitor(SystemInfo systemInfo) {
         List<MonitorReport> out = new LinkedList<>();
+        int maxDiskUsage = config.getMaxDiskUsage();
 
         for (HWDiskStore store : systemInfo.getHardware().getDiskStores()) {
             for (HWPartition partition : store.getPartitions()) {
@@ -36,11 +37,16 @@ public class DiskMonitor implements Monitor {
                 long free = disk.toFile().getFreeSpace();
                 long total = disk.toFile().getTotalSpace();
                 if (total > 0) {
-                    out.add(new DiskMonitorReport(mount, free, total, config.maxDiskUsage()));
+                    out.add(new DiskMonitorReport(mount, free, total, maxDiskUsage));
                 }
             }
         }
 
         return out;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return config.getMaxDiskUsage() != -1;
     }
 }

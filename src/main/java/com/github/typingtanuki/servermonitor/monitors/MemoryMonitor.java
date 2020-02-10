@@ -32,6 +32,11 @@ public class MemoryMonitor implements Monitor {
             return Collections.singletonList(new InvalidReport());
         }
 
-        return Collections.singletonList(new MemoryMonitorReport(free, total, config.maxMemoryUsage()));
+        return Collections.singletonList(new MemoryMonitorReport(free, total, config.getMaxMemoryUsage()));
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return config.getMaxMemoryUsage() != -1;
     }
 }

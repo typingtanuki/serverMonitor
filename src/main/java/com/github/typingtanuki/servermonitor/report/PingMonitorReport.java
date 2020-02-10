@@ -9,17 +9,17 @@ public class PingMonitorReport extends AbstractBoolMonitorReport {
     }
 
     @Override
-    public String title() {
+    public String getTitle() {
         return "ICMP ping test";
     }
 
     @Override
-    public String shortDescription() {
+    public String getDescription() {
         return "Ping to " + monitored;
     }
 
     @Override
-    public Map<String, Object> details() {
+    public Map<String, Object> getDetails() {
         Map<String, Object> out = new LinkedHashMap<>();
         out.put("server", monitored);
         return out;

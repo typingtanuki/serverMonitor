@@ -9,17 +9,17 @@ public class ProcessMonitorReport extends AbstractBoolMonitorReport {
     }
 
     @Override
-    public String title() {
-        return "Process " + monitored + " is not running";
+    public String getTitle() {
+        return "Process " + monitored + " check";
     }
 
     @Override
-    public String shortDescription() {
+    public String getDescription() {
         return "Running process check " + monitored;
     }
 
     @Override
-    public Map<String, Object> details() {
+    public Map<String, Object> getDetails() {
         Map<String, Object> out = new LinkedHashMap<>();
         out.put("Process", monitored);
         return out;

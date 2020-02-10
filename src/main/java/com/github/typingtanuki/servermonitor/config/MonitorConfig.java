@@ -18,135 +18,69 @@ public class MonitorConfig {
     private int maxHandshakeTime = 2_000;
     private boolean checkUpdates = true;
 
-    public void from(List<String> lines) {
-        String soFar = null;
-        for (String line : lines) {
-            if (line.trim().startsWith("#")) {
-                continue;
-            }
-            if (soFar == null) {
-                soFar = line;
-            } else {
-                soFar = soFar + line;
-            }
-            if (soFar.endsWith("\\")) {
-                soFar = soFar.substring(0, soFar.length() - 1);
-                continue;
-            }
-            String key = soFar.split("=", 2)[0].trim();
-            String value = soFar.split("=", 2)[1].trim();
 
-            MonitorConfigKeys configKey = MonitorConfigKeys.valueOf(key);
-            update(configKey, value.split(","));
-            soFar = null;
-        }
-        if (soFar != null) {
-            throw new IllegalArgumentException("Last line finishes with \\");
-        }
+    public void copyTo(MonitorConfig config) {
+        config.monitorTime = monitorTime;
+        config.maxCpuUsage = maxCpuUsage;
+        config.maxDiskUsage = maxDiskUsage;
+        config.maxMemoryUsage = maxMemoryUsage;
+        config.processes = processes;
+        config.ping = ping;
+        config.identity = identity;
+        config.teamsHook = teamsHook;
+        config.identity = identity;
+        config.handshakePort = handshakePort;
+        config.handshake = handshake;
+        config.maxHandshakeTime = maxHandshakeTime;
+        config.checkUpdates = checkUpdates;
     }
 
-    private void update(MonitorConfigKeys configKey, String[] value) {
-        switch (configKey) {
-            case monitorTime:
-                this.monitorTime = singleLong(value);
-                break;
-            case maxCpuUsage:
-                this.maxCpuUsage = singleInt(value);
-                break;
-            case maxDiskUsage:
-                this.maxDiskUsage = singleInt(value);
-                break;
-            case maxMemoryUsage:
-                this.maxMemoryUsage = singleInt(value);
-                break;
-            case processes:
-                this.processes = stringList(value);
-                break;
-            case ping:
-                this.ping = stringList(value);
-                break;
-            case identity:
-                this.identity = singleString(value);
-                break;
-            case teamsHook:
-                this.teamsHook = singleString(value);
-                break;
-            case handshake:
-                this.handshake = stringList(value);
-                break;
-            case handshakePort:
-                this.handshakePort = singleInt(value);
-                break;
-            case maxHandshakeTime:
-                this.maxHandshakeTime = singleInt(value);
-                break;
-            case checkUpdates:
-                this.checkUpdates = singleBoolean(value);
-                break;
-        }
-    }
-
-    private List<String> stringList(String[] values) {
-        List<String> out = new ArrayList<>(values.length);
-        for (String value : values) {
-            out.add(value.trim());
-        }
-        return out;
-    }
-
-    private long singleLong(String[] value) {
-        if (value.length != 1) {
-            throw new IllegalArgumentException("Only a single number is possible, got " + String.join(", ", value));
-        }
-        return Long.parseLong(value[0]);
-    }
-
-    private int singleInt(String[] value) {
-        if (value.length != 1) {
-            throw new IllegalArgumentException("Only a single number is possible, got " + String.join(", ", value));
-        }
-        return Integer.parseInt(value[0]);
-    }
-
-    private boolean singleBoolean(String[] value) {
-        if (value.length != 1) {
-            throw new IllegalArgumentException("Only a single boolean is possible, got " + String.join(", ", value));
-        }
-        return Boolean.parseBoolean(value[0]);
-    }
-
-    private String singleString(String[] value) {
-        if (value.length != 1) {
-            throw new IllegalArgumentException("Only a single number is possible, got " + String.join(", ", value));
-        }
-        if (value[0] == null || value[0].isBlank()) {
-            return null;
-        }
-        return value[0];
-    }
-
-    public long monitorTime() {
+    public long getMonitorTime() {
         return monitorTime;
     }
 
-    public int maxCpuUsage() {
+    public void setMonitorTime(long monitorTime) {
+        this.monitorTime = monitorTime;
+    }
+
+    public int getMaxCpuUsage() {
         return maxCpuUsage;
     }
 
-    public int maxDiskUsage() {
+    public void setMaxCpuUsage(int maxCpuUsage) {
+        this.maxCpuUsage = maxCpuUsage;
+    }
+
+    public int getMaxDiskUsage() {
         return maxDiskUsage;
     }
 
-    public int maxMemoryUsage() {
+    public void setMaxDiskUsage(int maxDiskUsage) {
+        this.maxDiskUsage = maxDiskUsage;
+    }
+
+    public int getMaxMemoryUsage() {
         return maxMemoryUsage;
     }
 
-    public List<String> processes() {
+    public void setMaxMemoryUsage(int maxMemoryUsage) {
+        this.maxMemoryUsage = maxMemoryUsage;
+    }
+
+    public List<String> getProcesses() {
         return new ArrayList<>(processes);
     }
 
-    public List<String> ping() {
+    public void setProcesses(List<String> processes) {
+        this.processes = processes;
+    }
+
+    public List<String> getPing() {
         return new ArrayList<>(ping);
+    }
+
+    public void setPing(List<String> ping) {
+        this.ping = ping;
     }
 
     public void validate() {
@@ -157,13 +91,13 @@ public class MonitorConfig {
             throw new IllegalStateException("Monitor time should be between 1s and 1day");
         }
 
-        if (maxCpuUsage < 1 || maxCpuUsage > 99) {
+        if (maxCpuUsage != -1 && (maxCpuUsage < 1 || maxCpuUsage > 99)) {
             throw new IllegalStateException("CPU usage should be between 1 and 99%");
         }
-        if (maxDiskUsage < 1 || maxDiskUsage > 99) {
+        if (maxDiskUsage != -1 && (maxDiskUsage < 1 || maxDiskUsage > 99)) {
             throw new IllegalStateException("Disk usage should be between 1 and 99%");
         }
-        if (maxMemoryUsage < 1 || maxMemoryUsage > 99) {
+        if (maxMemoryUsage != -1 && (maxMemoryUsage < 1 || maxMemoryUsage > 99)) {
             throw new IllegalStateException("Memory usage should be between 1 and 99%");
         }
         if (handshakePort < 1 || handshakePort > 65535) {
@@ -174,27 +108,51 @@ public class MonitorConfig {
         }
     }
 
-    public String identity() {
+    public String getIdentity() {
         return identity;
     }
 
-    public String teamsHook() {
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
+
+    public String getTeamsHook() {
         return teamsHook;
     }
 
-    public List<String> handshake() {
+    public void setTeamsHook(String teamsHook) {
+        this.teamsHook = teamsHook;
+    }
+
+    public List<String> getHandshake() {
         return new ArrayList<>(handshake);
     }
 
-    public int handshakePort() {
+    public void setHandshake(List<String> handshake) {
+        this.handshake = handshake;
+    }
+
+    public int getHandshakePort() {
         return handshakePort;
     }
 
-    public int maxHandshakeTime() {
+    public void setHandshakePort(int handshakePort) {
+        this.handshakePort = handshakePort;
+    }
+
+    public int getMaxHandshakeTime() {
         return maxHandshakeTime;
     }
 
-    public boolean checkUpdates() {
+    public void setMaxHandshakeTime(int maxHandshakeTime) {
+        this.maxHandshakeTime = maxHandshakeTime;
+    }
+
+    public boolean isCheckUpdates() {
         return checkUpdates;
+    }
+
+    public void setCheckUpdates(boolean checkUpdates) {
+        this.checkUpdates = checkUpdates;
     }
 }

@@ -25,6 +25,11 @@ public class CpuMonitor implements Monitor {
     public List<MonitorReport> monitor(SystemInfo systemInfo) {
         CentralProcessor processor = systemInfo.getHardware().getProcessor();
         double[] loads = processor.getSystemLoadAverage(1);
-        return Collections.singletonList(new CpuMonitorReport((long) loads[0], config.maxCpuUsage()));
+        return Collections.singletonList(new CpuMonitorReport((long) loads[0], config.getMaxCpuUsage()));
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return config.getMaxCpuUsage() != -1;
     }
 }

@@ -23,14 +23,14 @@ public class LoggerConnector implements Connector {
     public void reportFailure(MonitorReport failedMonitorReport) {
         String details;
         try {
-            details = writer.writeValueAsString(failedMonitorReport.details());
+            details = writer.writeValueAsString(failedMonitorReport.getDetails());
         } catch (IOException e) {
             details = "Failed to get details";
             logger.warn(details, e);
         }
         logger.warn("{} - {}\r\n{}",
-                failedMonitorReport.title(),
-                failedMonitorReport.shortDescription(),
+                failedMonitorReport.getTitle(),
+                failedMonitorReport.getDescription(),
                 details);
     }
 }

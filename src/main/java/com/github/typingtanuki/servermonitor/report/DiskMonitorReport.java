@@ -14,17 +14,17 @@ public class DiskMonitorReport extends AbstractPercentMonitorReport {
     }
 
     @Override
-    public String title() {
-        return "Disk usage on " + monitored + " is too high";
+    public String getTitle() {
+        return "Disk usage on " + monitored;
     }
 
     @Override
-    public String shortDescription() {
+    public String getDescription() {
         return "Disk usage " + monitored + " - " + usage + "% (Maximum allowed " + maxUsage + "%) Free: " + free + " Total: " + total;
     }
 
     @Override
-    public Map<String, Object> details() {
+    public Map<String, Object> getDetails() {
         Map<String, Object> out = new LinkedHashMap<>();
         out.put("Disk", monitored);
         out.put("Current Usage", usage + "%");

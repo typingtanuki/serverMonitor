@@ -15,4 +15,9 @@ public interface Monitor {
      * @param systemInfo Information about the current system
      */
     List<MonitorReport> monitor(SystemInfo systemInfo);
+
+    /**
+     * @return true if this monitor is enabled
+     */
+    boolean isEnabled();
 }
