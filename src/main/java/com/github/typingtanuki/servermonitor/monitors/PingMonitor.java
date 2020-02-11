@@ -47,4 +47,9 @@ public class PingMonitor implements Monitor {
     public boolean isEnabled() {
         return config.getPing() != null && !config.getPing().isEmpty();
     }
+
+    @Override
+    public MonitorType getType() {
+        return MonitorType.ping;
+    }
 }

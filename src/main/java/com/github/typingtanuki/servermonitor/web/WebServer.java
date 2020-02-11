@@ -3,6 +3,7 @@ package com.github.typingtanuki.servermonitor.web;
 import com.github.typingtanuki.servermonitor.config.MonitorConfig;
 import com.github.typingtanuki.servermonitor.web.handshake.HandshakeEndpoint;
 import com.github.typingtanuki.servermonitor.web.config.ConfigEndpoint;
+import com.github.typingtanuki.servermonitor.web.site.SiteEndpoint;
 import com.github.typingtanuki.servermonitor.web.status.StatusEndpoint;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -37,6 +38,7 @@ public class WebServer extends Thread {
         endpoints.add(HandshakeEndpoint.class);
         endpoints.add(StatusEndpoint.class);
         endpoints.add(ConfigEndpoint.class);
+        endpoints.add(SiteEndpoint.class);
 
         StringBuilder classnames = new StringBuilder();
         for (Class<?> endpoint : endpoints) {

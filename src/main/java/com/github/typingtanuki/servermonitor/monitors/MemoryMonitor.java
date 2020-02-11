@@ -29,7 +29,7 @@ public class MemoryMonitor implements Monitor {
         long free = memory.getAvailable();
         long total = memory.getTotal();
         if (total <= 0) {
-            return Collections.singletonList(new InvalidReport());
+            return Collections.singletonList(new InvalidReport(getType()));
         }
 
         return Collections.singletonList(new MemoryMonitorReport(free, total, config.getMaxMemoryUsage()));
@@ -38,5 +38,10 @@ public class MemoryMonitor implements Monitor {
     @Override
     public boolean isEnabled() {
         return config.getMaxMemoryUsage() != -1;
+    }
+
+    @Override
+    public MonitorType getType() {
+        return MonitorType.memory;
     }
 }

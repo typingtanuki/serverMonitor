@@ -53,4 +53,9 @@ public class ProcessMonitor implements Monitor {
     public boolean isEnabled() {
         return config.getProcesses() != null && !config.getProcesses().isEmpty();
     }
+
+    @Override
+    public MonitorType getType() {
+        return MonitorType.process;
+    }
 }

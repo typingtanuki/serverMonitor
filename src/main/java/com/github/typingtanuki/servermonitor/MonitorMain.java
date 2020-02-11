@@ -1,6 +1,6 @@
 package com.github.typingtanuki.servermonitor;
 
-import com.github.typingtanuki.servermonitor.monitors.ServerMonitor;
+import com.github.typingtanuki.servermonitor.core.ServerMonitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

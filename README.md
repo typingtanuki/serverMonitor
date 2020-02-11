@@ -1,14 +1,18 @@
 # serverMonitor
 
-## Goal
+## Short abstract
 
 Easy monitor the state of linux and windows servers, as well as the tools running on them.
+
+Directly from your browser, see the state of all your servers in one glance.
+
 
 ## How to
 
 1. Make the jar by running `gradlew jar`
 1. Deploy the tool on each server
 1. Copy `conf/sample.json` to `conf/monitor.json`
+1. Copy `www` from the repository to the root folder (will be improved)
 1. Edit the configuration to match your needs
 1. Start the monitor with `java -jar serverMonitor.jar`
 
@@ -45,6 +49,7 @@ NOTE: The REST port is the only setting which can not be updated through this me
   
 ## How can it report ?
 
+* Through the GUI (open http://localhost:9191 by default)
 * Printing messages to the console
 * Printing messages to a log file
 * Sending notifications to a MessageCard compatible API (like Microsoft Teams)
@@ -55,7 +60,8 @@ NOTE: The REST port is the only setting which can not be updated through this me
 * Jackson for JSON parsing and writing
 * Jersey+jetty for the handshake server
 * RestEasy for the handshake client
-* Logback for logging
+* Logback+Slf4j for logging
+* Echarts for the UI
 
 ## Planned features
 
@@ -63,4 +69,13 @@ NOTE: The REST port is the only setting which can not be updated through this me
 * ~~A way too fetch current status through REST~~
 * ~~A way to see current config through REST~~
 * ~~A way to update current config through REST~~
+* ~~A way to fetch the entire cluster status~~
+* ~~A GUI~~
+* Package `www` folder more easily
 * Windows update monitor (if possible without being admin)
+* Debouncer for failed monitors
+* "Recovered" type of notification
+* More consistent configuration for each monitor
+* Monitor for installed services
+** Sonarqube monitor
+** Jenkins monitor

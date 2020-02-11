@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <!-- including ECharts file -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.6.0/dist/echarts.min.js"></script>
+    <style>
+        body {
+            background-color: #2E2733;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+        }
+
+        .chart {
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .chart.half {
+            width: 50%;
+            overflow: hidden;
+        }
+
+        .details {
+            display: none;
+        }
+
+        .details.half {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            right: 0;
+            bottom: 0;
+            border-left: solid 3px #7f7f7f;
+            color: #c3c3c3;
+            overflow: auto;
+            padding: 10px;
+        }
+
+        #server {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        #response {
+            white-space: pre-line;
+            font-family: "monospace";
+        }
+
+        #success, #failure {
+            padding-left: 5px;
+        }
+
+        .monitor{
+            margin-bottom: 5px;
+            padding-left: 5px;
+        }
+
+        #success > * {
+            border-left: 3px solid #50b72a;
+           }
+
+        #failure > * {
+            border-left: 3px solid #9A2555;
+        }
+    </style>
+</head>
+
+<body>
+<!-- preparing a DOM with width and height for ECharts -->
+<div class="chart" id="main"></div>
+<div class="details">
+    <div id="server"></div>
+    <div id="response">
+        Failures:
+        <div id="failure"></div>
+        Successes:
+        <div id="success"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const colorOk = "#50b72a";
+    const colorNg = "#9A2555";
+    const bgColor = "#2E2733";
+
+
+    const chart = echarts.init(document.getElementById('main'));
+    const data = [];
+    let serverIPs = {};
+    let clicked = false;
+
+    chart.on("click", function (clickEvent) {
+        if (clicked) {
+            return;
+        }
+        clicked = true;
+        const serverName = clickEvent.treePathInfo[1].name;
+        let connection;
+        if (serverIPs.hasOwnProperty(serverName)) {
+            connection = serverIPs[serverName];
+        } else {
+            connection = currentServer();
+        }
+        document.getElementById("server").textContent = serverName;
+        document.getElementById("failure").textContent = "Updating, please wait...";
+        document.getElementById("success").textContent = "Updating, please wait...";
+        document.querySelector(".chart").classList.add("half");
+        document.querySelector(".details").classList.add("half");
+        requestAnimationFrame(function () {
+            chart.resize();
+        });
+        fetchDetails(connection);
+    });
+
+    function currentServer() {
+        return window.location.href.split("/www/")[0];
+    }
+
+    function colorNode(state) {
+        return {
+            color: "transparent",
+            borderColor: state ? colorOk : colorNg,
+            shadowColor: state ? colorOk : colorNg,
+            shadowBlur: 10,
+            borderWidth: 4
+        };
+    }
+
+    function colorNodeLabel(state) {
+        return {
+            color: state ? colorOk : colorNg,
+        };
+    }
+
+    function fetchDetails(server) {
+        fetch("http://" + server + "/status")
+            .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
+                formatReports(
+                    response.status.success,
+                    document.getElementById("success"));
+                formatReports(
+                    response.status.failure,
+                    document.getElementById("failure"));
+                clicked = false;
+
+            })
+            .catch((e) => {
+                document.getElementById("failure").textContent = JSON.stringify(e, null, 4);
+                clicked = false;
+            });
+    }
+
+    function formatReports(reports, node) {
+        while (node.hasChildNodes()) {
+            node.removeChild(node.firstChild);
+        }
+
+        for (let i = 0; i < reports.length; i++) {
+            const element = document.createElement("div");
+            element.classList.add("monitor");
+            element.appendChild(document.createTextNode(formatReport(reports[i])));
+            node.appendChild(element);
+        }
+    }
+
+    function formatReport(report) {
+        let out = report.description + "\r\n";
+        const details = report.details;
+        const keys = Object.keys(details);
+        for (let i = 0; i < keys.length; i++) {
+            out += " - " + keys[i] + ": " + details[keys[i]] + "\r\n";
+        }
+        return out;
+    }
+
+    fetch(currentServer() + "/status/cluster")
+        .then((response) => {
+            return response.json();
+        })
+        .then((response) => {
+            const cluster = response.clusterStatus;
+            serverIPs = response.connections;
+
+            data.length = 0;
+            const servers = Object.keys(cluster);
+            servers.sort();
+            for (let i = 0; i < servers.length; i++) {
+                const server = servers[i];
+                const status = cluster[server];
+
+                const children = [];
+                const monitors = Object.keys(status);
+                monitors.sort();
+                let allOk = true;
+                for (let j = 0; j < monitors.length; j++) {
+                    const monitorName = monitors[j];
+                    const state = status[monitorName];
+                    if (!state) {
+                        allOk = false;
+                    }
+                    children.push({
+                        name: monitorName,
+                        value: state ? 1 : 2,
+                        nodeClick: false,
+                        itemStyle: colorNode(state),
+                        label: colorNodeLabel(state)
+                    });
+                }
+
+                data.push({
+                    name: server,
+                    children: children,
+                    nodeClick: false,
+                    itemStyle: colorNode(allOk),
+                    label: colorNodeLabel(allOk)
+                });
+            }
+            const option = {
+                label: {
+                    rotate: 'radial',
+                    color: bgColor,
+                    fontSize: 20
+                },
+                tooltip: {},
+                series: [{
+                    type: 'sunburst',
+                    center: ['50%', '48%'],
+                    data: data
+                }],
+                itemStyle: {
+                    borderColor: bgColor,
+                    borderWidth: 2
+                }
+            };
+
+            chart.setOption(option);
+        });
+</script>
+</body>
+</html>

@@ -32,4 +32,9 @@ public class CpuMonitor implements Monitor {
     public boolean isEnabled() {
         return config.getMaxCpuUsage() != -1;
     }
+
+    @Override
+    public MonitorType getType() {
+        return MonitorType.cpu;
+    }
 }

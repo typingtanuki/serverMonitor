@@ -1,5 +1,7 @@
 package com.github.typingtanuki.servermonitor.report;
 
+import com.github.typingtanuki.servermonitor.monitors.MonitorType;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -23,5 +25,10 @@ public class ProcessMonitorReport extends AbstractBoolMonitorReport {
         Map<String, Object> out = new LinkedHashMap<>();
         out.put("Process", monitored);
         return out;
+    }
+
+    @Override
+    public MonitorType getType() {
+        return MonitorType.process;
     }
 }

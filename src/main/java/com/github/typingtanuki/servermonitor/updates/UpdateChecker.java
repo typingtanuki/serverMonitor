@@ -2,6 +2,7 @@ package com.github.typingtanuki.servermonitor.updates;
 
 import com.github.typingtanuki.servermonitor.config.MonitorConfig;
 import com.github.typingtanuki.servermonitor.monitors.Monitor;
+import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +36,11 @@ public abstract class UpdateChecker implements Monitor {
 
         logger.warn("Could not find suitable update checker, disabling");
         return new NoUpdateChecker();
+    }
+
+    @Override
+    public MonitorType getType() {
+        return MonitorType.update;
     }
 
     @Override

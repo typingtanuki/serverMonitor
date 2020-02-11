@@ -1,5 +1,7 @@
 package com.github.typingtanuki.servermonitor.report;
 
+import com.github.typingtanuki.servermonitor.monitors.MonitorType;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -20,7 +22,7 @@ public class DiskMonitorReport extends AbstractPercentMonitorReport {
 
     @Override
     public String getDescription() {
-        return "Disk usage " + monitored + " - " + usage + "% (Maximum allowed " + maxUsage + "%) Free: " + free + " Total: " + total;
+        return "Disk usage " + monitored + " - " + usage + "% (Maximum allowed " + maxUsage + "%) Free: " + bytesToHuman(free) + " Total: " + bytesToHuman(total);
     }
 
     @Override
@@ -32,6 +34,11 @@ public class DiskMonitorReport extends AbstractPercentMonitorReport {
         out.put("Free space", bytesToHuman(free));
         out.put("Total space", bytesToHuman(total));
         return out;
+    }
+
+    @Override
+    public MonitorType getType() {
+        return MonitorType.disk;
     }
 
 }

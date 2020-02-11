@@ -1,4 +1,4 @@
-package com.github.typingtanuki.servermonitor.monitors;
+package com.github.typingtanuki.servermonitor.core;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -7,10 +7,11 @@ import com.github.typingtanuki.servermonitor.config.MonitorConfig;
 import com.github.typingtanuki.servermonitor.connectors.Connector;
 import com.github.typingtanuki.servermonitor.connectors.LoggerConnector;
 import com.github.typingtanuki.servermonitor.connectors.teams.TeamsConnector;
+import com.github.typingtanuki.servermonitor.monitors.*;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
-import com.github.typingtanuki.servermonitor.report.Status;
 import com.github.typingtanuki.servermonitor.updates.UpdateChecker;
 import com.github.typingtanuki.servermonitor.web.WebServer;
+import com.github.typingtanuki.servermonitor.web.WwwServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import oshi.SystemInfo;
@@ -21,7 +22,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,13 +33,13 @@ import java.util.List;
  */
 public class ServerMonitor {
     private static final Logger logger = LoggerFactory.getLogger(ServerMonitor.class);
-
     private final SystemInfo info;
+    private final WwwServer wwwServer = new WwwServer();
     private final Object configLock = new Object[0];
+    private StatusManager statusManager;
     private MonitorConfig config;
     private List<Monitor> monitors = new LinkedList<>();
     private List<Connector> connectors;
-    private Status status;
 
     public ServerMonitor() {
         super();
@@ -75,7 +75,7 @@ public class ServerMonitor {
     private void handleReports(List<MonitorReport> reports) {
         List<MonitorReport> failed = new LinkedList<>();
 
-        updateStatus(reports);
+        statusManager.updateStatus(reports);
 
         for (MonitorReport report : reports) {
             if (report.isOK()) {
@@ -128,6 +128,7 @@ public class ServerMonitor {
                     .readerFor(MonitorConfig.class)
                     .readValue(Files.readString(configPath, StandardCharsets.UTF_8));
             config.validate();
+            this.statusManager = new StatusManager(config);
         }
     }
 
@@ -137,33 +138,26 @@ public class ServerMonitor {
         server.start();
     }
 
-    private synchronized void updateStatus(List<MonitorReport> reports) {
-        status = new Status(reports);
+    public StatusManager currentStatus() {
+        return statusManager;
     }
 
-    public synchronized Status getStatus() {
-        if (status == null) {
-            return new Status(Collections.emptyList());
-        }
-        return status;
-    }
-
-    public MonitorConfig fetchSettings() {
+    public MonitorConfig currentConfig() {
         return config;
     }
 
-    public MonitorConfig updateSettings(MonitorConfig newConfig, boolean persist) throws IOException {
+    public MonitorConfig updateConfig(MonitorConfig newConfig, boolean persist) throws IOException {
         synchronized (configLock) {
             newConfig.validate();
             newConfig.copyTo(config);
             if (persist) {
-                saveConfig();
+                persistConfig();
             }
             return config;
         }
     }
 
-    private void saveConfig() throws IOException {
+    private void persistConfig() throws IOException {
         try {
             String jsonConfig = new ObjectMapper()
                     .writerFor(MonitorConfig.class)
@@ -174,5 +168,9 @@ public class ServerMonitor {
         } catch (JsonProcessingException e) {
             throw new IOException("Could not convert config object to JSON", e);
         }
+    }
+
+    public WwwServer wwwServer() {
+        return wwwServer;
     }
 }

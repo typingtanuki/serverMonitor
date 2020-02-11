@@ -1,5 +1,7 @@
 package com.github.typingtanuki.servermonitor.report;
 
+import com.github.typingtanuki.servermonitor.monitors.MonitorType;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -31,5 +33,10 @@ public class MemoryMonitorReport extends AbstractPercentMonitorReport {
         out.put("Free memory", bytesToHuman(free));
         out.put("Total memory", bytesToHuman(total));
         return out;
+    }
+
+    @Override
+    public MonitorType getType() {
+        return MonitorType.memory;
     }
 }

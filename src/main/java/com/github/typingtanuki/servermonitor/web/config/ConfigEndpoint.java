@@ -2,7 +2,7 @@ package com.github.typingtanuki.servermonitor.web.config;
 
 import com.github.typingtanuki.servermonitor.MonitorMain;
 import com.github.typingtanuki.servermonitor.config.MonitorConfig;
-import com.github.typingtanuki.servermonitor.monitors.ServerMonitor;
+import com.github.typingtanuki.servermonitor.core.ServerMonitor;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -18,7 +18,7 @@ public class ConfigEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public MonitorConfig fetchSettings() {
         ServerMonitor monitor = MonitorMain.monitor;
-        return monitor.fetchSettings();
+        return monitor.currentConfig();
     }
 
     @POST
@@ -27,6 +27,6 @@ public class ConfigEndpoint {
     public MonitorConfig updateSettings(@QueryParam("persist") boolean persist,
                                         MonitorConfig newConfig) throws IOException {
         ServerMonitor monitor = MonitorMain.monitor;
-        return monitor.updateSettings(newConfig, persist);
+        return monitor.updateConfig(newConfig, persist);
     }
 }

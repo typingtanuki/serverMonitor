@@ -20,4 +20,9 @@ public interface Monitor {
      * @return true if this monitor is enabled
      */
     boolean isEnabled();
+
+    /**
+     * @return The type of monitor
+     */
+    MonitorType getType();
 }

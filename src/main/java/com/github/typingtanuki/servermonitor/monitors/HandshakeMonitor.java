@@ -1,19 +1,13 @@
 package com.github.typingtanuki.servermonitor.monitors;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectReader;
 import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.core.RestCall;
+import com.github.typingtanuki.servermonitor.core.RestCallException;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import com.github.typingtanuki.servermonitor.report.ShakeMonitorReport;
 import com.github.typingtanuki.servermonitor.web.handshake.HandshakeResponse;
-import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import oshi.SystemInfo;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Response;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +22,6 @@ import java.util.List;
  * </ul>
  */
 public class HandshakeMonitor implements Monitor {
-    private static final ObjectReader reader = new ObjectMapper().readerFor(HandshakeResponse.class);
     private final MonitorConfig config;
 
     public HandshakeMonitor(MonitorConfig config) {
@@ -55,36 +48,20 @@ public class HandshakeMonitor implements Monitor {
         return config.getHandshake() != null && !config.getHandshake().isEmpty();
     }
 
+    @Override
+    public MonitorType getType() {
+        return MonitorType.handshake;
+    }
+
     private void shakeHand(String target,
                            ShakeMonitorReport monitor,
                            int maxHandshakeTime) {
-        // Sends the handshake request and wait for response
-        Response response;
-        try {
-            ResteasyClientBuilder builder = new ResteasyClientBuilder();
-            Client client = builder.build();
-            WebTarget resource = client.target("http://" + target + "/handshake?request=" + System.currentTimeMillis());
-            Invocation.Builder request = resource.request();
-            request.accept("application/json");
-            response = request.buildGet().invoke();
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            monitor.noConnect(e.getMessage());
-            return;
-        }
-        if (response.getStatus() != 200) {
-            monitor.noConnect("Status " + response.getStatus() + " not 200");
-            return;
-        }
-
-        // Read the response
+        RestCall<HandshakeResponse> call = new RestCall<>(target, "/handshake?request=" + System.currentTimeMillis(), HandshakeResponse.class);
         HandshakeResponse handshake;
         try {
-            String output = response.readEntity(String.class);
-            handshake = reader.readValue(output);
-        } catch (IOException e) {
-            e.printStackTrace();
-            monitor.noConnect(e.getMessage());
+            handshake = call.get();
+        } catch (RestCallException e) {
+            monitor.noConnect(e.shortMessage());
             return;
         }
 

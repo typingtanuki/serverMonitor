@@ -49,4 +49,9 @@ public class DiskMonitor implements Monitor {
     public boolean isEnabled() {
         return config.getMaxDiskUsage() != -1;
     }
+
+    @Override
+    public MonitorType getType() {
+        return MonitorType.disk;
+    }
 }

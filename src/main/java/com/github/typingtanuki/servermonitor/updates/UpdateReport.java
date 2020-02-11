@@ -1,5 +1,6 @@
 package com.github.typingtanuki.servermonitor.updates;
 
+import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 import com.github.typingtanuki.servermonitor.report.AbstractBoolMonitorReport;
 
 import java.util.LinkedHashMap;
@@ -35,5 +36,10 @@ public class UpdateReport extends AbstractBoolMonitorReport {
             details.put(update.getKey(), update.getValue());
         }
         return details;
+    }
+
+    @Override
+    public MonitorType getType() {
+        return MonitorType.update;
     }
 }

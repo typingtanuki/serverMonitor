@@ -32,7 +32,7 @@ public class AptChecker extends LinuxUpdateChecker {
         List<String> out = runAndReadOutput("apt", "list", "--upgradable");
 
         if (out == null) {
-            return Collections.singletonList(new InvalidReport());
+            return Collections.singletonList(new InvalidReport(getType()));
         }
 
         Map<String, String> updates = new LinkedHashMap<>();

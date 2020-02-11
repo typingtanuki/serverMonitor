@@ -29,7 +29,7 @@ public class YumChecker extends LinuxUpdateChecker {
         List<String> out = runAndReadOutput("yum", "check-update");
 
         if (out == null) {
-            return Collections.singletonList(new InvalidReport());
+            return Collections.singletonList(new InvalidReport(getType()));
         }
 
         Map<String, String> updates = new LinkedHashMap<>();
