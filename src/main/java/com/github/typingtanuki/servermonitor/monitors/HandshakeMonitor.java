@@ -72,9 +72,9 @@ public class HandshakeMonitor implements Monitor {
         }
 
         if (handshake.getResponseTime() - handshake.getRequestTime() > maxHandshakeTime) {
-            monitor.pingTooLong(handshake.getRequestTime(), handshake.getResponseTime());
+            monitor.pingTooLong(handshake.getRequestTime(), handshake.getResponseTime(), maxHandshakeTime);
             return;
         }
-        monitor.ok(handshake.getRequestTime(), handshake.getResponseTime());
+        monitor.ok(handshake.getRequestTime(), handshake.getResponseTime(), maxHandshakeTime);
     }
 }

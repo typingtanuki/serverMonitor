@@ -16,13 +16,16 @@
         }
 
         .chart {
-            width: 100%;
-            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             padding: 20px;
         }
 
         .chart.half {
-            width: 50%;
+            right: 300px;
             overflow: hidden;
         }
 
@@ -34,8 +37,8 @@
             display: block;
             position: absolute;
             top: 0;
-            left: 50%;
             right: 0;
+            width: 300px;
             bottom: 0;
             border-left: solid 3px #7f7f7f;
             color: #c3c3c3;
@@ -45,29 +48,51 @@
 
         #server {
             font-size: 30px;
-            font-weight: bold;
+            font-weight: bolder;
         }
 
         #response {
-            white-space: pre-line;
-            font-family: "monospace";
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #response > * {
+            font-size: 12px;
+            font-weight: normal;
         }
 
         #success, #failure {
             padding-left: 5px;
         }
 
-        .monitor{
+        .monitor {
             margin-bottom: 5px;
             padding-left: 5px;
         }
 
         #success > * {
-            border-left: 3px solid #50b72a;
-           }
+            border-left: 3px solid #4ea9ff;
+        }
 
         #failure > * {
-            border-left: 3px solid #9A2555;
+            border-left: 3px solid #ef2e37;
+        }
+
+        .report-title {
+            font-size: 20px;
+        }
+
+        .report-details {
+            white-space: pre-line;
+            font-family: "monospace";
+        }
+
+        .key {
+            font-weight: bold;
+        }
+
+        ul {
+            margin: 0;
         }
     </style>
 </head>
@@ -86,8 +111,8 @@
 </div>
 
 <script type="text/javascript">
-    const colorOk = "#50b72a";
-    const colorNg = "#9A2555";
+    const colorOk = "#4ea9ff";
+    const colorNg = "#ef2e37";
     const bgColor = "#2E2733";
 
 
@@ -125,17 +150,14 @@
 
     function colorNode(state) {
         return {
-            color: "transparent",
             borderColor: state ? colorOk : colorNg,
-            shadowColor: state ? colorOk : colorNg,
-            shadowBlur: 10,
-            borderWidth: 4
+            shadowColor: state ? colorOk : colorNg
         };
     }
 
     function colorNodeLabel(state) {
         return {
-            color: state ? colorOk : colorNg,
+            color: state ? colorOk : colorNg
         };
     }
 
@@ -168,19 +190,40 @@
         for (let i = 0; i < reports.length; i++) {
             const element = document.createElement("div");
             element.classList.add("monitor");
-            element.appendChild(document.createTextNode(formatReport(reports[i])));
+            element.appendChild(formatReportTitle(reports[i]));
+            element.appendChild(formatReportDetails(reports[i]));
             node.appendChild(element);
         }
     }
 
-    function formatReport(report) {
-        let out = report.description + "\r\n";
+    function formatReportTitle(report) {
+        const element = document.createElement("div");
+        element.classList.add("report-title");
+        element.appendChild(document.createTextNode(report.title));
+        return element;
+    }
+
+    function formatReportDetails(report) {
+        const element = document.createElement("ul");
+        element.classList.add("report-details");
         const details = report.details;
         const keys = Object.keys(details);
         for (let i = 0; i < keys.length; i++) {
-            out += " - " + keys[i] + ": " + details[keys[i]] + "\r\n";
+            const sub = document.createElement("li");
+            element.appendChild(sub);
+
+            const detail = document.createElement("span");
+            const key = document.createElement("span");
+            key.classList.add("key");
+            key.appendChild(document.createTextNode(keys[i] + ": "));
+            detail.appendChild(key);
+            const value = document.createElement("span");
+            value.classList.add("value");
+            value.appendChild(document.createTextNode(details[keys[i]]));
+            detail.appendChild(value);
+            sub.appendChild(detail);
         }
-        return out;
+        return element;
     }
 
     fetch(currentServer() + "/status/cluster")
@@ -225,6 +268,13 @@
                     label: colorNodeLabel(allOk)
                 });
             }
+
+            const baseItemStyle = {
+                color: "transparent",
+                shadowBlur: 10,
+                borderWidth: 4
+            };
+
             const option = {
                 label: {
                     rotate: 'radial',
@@ -234,7 +284,25 @@
                 tooltip: {},
                 series: [{
                     type: 'sunburst',
-                    center: ['50%', '48%'],
+                    sort: null,
+                    center: ['50%', '50%'],
+                    levels: [
+                        {},
+                        {
+                            r0: "15%",
+                            r: "50%",
+                            itemStyle: baseItemStyle
+                        },
+                        {
+                            r0: "52%",
+                            r: "54%",
+                            itemStyle: baseItemStyle,
+                            label: {
+                                position: 'outside',
+                                padding: 3
+                            }
+                        }
+                    ],
                     data: data
                 }],
                 itemStyle: {

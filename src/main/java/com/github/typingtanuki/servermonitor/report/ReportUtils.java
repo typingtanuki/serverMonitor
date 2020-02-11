@@ -1,6 +1,10 @@
 package com.github.typingtanuki.servermonitor.report;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * @author clerc
@@ -17,5 +21,12 @@ public final class ReportUtils {
         int digitGroups = (int) (Math.log10(bytes) / Math.log10(1024));
         return new DecimalFormat("#,##0.#")
                 .format(bytes / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
+    }
+
+    public static String timestampToHuman(long ts) {
+        Date date = new Date(ts);
+        DateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");
+        formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+        return formatter.format(date);
     }
 }
