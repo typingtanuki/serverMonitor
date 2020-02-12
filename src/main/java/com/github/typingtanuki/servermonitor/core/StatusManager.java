@@ -1,6 +1,6 @@
 package com.github.typingtanuki.servermonitor.core;
 
-import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import com.github.typingtanuki.servermonitor.report.Status;
@@ -17,10 +17,10 @@ import java.util.*;
 public class StatusManager {
     private static final Logger logger = LoggerFactory.getLogger(StatusManager.class);
 
-    private final MonitorConfig config;
+    private final MainConfig config;
     private Status status;
 
-    public StatusManager(MonitorConfig config) {
+    public StatusManager(MainConfig config) {
         this.config = config;
     }
 
@@ -42,7 +42,7 @@ public class StatusManager {
      * @return A short status of each node in the cluster
      */
     public ClusterStatusResponse getClusterStatus() {
-        List<String> remotes = new ArrayList<>(config.getHandshake());
+        List<String> remotes = new ArrayList<>(config.getHandshake().getMonitoring());
 
         Map<String, Map<MonitorType, Boolean>> statusMap = new LinkedHashMap<>();
         Map<String, String> connections = new LinkedHashMap<>();

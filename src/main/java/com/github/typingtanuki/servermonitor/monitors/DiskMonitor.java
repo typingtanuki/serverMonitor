@@ -1,6 +1,6 @@
 package com.github.typingtanuki.servermonitor.monitors;
 
-import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.report.DiskMonitorReport;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import oshi.SystemInfo;
@@ -16,9 +16,9 @@ import java.util.List;
  * Monitors disk (partition) usage against a max allowed percentage
  */
 public class DiskMonitor implements Monitor {
-    private MonitorConfig config;
+    private MainConfig config;
 
-    public DiskMonitor(MonitorConfig config) {
+    public DiskMonitor(MainConfig config) {
         super();
 
         this.config = config;
@@ -28,7 +28,7 @@ public class DiskMonitor implements Monitor {
     @Override
     public List<MonitorReport> monitor(SystemInfo systemInfo) {
         List<MonitorReport> out = new LinkedList<>();
-        int maxDiskUsage = config.getMaxDiskUsage();
+        int maxDiskUsage = config.getDisk().getMaxUsage();
 
         for (HWDiskStore store : systemInfo.getHardware().getDiskStores()) {
             for (HWPartition partition : store.getPartitions()) {
@@ -47,7 +47,7 @@ public class DiskMonitor implements Monitor {
 
     @Override
     public boolean isEnabled() {
-        return config.getMaxDiskUsage() != -1;
+        return config.getDisk().isEnabled();
     }
 
     @Override

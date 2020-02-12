@@ -9,10 +9,9 @@ Directly from your browser, see the state of all your servers in one glance.
 
 ## How to
 
-1. Make the jar by running `gradlew jar`
+1. Make the jar by running `gradlew pack`
 1. Deploy the tool on each server
 1. Copy `conf/sample.json` to `conf/monitor.json`
-1. Copy `www` from the repository to the root folder (will be improved)
 1. Edit the configuration to match your needs
 1. Start the monitor with `java -jar serverMonitor.jar`
 
@@ -71,11 +70,11 @@ NOTE: The REST port is the only setting which can not be updated through this me
 * ~~A way to update current config through REST~~
 * ~~A way to fetch the entire cluster status~~
 * ~~A GUI~~
-* Package `www` folder more easily
+* ~~Package `www` folder more easily~~
+~~* More consistent configuration for each monitor~~
 * Windows update monitor (if possible without being admin)
 * Debouncer for failed monitors
 * "Recovered" type of notification
-* More consistent configuration for each monitor
 * Monitor for installed services
 ** Sonarqube monitor
 ** Jenkins monitor

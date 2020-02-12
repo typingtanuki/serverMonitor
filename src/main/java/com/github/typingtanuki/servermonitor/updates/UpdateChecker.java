@@ -1,6 +1,6 @@
 package com.github.typingtanuki.servermonitor.updates;
 
-import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.monitors.Monitor;
 import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 import org.slf4j.Logger;
@@ -11,15 +11,15 @@ import java.util.List;
 
 public abstract class UpdateChecker implements Monitor {
     private static final Logger logger = LoggerFactory.getLogger(UpdateChecker.class);
-    private final MonitorConfig config;
+    private final MainConfig config;
 
-    public UpdateChecker(MonitorConfig config) {
+    public UpdateChecker(MainConfig config) {
         super();
 
         this.config = config;
     }
 
-    public static UpdateChecker bestChecker(MonitorConfig config) {
+    public static UpdateChecker bestChecker(MainConfig config) {
         logger.info("Looking for best update checker");
         // Ordered list of checkers
         List<UpdateChecker> possibleCheckers = new LinkedList<>();
@@ -45,10 +45,10 @@ public abstract class UpdateChecker implements Monitor {
 
     @Override
     public boolean isEnabled() {
-        return config.isCheckUpdates();
+        return config.getUpdates().isEnabled();
     }
 
-    protected MonitorConfig getConfig() {
+    protected MainConfig getConfig() {
         return config;
     }
 

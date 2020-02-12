@@ -1,6 +1,6 @@
 package com.github.typingtanuki.servermonitor.updates;
 
-import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.config.MainConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +14,7 @@ import java.util.Locale;
 public abstract class LinuxUpdateChecker extends UpdateChecker {
     protected static final Logger logger = LoggerFactory.getLogger(LinuxUpdateChecker.class);
 
-    public LinuxUpdateChecker(MonitorConfig config) {
+    public LinuxUpdateChecker(MainConfig config) {
         super(config);
     }
 

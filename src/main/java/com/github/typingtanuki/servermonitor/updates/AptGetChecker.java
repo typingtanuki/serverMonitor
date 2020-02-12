@@ -1,6 +1,6 @@
 package com.github.typingtanuki.servermonitor.updates;
 
-import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.report.InvalidReport;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import oshi.SystemInfo;
@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 public class AptGetChecker extends LinuxUpdateChecker {
     private static final Pattern APT_GET_LINE = Pattern.compile("[^\\s]+\\s+([^\\s]+)\\s+\\[([^]]+)\\].*");
 
-    public AptGetChecker(MonitorConfig config) {
+    public AptGetChecker(MainConfig config) {
         super(config);
     }
 

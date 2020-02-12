@@ -51,3 +51,22 @@ jar {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
+
+task tmpPack(type: Copy, dependsOn: ['jar']) {
+    destinationDir = file('build/dist')
+    from tasks.jar
+    into('conf') {
+        from("${project(':').projectDir}/conf")
+        exclude("monitor.json")
+    }
+    into('www') {
+        from("${project(':').projectDir}/www")
+    }
+}
+
+task pack(type: Zip) {
+    into("serverMonitor") {
+        dependsOn tmpPack
+        with tmpPack
+    }
+}

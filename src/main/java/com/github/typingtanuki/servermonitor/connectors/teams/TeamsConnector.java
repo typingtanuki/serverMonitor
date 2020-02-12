@@ -2,7 +2,7 @@ package com.github.typingtanuki.servermonitor.connectors.teams;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.connectors.Connector;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
@@ -24,10 +24,10 @@ import java.util.Map;
 public class TeamsConnector implements Connector {
     private static Logger logger = LoggerFactory.getLogger(TeamsConnector.class);
 
-    private final MonitorConfig config;
+    private final MainConfig config;
     private final SystemInfo info;
 
-    public TeamsConnector(MonitorConfig config, SystemInfo info) {
+    public TeamsConnector(MainConfig config, SystemInfo info) {
         super();
 
         this.config = config;

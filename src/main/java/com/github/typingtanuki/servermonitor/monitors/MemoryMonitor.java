@@ -1,6 +1,6 @@
 package com.github.typingtanuki.servermonitor.monitors;
 
-import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.report.InvalidReport;
 import com.github.typingtanuki.servermonitor.report.MemoryMonitorReport;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
@@ -14,9 +14,9 @@ import java.util.List;
  * Monitors Memory usage against a max allowed percentage
  */
 public class MemoryMonitor implements Monitor {
-    private MonitorConfig config;
+    private MainConfig config;
 
-    public MemoryMonitor(MonitorConfig config) {
+    public MemoryMonitor(MainConfig config) {
         super();
 
         this.config = config;
@@ -32,12 +32,12 @@ public class MemoryMonitor implements Monitor {
             return Collections.singletonList(new InvalidReport(getType()));
         }
 
-        return Collections.singletonList(new MemoryMonitorReport(free, total, config.getMaxMemoryUsage()));
+        return Collections.singletonList(new MemoryMonitorReport(free, total, config.getMemory().getMaxUsage()));
     }
 
     @Override
     public boolean isEnabled() {
-        return config.getMaxMemoryUsage() != -1;
+        return config.getMemory().isEnabled();
     }
 
     @Override

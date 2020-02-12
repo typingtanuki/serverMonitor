@@ -3,7 +3,7 @@ package com.github.typingtanuki.servermonitor.core;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.connectors.Connector;
 import com.github.typingtanuki.servermonitor.connectors.LoggerConnector;
 import com.github.typingtanuki.servermonitor.connectors.teams.TeamsConnector;
@@ -37,7 +37,7 @@ public class ServerMonitor {
     private final WwwServer wwwServer = new WwwServer();
     private final Object configLock = new Object[0];
     private StatusManager statusManager;
-    private MonitorConfig config;
+    private MainConfig config;
     private List<Monitor> monitors = new LinkedList<>();
     private List<Connector> connectors;
 
@@ -104,7 +104,7 @@ public class ServerMonitor {
         }
     }
 
-    private synchronized List<Connector> initConnectors(MonitorConfig config) {
+    private synchronized List<Connector> initConnectors(MainConfig config) {
         if (connectors != null) {
             return new ArrayList<>(connectors);
         }
@@ -125,7 +125,7 @@ public class ServerMonitor {
             }
             config = new ObjectMapper()
                     .enable(JsonParser.Feature.ALLOW_COMMENTS)
-                    .readerFor(MonitorConfig.class)
+                    .readerFor(MainConfig.class)
                     .readValue(Files.readString(configPath, StandardCharsets.UTF_8));
             config.validate();
             this.statusManager = new StatusManager(config);
@@ -142,11 +142,11 @@ public class ServerMonitor {
         return statusManager;
     }
 
-    public MonitorConfig currentConfig() {
+    public MainConfig currentConfig() {
         return config;
     }
 
-    public MonitorConfig updateConfig(MonitorConfig newConfig, boolean persist) throws IOException {
+    public MainConfig updateConfig(MainConfig newConfig, boolean persist) throws IOException {
         synchronized (configLock) {
             newConfig.validate();
             newConfig.copyTo(config);
@@ -160,7 +160,7 @@ public class ServerMonitor {
     private void persistConfig() throws IOException {
         try {
             String jsonConfig = new ObjectMapper()
-                    .writerFor(MonitorConfig.class)
+                    .writerFor(MainConfig.class)
                     .withDefaultPrettyPrinter()
                     .writeValueAsString(config);
             Path configPath = Paths.get("./conf/monitor.json");

@@ -1,6 +1,6 @@
 package com.github.typingtanuki.servermonitor.monitors;
 
-import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.report.CpuMonitorReport;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import oshi.SystemInfo;
@@ -13,9 +13,9 @@ import java.util.List;
  * Monitors CPU usage against a max allowed percentage
  */
 public class CpuMonitor implements Monitor {
-    private MonitorConfig config;
+    private MainConfig config;
 
-    public CpuMonitor(MonitorConfig config) {
+    public CpuMonitor(MainConfig config) {
         super();
 
         this.config = config;
@@ -25,12 +25,12 @@ public class CpuMonitor implements Monitor {
     public List<MonitorReport> monitor(SystemInfo systemInfo) {
         CentralProcessor processor = systemInfo.getHardware().getProcessor();
         double[] loads = processor.getSystemLoadAverage(1);
-        return Collections.singletonList(new CpuMonitorReport((long) loads[0], config.getMaxCpuUsage()));
+        return Collections.singletonList(new CpuMonitorReport((long) loads[0], config.getCpu().getMaxUsage()));
     }
 
     @Override
     public boolean isEnabled() {
-        return config.getMaxCpuUsage() != -1;
+        return config.getCpu().isEnabled();
     }
 
     @Override

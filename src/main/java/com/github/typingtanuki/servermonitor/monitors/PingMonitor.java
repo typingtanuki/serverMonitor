@@ -1,6 +1,6 @@
 package com.github.typingtanuki.servermonitor.monitors;
 
-import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import com.github.typingtanuki.servermonitor.report.PingMonitorReport;
 import oshi.SystemInfo;
@@ -14,9 +14,9 @@ import java.util.List;
  * Monitors connectivity to other servers using ping (ICMP)
  */
 public class PingMonitor implements Monitor {
-    private MonitorConfig config;
+    private MainConfig config;
 
-    public PingMonitor(MonitorConfig config) {
+    public PingMonitor(MainConfig config) {
         super();
 
         this.config = config;
@@ -24,7 +24,7 @@ public class PingMonitor implements Monitor {
 
     @Override
     public List<MonitorReport> monitor(SystemInfo systemInfo) {
-        List<String> ping = config.getPing();
+        List<String> ping = config.getPing().getMonitoring();
 
         List<MonitorReport> out = new LinkedList<>();
         for (String server : ping) {
@@ -45,7 +45,11 @@ public class PingMonitor implements Monitor {
 
     @Override
     public boolean isEnabled() {
-        return config.getPing() != null && !config.getPing().isEmpty();
+        if (!config.getPing().isEnabled()) {
+            return false;
+        }
+        List<String> monitoring = config.getPing().getMonitoring();
+        return monitoring != null && !monitoring.isEmpty();
     }
 
     @Override

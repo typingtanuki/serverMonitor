@@ -1,6 +1,6 @@
 package com.github.typingtanuki.servermonitor.monitors;
 
-import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import com.github.typingtanuki.servermonitor.report.ProcessMonitorReport;
 import oshi.SystemInfo;
@@ -16,9 +16,9 @@ import java.util.List;
  * If an expected process is not running, a failure will be raised
  */
 public class ProcessMonitor implements Monitor {
-    private MonitorConfig config;
+    private MainConfig config;
 
-    public ProcessMonitor(MonitorConfig config) {
+    public ProcessMonitor(MainConfig config) {
         super();
 
         this.config = config;
@@ -26,7 +26,7 @@ public class ProcessMonitor implements Monitor {
 
     @Override
     public List<MonitorReport> monitor(SystemInfo systemInfo) {
-        List<String> processes = new ArrayList<>(config.getProcesses());
+        List<String> processes = new ArrayList<>(config.getProcess().getMonitoring());
 
         OSProcess[] current = systemInfo.getOperatingSystem().getProcesses();
         List<MonitorReport> out = new LinkedList<>();
@@ -51,7 +51,11 @@ public class ProcessMonitor implements Monitor {
 
     @Override
     public boolean isEnabled() {
-        return config.getProcesses() != null && !config.getProcesses().isEmpty();
+        if (!config.getProcess().isEnabled()) {
+            return false;
+        }
+        List<String> monitoring = config.getProcess().getMonitoring();
+        return monitoring != null && !monitoring.isEmpty();
     }
 
     @Override

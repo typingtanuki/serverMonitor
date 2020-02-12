@@ -1,0 +1,29 @@
+package com.github.typingtanuki.servermonitor.config;
+
+public class MemoryMonitorConfig extends MonitorConfig {
+    private int maxUsage = 80;
+
+    public MemoryMonitorConfig() {
+        super();
+    }
+
+    @Override
+    public void validate() {
+        if (maxUsage < 1 || maxUsage > 99) {
+            throw new IllegalStateException("Memory usage should be between 1 and 99%");
+        }
+    }
+
+    public void copyTo(MemoryMonitorConfig targetConfig) {
+        innerCopyTo(targetConfig);
+        targetConfig.maxUsage = maxUsage;
+    }
+
+    public int getMaxUsage() {
+        return maxUsage;
+    }
+
+    public void setMaxUsage(int maxUsage) {
+        this.maxUsage = maxUsage;
+    }
+}

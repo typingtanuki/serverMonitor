@@ -1,6 +1,6 @@
 package com.github.typingtanuki.servermonitor.web;
 
-import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.web.handshake.HandshakeEndpoint;
 import com.github.typingtanuki.servermonitor.web.config.ConfigEndpoint;
 import com.github.typingtanuki.servermonitor.web.site.SiteEndpoint;
@@ -17,10 +17,10 @@ public class WebServer extends Thread {
     private final int port;
     private Server jettyServer;
 
-    public WebServer(MonitorConfig monitorConfig) {
+    public WebServer(MainConfig mainConfig) {
         super();
 
-        this.port = monitorConfig.getHandshakePort();
+        this.port = mainConfig.getPort();
     }
 
     public void startServer() throws IOException {

@@ -1,6 +1,6 @@
 package com.github.typingtanuki.servermonitor.monitors;
 
-import com.github.typingtanuki.servermonitor.config.MonitorConfig;
+import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.core.RestCall;
 import com.github.typingtanuki.servermonitor.core.RestCallException;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
@@ -22,17 +22,17 @@ import java.util.List;
  * </ul>
  */
 public class HandshakeMonitor implements Monitor {
-    private final MonitorConfig config;
+    private final MainConfig config;
 
-    public HandshakeMonitor(MonitorConfig config) {
+    public HandshakeMonitor(MainConfig config) {
         super();
         this.config = config;
     }
 
     @Override
     public List<MonitorReport> monitor(SystemInfo systemInfo) {
-        List<String> targets = config.getHandshake();
-        int maxHandshakeTime = config.getMaxHandshakeTime();
+        List<String> targets = config.getHandshake().getMonitoring();
+        int maxHandshakeTime = config.getHandshake().getMaxHandshakeTime();
 
         List<MonitorReport> out = new ArrayList<>(targets.size());
         for (String target : targets) {
@@ -45,7 +45,11 @@ public class HandshakeMonitor implements Monitor {
 
     @Override
     public boolean isEnabled() {
-        return config.getHandshake() != null && !config.getHandshake().isEmpty();
+        if (!config.getHandshake().isEnabled()) {
+            return false;
+        }
+        List<String> monitoring = config.getHandshake().getMonitoring();
+        return monitoring != null && !monitoring.isEmpty();
     }
 
     @Override
