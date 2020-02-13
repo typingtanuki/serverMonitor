@@ -21,9 +21,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Core of the monitoring
@@ -36,6 +34,7 @@ public class ServerMonitor {
     private final SystemInfo info;
     private final WwwServer wwwServer = new WwwServer();
     private final Object configLock = new Object[0];
+    private final Map<String, Long> triggered = new LinkedHashMap<>();
     private StatusManager statusManager;
     private MainConfig config;
     private List<Monitor> monitors = new LinkedList<>();
@@ -74,12 +73,14 @@ public class ServerMonitor {
 
     private void handleReports(List<MonitorReport> reports) {
         List<MonitorReport> failed = new LinkedList<>();
+        List<MonitorReport> succeeded = new LinkedList<>();
 
         statusManager.updateStatus(reports);
 
         for (MonitorReport report : reports) {
             if (report.isOK()) {
                 logger.debug("OK: {}", report.getDescription());
+                succeeded.add(report);
             } else {
                 logger.debug("NG: {}", report.getDescription());
                 failed.add(report);
@@ -87,19 +88,43 @@ public class ServerMonitor {
         }
 
         if (!failed.isEmpty()) {
-            warnIssue(failed);
+            warnIssue(failed, succeeded);
         }
     }
 
-    private void warnIssue(List<MonitorReport> failedMonitorReports) {
+    private void warnIssue(List<MonitorReport> failedMonitorReports,
+                           List<MonitorReport> succeededMonitorReports) {
         List<Connector> connectors;
+        long debounceTime;
+
         synchronized (configLock) {
             connectors = initConnectors(config);
+            debounceTime = config.getDebounceTime();
         }
 
+        long now = System.currentTimeMillis();
         for (MonitorReport failedMonitorReport : failedMonitorReports) {
+            String monitorKey = failedMonitorReport.monitorKey();
+            Long lastTrigger = triggered.get(monitorKey);
+            if (lastTrigger != null && lastTrigger < now - debounceTime) {
+                // Debounced
+                continue;
+            }
+            triggered.put(monitorKey, now);
             for (Connector connector : connectors) {
                 connector.reportFailure(failedMonitorReport);
+            }
+        }
+
+        // Check for recovery
+        for (MonitorReport succeededMonitorReport : succeededMonitorReports) {
+            String monitorKey = succeededMonitorReport.monitorKey();
+            Long lastTrigger = triggered.remove(monitorKey);
+            if (lastTrigger != null) {
+                // Recovered
+                for (Connector connector : connectors) {
+                    connector.reportRecovery(succeededMonitorReport);
+                }
             }
         }
     }

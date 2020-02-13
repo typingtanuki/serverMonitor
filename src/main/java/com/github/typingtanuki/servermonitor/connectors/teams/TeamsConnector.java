@@ -36,12 +36,29 @@ public class TeamsConnector implements Connector {
 
     @Override
     public void reportFailure(MonitorReport failedMonitorReport) {
+        sendPayload(payloadFor(false, failedMonitorReport));
+    }
+
+    @Override
+    public void reportRecovery(MonitorReport recoveredMonitorReport) {
+        sendPayload(payloadFor(true, recoveredMonitorReport));
+    }
+
+    private TeamsPayload payloadFor(boolean succeeded, MonitorReport monitorReport) {
         TeamsPayload payload = new TeamsPayload();
-        payload.setSummary("Server is NG");
+        if (!succeeded) {
+            payload.setSummary("Server is NG");
+        } else {
+            payload.setSummary("Server has recovered");
+        }
 
         // Section with the OS details
         TeamsSection osSection = new TeamsSection();
-        osSection.setActivityTitle("Server " + config.getIdentity() + " is NG");
+        if (!succeeded) {
+            osSection.setActivityTitle("Server " + config.getIdentity() + " is NG");
+        } else {
+            osSection.setActivityTitle("Server " + config.getIdentity() + " recovered");
+        }
         osSection.setActivitySubtitle("System details");
         osSection.addFact(new TeamsFact("identity", config.getIdentity()));
         OperatingSystem os = info.getOperatingSystem();
@@ -52,15 +69,15 @@ public class TeamsConnector implements Connector {
 
         // Section with the failure information
         TeamsSection payloadSection = new TeamsSection();
-        payloadSection.setActivityTitle(failedMonitorReport.getTitle());
-        payloadSection.setActivitySubtitle(failedMonitorReport.getDescription());
+        payloadSection.setActivityTitle(monitorReport.getTitle());
+        payloadSection.setActivitySubtitle(monitorReport.getDescription());
 
-        for (Map.Entry<String, Object> details : failedMonitorReport.getDetails().entrySet()) {
+        for (Map.Entry<String, Object> details : monitorReport.getDetails().entrySet()) {
             payloadSection.addFact(new TeamsFact(details.getKey(), String.valueOf(details.getValue())));
         }
         payload.addSection(payloadSection);
 
-        sendPayload(payload);
+        return payload;
     }
 
     /**

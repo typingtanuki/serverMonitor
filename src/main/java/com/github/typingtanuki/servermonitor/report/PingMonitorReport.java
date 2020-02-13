@@ -12,7 +12,7 @@ public class PingMonitorReport extends AbstractBoolMonitorReport {
 
     @Override
     public String getTitle() {
-        return "ICMP ping test";
+        return "Ping test";
     }
 
     @Override

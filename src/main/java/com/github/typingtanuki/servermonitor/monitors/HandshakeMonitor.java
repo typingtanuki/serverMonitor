@@ -70,8 +70,8 @@ public class HandshakeMonitor implements Monitor {
         }
 
         //Validate the response content
-        if (handshake.getResponseTime() < handshake.getRequestTime()) {
-            monitor.pingBackInTime(handshake.getRequestTime(), handshake.getResponseTime());
+        if (handshake.getRequestTime() - handshake.getResponseTime() > maxHandshakeTime) {
+            monitor.pingBackInTime(handshake.getRequestTime(), handshake.getResponseTime(), maxHandshakeTime);
             return;
         }
 

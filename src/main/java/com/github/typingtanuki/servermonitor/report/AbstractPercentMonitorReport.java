@@ -34,4 +34,9 @@ public abstract class AbstractPercentMonitorReport implements MonitorReport {
     public boolean isOK() {
         return usage < maxUsage;
     }
+
+    @Override
+    public String monitorKey() {
+        return getType().name();
+    }
 }

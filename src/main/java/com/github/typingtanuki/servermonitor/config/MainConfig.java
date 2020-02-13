@@ -3,6 +3,7 @@ package com.github.typingtanuki.servermonitor.config;
 public class MainConfig {
     private String identity = null;
     private long monitorTime = 30_000;
+    private long debounceTime = 86_400_000;
     private int port = 9191;
 
     private String teamsHook = null;
@@ -19,6 +20,7 @@ public class MainConfig {
     public void copyTo(MainConfig config) {
         config.identity = identity;
         config.monitorTime = monitorTime;
+        config.debounceTime = debounceTime;
         config.port = port;
         config.teamsHook = teamsHook;
 
@@ -36,12 +38,17 @@ public class MainConfig {
             throw new IllegalStateException("Missing identity in settings");
         }
         if (monitorTime < 1000 || monitorTime > 3_600_000) {
-            throw new IllegalStateException("Monitor time should be between 1s and 1day");
+            throw new IllegalStateException("Monitor time should be between 1s and 1 hour");
+        }
+
+        if (debounceTime < monitorTime || debounceTime > 3_600_000 * 24) {
+            throw new IllegalStateException("Monitor time should be between monitorTime and 1 day");
         }
 
         if (port < 1 || port > 65535) {
             throw new IllegalStateException("REST port should be between 1 and 65535");
         }
+
         cpu.validate();
         disk.validate();
         memory.validate();
@@ -65,6 +72,14 @@ public class MainConfig {
 
     public void setMonitorTime(long monitorTime) {
         this.monitorTime = monitorTime;
+    }
+
+    public long getDebounceTime() {
+        return debounceTime;
+    }
+
+    public void setDebounceTime(long debounceTime) {
+        this.debounceTime = debounceTime;
     }
 
     public int getPort() {

@@ -22,4 +22,9 @@ public abstract class AbstractBoolMonitorReport implements MonitorReport {
     public boolean isOK() {
         return !ng;
     }
+
+    @Override
+    public String monitorKey() {
+        return getType() + monitored;
+    }
 }

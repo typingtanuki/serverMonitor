@@ -12,4 +12,11 @@ public interface Connector {
      * @param failedMonitorReport The failure to report
      */
     void reportFailure(MonitorReport failedMonitorReport);
+
+    /**
+     * Send a report when there is a recovery
+     *
+     * @param recoveredMonitorReport The succeeding report
+     */
+    void reportRecovery(MonitorReport recoveredMonitorReport);
 }

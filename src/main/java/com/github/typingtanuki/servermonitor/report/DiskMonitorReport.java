@@ -41,4 +41,8 @@ public class DiskMonitorReport extends AbstractPercentMonitorReport {
         return MonitorType.disk;
     }
 
+    @Override
+    public String monitorKey() {
+        return getType() + " " + monitored;
+    }
 }

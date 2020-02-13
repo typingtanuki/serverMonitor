@@ -38,4 +38,9 @@ public class InvalidReport implements MonitorReport {
         return monitorType;
     }
 
+    @Override
+    public String monitorKey() {
+        return getType().name();
+    }
+
 }

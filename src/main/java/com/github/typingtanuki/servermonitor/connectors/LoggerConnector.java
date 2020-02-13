@@ -21,16 +21,27 @@ public class LoggerConnector implements Connector {
 
     @Override
     public void reportFailure(MonitorReport failedMonitorReport) {
-        String details;
-        try {
-            details = writer.writeValueAsString(failedMonitorReport.getDetails());
-        } catch (IOException e) {
-            details = "Failed to get details";
-            logger.warn(details, e);
-        }
         logger.warn("{} - {}\r\n{}",
                 failedMonitorReport.getTitle(),
                 failedMonitorReport.getDescription(),
-                details);
+                details(failedMonitorReport));
+    }
+
+    @Override
+    public void reportRecovery(MonitorReport recoveredMonitorReport) {
+        logger.info("{} - {}\r\n{}",
+                recoveredMonitorReport.getTitle(),
+                recoveredMonitorReport.getDescription(),
+                details(recoveredMonitorReport));
+    }
+
+    private String details(MonitorReport recoveredMonitorReport) {
+        try {
+            return writer.writeValueAsString(recoveredMonitorReport.getDetails());
+        } catch (IOException e) {
+            String details = "Failed to get details";
+            logger.warn(details, e);
+            return details;
+        }
     }
 }

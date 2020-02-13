@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Monitors connectivity to other servers using ping (ICMP)
+ * Monitors connectivity to other servers using ping (echo based)
  */
 public class PingMonitor implements Monitor {
     private MainConfig config;

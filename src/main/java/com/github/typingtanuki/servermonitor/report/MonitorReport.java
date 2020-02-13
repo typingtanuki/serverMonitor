@@ -14,4 +14,6 @@ public interface MonitorReport {
     Map<String, Object> getDetails();
 
     MonitorType getType();
+
+    String monitorKey();
 }

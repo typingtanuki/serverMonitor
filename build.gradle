@@ -55,6 +55,12 @@ jar {
 task tmpPack(type: Copy, dependsOn: ['jar']) {
     destinationDir = file('build/dist')
     from tasks.jar
+
+    into('.') {
+        from("${project(':').projectDir}/script")
+        fileMode 0755
+    }
+
     into('conf') {
         from("${project(':').projectDir}/conf")
         exclude("monitor.json")

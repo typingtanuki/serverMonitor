@@ -21,7 +21,7 @@ public class UpdateReport extends AbstractBoolMonitorReport {
 
     @Override
     public String getTitle() {
-        return "System updates available";
+        return "System updates";
     }
 
     @Override

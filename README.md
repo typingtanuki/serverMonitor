@@ -24,7 +24,7 @@ Directly from your browser, see the state of all your servers in one glance.
   * If specific processes are currently running on the server or not
   * Available system updates (apt-get and apt based only) 
 * Network
-  * Pingability of other servers (ICMP based)
+  * Pingability of other servers (echo based)
   * Handshake with other servers running this tool (custom HTTP handshake)
   * If the monitor is not running on another server
   * Clock issues between servers
@@ -70,11 +70,11 @@ NOTE: The REST port is the only setting which can not be updated through this me
 * ~~A way to update current config through REST~~
 * ~~A way to fetch the entire cluster status~~
 * ~~A GUI~~
-* ~~Package `www` folder more easily~~
-~~* More consistent configuration for each monitor~~
+* ~~Package www folder more easily~~
+* ~~More consistent configuration for each monitor~~
+* ~~Debouncer for failed monitors~~
+* ~~"Recovered" type of notification~~
 * Windows update monitor (if possible without being admin)
-* Debouncer for failed monitors
-* "Recovered" type of notification
 * Monitor for installed services
 ** Sonarqube monitor
 ** Jenkins monitor

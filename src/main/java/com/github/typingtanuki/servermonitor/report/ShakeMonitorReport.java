@@ -12,7 +12,7 @@ public class ShakeMonitorReport extends AbstractBoolMonitorReport {
     private long request;
     private long response;
     private String cause;
-    private long maxDelta;
+    private Long maxDelta;
 
     public ShakeMonitorReport(String target) {
         super(target);
@@ -32,9 +32,10 @@ public class ShakeMonitorReport extends AbstractBoolMonitorReport {
         reason = "Ping took too long";
     }
 
-    public void pingBackInTime(long request, long response) {
+    public void pingBackInTime(long request, long response, long maxDelta) {
         this.request = request;
         this.response = response;
+        this.maxDelta = maxDelta;
         ng();
         reason = "Ping went back in time";
     }
