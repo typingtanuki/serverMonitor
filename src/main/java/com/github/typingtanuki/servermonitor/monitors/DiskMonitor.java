@@ -54,4 +54,9 @@ public class DiskMonitor implements Monitor {
     public MonitorType getType() {
         return MonitorType.disk;
     }
+
+    @Override
+    public MonitorCategory getCategory() {
+        return MonitorCategory.system;
+    }
 }

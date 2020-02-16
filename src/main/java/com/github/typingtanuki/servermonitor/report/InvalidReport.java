@@ -1,16 +1,20 @@
 package com.github.typingtanuki.servermonitor.report;
 
+import com.github.typingtanuki.servermonitor.monitors.MonitorCategory;
 import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 
 import java.util.Collections;
 import java.util.Map;
 
 public class InvalidReport implements MonitorReport {
+    private MonitorCategory monitorCategory;
     private MonitorType monitorType;
 
-    public InvalidReport(MonitorType monitorType) {
+    public InvalidReport(MonitorType monitorType,
+                         MonitorCategory monitorCategory) {
         super();
         this.monitorType = monitorType;
+        this.monitorCategory = monitorCategory;
     }
 
     @Override
@@ -36,6 +40,11 @@ public class InvalidReport implements MonitorReport {
     @Override
     public MonitorType getType() {
         return monitorType;
+    }
+
+    @Override
+    public MonitorCategory getCategory() {
+        return monitorCategory;
     }
 
     @Override

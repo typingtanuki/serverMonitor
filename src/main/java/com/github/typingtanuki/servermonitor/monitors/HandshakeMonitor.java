@@ -57,6 +57,11 @@ public class HandshakeMonitor implements Monitor {
         return MonitorType.handshake;
     }
 
+    @Override
+    public MonitorCategory getCategory() {
+        return MonitorCategory.remote;
+    }
+
     private void shakeHand(String target,
                            ShakeMonitorReport monitor,
                            int maxHandshakeTime) {

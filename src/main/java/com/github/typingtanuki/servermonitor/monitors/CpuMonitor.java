@@ -37,4 +37,9 @@ public class CpuMonitor implements Monitor {
     public MonitorType getType() {
         return MonitorType.cpu;
     }
+
+    @Override
+    public MonitorCategory getCategory() {
+        return MonitorCategory.system;
+    }
 }

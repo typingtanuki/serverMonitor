@@ -25,4 +25,9 @@ public interface Monitor {
      * @return The type of monitor
      */
     MonitorType getType();
+
+    /**
+     * @return The category fo the monitor
+     */
+    MonitorCategory getCategory();
 }

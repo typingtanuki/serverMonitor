@@ -1,5 +1,6 @@
 package com.github.typingtanuki.servermonitor.report;
 
+import com.github.typingtanuki.servermonitor.monitors.MonitorCategory;
 import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 
 import java.util.LinkedHashMap;
@@ -79,5 +80,10 @@ public class ShakeMonitorReport extends AbstractBoolMonitorReport {
     @Override
     public MonitorType getType() {
         return MonitorType.handshake;
+    }
+
+    @Override
+    public MonitorCategory getCategory() {
+        return MonitorCategory.remote;
     }
 }

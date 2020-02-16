@@ -56,4 +56,9 @@ public class PingMonitor implements Monitor {
     public MonitorType getType() {
         return MonitorType.ping;
     }
+
+    @Override
+    public MonitorCategory getCategory() {
+        return MonitorCategory.remote;
+    }
 }

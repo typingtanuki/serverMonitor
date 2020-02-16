@@ -1,0 +1,98 @@
+body {
+    background-color: #2E2733;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.chart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px;
+}
+
+.chart.half {
+    right: 300px;
+    overflow: hidden;
+}
+
+.details {
+    display: none;
+}
+
+.details.half {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    bottom: 0;
+    border-left: solid 3px #7f7f7f;
+    color: #c3c3c3;
+    overflow: auto;
+    padding: 10px;
+}
+
+#server {
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+#response {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#response > * {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+#success, #failure {
+    padding-left: 5px;
+}
+
+.monitor {
+    margin-bottom: 5px;
+    padding-left: 5px;
+}
+
+#success > * {
+    border-left: 3px solid #4ea9ff;
+}
+
+#failure > * {
+    border-left: 3px solid #ef2e37;
+}
+
+.report-title {
+    font-size: 20px;
+}
+
+.report-details {
+    white-space: pre-line;
+    font-family: "monospace";
+}
+
+.key {
+    font-weight: bold;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    list-style-type: none;
+}
+
+.gauge {
+    position: relative;
+    width: 270px;
+    height: 200px;
+}

@@ -34,7 +34,7 @@ public class ProcessMonitor implements Monitor {
             ProcessMonitorReport report = new ProcessMonitorReport(proc);
             boolean running = false;
             for (OSProcess c : current) {
-                if (c.getName().contains(proc)) {
+                if (c.getName().contains(proc) || c.getCommandLine().contains(proc)) {
                     running = true;
                     break;
                 }
@@ -61,5 +61,10 @@ public class ProcessMonitor implements Monitor {
     @Override
     public MonitorType getType() {
         return MonitorType.process;
+    }
+
+    @Override
+    public MonitorCategory getCategory() {
+        return MonitorCategory.system;
     }
 }

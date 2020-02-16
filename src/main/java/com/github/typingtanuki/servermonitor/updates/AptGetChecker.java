@@ -35,7 +35,7 @@ public class AptGetChecker extends LinuxUpdateChecker {
         List<String> out = runAndReadOutput("apt-get", "--just-print", "upgrade");
 
         if (out == null) {
-            return Collections.singletonList(new InvalidReport(getType()));
+            return Collections.singletonList(new InvalidReport(getType(), getCategory()));
         }
 
         Map<String, String> updates = new LinkedHashMap<>();

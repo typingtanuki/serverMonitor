@@ -1,5 +1,6 @@
 package com.github.typingtanuki.servermonitor.updates;
 
+import com.github.typingtanuki.servermonitor.monitors.MonitorCategory;
 import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 import com.github.typingtanuki.servermonitor.report.AbstractBoolMonitorReport;
 
@@ -41,5 +42,10 @@ public class UpdateReport extends AbstractBoolMonitorReport {
     @Override
     public MonitorType getType() {
         return MonitorType.update;
+    }
+
+    @Override
+    public MonitorCategory getCategory() {
+        return MonitorCategory.system;
     }
 }
