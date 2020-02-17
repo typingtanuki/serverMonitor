@@ -30,17 +30,21 @@ public class ProcessMonitor implements Monitor {
 
         OSProcess[] current = systemInfo.getOperatingSystem().getProcesses();
         List<MonitorReport> out = new LinkedList<>();
+        int pid = -1;
+        long uptime = -1;
         for (String proc : processes) {
             ProcessMonitorReport report = new ProcessMonitorReport(proc);
             boolean running = false;
             for (OSProcess c : current) {
                 if (c.getName().contains(proc) || c.getCommandLine().contains(proc)) {
                     running = true;
+                    pid = c.getProcessID();
+                    uptime = c.getUpTime();
                     break;
                 }
             }
             if (running) {
-                report.ok();
+                report.ok(pid, uptime);
             } else {
                 report.ng();
             }
