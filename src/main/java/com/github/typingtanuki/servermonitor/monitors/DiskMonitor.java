@@ -42,6 +42,8 @@ public class DiskMonitor implements Monitor {
         } else {
             extraPath.add("c:\\");
         }
+        // User defined paths
+        extraPath.addAll(config.getDisk().getMounts());
 
         for (HWDiskStore store : systemInfo.getHardware().getDiskStores()) {
             for (HWPartition partition : store.getPartitions()) {

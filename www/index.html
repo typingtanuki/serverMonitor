@@ -30,11 +30,11 @@
             overflow: hidden;
         }
 
-        .details {
+        .details, .settings {
             display: none;
         }
 
-        .details.half {
+        .details.half, .settings.half {
             display: block;
             position: absolute;
             top: 0;
@@ -45,6 +45,11 @@
             color: #c3c3c3;
             overflow: auto;
             padding: 10px;
+        }
+
+        .settings > textarea {
+            width: 100%;
+            height: 100%;
         }
 
         #server {
@@ -104,6 +109,13 @@
             width: 270px;
             height: 200px;
         }
+
+        .active {
+            cursor: pointer;
+            border: 2px solid #7f7f7f;
+            padding: 5px;
+            font-size: 15px;
+        }
     </style>
 </head>
 
@@ -113,11 +125,15 @@
 <div class="details">
     <div id="server"></div>
     <div id="response">
+        <div id="settings">Settings</div>
         Failures:
         <div id="failure"></div>
         Successes:
         <div id="success"></div>
     </div>
+</div>
+<div class="settings">
+    <textarea></textarea>
 </div>
 
 <script type="text/javascript">
@@ -131,6 +147,7 @@
     const data = [];
     let serverIPs = {};
     let clicked = false;
+    let connection;
 
     chart.on("click", function (clickEvent) {
         if (clicked) {
@@ -138,7 +155,6 @@
         }
         clicked = true;
         const serverName = clickEvent.treePathInfo[1].name;
-        let connection;
         if (serverIPs.hasOwnProperty(serverName)) {
             connection = serverIPs[serverName];
         } else {
@@ -151,9 +167,29 @@
         document.querySelector(".details").classList.add("half");
         requestAnimationFrame(function () {
             chart.resize();
+            enableSettingsButton();
         });
         fetchDetails(connection);
     });
+
+    function enableSettingsButton() {
+        const elem = document.getElementById("settings");
+        if (elem.classList.contains("active")) {
+            return;
+        }
+        elem.classList.add("active");
+        elem.addEventListener("click", function () {
+            showSettings();
+        });
+    }
+
+    function showSettings() {
+        document.querySelector(".details").classList.remove("half");
+        document.querySelector(".settings").classList.add("half");
+
+        clicked = true;
+        fetchSettings();
+    }
 
     function currentServer() {
         return window.location.href.split("/www/")[0];
@@ -184,6 +220,22 @@
                 formatReports(
                     response.status.failure,
                     document.getElementById("failure"));
+                clicked = false;
+
+            })
+            .catch((e) => {
+                document.getElementById("failure").textContent = JSON.stringify(e, null, 4);
+                clicked = false;
+            });
+    }
+
+    function fetchSettings() {
+        fetch("http://" + connection + "/config")
+            .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
+                document.querySelector(".settings > textarea").value = JSON.stringify(response, null, 4);
                 clicked = false;
 
             })
