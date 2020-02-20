@@ -6,8 +6,9 @@
     <script src="https://cdn.jsdelivr.net/npm/echarts@4.6.0/dist/echarts.min.js"></script>
     <script src="./gauge.js"></script>
     <style>
-        body {
+        body, textarea {
             background-color: #2E2733;
+            color: #c3c3c3;
             position: absolute;
             top: 0;
             left: 0;
@@ -32,6 +33,7 @@
 
         .details, .settings {
             display: none;
+            overflow-x: hidden;
         }
 
         .details.half, .settings.half {
@@ -48,8 +50,14 @@
         }
 
         .settings > textarea {
-            width: 100%;
-            height: 100%;
+            position: absolute;
+            top: 45px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            width: inherit;
+
+            border: 2px solid #7f7f7f;
         }
 
         #server {
@@ -133,6 +141,7 @@
     </div>
 </div>
 <div class="settings">
+    <div id="save">Save Settings</div>
     <textarea></textarea>
 </div>
 
@@ -153,6 +162,9 @@
         if (clicked) {
             return;
         }
+        document.querySelector(".details").classList.remove("half");
+        document.querySelector(".settings").classList.remove("half");
+
         clicked = true;
         const serverName = clickEvent.treePathInfo[1].name;
         if (serverIPs.hasOwnProperty(serverName)) {
@@ -169,7 +181,7 @@
             chart.resize();
             enableSettingsButton();
         });
-        fetchDetails(connection);
+        fetchDetails();
     });
 
     function enableSettingsButton() {
@@ -183,12 +195,41 @@
         });
     }
 
+    function enableSaveButton() {
+        const elem = document.getElementById("save");
+        if (elem.classList.contains("active")) {
+            return;
+        }
+        elem.classList.add("active");
+        elem.addEventListener("click", function () {
+            saveSettings();
+        });
+    }
+
     function showSettings() {
         document.querySelector(".details").classList.remove("half");
         document.querySelector(".settings").classList.add("half");
 
         clicked = true;
         fetchSettings();
+    }
+
+    function saveSettings() {
+        clicked = true;
+        const data = document.querySelector(".settings > textarea").value;
+        fetch("http://" + connection + "/config?persist=true", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: data
+        }).then((response) => {
+            console.log(response);
+            clicked = false;
+        }).catch((e) => {
+            console.log(e);
+            clicked = false;
+        });
     }
 
     function currentServer() {
@@ -208,8 +249,8 @@
         };
     }
 
-    function fetchDetails(server) {
-        fetch("http://" + server + "/status")
+    function fetchDetails() {
+        fetch("http://" + connection + "/status")
             .then((response) => {
                 return response.json();
             })
@@ -230,6 +271,9 @@
     }
 
     function fetchSettings() {
+        requestAnimationFrame(function () {
+            enableSaveButton();
+        });
         fetch("http://" + connection + "/config")
             .then((response) => {
                 return response.json();
@@ -298,93 +342,106 @@
         return element;
     }
 
-    fetch(currentServer() + "/status/cluster")
-        .then((response) => {
-            return response.json();
-        })
-        .then((response) => {
-            const cluster = response.clusterStatus;
-            serverIPs = response.connections;
+    function getServerState() {
+        fetch(currentServer() + "/status/cluster")
+            .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
+                const cluster = response.clusterStatus;
+                serverIPs = response.connections;
 
-            data.length = 0;
-            const servers = Object.keys(cluster);
-            servers.sort();
-            for (let i = 0; i < servers.length; i++) {
-                const server = servers[i];
-                const status = cluster[server];
+                data.length = 0;
+                const servers = Object.keys(cluster);
+                servers.sort();
+                for (let i = 0; i < servers.length; i++) {
+                    const server = servers[i];
+                    const status = cluster[server];
 
-                const children = [];
-                const monitors = Object.keys(status);
-                monitors.sort();
-                let allOk = true;
-                for (let j = 0; j < monitors.length; j++) {
-                    const monitorName = monitors[j];
-                    const state = status[monitorName];
-                    if (!state) {
-                        allOk = false;
+                    const children = [];
+                    const monitors = Object.keys(status);
+                    monitors.sort();
+                    let allOk = true;
+                    for (let j = 0; j < monitors.length; j++) {
+                        const monitorName = monitors[j];
+                        const state = status[monitorName];
+                        if (!state) {
+                            allOk = false;
+                        }
+                        children.push({
+                            name: monitorName,
+                            value: state ? 1 : 2,
+                            nodeClick: false,
+                            itemStyle: colorNode(state),
+                            label: colorNodeLabel(state)
+                        });
                     }
-                    children.push({
-                        name: monitorName,
-                        value: state ? 1 : 2,
+
+                    data.push({
+                        name: server,
+                        children: children,
                         nodeClick: false,
-                        itemStyle: colorNode(state),
-                        label: colorNodeLabel(state)
+                        itemStyle: colorNode(allOk),
+                        label: colorNodeLabel(allOk)
                     });
                 }
 
-                data.push({
-                    name: server,
-                    children: children,
-                    nodeClick: false,
-                    itemStyle: colorNode(allOk),
-                    label: colorNodeLabel(allOk)
-                });
-            }
+                const baseItemStyle = {
+                    color: "transparent",
+                    shadowBlur: 10,
+                    borderWidth: 4
+                };
 
-            const baseItemStyle = {
-                color: "transparent",
-                shadowBlur: 10,
-                borderWidth: 4
-            };
-
-            const option = {
-                label: {
-                    rotate: 'radial',
-                    color: bgColor,
-                    fontSize: 20
-                },
-                tooltip: {},
-                series: [{
-                    type: 'sunburst',
-                    sort: null,
-                    center: ['50%', '50%'],
-                    levels: [
-                        {},
-                        {
-                            r0: "15%",
-                            r: "50%",
-                            itemStyle: baseItemStyle
-                        },
-                        {
-                            r0: "52%",
-                            r: "54%",
-                            itemStyle: baseItemStyle,
-                            label: {
-                                position: 'outside',
-                                padding: 3
+                const option = {
+                    label: {
+                        rotate: 'radial',
+                        color: bgColor,
+                        fontSize: 20
+                    },
+                    tooltip: {},
+                    series: [{
+                        type: 'sunburst',
+                        sort: null,
+                        center: ['50%', '50%'],
+                        levels: [
+                            {},
+                            {
+                                r0: "15%",
+                                r: "50%",
+                                itemStyle: baseItemStyle
+                            },
+                            {
+                                r0: "52%",
+                                r: "54%",
+                                itemStyle: baseItemStyle,
+                                label: {
+                                    position: 'outside',
+                                    padding: 3
+                                }
                             }
-                        }
-                    ],
-                    data: data
-                }],
-                itemStyle: {
-                    borderColor: bgColor,
-                    borderWidth: 2
-                }
-            };
+                        ],
+                        data: data
+                    }],
+                    itemStyle: {
+                        borderColor: bgColor,
+                        borderWidth: 2
+                    }
+                };
 
-            chart.setOption(option);
-        });
+                chart.setOption(option);
+            });
+    }
+
+    function refresh() {
+        getServerState();
+        const panel = document.querySelector(".details.half");
+        if (panel && connection) {
+            fetchDetails();
+        }
+    }
+
+    getServerState();
+    setInterval(refresh, 30_000);
 </script>
 </body>
 </html>

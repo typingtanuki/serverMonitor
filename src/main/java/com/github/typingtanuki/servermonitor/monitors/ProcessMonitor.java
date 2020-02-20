@@ -32,6 +32,8 @@ public class ProcessMonitor implements Monitor {
         List<MonitorReport> out = new LinkedList<>();
         int pid = -1;
         long uptime = -1;
+        String name = null;
+        String commandLine = null;
         for (String proc : processes) {
             ProcessMonitorReport report = new ProcessMonitorReport(proc);
             boolean running = false;
@@ -40,11 +42,13 @@ public class ProcessMonitor implements Monitor {
                     running = true;
                     pid = c.getProcessID();
                     uptime = c.getUpTime();
+                    name = c.getName();
+                    commandLine = c.getCommandLine();
                     break;
                 }
             }
             if (running) {
-                report.ok(pid, uptime);
+                report.ok(pid, uptime, name, commandLine);
             } else {
                 report.ng();
             }

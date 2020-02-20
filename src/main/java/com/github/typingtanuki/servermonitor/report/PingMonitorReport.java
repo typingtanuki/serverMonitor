@@ -7,6 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class PingMonitorReport extends AbstractBoolMonitorReport {
+    private String method;
+    private String cause;
+
     public PingMonitorReport(String monitored) {
         super(monitored);
     }
@@ -24,7 +27,12 @@ public class PingMonitorReport extends AbstractBoolMonitorReport {
     @Override
     public Map<String, Object> getDetails() {
         Map<String, Object> out = new LinkedHashMap<>();
-        out.put("server", monitored);
+        out.put("Server", monitored);
+        if (cause != null) {
+            out.put("Cause", cause);
+        } else {
+            out.put("Method", method);
+        }
         return out;
     }
 
@@ -37,4 +45,32 @@ public class PingMonitorReport extends AbstractBoolMonitorReport {
     public MonitorCategory getCategory() {
         return MonitorCategory.remote;
     }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
+    public String getCause() {
+        return cause;
+    }
+
+    public void setCause(String cause) {
+        this.cause = cause;
+    }
+
+    public void ok(String method) {
+        this.method = method;
+        this.cause = null;
+        super.ok();
+    }
+
+    public void ng(Exception cause) {
+        this.cause = cause.getMessage();
+        super.ng();
+    }
+
 }

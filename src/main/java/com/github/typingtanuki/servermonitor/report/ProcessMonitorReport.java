@@ -9,6 +9,8 @@ import java.util.Map;
 public class ProcessMonitorReport extends AbstractBoolMonitorReport {
     private long uptime;
     private int pid;
+    private String name;
+    private String commandLine;
 
     public ProcessMonitorReport(String monitored) {
         super(monitored);
@@ -33,6 +35,12 @@ public class ProcessMonitorReport extends AbstractBoolMonitorReport {
         }
         if (uptime >= 0) {
             out.put("Uptime", millisToHUman(uptime));
+        }
+        if (name != null) {
+            out.put("Name", name);
+        }
+        if (commandLine != null) {
+            out.put("Command Line", commandLine);
         }
         return out;
     }
@@ -62,9 +70,11 @@ public class ProcessMonitorReport extends AbstractBoolMonitorReport {
         return MonitorCategory.system;
     }
 
-    public void ok(int pid, long uptime) {
+    public void ok(int pid, long uptime, String name, String commandLine) {
         super.ok();
         this.pid = pid;
         this.uptime = uptime;
+        this.name = name;
+        this.commandLine = commandLine;
     }
 }

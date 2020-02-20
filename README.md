@@ -24,10 +24,20 @@ Directly from your browser, see the state of all your servers in one glance.
   * If specific processes are currently running on the server or not
   * Available system updates (apt-get and apt based only) 
 * Network
-  * Pingability of other servers (echo based)
+  * Pingability of other servers (echo based, connection to a specific port)
   * Handshake with other servers running this tool (custom HTTP handshake)
   * If the monitor is not running on another server
   * Clock issues between servers
+  
+## GUI
+
+There is a GUI to monitor all the machines visible through the handshake.
+
+From the GUI it is possible to:
+* See the state of all monitored machines at once
+* See the details for each monitored machine (What is working, what is not working, ...)
+* See the settings and update the settings of any monitored machine
+** Note: Changing the web server port requires a restart to take effect
   
 ## REST Apis
 
@@ -44,7 +54,7 @@ Doing a `GET` on `/config` will return the current configuration
 Doing a `POST` on `/config`, with the new settings as a payload will update settings live.
 The new settings will be kept in memory, by adding the parameter `?persist=true`, the new settings will also be persisted to disk.
 
-NOTE: The REST port is the only setting which can not be updated through this method at this time.
+NOTE: The web server port is the only setting which can not be updated through this method at this time.
   
 ## How can it report ?
 
