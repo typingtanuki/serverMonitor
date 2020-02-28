@@ -10,10 +10,12 @@ import oshi.hardware.GlobalMemory;
 import java.util.Collections;
 import java.util.List;
 
+import static com.github.typingtanuki.servermonitor.report.AbstractPercentMonitorReport.usage;
+
 /**
  * Monitors Memory usage against a max allowed percentage
  */
-public class MemoryMonitor implements Monitor {
+public class MemoryMonitor extends WithHistory implements Monitor {
     private MainConfig config;
 
     public MemoryMonitor(MainConfig config) {
@@ -28,11 +30,18 @@ public class MemoryMonitor implements Monitor {
 
         long free = memory.getAvailable();
         long total = memory.getTotal();
+        touch(usage(free, total), config.getMemory().getHistorySize());
+
         if (total <= 0) {
             return Collections.singletonList(new InvalidReport(getType(), getCategory()));
         }
 
-        return Collections.singletonList(new MemoryMonitorReport(free, total, config.getMemory().getMaxUsage()));
+        return Collections.singletonList(new MemoryMonitorReport(
+                free,
+                total,
+                getHistory(),
+                getHistoryDate(),
+                config.getMemory().getMaxUsage()));
     }
 
     @Override

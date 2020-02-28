@@ -4,13 +4,19 @@ import com.github.typingtanuki.servermonitor.monitors.MonitorCategory;
 import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.github.typingtanuki.servermonitor.report.ReportUtils.bytesToHuman;
 
 public class MemoryMonitorReport extends AbstractPercentMonitorReport {
-    public MemoryMonitorReport(long free, long total, int maxUsage) {
+    private final List<Long> history;
+    private final List<String> historyDates;
+
+    public MemoryMonitorReport(long free, long total, List<Long> history, List<String> historyDates, int maxUsage) {
         super(free, total, maxUsage);
+        this.history = history;
+        this.historyDates = historyDates;
     }
 
     @Override
@@ -33,6 +39,8 @@ public class MemoryMonitorReport extends AbstractPercentMonitorReport {
         out.put("Maximum Usage", maxUsage + "%");
         out.put("Free memory", bytesToHuman(free));
         out.put("Total memory", bytesToHuman(total));
+        out.put("History", history);
+        out.put("History Dates", historyDates);
         return out;
     }
 

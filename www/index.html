@@ -4,127 +4,11 @@
     <meta charset="utf-8">
     <!-- including ECharts file -->
     <script src="https://cdn.jsdelivr.net/npm/echarts@4.6.0/dist/echarts.min.js"></script>
+    <script src="./colors.js"></script>
     <script src="./gauge.js"></script>
-    <style>
-        body, textarea {
-            background-color: #2E2733;
-            color: #c3c3c3;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            overflow: hidden;
-        }
+    <script src="./line.js"></script>
 
-        .chart {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            padding: 20px;
-        }
-
-        .chart.half {
-            right: 300px;
-            overflow: hidden;
-        }
-
-        .details, .settings {
-            display: none;
-            overflow-x: hidden;
-        }
-
-        .details.half, .settings.half {
-            display: block;
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 300px;
-            bottom: 0;
-            border-left: solid 3px #7f7f7f;
-            color: #c3c3c3;
-            overflow: auto;
-            padding: 10px;
-        }
-
-        .settings > textarea {
-            position: absolute;
-            top: 45px;
-            left: 5px;
-            right: 5px;
-            bottom: 5px;
-            width: inherit;
-
-            border: 2px solid #7f7f7f;
-        }
-
-        #server {
-            font-size: 30px;
-            font-weight: bolder;
-        }
-
-        #response {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        #response > * {
-            font-size: 12px;
-            font-weight: normal;
-        }
-
-        #success, #failure {
-            padding-left: 5px;
-        }
-
-        .monitor {
-            margin-bottom: 5px;
-            padding-left: 5px;
-        }
-
-        #success > * {
-            border-left: 3px solid #4ea9ff;
-        }
-
-        #failure > * {
-            border-left: 3px solid #ef2e37;
-        }
-
-        .report-title {
-            font-size: 20px;
-        }
-
-        .report-details {
-            white-space: pre-line;
-            font-family: "monospace";
-        }
-
-        .key {
-            font-weight: bold;
-        }
-
-        ul {
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            list-style-type: none;
-        }
-
-        .gauge {
-            position: relative;
-            width: 270px;
-            height: 200px;
-        }
-
-        .active {
-            cursor: pointer;
-            border: 2px solid #7f7f7f;
-            padding: 5px;
-            font-size: 15px;
-        }
-    </style>
+    <link href="monitor.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -146,12 +30,6 @@
 </div>
 
 <script type="text/javascript">
-    const colorOk = "#4ea9ff";
-    const colorNg = "#ef2e37";
-    const colorTick = "#a6d7ff";
-    const bgColor = "#2E2733";
-
-
     const chart = echarts.init(document.getElementById('main'));
     const data = [];
     let serverIPs = {};
@@ -316,7 +194,20 @@
         const details = report.details;
         const keys = Object.keys(details);
 
-        if (keys.indexOf("Current Usage") !== -1 && keys.indexOf("Maximum Usage") !== -1) {
+        const hidden = [];
+
+        if (keys.indexOf("History") !== -1 &&
+            keys.indexOf("History Dates") !== -1 &&
+            keys.indexOf("Maximum Usage") !== -1) {
+            const sub = document.createElement("li");
+            element.appendChild(sub);
+            const history = details["History"];
+            const dates = details["History Dates"];
+            const max = parseInt(details["Maximum Usage"]);
+            sub.appendChild(makeLine(history, dates, max));
+            hidden.push("History");
+            hidden.push("History Dates");
+        } else if (keys.indexOf("Current Usage") !== -1 && keys.indexOf("Maximum Usage") !== -1) {
             const sub = document.createElement("li");
             element.appendChild(sub);
             const current = parseInt(details["Current Usage"]);
@@ -325,6 +216,9 @@
         }
 
         for (let i = 0; i < keys.length; i++) {
+            if (hidden.indexOf(keys[i]) > -1) {
+                continue;
+            }
             const sub = document.createElement("li");
             element.appendChild(sub);
 

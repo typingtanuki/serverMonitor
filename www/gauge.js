@@ -2,7 +2,6 @@ function makeGauge(current, max) {
     const gaugeOption = {
         series: [
             {
-                name: '速度',
                 type: 'gauge',
                 min: 0,
                 max: 100,

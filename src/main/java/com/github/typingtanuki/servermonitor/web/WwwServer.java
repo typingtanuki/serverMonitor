@@ -31,11 +31,11 @@ public class WwwServer {
         String ext = parts[parts.length - 1];
         switch (ext) {
             case "html":
-                return ContentType.TEXT_HTML.getMimeType();
+                return "text/html";
             case "js":
-                return ContentType.TEXT_PLAIN.getMimeType();
+                return "application/javascript";
             case "css":
-                return ContentType.TEXT_PLAIN.getMimeType();
+                return "text/css";
         }
         return ContentType.TEXT_PLAIN.getMimeType();
     }

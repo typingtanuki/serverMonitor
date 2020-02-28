@@ -26,7 +26,7 @@ public abstract class AbstractPercentMonitorReport implements MonitorReport {
         this.maxUsage = maxUsage;
     }
 
-    private long usage(long free, long total) {
+    public static long usage(long free, long total) {
         return 100 - free * 100 / total;
     }
 

@@ -2,6 +2,7 @@ package com.github.typingtanuki.servermonitor.config;
 
 public class MemoryMonitorConfig extends MonitorConfig {
     private int maxUsage = 80;
+    private int historySize = 1000;
 
     public MemoryMonitorConfig() {
         super();
@@ -25,5 +26,13 @@ public class MemoryMonitorConfig extends MonitorConfig {
 
     public void setMaxUsage(int maxUsage) {
         this.maxUsage = maxUsage;
+    }
+
+    public int getHistorySize() {
+        return historySize;
+    }
+
+    public void setHistorySize(int historySize) {
+        this.historySize = historySize;
     }
 }
