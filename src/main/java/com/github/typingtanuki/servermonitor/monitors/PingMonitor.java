@@ -12,14 +12,17 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Monitors connectivity to other servers using ping (echo based)
  */
 public class PingMonitor implements Monitor {
     private static Logger logger = LoggerFactory.getLogger(PingMonitor.class);
+    private final Map<String, String> lastSeen = new LinkedHashMap<>();
 
     private MainConfig config;
 
@@ -37,6 +40,15 @@ public class PingMonitor implements Monitor {
         for (String server : ping) {
             out.add(tryPing(server));
         }
+        List<String> removed = new LinkedList<>();
+        for (String key : lastSeen.keySet()) {
+            if (!ping.contains(key)) {
+                removed.add(key);
+            }
+        }
+        for (String r : removed) {
+            lastSeen.remove(r);
+        }
         return out;
     }
 
@@ -49,20 +61,27 @@ public class PingMonitor implements Monitor {
                 report = new PingMonitorReport(host);
                 tryOpenPort(host, report, port);
             } catch (RuntimeException e) {
-                report.ng(e);
+                report.ng(e, lastSeen.get(server));
             }
             return report;
         }
 
-        if (tryEcho(server, report)) {
+        String result;
+        result = tryEcho(server, report);
+        if (result != null) {
+            lastSeen.put(server, result);
             return report;
         }
 
-        if (tryOpenPort(server, report, 80)) {
+        result = tryOpenPort(server, report, 80);
+        if (result != null) {
+            lastSeen.put(server, result);
             return report;
         }
 
-        if (tryOpenPort(server, report, 8080)) {
+        result = tryOpenPort(server, report, 8080);
+        if (result != null) {
+            lastSeen.put(server, result);
             return report;
         }
 
@@ -70,34 +89,32 @@ public class PingMonitor implements Monitor {
         return report;
     }
 
-    private boolean tryEcho(String server,
-                            PingMonitorReport report) {
+    private String tryEcho(String server,
+                           PingMonitorReport report) {
         try {
             InetAddress target = InetAddress.getByName(server);
             if (!target.isReachable(5000)) {
                 throw new IOException("Server unreachable");
             }
-            report.ok("echo");
-            return true;
+            return report.ok("echo");
         } catch (IOException | RuntimeException e) {
             logger.debug("Could not echo server {}", server, e);
         }
-        return false;
+        return null;
     }
 
-    private boolean tryOpenPort(String server,
-                                PingMonitorReport report,
-                                int port) {
+    private String tryOpenPort(String server,
+                               PingMonitorReport report,
+                               int port) {
         Socket s = null;
         try {
             s = new Socket();
             s.setReuseAddress(true);
             SocketAddress sa = new InetSocketAddress(server, port);
             s.connect(sa, 5000);
-            report.ok("Port " + port);
-            return true;
+            return report.ok("Port " + port);
         } catch (IOException e) {
-            report.ng(e);
+            report.ng(e, lastSeen.get(server));
             logger.debug("Could not connect to {}", server, e);
         } finally {
             if (s != null) {
@@ -108,7 +125,7 @@ public class PingMonitor implements Monitor {
                 }
             }
         }
-        return false;
+        return null;
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static com.github.typingtanuki.servermonitor.report.ReportUtils.millisToHuman;
 import static com.github.typingtanuki.servermonitor.report.ReportUtils.timestampToHuman;
 
 public class ShakeMonitorReport extends AbstractBoolMonitorReport {
@@ -14,29 +15,33 @@ public class ShakeMonitorReport extends AbstractBoolMonitorReport {
     private long response;
     private String cause;
     private Long maxDelta;
+    private String lastSeen;
 
     public ShakeMonitorReport(String target) {
         super(target);
     }
 
-    public void noConnect(String cause) {
+    public void noConnect(String cause, String lastSeen) {
         ng();
         reason = "Could not connect";
         this.cause = cause;
+        this.lastSeen = lastSeen;
     }
 
-    public void pingTooLong(long request, long response, long maxDelta) {
+    public void pingTooLong(long request, long response, long maxDelta, String lastSeen) {
         this.request = request;
         this.response = response;
         this.maxDelta = maxDelta;
+        this.lastSeen = lastSeen;
         ng();
         reason = "Ping took too long";
     }
 
-    public void pingBackInTime(long request, long response, long maxDelta) {
+    public void pingBackInTime(long request, long response, long maxDelta, String lastSeen) {
         this.request = request;
         this.response = response;
         this.maxDelta = maxDelta;
+        this.lastSeen = lastSeen;
         ng();
         reason = "Ping went back in time";
     }
@@ -59,20 +64,23 @@ public class ShakeMonitorReport extends AbstractBoolMonitorReport {
     }
 
     @Override
-    public Map<String, Object> getDetails() {
-        Map<String, Object> out = new LinkedHashMap<>();
-        out.put("Server", monitored);
+    public Map<DetailKey, Object> getDetails() {
+        Map<DetailKey, Object> out = new LinkedHashMap<>();
+        out.put(DetailKey.SERVER, monitored);
         if (reason != null) {
-            out.put("reason", reason);
+            out.put(DetailKey.REASON, reason);
         }
         if (request > 0 && response > 0) {
-            out.put("Request time", timestampToHuman(request));
-            out.put("Response time", timestampToHuman(response));
-            out.put("Delta", response - request);
-            out.put("Max delta", maxDelta);
+            out.put(DetailKey.REQUEST_TIME, timestampToHuman(request));
+            out.put(DetailKey.RESPONSE_TIME, timestampToHuman(response));
+            out.put(DetailKey.DELTA, millisToHuman(response - request));
+            out.put(DetailKey.MAX_DELTA, millisToHuman(maxDelta));
         }
         if (cause != null) {
-            out.put("Cause", cause);
+            out.put(DetailKey.CAUSE, cause);
+        }
+        if (lastSeen != null) {
+            out.put(DetailKey.LAST_SEEN, lastSeen);
         }
         return out;
     }

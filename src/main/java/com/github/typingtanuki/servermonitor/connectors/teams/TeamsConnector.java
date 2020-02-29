@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.connectors.Connector;
+import com.github.typingtanuki.servermonitor.report.DetailKey;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.slf4j.Logger;
@@ -72,8 +73,8 @@ public class TeamsConnector implements Connector {
         payloadSection.setActivityTitle(monitorReport.getTitle());
         payloadSection.setActivitySubtitle(monitorReport.getDescription());
 
-        for (Map.Entry<String, Object> details : monitorReport.getDetails().entrySet()) {
-            payloadSection.addFact(new TeamsFact(details.getKey(), String.valueOf(details.getValue())));
+        for (Map.Entry<DetailKey, Object> details : monitorReport.getDetails().entrySet()) {
+            payloadSection.addFact(new TeamsFact(details.getKey().getValue(), String.valueOf(details.getValue())));
         }
         payload.addSection(payloadSection);
 

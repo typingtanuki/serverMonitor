@@ -6,6 +6,8 @@ import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static com.github.typingtanuki.servermonitor.report.ReportUtils.millisToHuman;
+
 public class ProcessMonitorReport extends AbstractBoolMonitorReport {
     private long uptime;
     private int pid;
@@ -27,37 +29,22 @@ public class ProcessMonitorReport extends AbstractBoolMonitorReport {
     }
 
     @Override
-    public Map<String, Object> getDetails() {
-        Map<String, Object> out = new LinkedHashMap<>();
-        out.put("Process", monitored);
+    public Map<DetailKey, Object> getDetails() {
+        Map<DetailKey, Object> out = new LinkedHashMap<>();
+        out.put(DetailKey.PROCESS, monitored);
         if (pid >= 0) {
-            out.put("PID", pid);
+            out.put(DetailKey.PID, pid);
         }
         if (uptime >= 0) {
-            out.put("Uptime", millisToHUman(uptime));
+            out.put(DetailKey.UPTIME, millisToHuman(uptime));
         }
         if (name != null) {
-            out.put("Name", name);
+            out.put(DetailKey.NAME, name);
         }
         if (commandLine != null) {
-            out.put("Command Line", commandLine);
+            out.put(DetailKey.COMMAND_LINE, commandLine);
         }
         return out;
-    }
-
-    private String millisToHUman(long uptime) {
-        if (uptime <= 1000) {
-            return uptime + "ms";
-        }
-        if (uptime <= 60_000) {
-            return (uptime / 1000) + "s";
-        }
-        if (uptime <= 3_600_000) {
-            long inMin = uptime / 60_000;
-            return inMin + "min " + millisToHUman(uptime - inMin * 60_000);
-        }
-        long inHour = uptime / 3_600_000;
-        return inHour + "hour " + millisToHUman(uptime - inHour * 3_600_000);
     }
 
     @Override

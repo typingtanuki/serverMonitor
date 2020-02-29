@@ -33,7 +33,7 @@ public class InvalidReport implements MonitorReport {
     }
 
     @Override
-    public Map<String, Object> getDetails() {
+    public Map<DetailKey, Object> getDetails() {
         return Collections.emptyMap();
     }
 

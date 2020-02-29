@@ -3,6 +3,7 @@ package com.github.typingtanuki.servermonitor.updates;
 import com.github.typingtanuki.servermonitor.monitors.MonitorCategory;
 import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 import com.github.typingtanuki.servermonitor.report.AbstractBoolMonitorReport;
+import com.github.typingtanuki.servermonitor.report.DetailKey;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -31,11 +32,9 @@ public class UpdateReport extends AbstractBoolMonitorReport {
     }
 
     @Override
-    public Map<String, Object> getDetails() {
-        Map<String, Object> details = new LinkedHashMap<>();
-        for (Map.Entry<String, String> update : updates.entrySet()) {
-            details.put(update.getKey(), update.getValue());
-        }
+    public Map<DetailKey, Object> getDetails() {
+        Map<DetailKey, Object> details = new LinkedHashMap<>();
+            details.put(DetailKey.UPDATES, updates);
         return details;
     }
 

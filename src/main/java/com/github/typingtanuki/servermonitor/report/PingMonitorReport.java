@@ -3,12 +3,16 @@ package com.github.typingtanuki.servermonitor.report;
 import com.github.typingtanuki.servermonitor.monitors.MonitorCategory;
 import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 
+import javax.management.DescriptorAccess;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static com.github.typingtanuki.servermonitor.report.ReportUtils.now;
 
 public class PingMonitorReport extends AbstractBoolMonitorReport {
     private String method;
     private String cause;
+    private String lastSeen;
 
     public PingMonitorReport(String monitored) {
         super(monitored);
@@ -25,13 +29,14 @@ public class PingMonitorReport extends AbstractBoolMonitorReport {
     }
 
     @Override
-    public Map<String, Object> getDetails() {
-        Map<String, Object> out = new LinkedHashMap<>();
-        out.put("Server", monitored);
+    public Map<DetailKey, Object> getDetails() {
+        Map<DetailKey, Object> out = new LinkedHashMap<>();
+        out.put(DetailKey.SERVER, monitored);
         if (cause != null) {
-            out.put("Cause", cause);
+            out.put(DetailKey.CAUSE, cause);
+            out.put(DetailKey.LAST_SEEN, lastSeen);
         } else {
-            out.put("Method", method);
+            out.put(DetailKey.METHOD, method);
         }
         return out;
     }
@@ -62,14 +67,16 @@ public class PingMonitorReport extends AbstractBoolMonitorReport {
         this.cause = cause;
     }
 
-    public void ok(String method) {
+    public String ok(String method) {
         this.method = method;
         this.cause = null;
         super.ok();
+        return now();
     }
 
-    public void ng(Exception cause) {
+    public void ng(Exception cause, String lastSeen) {
         this.cause = cause.getMessage();
+        this.lastSeen = lastSeen;
         super.ng();
     }
 

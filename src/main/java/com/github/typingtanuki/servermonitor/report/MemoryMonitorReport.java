@@ -33,14 +33,14 @@ public class MemoryMonitorReport extends AbstractPercentMonitorReport {
     }
 
     @Override
-    public Map<String, Object> getDetails() {
-        Map<String, Object> out = new LinkedHashMap<>();
-        out.put("Current Usage", usage + "%");
-        out.put("Maximum Usage", maxUsage + "%");
-        out.put("Free memory", bytesToHuman(free));
-        out.put("Total memory", bytesToHuman(total));
-        out.put("History", history);
-        out.put("History Dates", historyDates);
+    public Map<DetailKey, Object> getDetails() {
+        Map<DetailKey, Object> out = new LinkedHashMap<>();
+        out.put(DetailKey.USAGE_CURRENT, usage + "%");
+        out.put(DetailKey.USAGE_MAX, maxUsage + "%");
+        out.put(DetailKey.MEMORY_FREE, bytesToHuman(free));
+        out.put(DetailKey.MEMORY_TOTAL, bytesToHuman(total));
+        out.put(DetailKey.HISTORY, history);
+        out.put(DetailKey.HISTORY_DATES, historyDates);
         return out;
     }
 

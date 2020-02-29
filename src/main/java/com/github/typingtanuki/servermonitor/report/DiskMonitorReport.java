@@ -27,13 +27,13 @@ public class DiskMonitorReport extends AbstractPercentMonitorReport {
     }
 
     @Override
-    public Map<String, Object> getDetails() {
-        Map<String, Object> out = new LinkedHashMap<>();
-        out.put("Disk", monitored);
-        out.put("Current Usage", usage + "%");
-        out.put("Maximum Usage", maxUsage + "%");
-        out.put("Free space", bytesToHuman(free));
-        out.put("Total space", bytesToHuman(total));
+    public Map<DetailKey, Object> getDetails() {
+        Map<DetailKey, Object> out = new LinkedHashMap<>();
+        out.put(DetailKey.DISK, monitored);
+        out.put(DetailKey.USAGE_CURRENT, usage + "%");
+        out.put(DetailKey.USAGE_MAX, maxUsage + "%");
+        out.put(DetailKey.SPACE_FREE, bytesToHuman(free));
+        out.put(DetailKey.SPACE_TOTAL, bytesToHuman(total));
         return out;
     }
 

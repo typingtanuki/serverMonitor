@@ -12,7 +12,7 @@ public interface MonitorReport {
 
     String getDescription();
 
-    Map<String, Object> getDetails();
+    Map<DetailKey, Object> getDetails();
 
     MonitorType getType();
 

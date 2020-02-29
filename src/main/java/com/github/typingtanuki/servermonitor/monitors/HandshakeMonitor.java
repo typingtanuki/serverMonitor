@@ -8,8 +8,9 @@ import com.github.typingtanuki.servermonitor.report.ShakeMonitorReport;
 import com.github.typingtanuki.servermonitor.web.handshake.HandshakeResponse;
 import oshi.SystemInfo;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static com.github.typingtanuki.servermonitor.report.ReportUtils.now;
 
 /**
  * Sends a handshake to another monitor and waits for response
@@ -23,6 +24,7 @@ import java.util.List;
  */
 public class HandshakeMonitor implements Monitor {
     private final MainConfig config;
+    private final Map<String, String> lastSeen = new LinkedHashMap<>();
 
     public HandshakeMonitor(MainConfig config) {
         super();
@@ -40,6 +42,17 @@ public class HandshakeMonitor implements Monitor {
             shakeHand(target, monitor, maxHandshakeTime);
             out.add(monitor);
         }
+
+        List<String> removed = new LinkedList<>();
+        for (String key : lastSeen.keySet()) {
+            if (!targets.contains(key)) {
+                removed.add(key);
+            }
+        }
+        for (String r : removed) {
+            lastSeen.remove(r);
+        }
+
         return out;
     }
 
@@ -70,20 +83,31 @@ public class HandshakeMonitor implements Monitor {
         try {
             handshake = call.get();
         } catch (RestCallException e) {
-            monitor.noConnect(e.shortMessage());
+            monitor.noConnect(
+                    e.shortMessage(),
+                    lastSeen.get(target));
             return;
         }
 
         //Validate the response content
         if (handshake.getRequestTime() - handshake.getResponseTime() > maxHandshakeTime) {
-            monitor.pingBackInTime(handshake.getRequestTime(), handshake.getResponseTime(), maxHandshakeTime);
+            monitor.pingBackInTime(
+                    handshake.getRequestTime(),
+                    handshake.getResponseTime(),
+                    maxHandshakeTime,
+                    lastSeen.get(target));
             return;
         }
 
         if (handshake.getResponseTime() - handshake.getRequestTime() > maxHandshakeTime) {
-            monitor.pingTooLong(handshake.getRequestTime(), handshake.getResponseTime(), maxHandshakeTime);
+            monitor.pingTooLong(
+                    handshake.getRequestTime(),
+                    handshake.getResponseTime(),
+                    maxHandshakeTime,
+                    lastSeen.get(target));
             return;
         }
         monitor.ok(handshake.getRequestTime(), handshake.getResponseTime(), maxHandshakeTime);
+        lastSeen.put(target, now());
     }
 }

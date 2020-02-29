@@ -31,12 +31,12 @@ public class CpuMonitorReport extends AbstractPercentMonitorReport {
     }
 
     @Override
-    public Map<String, Object> getDetails() {
-        Map<String, Object> out = new LinkedHashMap<>();
-        out.put("Current Usage", usage + "%");
-        out.put("Maximum Usage", maxUsage + "%");
-        out.put("History", history);
-        out.put("History Dates", historyDates);
+    public Map<DetailKey, Object> getDetails() {
+        Map<DetailKey, Object> out = new LinkedHashMap<>();
+        out.put(DetailKey.USAGE_CURRENT, usage + "%");
+        out.put(DetailKey.USAGE_MAX, maxUsage + "%");
+        out.put(DetailKey.HISTORY, history);
+        out.put(DetailKey.HISTORY_DATES, historyDates);
         return out;
     }
 
