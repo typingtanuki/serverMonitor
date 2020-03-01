@@ -53,6 +53,7 @@ public class ServerMonitor {
             monitors.add(new MemoryMonitor(config));
             monitors.add(new ProcessMonitor(config));
             monitors.add(new PingMonitor(config));
+            monitors.add(new NetworkMonitor(config));
             monitors.add(UpdateChecker.bestChecker(config));
         }
 

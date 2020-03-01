@@ -7,5 +7,6 @@ public enum MonitorType {
     handshake,
     ping,
     update,
+    network,
     process
 }

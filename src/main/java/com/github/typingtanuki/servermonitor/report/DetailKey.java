@@ -26,7 +26,12 @@ public enum DetailKey {
     DISK("Disk"),
     SPACE_FREE("Free space"),
     SPACE_TOTAL("Total space"),
-    UPDATES("Updates");
+    UPDATES("Updates"),
+    INTERVAL("Interval"),
+    BYTES_SENT("Bytes sent"),
+    BYTES_RECEIVED("Bytes received"),
+    HISTORY_RECEIVED("History Received"),
+    HISTORY_SENT("History Sent");
 
     private final String value;
 
