@@ -1,6 +1,7 @@
 package com.github.typingtanuki.servermonitor.monitors;
 
 import com.github.typingtanuki.servermonitor.config.MainConfig;
+import com.github.typingtanuki.servermonitor.core.History;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import com.github.typingtanuki.servermonitor.report.NetworkMonitorReport;
 import oshi.SystemInfo;
@@ -11,11 +12,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class NetworkMonitor implements Monitor {
+    private static final long NETWORK_HISTORY_SIZE = 1000;
     private final MainConfig config;
     private long prevRecv = -1;
     private long prevSent = -1;
-    private LinkedList<Long> historyRecv = new LinkedList<>();
-    private LinkedList<Long> historySent = new LinkedList<>();
+    private History historyRecv = new History(-1);
+    private History historySent = new History(-1);
 
     public NetworkMonitor(MainConfig config) {
         super();
@@ -38,10 +40,8 @@ public class NetworkMonitor implements Monitor {
         if (prevRecv > -1 && prevSent > -1) {
             long dRecv = recv - prevRecv;
             long dSent = sent - prevSent;
-            historyRecv.add(dRecv);
-            historySent.add(dSent);
-            prune(historyRecv, 1000);
-            prune(historySent, 1000);
+            historyRecv.touch(dRecv, NETWORK_HISTORY_SIZE, -1L);
+            historySent.touch(dSent, NETWORK_HISTORY_SIZE, -1L);
             return Collections.singletonList(new NetworkMonitorReport(
                     dRecv,
                     dSent,

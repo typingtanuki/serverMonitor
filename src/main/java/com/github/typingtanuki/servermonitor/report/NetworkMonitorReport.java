@@ -1,10 +1,10 @@
 package com.github.typingtanuki.servermonitor.report;
 
+import com.github.typingtanuki.servermonitor.core.History;
 import com.github.typingtanuki.servermonitor.monitors.MonitorCategory;
 import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import static com.github.typingtanuki.servermonitor.report.ReportUtils.bytesToHuman;
@@ -13,11 +13,11 @@ import static com.github.typingtanuki.servermonitor.report.ReportUtils.millisToH
 public class NetworkMonitorReport implements MonitorReport {
     private final long recv;
     private final long sent;
-    private final List<Long> historyRecv;
-    private final List<Long> historySent;
+    private final History historyRecv;
+    private final History historySent;
     private final long monitorTime;
 
-    public NetworkMonitorReport(long recv, long sent, List<Long> historyRecv, List<Long> historySent, long monitorTime) {
+    public NetworkMonitorReport(long recv, long sent, History historyRecv, History historySent, long monitorTime) {
         this.recv = recv;
         this.sent = sent;
         this.historyRecv = historyRecv;
@@ -46,8 +46,8 @@ public class NetworkMonitorReport implements MonitorReport {
         out.put(DetailKey.BYTES_RECEIVED, bytesToHuman(recv));
         out.put(DetailKey.BYTES_SENT, bytesToHuman(sent));
         out.put(DetailKey.INTERVAL, millisToHuman(monitorTime));
-        out.put(DetailKey.HISTORY_RECEIVED, millisToHuman(monitorTime));
-        out.put(DetailKey.HISTORY_SENT, millisToHuman(monitorTime));
+        out.put(DetailKey.HISTORY_RECEIVED, historyRecv);
+        out.put(DetailKey.HISTORY_SENT, historySent);
         return out;
     }
 

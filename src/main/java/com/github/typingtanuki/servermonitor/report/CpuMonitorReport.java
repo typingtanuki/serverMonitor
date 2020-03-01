@@ -1,23 +1,20 @@
 package com.github.typingtanuki.servermonitor.report;
 
+import com.github.typingtanuki.servermonitor.core.History;
 import com.github.typingtanuki.servermonitor.monitors.MonitorCategory;
 import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CpuMonitorReport extends AbstractPercentMonitorReport {
-    private final List<Long> history;
-    private final List<String> historyDates;
+    private final History history;
 
     public CpuMonitorReport(long load,
-                            List<Long> history,
-                            List<String> historyDates,
+                            History history,
                             int maxUsage) {
         super(load, maxUsage);
         this.history = history;
-        this.historyDates = historyDates;
     }
 
     @Override
@@ -36,7 +33,6 @@ public class CpuMonitorReport extends AbstractPercentMonitorReport {
         out.put(DetailKey.USAGE_CURRENT, usage + "%");
         out.put(DetailKey.USAGE_MAX, maxUsage + "%");
         out.put(DetailKey.HISTORY, history);
-        out.put(DetailKey.HISTORY_DATES, historyDates);
         return out;
     }
 

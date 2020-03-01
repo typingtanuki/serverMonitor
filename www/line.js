@@ -1,4 +1,4 @@
-function makeLine(history, dates, max) {
+function makeLine(history, dates, max, limit) {
     const lineOption = {
         type: 'line',
         tooltip: {
@@ -11,7 +11,7 @@ function makeLine(history, dates, max) {
         yAxis: {
             type: 'value',
             min: 0,
-            max: 100
+            max: limit
         },
         visualMap: {
             show: false,
@@ -34,7 +34,7 @@ function makeLine(history, dates, max) {
                 data: [{
                     yAxis: max
                 }, {
-                    yAxis: 100
+                    yAxis: limit
                 }]
             }
         },
@@ -43,6 +43,14 @@ function makeLine(history, dates, max) {
             shadowBlur: 5
         }
     };
+
+    if (limit === -1) {
+        lineOption.yAxis = {
+            type: 'value'
+        };
+        delete lineOption["visualMap"];
+        delete lineOption.series["markLine"];
+    }
 
     const chart = document.createElement("div");
     chart.classList.add("line");

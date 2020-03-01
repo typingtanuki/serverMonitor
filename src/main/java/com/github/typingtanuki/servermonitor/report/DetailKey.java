@@ -13,7 +13,6 @@ public enum DetailKey {
     LAST_SEEN("Last Seen"),
     METHOD("Method"),
     HISTORY("History"),
-    HISTORY_DATES("History Dates"),
     MEMORY_TOTAL("Total memory"),
     MEMORY_FREE("Free memory"),
     USAGE_MAX("Maximum Usage"),

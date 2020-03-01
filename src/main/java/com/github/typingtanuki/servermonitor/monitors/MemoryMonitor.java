@@ -1,6 +1,7 @@
 package com.github.typingtanuki.servermonitor.monitors;
 
 import com.github.typingtanuki.servermonitor.config.MainConfig;
+import com.github.typingtanuki.servermonitor.core.History;
 import com.github.typingtanuki.servermonitor.report.InvalidReport;
 import com.github.typingtanuki.servermonitor.report.MemoryMonitorReport;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
@@ -15,8 +16,9 @@ import static com.github.typingtanuki.servermonitor.report.AbstractPercentMonito
 /**
  * Monitors Memory usage against a max allowed percentage
  */
-public class MemoryMonitor extends WithHistory implements Monitor {
+public class MemoryMonitor implements Monitor {
     private MainConfig config;
+    private History history = new History(100);
 
     public MemoryMonitor(MainConfig config) {
         super();
@@ -30,7 +32,7 @@ public class MemoryMonitor extends WithHistory implements Monitor {
 
         long free = memory.getAvailable();
         long total = memory.getTotal();
-        touch(usage(free, total), config.getMemory().getHistorySize());
+        history.touch(usage(free, total), config.getMemory().getHistorySize(), (long) config.getMemory().getMaxUsage());
 
         if (total <= 0) {
             return Collections.singletonList(new InvalidReport(getType(), getCategory()));
@@ -39,8 +41,7 @@ public class MemoryMonitor extends WithHistory implements Monitor {
         return Collections.singletonList(new MemoryMonitorReport(
                 free,
                 total,
-                getHistory(),
-                getHistoryDate(),
+                history,
                 config.getMemory().getMaxUsage()));
     }
 

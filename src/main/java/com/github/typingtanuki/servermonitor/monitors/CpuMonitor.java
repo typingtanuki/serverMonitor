@@ -1,21 +1,21 @@
 package com.github.typingtanuki.servermonitor.monitors;
 
 import com.github.typingtanuki.servermonitor.config.MainConfig;
+import com.github.typingtanuki.servermonitor.core.History;
 import com.github.typingtanuki.servermonitor.report.CpuMonitorReport;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
-import org.glassfish.jersey.internal.guava.Lists;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Monitors CPU usage against a max allowed percentage
  */
-public class CpuMonitor extends WithHistory implements Monitor {
+public class CpuMonitor implements Monitor {
     private MainConfig config;
+    private History history = new History(100);
 
     public CpuMonitor(MainConfig config) {
         super();
@@ -28,11 +28,10 @@ public class CpuMonitor extends WithHistory implements Monitor {
         CentralProcessor processor = systemInfo.getHardware().getProcessor();
         double[] loads = processor.getSystemLoadAverage(1);
         long last = (long) loads[0];
-        touch(last, config.getCpu().getHistorySize());
+        history.touch(last, config.getCpu().getHistorySize(), (long) config.getCpu().getMaxUsage());
         return Collections.singletonList(new CpuMonitorReport(
                 last,
-                getHistory(),
-                getHistoryDate(),
+                history,
                 config.getCpu().getMaxUsage()));
     }
 
