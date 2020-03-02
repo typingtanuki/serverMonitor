@@ -8,6 +8,8 @@ import java.util.List;
 import static com.github.typingtanuki.servermonitor.report.ReportUtils.now;
 
 public class History {
+    public static final long UNLIMITED = -1L;
+
     private final long limit;
     private LinkedList<Long> values = new LinkedList<>();
     private LinkedList<String> dates = new LinkedList<>();
@@ -19,7 +21,7 @@ public class History {
         this.limit = limit;
     }
 
-    public void touch(Long newData, long historySize, Long max) {
+    public void touch(Long newData, int historySize, Long max) {
         values.add(newData);
         dates.add(now());
         while (values.size() > historySize) {

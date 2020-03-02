@@ -8,16 +8,16 @@ import oshi.SystemInfo;
 import oshi.hardware.NetworkIF;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 public class NetworkMonitor implements Monitor {
-    private static final long NETWORK_HISTORY_SIZE = 1000;
     private final MainConfig config;
+
     private long prevRecv = -1;
     private long prevSent = -1;
-    private History historyRecv = new History(-1);
-    private History historySent = new History(-1);
+
+    private History historyRecv = new History(History.UNLIMITED);
+    private History historySent = new History(History.UNLIMITED);
 
     public NetworkMonitor(MainConfig config) {
         super();
@@ -37,32 +37,30 @@ public class NetworkMonitor implements Monitor {
             recv += nif.getBytesRecv();
             sent += nif.getBytesSent();
         }
-        if (prevRecv > -1 && prevSent > -1) {
-            long dRecv = recv - prevRecv;
-            long dSent = sent - prevSent;
-            historyRecv.touch(dRecv, NETWORK_HISTORY_SIZE, -1L);
-            historySent.touch(dSent, NETWORK_HISTORY_SIZE, -1L);
-            return Collections.singletonList(new NetworkMonitorReport(
-                    dRecv,
-                    dSent,
-                    historyRecv,
-                    historySent,
-                    config.getMonitorTime()));
-        }
-        prevRecv = recv;
-        prevSent = sent;
-        return Collections.emptyList();
-    }
 
-    private void prune(LinkedList<Long> list, int length) {
-        while (list.size() > length) {
-            list.pop();
+        try {
+            if (prevRecv > -1 && prevSent > -1) {
+                long dRecv = recv - prevRecv;
+                long dSent = sent - prevSent;
+                historyRecv.touch(dRecv, config.getNetwork().getHistorySize(), -1L);
+                historySent.touch(dSent, config.getNetwork().getHistorySize(), -1L);
+                return Collections.singletonList(new NetworkMonitorReport(
+                        dRecv,
+                        dSent,
+                        historyRecv,
+                        historySent,
+                        config.getMonitorTime()));
+            }
+        } finally {
+            prevRecv = recv;
+            prevSent = sent;
         }
+        return Collections.emptyList();
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return config.getNetwork().isEnabled();
     }
 
     @Override

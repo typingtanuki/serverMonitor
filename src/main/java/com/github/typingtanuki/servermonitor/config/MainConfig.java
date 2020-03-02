@@ -15,6 +15,7 @@ public class MainConfig {
     private PingMonitorConfig ping = new PingMonitorConfig();
     private HandshakeMonitorConfig handshake = new HandshakeMonitorConfig();
     private UpdateMonitorConfig updates = new UpdateMonitorConfig();
+    private NetworkMonitorConfig network = new NetworkMonitorConfig();
 
 
     public void copyTo(MainConfig config) {
@@ -31,6 +32,7 @@ public class MainConfig {
         ping.copyTo(config.ping);
         handshake.copyTo(config.handshake);
         updates.copyTo(config.updates);
+        network.copyTo(config.network);
     }
 
     public void validate() {
@@ -56,6 +58,7 @@ public class MainConfig {
         ping.validate();
         handshake.validate();
         updates.validate();
+        network.validate();
     }
 
     public String getIdentity() {
@@ -152,5 +155,13 @@ public class MainConfig {
 
     public void setUpdates(UpdateMonitorConfig updates) {
         this.updates = updates;
+    }
+
+    public NetworkMonitorConfig getNetwork() {
+        return network;
+    }
+
+    public void setNetwork(NetworkMonitorConfig network) {
+        this.network = network;
     }
 }
