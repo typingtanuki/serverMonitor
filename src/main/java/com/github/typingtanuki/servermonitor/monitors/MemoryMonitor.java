@@ -7,11 +7,16 @@ import com.github.typingtanuki.servermonitor.report.MemoryMonitorReport;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import oshi.SystemInfo;
 import oshi.hardware.GlobalMemory;
+import oshi.software.os.OSProcess;
+import oshi.software.os.OperatingSystem;
 
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.github.typingtanuki.servermonitor.report.AbstractPercentMonitorReport.usage;
+import static com.github.typingtanuki.servermonitor.report.ReportUtils.bytesToHuman;
 
 /**
  * Monitors Memory usage against a max allowed percentage
@@ -19,6 +24,7 @@ import static com.github.typingtanuki.servermonitor.report.AbstractPercentMonito
 public class MemoryMonitor implements Monitor {
     private MainConfig config;
     private History history = new History(100);
+    private Map<Integer, Long> prevTop = new LinkedHashMap<>();
 
     public MemoryMonitor(MainConfig config) {
         super();
@@ -42,7 +48,36 @@ public class MemoryMonitor implements Monitor {
                 free,
                 total,
                 history,
-                config.getMemory().getMaxUsage()));
+                config.getMemory().getMaxUsage(),
+                getTopProcesses(systemInfo.getOperatingSystem())));
+    }
+
+    private Map<String, String> getTopProcesses(OperatingSystem operatingSystem) {
+        Map<String, String> top = new LinkedHashMap<>();
+        OSProcess[] topCpu = operatingSystem.getProcesses(10, OperatingSystem.ProcessSort.MEMORY, false);
+        Map<Integer, Long> newTop = new LinkedHashMap<>();
+        for (OSProcess process : topCpu) {
+            int pid = process.getProcessID();
+            long memory = process.getVirtualSize();
+            newTop.put(pid, memory);
+            top.put(pid + " " + process.getName(), bytesToHuman(memory) + " " + compare(prevTop.get(pid), memory));
+        }
+        prevTop = newTop;
+        return top;
+    }
+
+
+    private String compare(Long prev, long cpu) {
+        if (prev == null) {
+            return "new";
+        }
+        if (prev - 1024 < cpu && cpu < prev + 1024) {
+            return "-";
+        }
+        if (prev > cpu) {
+            return "↓" + bytesToHuman(prev - cpu);
+        }
+        return "↑" + bytesToHuman(cpu - prev);
     }
 
     @Override

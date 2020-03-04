@@ -30,7 +30,8 @@ public enum DetailKey {
     BYTES_SENT("Bytes sent"),
     BYTES_RECEIVED("Bytes received"),
     HISTORY_RECEIVED("History Received"),
-    HISTORY_SENT("History Sent");
+    HISTORY_SENT("History Sent"),
+    TOP("Top");
 
     private final String value;
 

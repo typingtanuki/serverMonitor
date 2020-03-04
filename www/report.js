@@ -1,4 +1,3 @@
-
 function formatReports(reports, node) {
     while (node.hasChildNodes()) {
         node.removeChild(node.firstChild);
@@ -39,9 +38,13 @@ function formatReportDetails(report) {
             const limit = parseInt(entry["limit"]);
             sub.appendChild(makeLine(values, dates, max, limit));
             hidden.push(keys[i]);
-        }
-        if (keys[i] === "Updates") {
-            makeList(entry, hidden, element);
+        } else if (String(entry) === "[object Object]") {
+            element.appendChild(makeBullet(keys[i], ""));
+            const sub = document.createElement("li");
+            const subsub = document.createElement("ul");
+            element.appendChild(sub);
+            sub.appendChild(subsub);
+            makeList(entry, hidden, subsub);
             hidden.push(keys[i]);
         }
     }
@@ -64,19 +67,24 @@ function makeList(details, hidden, element) {
         if (hidden.indexOf(keys[i]) > -1) {
             continue;
         }
-        const sub = document.createElement("li");
-        element.appendChild(sub);
-        const detail = document.createElement("span");
-        const key = document.createElement("span");
-        key.classList.add("key");
-        key.appendChild(document.createTextNode(keys[i] + ": "));
-        detail.appendChild(key);
-        const value = document.createElement("span");
-        value.classList.add("value");
-        value.appendChild(document.createTextNode(details[keys[i]]));
-        detail.appendChild(value);
-        sub.appendChild(detail);
+        element.appendChild(makeBullet(keys[i], details[keys[i]]));
     }
+}
+
+function makeBullet(left, right) {
+    const sub = document.createElement("li");
+    const detail = document.createElement("span");
+    const key = document.createElement("span");
+    key.classList.add("key");
+    key.appendChild(document.createTextNode(left + ": "));
+    detail.appendChild(key);
+    const value = document.createElement("span");
+    value.classList.add("value");
+    value.appendChild(document.createTextNode(right));
+    detail.appendChild(value);
+    sub.appendChild(detail);
+
+    return sub;
 }
 
 function isHistory(value) {

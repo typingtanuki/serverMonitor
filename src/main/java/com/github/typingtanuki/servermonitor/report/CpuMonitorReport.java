@@ -9,12 +9,15 @@ import java.util.Map;
 
 public class CpuMonitorReport extends AbstractPercentMonitorReport {
     private final History history;
+    private final Map<String, String> topProcesses;
 
     public CpuMonitorReport(long load,
                             History history,
-                            int maxUsage) {
+                            int maxUsage,
+                            Map<String, String> topProcesses) {
         super(load, maxUsage);
         this.history = history;
+        this.topProcesses = new LinkedHashMap<>(topProcesses);
     }
 
     @Override
@@ -33,6 +36,7 @@ public class CpuMonitorReport extends AbstractPercentMonitorReport {
         out.put(DetailKey.USAGE_CURRENT, usage + "%");
         out.put(DetailKey.USAGE_MAX, maxUsage + "%");
         out.put(DetailKey.HISTORY, history);
+        out.put(DetailKey.TOP, topProcesses);
         return out;
     }
 

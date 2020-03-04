@@ -11,10 +11,12 @@ import static com.github.typingtanuki.servermonitor.report.ReportUtils.bytesToHu
 
 public class MemoryMonitorReport extends AbstractPercentMonitorReport {
     private final History history;
+    private final Map<String, String> topProcesses;
 
-    public MemoryMonitorReport(long free, long total, History history, int maxUsage) {
+    public MemoryMonitorReport(long free, long total, History history, int maxUsage, Map<String, String> topProcesses) {
         super(free, total, maxUsage);
         this.history = history;
+        this.topProcesses = topProcesses;
     }
 
     @Override
@@ -38,6 +40,7 @@ public class MemoryMonitorReport extends AbstractPercentMonitorReport {
         out.put(DetailKey.MEMORY_FREE, bytesToHuman(free));
         out.put(DetailKey.MEMORY_TOTAL, bytesToHuman(total));
         out.put(DetailKey.HISTORY, history);
+        out.put(DetailKey.TOP, topProcesses);
         return out;
     }
 
