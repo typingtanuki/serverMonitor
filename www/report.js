@@ -28,6 +28,7 @@ function formatReportDetails(report) {
     const hidden = [];
 
     for (let i = 0; i < keys.length; i++) {
+        const key = keys[i];
         const entry = details[keys[i]];
         if (isHistory(entry)) {
             const sub = document.createElement("li");
@@ -37,7 +38,9 @@ function formatReportDetails(report) {
             const max = parseInt(entry["max"]);
             const limit = parseInt(entry["limit"]);
             sub.appendChild(makeLine(values, dates, max, limit));
-            hidden.push(keys[i]);
+            hidden.push(key);
+        } else if (key === "Do Update") {
+            hidden.push(key);
         } else if (String(entry) === "[object Object]") {
             element.appendChild(makeBullet(keys[i], ""));
             const sub = document.createElement("li");
@@ -45,7 +48,7 @@ function formatReportDetails(report) {
             element.appendChild(sub);
             sub.appendChild(subsub);
             makeList(entry, hidden, subsub);
-            hidden.push(keys[i]);
+            hidden.push(key);
         }
     }
 

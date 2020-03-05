@@ -31,7 +31,8 @@ public enum DetailKey {
     BYTES_RECEIVED("Bytes received"),
     HISTORY_RECEIVED("History Received"),
     HISTORY_SENT("History Sent"),
-    TOP("Top");
+    TOP("Top"),
+    ACTION_UPDATE("Do Update");
 
     private final String value;
 

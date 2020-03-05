@@ -5,10 +5,7 @@ import com.github.typingtanuki.servermonitor.report.InvalidReport;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import oshi.SystemInfo;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +17,16 @@ public class AptChecker extends LinuxUpdateChecker {
 
     public AptChecker(MainConfig config) {
         super(config);
+    }
+
+    @Override
+    public String runUpdate() {
+        List<String> out = new LinkedList<>();
+        out.addAll(runAndReadOutput("sudo", "apt", "update"));
+        out.addAll(runAndReadOutput("sudo", "apt", "upgrade", "-y"));
+        out.addAll(runAndReadOutput("sudo", "apt", "dist-upgrade", "-y"));
+        out.addAll(runAndReadOutput("sudo", "apt", "autoremove", "-y"));
+        return String.join("\r\n", out);
     }
 
     @Override

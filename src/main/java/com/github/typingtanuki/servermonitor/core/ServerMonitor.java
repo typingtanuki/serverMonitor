@@ -199,4 +199,8 @@ public class ServerMonitor {
     public WwwServer wwwServer() {
         return wwwServer;
     }
+
+    public String doUpdate() {
+        return UpdateChecker.doUpdate();
+    }
 }

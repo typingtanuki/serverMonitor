@@ -12,6 +12,11 @@ public class NoUpdateChecker extends UpdateChecker {
     }
 
     @Override
+    public String runUpdate() {
+        return "Can not handle updates on this platform";
+    }
+
+    @Override
     public boolean isEnabled() {
         return false;
     }

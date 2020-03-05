@@ -29,4 +29,11 @@ public class ConfigEndpoint {
         ServerMonitor monitor = MonitorMain.monitor;
         return monitor.updateConfig(newConfig, persist);
     }
+
+    @POST
+    @Path("/doUpdate")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String doUpdate() {
+        return MonitorMain.monitor.doUpdate();
+    }
 }

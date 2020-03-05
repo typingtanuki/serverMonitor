@@ -12,6 +12,8 @@ import java.util.List;
 
 public abstract class UpdateChecker implements Monitor {
     private static final Logger logger = LoggerFactory.getLogger(UpdateChecker.class);
+    private static final Object currentCheckerLock = new Object[0];
+    public static UpdateChecker currentChecker;
     private final MainConfig config;
 
     public UpdateChecker(MainConfig config) {
@@ -21,6 +23,19 @@ public abstract class UpdateChecker implements Monitor {
     }
 
     public static UpdateChecker bestChecker(MainConfig config) {
+        if (currentChecker != null) {
+            return currentChecker;
+        }
+        synchronized (currentCheckerLock) {
+            if (currentChecker != null) {
+                return currentChecker;
+            }
+            currentChecker = findChecker(config);
+        }
+        return currentChecker;
+    }
+
+    private static UpdateChecker findChecker(MainConfig config) {
         logger.info("Looking for best update checker");
         // Ordered list of checkers
         List<UpdateChecker> possibleCheckers = new LinkedList<>();
@@ -38,6 +53,20 @@ public abstract class UpdateChecker implements Monitor {
         logger.warn("Could not find suitable update checker, disabling");
         return new NoUpdateChecker();
     }
+
+    public static String doUpdate() {
+        UpdateChecker checker;
+        synchronized (currentCheckerLock) {
+            checker = currentChecker;
+        }
+        if (checker == null) {
+            return "Not initialized";
+        }
+
+        return checker.runUpdate();
+    }
+
+    public abstract String runUpdate();
 
     @Override
     public final MonitorType getType() {

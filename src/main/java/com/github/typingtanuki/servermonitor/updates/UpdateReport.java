@@ -34,7 +34,10 @@ public class UpdateReport extends AbstractBoolMonitorReport {
     @Override
     public Map<DetailKey, Object> getDetails() {
         Map<DetailKey, Object> details = new LinkedHashMap<>();
-            details.put(DetailKey.UPDATES, updates);
+        details.put(DetailKey.UPDATES, updates);
+        if (!updates.isEmpty()) {
+            details.put(DetailKey.ACTION_UPDATE, true);
+        }
         return details;
     }
 
