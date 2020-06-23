@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
@@ -40,17 +41,19 @@ public class RestCall<T> {
     public T get() throws RestCallException {
         // Sends the handshake request and wait for response
         Response response;
+        ClientBuilder builder = ResteasyClientBuilder.newBuilder();
+        Client client = builder.build();
         try {
-            ResteasyClientBuilder builder = new ResteasyClientBuilder();
-            Client client = builder.build();
             WebTarget resource = client.target(url);
             Invocation.Builder request = resource.request();
             request.accept("application/json");
             response = request.buildGet().invoke();
         } catch (RuntimeException e) {
+            client.close();
             throw new RestCallException("Could not connect", e);
         }
         if (response.getStatus() != 200) {
+            client.close();
             throw new RestCallException("Status " + response.getStatus() + " not 200");
         }
 
@@ -60,6 +63,8 @@ public class RestCall<T> {
             return reader.readValue(output);
         } catch (IOException e) {
             throw new RestCallException("Could not de-serialize response", e);
+        } finally {
+            client.close();
         }
     }
 }

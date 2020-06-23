@@ -43,11 +43,11 @@ public class CpuMonitor implements Monitor {
 
     private Map<String, String> getTopProcesses(OperatingSystem operatingSystem) {
         Map<String, String> top = new LinkedHashMap<>();
-        OSProcess[] topCpu = operatingSystem.getProcesses(10, OperatingSystem.ProcessSort.CPU, false);
+        List<OSProcess> topCpu = operatingSystem.getProcesses(10, OperatingSystem.ProcessSort.CPU);
         Map<Integer, Double> newTop = new LinkedHashMap<>();
         for (OSProcess process : topCpu) {
             int pid = process.getProcessID();
-            double cpu = process.calculateCpuPercent();
+            double cpu = process.getProcessCpuLoadCumulative();
             newTop.put(pid, cpu);
             top.put(pid + " " + process.getName(), asPercent(cpu) + " " + compare(prevTop.get(pid), cpu));
         }

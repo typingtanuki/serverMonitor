@@ -12,10 +12,7 @@ import org.slf4j.LoggerFactory;
 import oshi.SystemInfo;
 import oshi.software.os.OperatingSystem;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.client.*;
 import javax.ws.rs.core.Response;
 import java.util.Map;
 
@@ -23,7 +20,7 @@ import java.util.Map;
  * Connector for Microsoft Teams
  */
 public class TeamsConnector implements Connector {
-    private static Logger logger = LoggerFactory.getLogger(TeamsConnector.class);
+    private static final Logger logger = LoggerFactory.getLogger(TeamsConnector.class);
 
     private final MainConfig config;
     private final SystemInfo info;
@@ -105,14 +102,18 @@ public class TeamsConnector implements Connector {
      * @param payloadJson The json-ified payload to send
      */
     private void sendPayload(String payloadJson) {
-        ResteasyClientBuilder builder = new ResteasyClientBuilder();
+        ClientBuilder builder = ResteasyClientBuilder.newBuilder();
         Client client = builder.build();
-        WebTarget resource = client.target(config.getTeamsHook());
-        Invocation.Builder request = resource.request();
-        request.accept("application/json");
-        Response response = request.buildPost(Entity.json(payloadJson)).invoke();
-        if (response.getStatus() != 200) {
-            logger.warn("API responded with wrong error code {}", response.getStatus());
+        try {
+            WebTarget resource = client.target(config.getTeamsHook());
+            Invocation.Builder request = resource.request();
+            request.accept("application/json");
+            Response response = request.buildPost(Entity.json(payloadJson)).invoke();
+            if (response.getStatus() != 200) {
+                logger.warn("API responded with wrong error code {}", response.getStatus());
+            }
+        } finally {
+            client.close();
         }
     }
 }

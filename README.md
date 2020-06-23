@@ -24,10 +24,10 @@ Directly from your browser, see the state of all your servers in one glance.
   * If specific processes are currently running on the server or not
   * Available system updates (apt-get and apt based only) 
 * Network
-  * Pingability of other servers (echo based, connection to a specific port)
+  * Pingability of other servers (either echo based or connection to a specific port)
   * Handshake with other servers running this tool (custom HTTP handshake)
-  * If the monitor is not running on another server
-  * Clock issues between servers
+    * If the monitor is not running on another server
+    * Clock issues between servers
   
 ## GUI
 
@@ -36,7 +36,7 @@ There is a GUI to monitor all the machines visible through the handshake.
 From the GUI it is possible to:
 * See the state of all monitored machines at once
 * See the details for each monitored machine (What is working, what is not working, ...)
-* See the settings and update the settings of any monitored machine
+* See and update the settings of any monitored machine
 ** Note: Changing the web server port requires a restart to take effect
   
 ## REST Apis
@@ -56,6 +56,12 @@ The new settings will be kept in memory, by adding the parameter `?persist=true`
 
 NOTE: The web server port is the only setting which can not be updated through this method at this time.
   
+### Running a system update on the remote machine
+
+Doing a `POST` on `/config/doUpdate`, without payload will run a system update on the remote server.
+
+NOTE: Is only possible if user is in the sudoer group and set as nopasswd
+
 ## How can it report ?
 
 * Through the GUI (open http://localhost:9191 by default)

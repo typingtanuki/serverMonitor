@@ -57,6 +57,10 @@ body, textarea {
     font-weight: bolder;
 }
 
+.server {
+    cursor: pointer;
+}
+
 #response {
     font-size: 20px;
     font-weight: bold;
@@ -76,21 +80,16 @@ body, textarea {
     padding-left: 5px;
 }
 
-#success > * {
+#success > *, .OK {
     border-left: 3px solid #4ea9ff;
 }
 
-#failure > * {
+#failure > *, .NG {
     border-left: 3px solid #ef2e37;
 }
 
 .report-title {
     font-size: 20px;
-}
-
-.report-details {
-    white-space: pre-line;
-    font-family: "monospace";
 }
 
 .key {
@@ -104,20 +103,9 @@ ul {
     list-style-type: disc;
 }
 
-ul.report-details {
-    padding: 0;
-    list-style-type: none;
-}
-
 li {
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.gauge, .line {
-    position: relative;
-    width: 270px;
-    height: 200px;
 }
 
 .active {

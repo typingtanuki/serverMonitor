@@ -29,7 +29,7 @@ public class ProcessMonitor implements Monitor {
     public List<MonitorReport> monitor(SystemInfo systemInfo) {
         List<String> processes = new ArrayList<>(config.getProcess().getMonitoring());
 
-        OSProcess[] current = systemInfo.getOperatingSystem().getProcesses(0, OperatingSystem.ProcessSort.PID, false);
+        List<OSProcess> current = systemInfo.getOperatingSystem().getProcesses(0, OperatingSystem.ProcessSort.PID);
         List<MonitorReport> out = new LinkedList<>();
         int pid = -1;
         long uptime = -1;

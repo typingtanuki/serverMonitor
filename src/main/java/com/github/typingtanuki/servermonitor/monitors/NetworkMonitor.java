@@ -26,7 +26,7 @@ public class NetworkMonitor implements Monitor {
 
     @Override
     public List<MonitorReport> monitor(SystemInfo systemInfo) {
-        NetworkIF[] nifs = systemInfo.getHardware().getNetworkIFs();
+        List<NetworkIF> nifs = systemInfo.getHardware().getNetworkIFs();
         if (nifs == null) {
             return null;
         }

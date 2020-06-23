@@ -54,7 +54,7 @@ public class MemoryMonitor implements Monitor {
 
     private Map<String, String> getTopProcesses(OperatingSystem operatingSystem) {
         Map<String, String> top = new LinkedHashMap<>();
-        OSProcess[] topCpu = operatingSystem.getProcesses(10, OperatingSystem.ProcessSort.MEMORY, false);
+        List<OSProcess> topCpu = operatingSystem.getProcesses(10, OperatingSystem.ProcessSort.MEMORY);
         Map<Integer, Long> newTop = new LinkedHashMap<>();
         for (OSProcess process : topCpu) {
             int pid = process.getProcessID();
