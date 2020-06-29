@@ -1,5 +1,5 @@
 import {CSSResult, customElement, html, LitElement, property, TemplateResult, unsafeCSS} from 'lit-element';
-import reportStyle from "./report-entry.css";
+import reportStyle from "./report-entry.less";
 import {Detail, HistoryDetail, Report} from "../report";
 import {DisplayLine} from "../display-line/display-line";
 import {DisplayGauge} from "../display-gauge/display-gauge";
@@ -27,11 +27,11 @@ export class ReportEntry extends LitElement {
     }
 
     public render(): TemplateResult {
-        return html`<ul class="report-details">
+        return html`<div class="report-details">
             ${this.handleGauge()}
             ${this.keys().map(key => this.formatKey(key))}
             ${this.handleOthers()}
-            </ul>`;
+            </div>`;
     }
 
     private keys(): string[] {
@@ -88,22 +88,22 @@ export class ReportEntry extends LitElement {
 
     private formatHistory(key: string, details: HistoryDetail): TemplateResult {
         this.visited.push(key);
-        return html`<li><display-line 
+        return html`<display-line 
                                .values="${details.values}" 
                                .dates="${details.dates}"
                                .max="${parseInt(details.max)}"
-                               .limit="${parseInt(details.limit)}"></display-line></li>`;
+                               .limit="${parseInt(details.limit)}"></display-line>`;
     }
 
     private formatString(key: string, value: string): TemplateResult {
         this.visited.push(key);
-        return html`<li><span><span class="key">${key}: </span><span class="value">${String(value)}</span></span></li>`;
+        return html`<div><span class="key">${key}: </span><span class="value">${String(value)}</span></div>`;
     }
 
     private formatObject(key: string, details: Detail): TemplateResult {
         this.visited.push(key);
         const keys: string[] = Object.keys(details);
-        return html`<li><ul>${keys.map(key => this.subList(key, details))}</ul></li>`;
+        return html`${keys.map(key => this.subList(key, details))}`;
     }
 
     private subList(key: string, details: Detail): TemplateResult {

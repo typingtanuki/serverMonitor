@@ -1,0 +1,45 @@
+@import "../constants/colors.less";
+
+:host {
+  display: block;
+
+  background-color: @bgColor;
+  color: @mainTextColor;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+server-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  transition: right 300ms;
+}
+
+server-list.half {
+  right: 300px;
+  overflow: hidden;
+}
+
+.details, .settings {
+  display: none;
+  overflow-x: hidden;
+}
+
+.details.half, .settings.half {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  bottom: 0;
+  overflow: auto;
+  padding: 10px;
+}

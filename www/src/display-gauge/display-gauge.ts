@@ -1,7 +1,7 @@
-import {colorNg, colorOk, colorTick} from "../colors";
+import {colorNg, colorOk, colorTick} from "../constants/colors";
 
 import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
-import gaugeStyle from "./display-gauge.css";
+import gaugeStyle from "./display-gauge.less";
 import {isAttached} from "../layout";
 
 @customElement('display-gauge')

@@ -1,0 +1,25 @@
+@import "../constants/colors.less";
+
+:host {
+  display: block;
+}
+
+ul {
+  margin: 0;
+  padding: 0 0 0 10px;
+  text-align: left;
+  list-style-type: disc;
+}
+
+li {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:host(.failure) report-entry {
+  .mark-failure();
+}
+
+:host(.success) report-entry {
+  .mark-success();
+}

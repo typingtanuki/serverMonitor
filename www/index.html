@@ -10,25 +10,11 @@
 </head>
 
 <body>
-<!-- preparing a DOM with width and height for ECharts -->
-<ul class="chart" id="servers"></ul>
-<div class="details">
-    <div id="server"></div>
-    <div id="response">
-        <div id="settings">Settings</div>
-        Failures:
-        <div id="failure"></div>
-        Successes:
-        <div id="success"></div>
-    </div>
-</div>
-<div class="settings">
-    <div id="save">Save Settings</div>
-    <textarea></textarea>
-</div>
+
+<monitor-root></monitor-root>
 
 <script type="text/javascript">
-    window.core.init();
+    window.core.init(document.querySelector("monitor-root"));
 </script>
 </body>
 </html>

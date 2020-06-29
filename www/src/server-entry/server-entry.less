@@ -1,0 +1,37 @@
+@import "../constants/colors.less";
+
+:host {
+  display: inline-block;
+
+  padding: 5px;
+
+  background-color: @bgColorHighlight;
+}
+
+:host(:hover) {
+  cursor: pointer;
+}
+
+:host(.OK) {
+  .mark-success();
+}
+
+:host(.NG) {
+  .mark-failure();
+}
+
+.title {
+  font-size: 20px;
+  font-weight: bolder;
+  color: @titleTextColor;
+}
+
+.OK {
+  .mark-success();
+  padding-left: 5px;
+}
+
+.NG {
+  .mark-failure();
+  padding-left: 5px;
+}
