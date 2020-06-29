@@ -76,6 +76,7 @@ export class MonitorRoot extends LitElement {
 
         const detailView: DetailView | null = this.shadowRoot.querySelector("detail-view");
         if (detailView !== null) {
+            detailView.settingsMode = false;
             detailView.changeProperties();
         }
     }

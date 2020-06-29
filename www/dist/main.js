@@ -4999,9 +4999,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./layout */ "./src/layout.ts");
-/* harmony import */ var _monitor_root_monitor_root__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./monitor-root/monitor-root */ "./src/monitor-root/monitor-root.ts");
-
+/* harmony import */ var _monitor_root_monitor_root__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./monitor-root/monitor-root */ "./src/monitor-root/monitor-root.ts");
 
 
 
@@ -5010,7 +5008,7 @@ var Core = /*#__PURE__*/function () {
   function Core() {
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Core);
 
-    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(this, "dependencies", [_monitor_root_monitor_root__WEBPACK_IMPORTED_MODULE_4__["MonitorRoot"]]);
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(this, "dependencies", [_monitor_root_monitor_root__WEBPACK_IMPORTED_MODULE_3__["MonitorRoot"]]);
 
     _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(this, "serverIPs", {});
 
@@ -5032,52 +5030,6 @@ var Core = /*#__PURE__*/function () {
       }, 10000);
     }
   }, {
-    key: "enableSettingsButton",
-    value: function enableSettingsButton() {
-      var elem = document.getElementById("settings");
-
-      if (elem == null) {
-        return;
-      }
-
-      if (elem.classList.contains("active")) {
-        return;
-      }
-
-      elem.classList.add("active");
-      var self = this;
-      elem.addEventListener("click", function () {
-        self.showSettings();
-      });
-    }
-  }, {
-    key: "enableSaveButton",
-    value: function enableSaveButton() {
-      var elem = document.getElementById("save");
-
-      if (elem == null) {
-        return;
-      }
-
-      if (elem.classList.contains("active")) {
-        return;
-      }
-
-      elem.classList.add("active");
-      var self = this;
-      elem.addEventListener("click", function () {
-        self.saveSettings();
-      });
-    }
-  }, {
-    key: "showSettings",
-    value: function showSettings() {
-      document.querySelector(".details").classList.remove("half");
-      document.querySelector(".settings").classList.add("half");
-      this.clicked = true;
-      this.fetchSettings();
-    }
-  }, {
     key: "saveSettings",
     value: function saveSettings() {
       this.clicked = true;
@@ -5095,74 +5047,6 @@ var Core = /*#__PURE__*/function () {
         console.log(e);
         self.clicked = false;
       });
-    }
-  }, {
-    key: "fetchSettings",
-    value: function fetchSettings() {
-      var self = this;
-      requestAnimationFrame(function () {
-        self.enableSaveButton();
-      });
-      fetch("http://" + this.connection + "/config").then(function (response) {
-        return response.json();
-      }).then(function (response) {
-        document.querySelector(".settings > textarea").value = JSON.stringify(response, null, 4);
-        self.clicked = false;
-      })["catch"](function (e) {
-        document.getElementById("failure").textContent = JSON.stringify(e, null, 4);
-        self.clicked = false;
-      });
-    }
-  }, {
-    key: "createServer",
-    value: function createServer(server) {
-      var name = server.name;
-      var children = server.children;
-      var entry = Object(_layout__WEBPACK_IMPORTED_MODULE_3__["li"])();
-      entry.classList.add("server");
-      var self = this;
-      entry.addEventListener("click", function () {
-        if (self.clicked) {
-          return;
-        }
-
-        document.querySelector(".details").classList.remove("half");
-        document.querySelector(".settings").classList.remove("half");
-        self.clicked = true;
-        var serverName = server.name;
-
-        if (self.serverIPs.hasOwnProperty(serverName)) {
-          self.connection = self.serverIPs[serverName];
-        } else {
-          self.connection = self.currentServer();
-        }
-
-        document.getElementById("server").textContent = serverName;
-        document.getElementById("failure").textContent = "Updating, please wait...";
-        document.getElementById("success").textContent = "Updating, please wait...";
-        document.querySelector(".chart").classList.add("half");
-        document.querySelector(".details").classList.add("half");
-        requestAnimationFrame(function () {
-          self.enableSettingsButton();
-        });
-        self.fetchDetails();
-      });
-      entry.appendChild(Object(_layout__WEBPACK_IMPORTED_MODULE_3__["div"])(Object(_layout__WEBPACK_IMPORTED_MODULE_3__["text"])(name)));
-      var details = Object(_layout__WEBPACK_IMPORTED_MODULE_3__["ul"])();
-      entry.appendChild(details);
-
-      for (var i = 0; i < children.length; i++) {
-        var child = children[i];
-        var elem = Object(_layout__WEBPACK_IMPORTED_MODULE_3__["li"])(Object(_layout__WEBPACK_IMPORTED_MODULE_3__["text"])(child.name));
-
-        if (child.value) {
-          elem.classList.add("OK");
-        } else {
-          elem.classList.add("NG");
-        }
-
-        details.appendChild(elem);
-      }
     }
   }]);
 
@@ -5183,7 +5067,7 @@ window.core = new Core();
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ":host {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  overflow: auto;\n  padding: 5px;\n  background-color: #073642;\n}\n#server {\n  color: #93a1a1;\n  font-size: 20px;\n  font-weight: bolder;\n}\n", ""]);
+exports.push([module.i, ":host {\n  display: block;\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  overflow: auto;\n  padding: 5px;\n  background-color: #073642;\n}\n#server {\n  color: #93a1a1;\n  font-size: 20px;\n  font-weight: bolder;\n  text-transform: capitalize;\n  text-align: center;\n}\nth {\n  text-align: right;\n  font-weight: normal;\n}\nth[colspan] {\n  text-align: center;\n  font-weight: bold;\n  font-size: 15px;\n}\ninput,\nselect,\ntextarea {\n  color: #839496;\n  background-color: #002b36;\n  border: none;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -5194,19 +5078,30 @@ module.exports = exports;
 /*!*************************************************!*\
   !*** ./src/detail-view/detail-view.template.ts ***!
   \*************************************************/
-/*! exports provided: detailViewTemplate */
+/*! exports provided: detailViewTemplate, settingsViewTemplate */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "detailViewTemplate", function() { return detailViewTemplate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "settingsViewTemplate", function() { return settingsViewTemplate; });
 /* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js");
 /* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lit_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lit-element */ "./node_modules/lit-element/lit-element.js");
 
 
+function _templateObject2() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<table class=\"settings\">\n    <tr><th>Name</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th>Monitor time</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th>Debounce time</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th>Port</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th>Teams hook</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">CPU</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n        <tr><th>Warn level</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n        <tr><th>History Size</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">Memory</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n        <tr><th>Warn level</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n        <tr><th>History Size</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">Network</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n        <tr><th>History Size</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">Disks</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n        <tr><th>Warn level</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n        <tr><th>Mounts</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">Process</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n        <tr><th>Processes</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">Ping</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n        <tr><th>Servers</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">Handshake</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n        <tr><th>Servers</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n        <tr><th>Timeout</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">Update</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n</table>"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <div id=\"server\">", "</div>\n    <div id=\"response\">\n        <div id=\"settings\">Settings</div>\n        <report-list class=\"failure\" .reports=\"", "\"></report-list>\n        <report-list class=\"success\" .reports=\"", "\"></report-list>\n    </div>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <div id=\"server\">", "</div>\n    <div id=\"response\">\n        <settings-button @click=\"{", "\"></settings-button>\n        <report-list class=\"failure\" .reports=\"", "\"></report-list>\n        <report-list class=\"success\" .reports=\"", "\"></report-list>\n    </div>"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -5217,7 +5112,10 @@ function _templateObject() {
 
 
 function detailViewTemplate(element) {
-  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject(), element.server.name, element.failure, element.success);
+  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject(), element.server.name, element.showSettings, element.failure, element.success);
+}
+function settingsViewTemplate(element) {
+  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject2(), element.settings.identity, element.settings.monitorTime, element.settings.debounceTime, element.settings.port, element.settings.teamsHook, element.settings.cpu.enabled, element.settings.cpu.maxUsage, element.settings.cpu.historySize, element.settings.memory.enabled, element.settings.memory.maxUsage, element.settings.memory.historySize, element.settings.network.enabled, element.settings.network.historySize, element.settings.disk.enabled, element.settings.disk.maxUsage, element.settings.disk.mounts, element.settings.process.enabled, element.settings.process.monitoring, element.settings.ping.enabled, element.settings.ping.monitoring, element.settings.handshake.enabled, element.settings.handshake.monitoring, element.settings.handshake.maxHandshakeTime, element.settings.updates.enabled);
 }
 
 /***/ }),
@@ -5257,6 +5155,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _detail_view_less__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_detail_view_less__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _report_list_report_list__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../report-list/report-list */ "./src/report-list/report-list.ts");
 /* harmony import */ var _detail_view_template__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./detail-view.template */ "./src/detail-view/detail-view.template.ts");
+/* harmony import */ var _settings_button_settings_button__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../settings-button/settings-button */ "./src/settings-button/settings-button.ts");
 
 
 
@@ -5288,6 +5187,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 
+
 var DetailView = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["customElement"])('detail-view'), _dec(_class = (_temp = /*#__PURE__*/function (_LitElement) {
   _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default()(DetailView, _LitElement);
 
@@ -5296,7 +5196,7 @@ var DetailView = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["custo
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_5___default()(DetailView, null, [{
     key: "dependencies",
     get: function get() {
-      return [_report_list_report_list__WEBPACK_IMPORTED_MODULE_12__["ReportList"]];
+      return [_report_list_report_list__WEBPACK_IMPORTED_MODULE_12__["ReportList"], _settings_button_settings_button__WEBPACK_IMPORTED_MODULE_14__["SettingsButton"]];
     }
   }, {
     key: "styles",
@@ -5318,6 +5218,12 @@ var DetailView = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["custo
         },
         failure: {
           type: Array
+        },
+        settingsMode: {
+          type: Boolean
+        },
+        settings: {
+          type: Object
         }
       };
     }
@@ -5341,6 +5247,10 @@ var DetailView = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["custo
 
     _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "failure", []);
 
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "settingsMode", false);
+
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "settings", {});
+
     return _this;
   }
 
@@ -5349,6 +5259,10 @@ var DetailView = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["custo
     value: function render() {
       if (!this.server) {
         return Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["html"])(_templateObject());
+      }
+
+      if (this.settingsMode) {
+        return Object(_detail_view_template__WEBPACK_IMPORTED_MODULE_13__["settingsViewTemplate"])(this);
       }
 
       return Object(_detail_view_template__WEBPACK_IMPORTED_MODULE_13__["detailViewTemplate"])(this);
@@ -5405,6 +5319,12 @@ var DetailView = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["custo
 
       return redraw;
     }()
+  }, {
+    key: "showSettings",
+    value: function showSettings() {
+      this.settingsMode = true;
+      this.client.fetchSettings(this);
+    }
   }]);
 
   return DetailView;
@@ -6180,18 +6100,15 @@ var MonitorRoot = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["custo
   }, {
     key: "refresh",
     value: function refresh() {
-      console.log("refreshing");
       var serverList = this.shadowRoot.querySelector("server-list");
 
       if (serverList !== null) {
-        console.log("refreshing server list");
         serverList.refresh();
       }
 
       var detailsView = this.shadowRoot.querySelector(".details.half detail-view");
 
       if (detailsView !== null) {
-        console.log("refreshing details");
         detailsView.changeProperties();
       }
     }
@@ -6220,6 +6137,7 @@ var MonitorRoot = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["custo
                 detailView = this.shadowRoot.querySelector("detail-view");
 
                 if (detailView !== null) {
+                  detailView.settingsMode = false;
                   detailView.changeProperties();
                 }
 
@@ -6857,6 +6775,42 @@ var RestClient = /*#__PURE__*/function () {
 
       return fetchDetails;
     }()
+  }, {
+    key: "fetchSettings",
+    value: function () {
+      var _fetchSettings = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(detailView) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return fetch("http://" + this.server + "/config");
+
+              case 2:
+                response = _context3.sent;
+                _context3.next = 5;
+                return response.json();
+
+              case 5:
+                detailView.settings = _context3.sent;
+                _context3.next = 8;
+                return detailView.redraw();
+
+              case 8:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function fetchSettings(_x3) {
+        return _fetchSettings.apply(this, arguments);
+      }
+
+      return fetchSettings;
+    }()
   }]);
 
   return RestClient;
@@ -6875,7 +6829,7 @@ var RestClient = /*#__PURE__*/function () {
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ":host {\n  display: inline-block;\n  padding: 5px;\n  background-color: #073642;\n}\n:host(:hover) {\n  cursor: pointer;\n}\n:host(.OK) {\n  border-left: 3px solid #268bd2;\n}\n:host(.NG) {\n  border-left: 3px solid #cb4b16;\n}\n.title {\n  font-size: 20px;\n  font-weight: bolder;\n  color: #93a1a1;\n}\n.OK {\n  border-left: 3px solid #268bd2;\n  padding-left: 5px;\n}\n.NG {\n  border-left: 3px solid #cb4b16;\n  padding-left: 5px;\n}\n", ""]);
+exports.push([module.i, ":host {\n  padding: 5px;\n  color: #839496;\n  background-color: #073642;\n  border: 1px solid #839496;\n  border-radius: 3px;\n  text-transform: capitalize;\n  cursor: pointer;\n  transition: background-color 300ms, color 300ms;\n}\n:host(:hover) {\n  background-color: #586e75;\n  color: #002b36;\n}\n:host {\n  display: inline-block;\n}\n:host(.OK) {\n  border-left: 3px solid #268bd2;\n}\n:host(.NG) {\n  border-left: 3px solid #cb4b16;\n}\n.title {\n  font-size: 20px;\n  font-weight: bolder;\n  color: #93a1a1;\n}\n.OK {\n  border-left: 3px solid #268bd2;\n  padding-left: 5px;\n}\n.NG {\n  border-left: 3px solid #cb4b16;\n  padding-left: 5px;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -7251,6 +7205,130 @@ var ServerList = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["custom
   }]);
 
   return ServerList;
+}(lit_element__WEBPACK_IMPORTED_MODULE_8__["LitElement"]), _temp)) || _class);
+
+/***/ }),
+
+/***/ "./src/settings-button/settings-button.less":
+/*!**************************************************!*\
+  !*** ./src/settings-button/settings-button.less ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, ":host {\n  padding: 5px;\n  color: #839496;\n  background-color: #073642;\n  border: 1px solid #839496;\n  border-radius: 3px;\n  text-transform: capitalize;\n  cursor: pointer;\n  transition: background-color 300ms, color 300ms;\n}\n:host(:hover) {\n  background-color: #586e75;\n  color: #002b36;\n}\n:host {\n  display: block;\n  text-align: center;\n}\n", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
+/***/ "./src/settings-button/settings-button.ts":
+/*!************************************************!*\
+  !*** ./src/settings-button/settings-button.ts ***!
+  \************************************************/
+/*! exports provided: SettingsButton */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SettingsButton", function() { return SettingsButton; });
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "./node_modules/@babel/runtime/helpers/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var lit_element__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lit-element */ "./node_modules/lit-element/lit-element.js");
+/* harmony import */ var _settings_button_less__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./settings-button.less */ "./src/settings-button/settings-button.less");
+/* harmony import */ var _settings_button_less__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_settings_button_less__WEBPACK_IMPORTED_MODULE_9__);
+
+
+
+
+
+
+
+
+
+var _dec, _class, _temp;
+
+function _templateObject() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["Settings"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_6___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_5___default()(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+var SettingsButton = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["customElement"])('settings-button'), _dec(_class = (_temp = /*#__PURE__*/function (_LitElement) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(SettingsButton, _LitElement);
+
+  var _super = _createSuper(SettingsButton);
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(SettingsButton, null, [{
+    key: "styles",
+    get: function get() {
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["unsafeCSS"])(_settings_button_less__WEBPACK_IMPORTED_MODULE_9___default.a);
+    }
+  }, {
+    key: "properties",
+    get: function get() {
+      return {
+        server: {
+          type: Object
+        }
+      };
+    }
+  }]);
+
+  function SettingsButton() {
+    var _this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default()(this, SettingsButton);
+
+    _this = _super.call(this);
+
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this), "server", void 0);
+
+    return _this;
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(SettingsButton, [{
+    key: "render",
+    value: function render() {
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["html"])(_templateObject());
+    }
+  }, {
+    key: "firstUpdated",
+    value: function firstUpdated() {
+      var self = this;
+    }
+  }]);
+
+  return SettingsButton;
 }(lit_element__WEBPACK_IMPORTED_MODULE_8__["LitElement"]), _temp)) || _class);
 
 /***/ })

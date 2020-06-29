@@ -21,6 +21,8 @@
 
 @bgColor: @Base03;
 @bgColorHighlight: @Base02;
+@bgColorSelected: @Base01;
+@textColorSelected: @Base03;
 @titleTextColor: @Base1;
 @mainTextColor: @Base0;
 @secondaryTextColor: @Base01;
@@ -35,4 +37,26 @@
 
 .mark-failure() {
   .mark(@colorNg);
+}
+
+.button-style() {
+  :host {
+    padding: 5px;
+
+    color: @mainTextColor;
+    background-color: @bgColorHighlight;
+    border: 1px solid @mainTextColor;
+    border-radius: 3px;
+
+    text-transform: capitalize;
+
+    cursor: pointer;
+    transition: background-color 300ms, color 300ms;
+  }
+
+  :host(:hover) {
+    background-color: @bgColorSelected;
+
+    color: @textColorSelected;
+  }
 }

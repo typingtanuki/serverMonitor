@@ -1,15 +1,16 @@
 import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
 import listStyle from "./detail-view.less";
-import {RestClient, ServerInfo} from "../rest/rest-client";
+import {RestClient, ServerInfo, Settings} from "../rest/rest-client";
 import {Report} from "../report";
 import {ReportList} from "../report-list/report-list";
-import {detailViewTemplate} from "./detail-view.template";
+import {detailViewTemplate, settingsViewTemplate} from "./detail-view.template";
+import {SettingsButton} from "../settings-button/settings-button";
 
 @customElement('detail-view')
 export class DetailView extends LitElement {
 
     public static get dependencies(): any[] {
-        return [ReportList];
+        return [ReportList, SettingsButton];
     }
 
     public static get styles(): CSSResult {
@@ -21,7 +22,9 @@ export class DetailView extends LitElement {
             client: {type: Object},
             server: {type: Object},
             success: {type: Array},
-            failure: {type: Array}
+            failure: {type: Array},
+            settingsMode: {type: Boolean},
+            settings: {type: Object}
         };
     }
 
@@ -29,6 +32,8 @@ export class DetailView extends LitElement {
     public server: ServerInfo = {name: "", monitors: []};
     public success: Report[] = [];
     public failure: Report[] = [];
+    public settingsMode: boolean = false;
+    public settings: Settings = {};
 
     constructor() {
         super();
@@ -37,6 +42,9 @@ export class DetailView extends LitElement {
     public render(): TemplateResult {
         if (!this.server) {
             return html``;
+        }
+        if (this.settingsMode) {
+            return settingsViewTemplate(this);
         }
         return detailViewTemplate(this);
     }
@@ -68,5 +76,10 @@ export class DetailView extends LitElement {
                 lists[i].requestUpdate();
             }
         });
+    }
+
+    public showSettings(): void {
+        this.settingsMode = true;
+        this.client.fetchSettings(this);
     }
 }

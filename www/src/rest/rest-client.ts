@@ -30,6 +30,65 @@ export interface ServerInfo {
     monitors: Monitor[];
 }
 
+export interface SettingsCpu {
+    enabled: boolean;
+    maxUsage: number;
+    historySize: number;
+}
+
+export interface SettingsDisks {
+    enabled: boolean;
+    maxUsage: number;
+    mounts: string[];
+}
+
+export interface SettingsMemory {
+    enabled: boolean;
+    maxUsage: number;
+    historySize: number;
+}
+
+export interface SettingsProcess {
+    enabled: boolean;
+    monitoring: string[];
+}
+
+export interface SettingsPing {
+    enabled: boolean;
+    monitoring: string[];
+}
+
+export interface SettingsHandShake {
+    enabled: boolean;
+    monitoring: string[];
+    maxHandshakeTime: number;
+}
+
+export interface SettingUpdate {
+    enabled: boolean;
+}
+
+export interface SettingsNetwork {
+    enabled: boolean;
+    historySize: number;
+}
+
+export interface Settings {
+    identity: string;
+    monitorTime: number;
+    debounceTime: number;
+    port: number;
+    teamsHook: null;
+    cpu: SettingsCpu;
+    disk: SettingsDisks;
+    memory: SettingsMemory;
+    process: SettingsProcess;
+    ping: SettingsPing;
+    handshake: SettingsHandShake;
+    updates: SettingUpdate;
+    network: SettingsNetwork;
+}
+
 export class RestClient {
     private readonly server: string;
 
@@ -84,4 +143,11 @@ export class RestClient {
         detailView.failure = status.status.failure;
         await detailView.redraw();
     }
+
+    public async fetchSettings(detailView: DetailView): Promise<void> {
+        const response = await fetch("http://" + this.server + "/config");
+        detailView.settings = await response.json();
+        await detailView.redraw();
+    }
+
 }
