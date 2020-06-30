@@ -1,5 +1,6 @@
 import {DetailView} from "./detail-view";
 import {html, TemplateResult} from "lit-element";
+import {Settings} from "../rest/rest-client";
 
 export function detailViewTemplate(element: DetailView): TemplateResult {
     return html`
@@ -12,38 +13,89 @@ export function detailViewTemplate(element: DetailView): TemplateResult {
 }
 
 export function settingsViewTemplate(element: DetailView): TemplateResult {
-    return html`<table class="settings">
-    <tr><th>Name</th><td><input type="text" value="${element.settings.identity}"/></td></tr>
-    <tr><th>Monitor time</th><td><input type="text" value="${element.settings.monitorTime}"/></td></tr>
-    <tr><th>Debounce time</th><td><input type="text" value="${element.settings.debounceTime}"/></td></tr>
-    <tr><th>Port</th><td><input type="text" value="${element.settings.port}"/></td></tr>
-    <tr><th>Teams hook</th><td><input type="text" value="${element.settings.teamsHook}"/></td></tr>
-    <tr><th colspan="2">CPU</th></tr>
-        <tr><th>Enabled</th><td><input type="checkbox" .checked="${element.settings.cpu.enabled}"/></td></tr>
-        <tr><th>Warn level</th><td><input type="text" value="${element.settings.cpu.maxUsage}"/></td></tr>
-        <tr><th>History Size</th><td><input type="text" value="${element.settings.cpu.historySize}"/></td></tr>
-    <tr><th colspan="2">Memory</th></tr>
-        <tr><th>Enabled</th><td><input type="checkbox" .checked="${element.settings.memory.enabled}"/></td></tr>
-        <tr><th>Warn level</th><td><input type="text" value="${element.settings.memory.maxUsage}"/></td></tr>
-        <tr><th>History Size</th><td><input type="text" value="${element.settings.memory.historySize}"/></td></tr>
-    <tr><th colspan="2">Network</th></tr>
-        <tr><th>Enabled</th><td><input type="checkbox" .checked="${element.settings.network.enabled}"/></td></tr>
-        <tr><th>History Size</th><td><input type="text" value="${element.settings.network.historySize}"/></td></tr>
-    <tr><th colspan="2">Disks</th></tr>
-        <tr><th>Enabled</th><td><input type="checkbox" .checked="${element.settings.disk.enabled}"/></td></tr>
-        <tr><th>Warn level</th><td><input type="text" value="${element.settings.disk.maxUsage}"/></td></tr>
-        <tr><th>Mounts</th><td><input type="text" value="${element.settings.disk.mounts}"/></td></tr>
-    <tr><th colspan="2">Process</th></tr>
-        <tr><th>Enabled</th><td><input type="checkbox" .checked="${element.settings.process.enabled}"/></td></tr>
-        <tr><th>Processes</th><td><input type="text" value="${element.settings.process.monitoring}"/></td></tr>
-    <tr><th colspan="2">Ping</th></tr>
-        <tr><th>Enabled</th><td><input type="checkbox" .checked="${element.settings.ping.enabled}"/></td></tr>
-        <tr><th>Servers</th><td><input type="text" value="${element.settings.ping.monitoring}"/></td></tr>
-    <tr><th colspan="2">Handshake</th></tr>
-        <tr><th>Enabled</th><td><input type="checkbox" .checked="${element.settings.handshake.enabled}"/></td></tr>
-        <tr><th>Servers</th><td><input type="text" value="${element.settings.handshake.monitoring}"/></td></tr>
-        <tr><th>Timeout</th><td><input type="text" value="${element.settings.handshake.maxHandshakeTime}"/></td></tr>
-    <tr><th colspan="2">Update</th></tr>
-        <tr><th>Enabled</th><td><input type="checkbox" .checked="${element.settings.updates.enabled}"/></td></tr>
-</table>`;
+    return html`
+    <div id="server">${element.server.name}</div>
+    <div id="response"><table class="settings">
+        ${formSection("Global")}
+        ${formText("Name", element.settings, "identity")}
+        ${formText("Monitor time", element.settings, "monitorTime")}
+        ${formText("Debounce time", element.settings, "debounceTime")}
+        ${formText("API port", element.settings, "port")}
+        ${formText("Teams Hook", element.settings, "teamsHook")}
+        
+        ${formSection("CPU")}
+        ${formCheckbox("Enabled", element.settings, "cpu.enabled")}
+        ${formText("Warn Level", element.settings, "cpu.maxUsage")}
+        ${formText("History Size", element.settings, "cpu.historySize")}
+    
+        ${formSection("Memory")}
+        ${formCheckbox("Enabled", element.settings, "memory.enabled")}
+        ${formText("Warn Level", element.settings, "memory.maxUsage")}
+        ${formText("History Size", element.settings, "memory.historySize")}
+    
+        ${formSection("Network")}
+        ${formCheckbox("Enabled", element.settings, "network.enabled")}
+        ${formText("History Size", element.settings, "network.historySize")}
+    
+        ${formSection("Disks")}
+        ${formCheckbox("Enabled", element.settings, "disk.enabled")}
+        ${formText("Warn Level", element.settings, "disk.maxUsage")}
+        ${formText("Disks", element.settings, "disk.mounts")}
+    
+        ${formSection("Process")}
+        ${formCheckbox("Enabled", element.settings, "process.enabled")}
+        ${formText("Processes", element.settings, "process.monitoring")}
+    
+        ${formSection("Ping")}
+        ${formCheckbox("Enabled", element.settings, "ping.enabled")}
+        ${formText("Servers", element.settings, "ping.monitoring")}
+    
+        ${formSection("Handshake")}
+        ${formCheckbox("Enabled", element.settings, "handshake.enabled")}
+        ${formText("Servers", element.settings, "handshake.monitoring")}
+        ${formText("Timeout", element.settings, "handshake.maxHandshakeTime")}
+    
+        ${formSection("System Updates")}
+        ${formCheckbox("Enabled", element.settings, "updates.enabled")}
+    </table></div>`;
+}
+
+function formText(name: string, settings: Settings, key: string): TemplateResult {
+    return html`
+    <tr class="form text" .settings="${settings}" .key="${key}">
+        <th>${name}</th><td><input type="text" value="${getKey(settings, key)}"/></td>
+    </tr>`;
+}
+
+function formCheckbox(name: string, settings: Settings, key: string): TemplateResult {
+    return html`
+    <tr class="form check" .settings="${settings}" .key="${key}">
+        <th>${name}</th><td><input type="checkbox" .checked="${getKey(settings, key)}"/></td></tr>
+    </tr>`;
+}
+
+function formSection(name: string): TemplateResult {
+    return html`<tr><th colspan="2">${name}</th></tr>`;
+}
+
+function getKey(settings: Settings, key: string): string | boolean {
+    const path: string[] = key.split(".");
+    let pos: any = settings;
+    for (const piece of path) {
+        pos = pos[piece];
+    }
+
+    if (pos === true || pos === false) {
+        return pos;
+    }
+
+    if (Array.isArray(pos)) {
+        return (<string[]>pos).join("; ");
+    }
+
+    if (pos === null || pos === undefined) {
+        return "";
+    }
+
+    return String(pos);
 }

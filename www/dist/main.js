@@ -5090,8 +5090,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lit_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lit-element */ "./node_modules/lit-element/lit-element.js");
 
 
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _templateObject5() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<tr><th colspan=\"2\">", "</th></tr>"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <tr class=\"form check\" .settings=\"", "\" .key=\"", "\">\n        <th>", "</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n    </tr>"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <tr class=\"form text\" .settings=\"", "\" .key=\"", "\">\n        <th>", "</th><td><input type=\"text\" value=\"", "\"/></td>\n    </tr>"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject2() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<table class=\"settings\">\n    <tr><th>Name</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th>Monitor time</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th>Debounce time</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th>Port</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th>Teams hook</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">CPU</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n        <tr><th>Warn level</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n        <tr><th>History Size</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">Memory</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n        <tr><th>Warn level</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n        <tr><th>History Size</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">Network</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n        <tr><th>History Size</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">Disks</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n        <tr><th>Warn level</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n        <tr><th>Mounts</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">Process</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n        <tr><th>Processes</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">Ping</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n        <tr><th>Servers</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">Handshake</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n        <tr><th>Servers</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n        <tr><th>Timeout</th><td><input type=\"text\" value=\"", "\"/></td></tr>\n    <tr><th colspan=\"2\">Update</th></tr>\n        <tr><th>Enabled</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n</table>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <div id=\"server\">", "</div>\n    <div id=\"response\"><table class=\"settings\">\n        ", "\n        ", "\n        ", "\n        ", "\n        ", "\n        ", "\n        \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n    </table></div>"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -5115,7 +5151,52 @@ function detailViewTemplate(element) {
   return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject(), element.server.name, element.showSettings, element.failure, element.success);
 }
 function settingsViewTemplate(element) {
-  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject2(), element.settings.identity, element.settings.monitorTime, element.settings.debounceTime, element.settings.port, element.settings.teamsHook, element.settings.cpu.enabled, element.settings.cpu.maxUsage, element.settings.cpu.historySize, element.settings.memory.enabled, element.settings.memory.maxUsage, element.settings.memory.historySize, element.settings.network.enabled, element.settings.network.historySize, element.settings.disk.enabled, element.settings.disk.maxUsage, element.settings.disk.mounts, element.settings.process.enabled, element.settings.process.monitoring, element.settings.ping.enabled, element.settings.ping.monitoring, element.settings.handshake.enabled, element.settings.handshake.monitoring, element.settings.handshake.maxHandshakeTime, element.settings.updates.enabled);
+  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject2(), element.server.name, formSection("Global"), formText("Name", element.settings, "identity"), formText("Monitor time", element.settings, "monitorTime"), formText("Debounce time", element.settings, "debounceTime"), formText("API port", element.settings, "port"), formText("Teams Hook", element.settings, "teamsHook"), formSection("CPU"), formCheckbox("Enabled", element.settings, "cpu.enabled"), formText("Warn Level", element.settings, "cpu.maxUsage"), formText("History Size", element.settings, "cpu.historySize"), formSection("Memory"), formCheckbox("Enabled", element.settings, "memory.enabled"), formText("Warn Level", element.settings, "memory.maxUsage"), formText("History Size", element.settings, "memory.historySize"), formSection("Network"), formCheckbox("Enabled", element.settings, "network.enabled"), formText("History Size", element.settings, "network.historySize"), formSection("Disks"), formCheckbox("Enabled", element.settings, "disk.enabled"), formText("Warn Level", element.settings, "disk.maxUsage"), formText("Disks", element.settings, "disk.mounts"), formSection("Process"), formCheckbox("Enabled", element.settings, "process.enabled"), formText("Processes", element.settings, "process.monitoring"), formSection("Ping"), formCheckbox("Enabled", element.settings, "ping.enabled"), formText("Servers", element.settings, "ping.monitoring"), formSection("Handshake"), formCheckbox("Enabled", element.settings, "handshake.enabled"), formText("Servers", element.settings, "handshake.monitoring"), formText("Timeout", element.settings, "handshake.maxHandshakeTime"), formSection("System Updates"), formCheckbox("Enabled", element.settings, "updates.enabled"));
+}
+
+function formText(name, settings, key) {
+  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject3(), settings, key, name, getKey(settings, key));
+}
+
+function formCheckbox(name, settings, key) {
+  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject4(), settings, key, name, getKey(settings, key));
+}
+
+function formSection(name) {
+  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject5(), name);
+}
+
+function getKey(settings, key) {
+  var path = key.split(".");
+  var pos = settings;
+
+  var _iterator = _createForOfIteratorHelper(path),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var piece = _step.value;
+      pos = pos[piece];
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  if (pos === true || pos === false) {
+    return pos;
+  }
+
+  if (Array.isArray(pos)) {
+    return pos.join("; ");
+  }
+
+  if (pos === null || pos === undefined) {
+    return "";
+  }
+
+  return String(pos);
 }
 
 /***/ }),
