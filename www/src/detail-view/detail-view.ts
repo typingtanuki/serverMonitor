@@ -5,6 +5,7 @@ import {Report} from "../report";
 import {ReportList} from "../report-list/report-list";
 import {detailViewTemplate, settingsViewTemplate} from "./detail-view.template";
 import {SettingsButton} from "../settings-button/settings-button";
+import {buildForm} from "./form-manager";
 
 @customElement('detail-view')
 export class DetailView extends LitElement {
@@ -33,7 +34,7 @@ export class DetailView extends LitElement {
     public success: Report[] = [];
     public failure: Report[] = [];
     public settingsMode: boolean = false;
-    public settings: Settings = {};
+    public settings: Settings = <any>{};
 
     constructor() {
         super();
@@ -80,6 +81,17 @@ export class DetailView extends LitElement {
 
     public showSettings(): void {
         this.settingsMode = true;
-        this.client.fetchSettings(this);
+        this.client.fetchSettings(this)
+            .catch(function (error: string | Error) {
+                console.log(error);
+            });
+    }
+
+    public saveSettings(): void {
+        buildForm(this.shadowRoot.querySelector(".settings"));
+        this.client.saveSettings(this.settings)
+            .catch(function (error: string | Error) {
+                console.log(error);
+            });
     }
 }

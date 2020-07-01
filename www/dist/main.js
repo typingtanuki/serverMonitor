@@ -5010,12 +5010,6 @@ var Core = /*#__PURE__*/function () {
 
     _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(this, "dependencies", [_monitor_root_monitor_root__WEBPACK_IMPORTED_MODULE_3__["MonitorRoot"]]);
 
-    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(this, "serverIPs", {});
-
-    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(this, "clicked", false);
-
-    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(this, "connection", "");
-
     _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2___default()(this, "monitorRoot", void 0);
   }
 
@@ -5028,25 +5022,6 @@ var Core = /*#__PURE__*/function () {
       setInterval(function () {
         self.monitorRoot.refresh();
       }, 10000);
-    }
-  }, {
-    key: "saveSettings",
-    value: function saveSettings() {
-      this.clicked = true;
-      var data = document.querySelector(".settings > textarea").value;
-      var self = this;
-      fetch("http://" + this.connection + "/config?persist=true", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: data
-      }).then(function (response) {
-        self.clicked = false;
-      })["catch"](function (e) {
-        console.log(e);
-        self.clicked = false;
-      });
     }
   }]);
 
@@ -5088,46 +5063,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js");
 /* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lit_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lit-element */ "./node_modules/lit-element/lit-element.js");
+/* harmony import */ var _form_manager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form-manager */ "./src/detail-view/form-manager.ts");
 
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _templateObject5() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<tr><th colspan=\"2\">", "</th></tr>"]);
-
-  _templateObject5 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject4() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <tr class=\"form check\" .settings=\"", "\" .key=\"", "\">\n        <th>", "</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n    </tr>"]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <tr class=\"form text\" .settings=\"", "\" .key=\"", "\">\n        <th>", "</th><td><input type=\"text\" value=\"", "\"/></td>\n    </tr>"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
 
 function _templateObject2() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <div id=\"server\">", "</div>\n    <div id=\"response\"><table class=\"settings\">\n        ", "\n        ", "\n        ", "\n        ", "\n        ", "\n        ", "\n        \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n    </table></div>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <div id=\"server\">", "</div>\n    <div id=\"response\"><table class=\"settings\">\n        ", "\n        ", "\n        ", "\n        ", "\n        ", "\n        ", "\n        \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n    </table></div>\n        <settings-button label=\"Save Settings\" @click=\"{", "\"></settings-button>"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -5137,7 +5077,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <div id=\"server\">", "</div>\n    <div id=\"response\">\n        <settings-button @click=\"{", "\"></settings-button>\n        <report-list class=\"failure\" .reports=\"", "\"></report-list>\n        <report-list class=\"success\" .reports=\"", "\"></report-list>\n    </div>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <div id=\"server\">", "</div>\n    <div id=\"response\">\n        <settings-button label=\"Edit Settings\" @click=\"{", "\"></settings-button>\n        <report-list class=\"failure\" .reports=\"", "\"></report-list>\n        <report-list class=\"success\" .reports=\"", "\"></report-list>\n    </div>"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -5147,56 +5087,12 @@ function _templateObject() {
 }
 
 
+
 function detailViewTemplate(element) {
   return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject(), element.server.name, element.showSettings, element.failure, element.success);
 }
 function settingsViewTemplate(element) {
-  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject2(), element.server.name, formSection("Global"), formText("Name", element.settings, "identity"), formText("Monitor time", element.settings, "monitorTime"), formText("Debounce time", element.settings, "debounceTime"), formText("API port", element.settings, "port"), formText("Teams Hook", element.settings, "teamsHook"), formSection("CPU"), formCheckbox("Enabled", element.settings, "cpu.enabled"), formText("Warn Level", element.settings, "cpu.maxUsage"), formText("History Size", element.settings, "cpu.historySize"), formSection("Memory"), formCheckbox("Enabled", element.settings, "memory.enabled"), formText("Warn Level", element.settings, "memory.maxUsage"), formText("History Size", element.settings, "memory.historySize"), formSection("Network"), formCheckbox("Enabled", element.settings, "network.enabled"), formText("History Size", element.settings, "network.historySize"), formSection("Disks"), formCheckbox("Enabled", element.settings, "disk.enabled"), formText("Warn Level", element.settings, "disk.maxUsage"), formText("Disks", element.settings, "disk.mounts"), formSection("Process"), formCheckbox("Enabled", element.settings, "process.enabled"), formText("Processes", element.settings, "process.monitoring"), formSection("Ping"), formCheckbox("Enabled", element.settings, "ping.enabled"), formText("Servers", element.settings, "ping.monitoring"), formSection("Handshake"), formCheckbox("Enabled", element.settings, "handshake.enabled"), formText("Servers", element.settings, "handshake.monitoring"), formText("Timeout", element.settings, "handshake.maxHandshakeTime"), formSection("System Updates"), formCheckbox("Enabled", element.settings, "updates.enabled"));
-}
-
-function formText(name, settings, key) {
-  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject3(), settings, key, name, getKey(settings, key));
-}
-
-function formCheckbox(name, settings, key) {
-  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject4(), settings, key, name, getKey(settings, key));
-}
-
-function formSection(name) {
-  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject5(), name);
-}
-
-function getKey(settings, key) {
-  var path = key.split(".");
-  var pos = settings;
-
-  var _iterator = _createForOfIteratorHelper(path),
-      _step;
-
-  try {
-    for (_iterator.s(); !(_step = _iterator.n()).done;) {
-      var piece = _step.value;
-      pos = pos[piece];
-    }
-  } catch (err) {
-    _iterator.e(err);
-  } finally {
-    _iterator.f();
-  }
-
-  if (pos === true || pos === false) {
-    return pos;
-  }
-
-  if (Array.isArray(pos)) {
-    return pos.join("; ");
-  }
-
-  if (pos === null || pos === undefined) {
-    return "";
-  }
-
-  return String(pos);
+  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject2(), element.server.name, Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Global"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Name", element.settings, "identity", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].string), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Monitor time", element.settings, "monitorTime", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Debounce time", element.settings, "debounceTime", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("API port", element.settings, "port", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].string), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Teams Hook", element.settings, "teamsHook", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].string), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("CPU"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "cpu.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Warn Level", element.settings, "cpu.maxUsage", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("History Size", element.settings, "cpu.historySize", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Memory"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "memory.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Warn Level", element.settings, "memory.maxUsage", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("History Size", element.settings, "memory.historySize", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Network"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "network.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("History Size", element.settings, "network.historySize", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Disks"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "disk.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Warn Level", element.settings, "disk.maxUsage", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Disks", element.settings, "disk.mounts", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Process"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "process.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Processes", element.settings, "process.monitoring", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Ping"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "ping.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Servers", element.settings, "ping.monitoring", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Handshake"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "handshake.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Servers", element.settings, "handshake.monitoring", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Timeout", element.settings, "handshake.maxHandshakeTime", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("System Updates"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "updates.enabled"), element.saveSettings);
 }
 
 /***/ }),
@@ -5237,6 +5133,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _report_list_report_list__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../report-list/report-list */ "./src/report-list/report-list.ts");
 /* harmony import */ var _detail_view_template__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./detail-view.template */ "./src/detail-view/detail-view.template.ts");
 /* harmony import */ var _settings_button_settings_button__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../settings-button/settings-button */ "./src/settings-button/settings-button.ts");
+/* harmony import */ var _form_manager__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./form-manager */ "./src/detail-view/form-manager.ts");
 
 
 
@@ -5263,6 +5160,7 @@ function _templateObject() {
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_8___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_7___default()(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
 
 
 
@@ -5404,12 +5302,223 @@ var DetailView = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["custo
     key: "showSettings",
     value: function showSettings() {
       this.settingsMode = true;
-      this.client.fetchSettings(this);
+      this.client.fetchSettings(this)["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }, {
+    key: "saveSettings",
+    value: function saveSettings() {
+      Object(_form_manager__WEBPACK_IMPORTED_MODULE_15__["buildForm"])(this.shadowRoot.querySelector(".settings"));
+      this.client.saveSettings(this.settings)["catch"](function (error) {
+        console.log(error);
+      });
     }
   }]);
 
   return DetailView;
 }(lit_element__WEBPACK_IMPORTED_MODULE_10__["LitElement"]), _temp)) || _class);
+
+/***/ }),
+
+/***/ "./src/detail-view/form-manager.ts":
+/*!*****************************************!*\
+  !*** ./src/detail-view/form-manager.ts ***!
+  \*****************************************/
+/*! exports provided: DataType, formText, formCheckbox, formSection, buildForm */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataType", function() { return DataType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formText", function() { return formText; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formCheckbox", function() { return formCheckbox; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formSection", function() { return formSection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buildForm", function() { return buildForm; });
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lit_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lit-element */ "./node_modules/lit-element/lit-element.js");
+
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _templateObject3() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<tr><th colspan=\"2\">", "</th></tr>"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <tr class=\"form check\" .settings=\"", "\" .key=\"", "\">\n        <th>", "</th><td><input type=\"checkbox\" .checked=\"", "\"/></td></tr>\n    </tr>"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <tr class=\"form text\" .settings=\"", "\" .key=\"", "\" .type=\"", "\">\n        <th>", "</th><td><input type=\"text\" value=\"", "\"/></td>\n    </tr>"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+
+var DataType;
+
+(function (DataType) {
+  DataType["string"] = "string";
+  DataType["array"] = "array";
+  DataType["number"] = "number";
+  DataType["boolean"] = "boolean";
+})(DataType || (DataType = {}));
+
+function formText(name, settings, key, type) {
+  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject(), settings, key, type, name, getKey(settings, key, type));
+}
+function formCheckbox(name, settings, key) {
+  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject2(), settings, key, name, getKey(settings, key, DataType["boolean"]));
+}
+function formSection(name) {
+  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject3(), name);
+}
+
+function getKey(settings, key, type) {
+  var path = key.split(".");
+  var pos = settings;
+
+  var _iterator = _createForOfIteratorHelper(path),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      var piece = _step.value;
+      pos = pos[piece];
+    }
+  } catch (err) {
+    _iterator.e(err);
+  } finally {
+    _iterator.f();
+  }
+
+  if (pos === true || pos === false) {
+    return pos;
+  }
+
+  if (pos === null || pos === undefined) {
+    return "";
+  }
+
+  if (type === DataType.array) {
+    return pos.join("; ");
+  }
+
+  return String(pos);
+}
+
+function putKey(settings, key, value) {
+  var path = key.split(".");
+  var last = path.splice(path.length - 1, 1)[0];
+  var pos = settings;
+
+  var _iterator2 = _createForOfIteratorHelper(path),
+      _step2;
+
+  try {
+    for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+      var piece = _step2.value;
+      pos = pos[piece];
+    }
+  } catch (err) {
+    _iterator2.e(err);
+  } finally {
+    _iterator2.f();
+  }
+
+  pos[last] = value;
+}
+
+function buildForm(root) {
+  var entries = root.querySelectorAll("tr");
+
+  for (var i = 0; i < entries.length; i++) {
+    var tr = entries[i];
+
+    if (tr.classList.contains("text")) {
+      buildFormText(tr);
+    } else if (tr.classList.contains("check")) {
+      buildFormCheckbox(tr);
+    }
+  }
+}
+
+function buildFormText(tr) {
+  var settings = tr.settings;
+  var type = tr.type;
+  var key = tr.key;
+  var rawValue = tr.querySelector("input").value;
+  var value = null;
+
+  switch (type) {
+    case DataType.array:
+      var parts = rawValue.split(";");
+      var split = [];
+
+      var _iterator3 = _createForOfIteratorHelper(parts),
+          _step3;
+
+      try {
+        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+          var part = _step3.value;
+          var trimmed = part.trim();
+
+          if (trimmed.length > 0) {
+            split.push(trimmed);
+          }
+        }
+      } catch (err) {
+        _iterator3.e(err);
+      } finally {
+        _iterator3.f();
+      }
+
+      value = split;
+      break;
+
+    case DataType["boolean"]:
+      value = rawValue === "true";
+      break;
+
+    case DataType.string:
+      value = rawValue;
+      break;
+
+    case DataType.number:
+      value = parseInt(rawValue, 10);
+      break;
+  }
+
+  putKey(settings, key, value);
+}
+
+function buildFormCheckbox(tr) {
+  var settings = tr.settings;
+  var key = tr.key;
+  putKey(settings, key, tr.querySelector("input").checked);
+}
 
 /***/ }),
 
@@ -5926,62 +6035,12 @@ var DisplayLine = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_13__["cust
 /*!***********************!*\
   !*** ./src/layout.ts ***!
   \***********************/
-/*! exports provided: span, div, ul, li, text, clearElement, isAttached */
+/*! exports provided: isAttached */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "span", function() { return span; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "div", function() { return div; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ul", function() { return ul; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "li", function() { return li; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "text", function() { return text; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearElement", function() { return clearElement; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isAttached", function() { return isAttached; });
-function span(content) {
-  var out = document.createElement("span");
-
-  if (content !== undefined) {
-    out.appendChild(content);
-  }
-
-  return out;
-}
-function div(content) {
-  var out = document.createElement("div");
-
-  if (content !== undefined) {
-    out.appendChild(content);
-  }
-
-  return out;
-}
-function ul(content) {
-  var out = document.createElement("ul");
-
-  if (content !== undefined) {
-    out.appendChild(content);
-  }
-
-  return out;
-}
-function li(content) {
-  var out = document.createElement("li");
-
-  if (content !== undefined) {
-    out.appendChild(content);
-  }
-
-  return out;
-}
-function text(content) {
-  return document.createTextNode(content);
-}
-function clearElement(element) {
-  while (element.hasChildNodes()) {
-    element.removeChild(element.firstChild);
-  }
-}
 function isAttached(element) {
   if (element.parentElement) {
     return isAttached(element.parentElement);
@@ -6892,6 +6951,40 @@ var RestClient = /*#__PURE__*/function () {
 
       return fetchSettings;
     }()
+  }, {
+    key: "saveSettings",
+    value: function () {
+      var _saveSettings = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(settings) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return fetch("http://" + this.server + "/config?persist=true", {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(settings)
+                });
+
+              case 2:
+                return _context4.abrupt("return");
+
+              case 3:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function saveSettings(_x4) {
+        return _saveSettings.apply(this, arguments);
+      }
+
+      return saveSettings;
+    }()
   }]);
 
   return RestClient;
@@ -7118,7 +7211,7 @@ var ServerEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["custo
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ":host {\n  display: block;\n}\n", ""]);
+exports.push([module.i, ":host {\n  display: flex;\n  justify-content: space-between;\n  align-items: stretch;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -7349,7 +7442,7 @@ __webpack_require__.r(__webpack_exports__);
 var _dec, _class, _temp;
 
 function _templateObject() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["Settings"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["", ""]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7380,6 +7473,9 @@ var SettingsButton = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["cu
       return {
         server: {
           type: Object
+        },
+        label: {
+          type: String
         }
       };
     }
@@ -7394,13 +7490,15 @@ var SettingsButton = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["cu
 
     _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this), "server", void 0);
 
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this), "label", void 0);
+
     return _this;
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(SettingsButton, [{
     key: "render",
     value: function render() {
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["html"])(_templateObject());
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["html"])(_templateObject(), this.label);
     }
   }, {
     key: "firstUpdated",

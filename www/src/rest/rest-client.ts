@@ -150,4 +150,14 @@ export class RestClient {
         await detailView.redraw();
     }
 
+    public async saveSettings(settings: Settings): Promise<void> {
+        await fetch("http://" + this.server + "/config?persist=true", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(settings)
+        });
+        return;
+    }
 }

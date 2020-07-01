@@ -11,18 +11,20 @@ export class SettingsButton extends LitElement {
 
     static get properties() {
         return {
-            server: {type: Object}
+            server: {type: Object},
+            label: {type: String}
         };
     }
 
     public server: ServerInfo;
+    public label: string;
 
     constructor() {
         super();
     }
 
     public render(): TemplateResult {
-        return html`Settings`;
+        return html`${this.label}`;
     }
 
     public firstUpdated(): void {
