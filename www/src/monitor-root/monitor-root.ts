@@ -6,6 +6,7 @@ import {ServerList} from "../server-list/server-list";
 import {ServerEntrySelectedEvent} from "../server-entry/server-entry";
 import {DetailView} from "../detail-view/detail-view";
 import {monitorRootTemplate} from "./monitor-root-template";
+import {ModalRoot} from "../modal-root/modal-root";
 
 @customElement('monitor-root')
 export class MonitorRoot extends LitElement {
@@ -35,7 +36,7 @@ export class MonitorRoot extends LitElement {
     }
 
     public static get dependencies(): any[] {
-        return [ServerList, DetailView];
+        return [ServerList, DetailView, ModalRoot];
     }
 
     public render(): TemplateResult {
@@ -49,7 +50,14 @@ export class MonitorRoot extends LitElement {
         });
     }
 
-    public refresh(): void {
+    public closeDetails(): void {
+        const detailsView: DetailView = this.shadowRoot.querySelector(".details.half detail-view");
+        detailsView.client = null;
+        this.showDetails = false;
+    }
+
+    public async refresh(): Promise<void> {
+        await this.requestUpdate();
         const serverList: ServerList | null = this.shadowRoot.querySelector("server-list");
         if (serverList !== null) {
             serverList.refresh();
@@ -59,6 +67,13 @@ export class MonitorRoot extends LitElement {
         if (detailsView !== null) {
             detailsView.changeProperties();
         }
+    }
+
+    public async showModal(header: string, content: TemplateResult): Promise<void> {
+        const modal: ModalRoot = this.shadowRoot.querySelector("modal-root");
+        modal.header = header;
+        modal.content = content;
+        return modal.open();
     }
 
     private webServer(): string {

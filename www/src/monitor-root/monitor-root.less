@@ -1,5 +1,7 @@
 @import "../constants/colors.less";
 
+@rightColumn: 350px;
+
 :host {
   display: block;
 
@@ -24,22 +26,22 @@ server-list {
 }
 
 server-list.half {
-  right: 300px;
-  overflow: hidden;
+  right: @rightColumn;
 }
 
-.details, .settings {
-  display: none;
+.details {
   overflow-x: hidden;
-}
-
-.details.half, .settings.half {
-  display: block;
   position: absolute;
   top: 0;
   right: 0;
-  width: 300px;
+  width: 0;
   bottom: 0;
+  transition: width 300ms;
+}
+
+.details.half {
+  display: block;
+  width: @rightColumn;
   overflow: auto;
   padding: 10px;
 }

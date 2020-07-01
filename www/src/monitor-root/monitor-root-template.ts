@@ -8,8 +8,5 @@ export function monitorRootTemplate(monitorRoot: MonitorRoot): TemplateResult {
 <div class="${classMap({details: true, half: monitorRoot.showDetails})}">
     <detail-view .client="${monitorRoot.currentClient}" .server="${monitorRoot.currentServerInfo}"></detail-view>
 </div>
-<div class="settings">
-    <div id="save">Save Settings</div>
-    <textarea></textarea>
-</div>`;
+<modal-root></modal-root>`;
 }

@@ -30,7 +30,7 @@ export class ServerList extends LitElement {
     }
 
     public render(): TemplateResult {
-        return html`${this.servers.map(server => this.formatServer(server))}`;
+        return html`<div class="root">${this.servers.map(server => this.formatServer(server))}</div>`;
     }
 
     public firstUpdated(): void {
@@ -47,7 +47,7 @@ export class ServerList extends LitElement {
                 }
             })
             .catch(function (error: string | Error) {
-                console.log(error);
+                window.core.showError(error);
             });
     }
 

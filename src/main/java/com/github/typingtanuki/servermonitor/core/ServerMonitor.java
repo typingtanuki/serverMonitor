@@ -136,7 +136,7 @@ public class ServerMonitor {
         }
         connectors = new LinkedList<>();
         connectors.add(new LoggerConnector());
-        if (config.getTeamsHook() != null) {
+        if (config.getTeamsHook() != null && !config.getTeamsHook().isBlank()) {
             connectors.add(new TeamsConnector(config, info));
         }
         return connectors;

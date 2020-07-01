@@ -7,9 +7,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
 
-  padding: 5px;
+  padding: 10px;
 
   background-color: @bgColorHighlight;
 }
@@ -21,14 +22,20 @@
   text-transform: capitalize;
 
   text-align: center;
+  padding-top: 5px;
+  padding-bottom: 15px;
 }
 
 th {
   text-align: right;
   font-weight: normal;
+  white-space: nowrap;
 }
 
 th[colspan] {
+  padding-top: 10px;
+  padding-bottom: 5px;
+
   text-align: center;
   font-weight: bold;
   font-size: 15px;
@@ -38,5 +45,5 @@ input, select, textarea {
   color: @mainTextColor;
   background-color: @bgColor;
 
-  border: none;
+  border: 1px solid @mainTextColor;
 }

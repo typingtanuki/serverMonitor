@@ -14,14 +14,14 @@ export function formText(name: string,
                          type: DataType): TemplateResult {
     return html`
     <tr class="form text" .settings="${settings}" .key="${key}" .type="${type}">
-        <th>${name}</th><td><input type="text" value="${getKey(settings, key, type)}"/></td>
+        <th>${name}: </th><td><input type="text" value="${getKey(settings, key, type)}"/></td>
     </tr>`;
 }
 
 export function formCheckbox(name: string, settings: Settings, key: string): TemplateResult {
     return html`
     <tr class="form check" .settings="${settings}" .key="${key}">
-        <th>${name}</th><td><input type="checkbox" .checked="${getKey(settings, key, DataType.boolean)}"/></td></tr>
+        <th>${name}: </th><td><input type="checkbox" .checked="${getKey(settings, key, DataType.boolean)}"/></td></tr>
     </tr>`;
 }
 

@@ -51,7 +51,7 @@ export class DetailView extends LitElement {
     }
 
     public changeProperties(): void {
-        if (this.client) {
+        if (this.client && this.parentElement.classList.contains("half")) {
             const self: DetailView = this;
             this.client.fetchDetails(this)
                 .then(function (): void {
@@ -64,7 +64,9 @@ export class DetailView extends LitElement {
                     })
                 })
                 .catch(function (error: string | Error) {
-                    console.log(error);
+                    window.core.showError(error);
+                    self.client = null;
+                    window.core.closeDetails();
                 });
         }
     }
@@ -83,7 +85,7 @@ export class DetailView extends LitElement {
         this.settingsMode = true;
         this.client.fetchSettings(this)
             .catch(function (error: string | Error) {
-                console.log(error);
+                window.core.showError(error);
             });
     }
 
@@ -91,7 +93,7 @@ export class DetailView extends LitElement {
         buildForm(this.shadowRoot.querySelector(".settings"));
         this.client.saveSettings(this.settings)
             .catch(function (error: string | Error) {
-                console.log(error);
+                window.core.showError(error);
             });
     }
 }
