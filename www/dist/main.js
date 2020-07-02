@@ -4943,7 +4943,7 @@ try {
 /*!*********************************!*\
   !*** ./src/constants/colors.ts ***!
   \*********************************/
-/*! exports provided: colorOk, colorNg, colorTick, bgColor, bgColorHighlight, titleTextolor, mainTextolor, secondrayTextolor */
+/*! exports provided: colorOk, colorNg, colorTick, bgColor, bgColorHighlight, bgColorSelected, textColorSelected, titleTextColor, mainTextColor, secondaryTextColor */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4953,9 +4953,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "colorTick", function() { return colorTick; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgColor", function() { return bgColor; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgColorHighlight", function() { return bgColorHighlight; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "titleTextolor", function() { return titleTextolor; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mainTextolor", function() { return mainTextolor; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "secondrayTextolor", function() { return secondrayTextolor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bgColorSelected", function() { return bgColorSelected; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "textColorSelected", function() { return textColorSelected; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "titleTextColor", function() { return titleTextColor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mainTextColor", function() { return mainTextColor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "secondaryTextColor", function() { return secondaryTextColor; });
+// Keep in sync with less file
 var Base03 = "#002b36";
 var Base02 = "#073642";
 var Base01 = "#586e75";
@@ -4977,9 +4980,39 @@ var colorNg = Orange;
 var colorTick = Cyan;
 var bgColor = Base03;
 var bgColorHighlight = Base02;
-var titleTextolor = Base1;
-var mainTextolor = Base0;
-var secondrayTextolor = Base01;
+var bgColorSelected = Base01;
+var textColorSelected = Base03;
+var titleTextColor = Base1;
+var mainTextColor = Base0;
+var secondaryTextColor = Base01;
+
+/***/ }),
+
+/***/ "./src/constants/mixins.ts":
+/*!*********************************!*\
+  !*** ./src/constants/mixins.ts ***!
+  \*********************************/
+/*! exports provided: isAttached */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isAttached", function() { return isAttached; });
+function isAttached(element) {
+  if (element.parentElement) {
+    return isAttached(element.parentElement);
+  }
+
+  if (element.parentNode) {
+    return isAttached(element.parentNode);
+  }
+
+  if (element.host) {
+    return isAttached(element.host);
+  }
+
+  return String(element) === "[object HTMLDocument]";
+}
 
 /***/ }),
 
@@ -5097,7 +5130,7 @@ var Core = /*#__PURE__*/function () {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                return _context2.abrupt("return", this.showModal("Error", this.formatMessage(error)));
+                return _context2.abrupt("return", this.showModal("Error", Core.formatMessage(error)));
 
               case 1:
               case "end":
@@ -5119,7 +5152,7 @@ var Core = /*#__PURE__*/function () {
       this.monitorRoot.closeDetails();
       this.monitorRoot.refresh();
     }
-  }, {
+  }], [{
     key: "formatMessage",
     value: function formatMessage(error) {
       if (error === null || error === undefined) {
@@ -5685,7 +5718,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lit_element__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! lit-element */ "./node_modules/lit-element/lit-element.js");
 /* harmony import */ var _display_gauge_less__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./display-gauge.less */ "./src/display-gauge/display-gauge.less");
 /* harmony import */ var _display_gauge_less__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_display_gauge_less__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../layout */ "./src/layout.ts");
+/* harmony import */ var _constants_mixins__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../constants/mixins */ "./src/constants/mixins.ts");
 
 
 
@@ -5761,7 +5794,7 @@ var DisplayGauge = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["cus
       var element = this.shadowRoot.querySelector("#chart");
       var self = this;
 
-      if (this.current !== undefined && this.max !== undefined && element !== null && Object(_layout__WEBPACK_IMPORTED_MODULE_12__["isAttached"])(this)) {
+      if (this.current !== undefined && this.max !== undefined && element !== null && Object(_constants_mixins__WEBPACK_IMPORTED_MODULE_12__["isAttached"])(this)) {
         requestAnimationFrame(function () {
           var gauge = echarts.init(element);
           gauge.setOption(options);
@@ -5786,22 +5819,19 @@ var DisplayGauge = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["cus
             lineStyle: {
               color: [[0, _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorOk"]], [this.max / 100, _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorOk"]], [1, _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorNg"]]],
               width: 3,
-              shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorTick"],
-              shadowBlur: 10
+              shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorTick"]
             }
           },
           axisLabel: {
             fontWeight: 'bolder',
             color: _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorTick"],
-            shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorTick"],
-            shadowBlur: 10
+            shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorTick"]
           },
           axisTick: {
             length: 15,
             lineStyle: {
               color: 'auto',
-              shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorTick"],
-              shadowBlur: 10
+              shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorTick"]
             }
           },
           splitLine: {
@@ -5811,16 +5841,14 @@ var DisplayGauge = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["cus
             }
           },
           pointer: {
-            shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorTick"],
-            shadowBlur: 5
+            shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorTick"]
           },
           title: {
             fontWeight: 'bolder',
             fontSize: 10,
             fontStyle: 'italic',
             color: _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorTick"],
-            shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorTick"],
-            shadowBlur: 10
+            shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_9__["colorTick"]
           },
           data: [{
             value: this.current
@@ -5908,7 +5936,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lit_element__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! lit-element */ "./node_modules/lit-element/lit-element.js");
 /* harmony import */ var _display_line_less__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./display-line.less */ "./src/display-line/display-line.less");
 /* harmony import */ var _display_line_less__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_display_line_less__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _layout__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../layout */ "./src/layout.ts");
+/* harmony import */ var _constants_mixins__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../constants/mixins */ "./src/constants/mixins.ts");
 
 
 
@@ -5993,7 +6021,7 @@ var DisplayLine = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_13__["cust
       var element = this.shadowRoot.querySelector("#chart");
       var self = this;
 
-      if (this.values !== undefined && this.dates !== undefined && this.max !== undefined && this.limit !== undefined && element !== null && Object(_layout__WEBPACK_IMPORTED_MODULE_15__["isAttached"])(this)) {
+      if (this.values !== undefined && this.dates !== undefined && this.max !== undefined && this.limit !== undefined && element !== null && Object(_constants_mixins__WEBPACK_IMPORTED_MODULE_15__["isAttached"])(this)) {
         requestAnimationFrame(function () {
           var gauge = echarts.init(element);
           gauge.setOption(options);
@@ -6015,14 +6043,12 @@ var DisplayLine = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_13__["cust
         axisLabel: {
           fontWeight: 'bolder',
           color: _constants_colors__WEBPACK_IMPORTED_MODULE_12__["colorTick"],
-          shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_12__["colorTick"],
-          shadowBlur: 10
+          shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_12__["colorTick"]
         },
         axisTick: {
           lineStyle: {
             color: 'auto',
-            shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_12__["colorTick"],
-            shadowBlur: 10
+            shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_12__["colorTick"]
           }
         },
         xAxis: {
@@ -6042,8 +6068,7 @@ var DisplayLine = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_13__["cust
           type: 'line',
           step: true,
           lineStyle: {
-            shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_12__["colorTick"],
-            shadowBlur: 10
+            shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_12__["colorTick"]
           },
           color: {
             type: 'linear',
@@ -6068,8 +6093,7 @@ var DisplayLine = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_13__["cust
             silent: true,
             lineStyle: {
               color: _constants_colors__WEBPACK_IMPORTED_MODULE_12__["colorNg"],
-              shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_12__["colorNg"],
-              shadowBlur: 10
+              shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_12__["colorNg"]
             },
             data: [{
               yAxis: this.max
@@ -6079,8 +6103,7 @@ var DisplayLine = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_13__["cust
           }
         },
         pointer: {
-          shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_12__["colorTick"],
-          shadowBlur: 5
+          shadowColor: _constants_colors__WEBPACK_IMPORTED_MODULE_12__["colorTick"]
         }
       };
 
@@ -6141,34 +6164,6 @@ var DisplayLine = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_13__["cust
   writable: true,
   initializer: null
 })), _class2)) || _class);
-
-/***/ }),
-
-/***/ "./src/layout.ts":
-/*!***********************!*\
-  !*** ./src/layout.ts ***!
-  \***********************/
-/*! exports provided: isAttached */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isAttached", function() { return isAttached; });
-function isAttached(element) {
-  if (element.parentElement) {
-    return isAttached(element.parentElement);
-  }
-
-  if (element.parentNode) {
-    return isAttached(element.parentNode);
-  }
-
-  if (element.host) {
-    return isAttached(element.host);
-  }
-
-  return String(element) === "[object HTMLDocument]";
-}
 
 /***/ }),
 
@@ -6744,8 +6739,18 @@ __webpack_require__.r(__webpack_exports__);
 
 var _dec, _dec2, _class, _class2, _descriptor, _temp;
 
-function _templateObject8() {
+function _templateObject9() {
   var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<display-gauge \n                         .current=\"", "\"\n                         .max=\"", "\"></display-gauge>"]);
+
+  _templateObject9 = function _templateObject9() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject8() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["", ""]);
 
   _templateObject8 = function _templateObject8() {
     return data;
@@ -6755,7 +6760,7 @@ function _templateObject8() {
 }
 
 function _templateObject7() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["", ""]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<div><span class=\"key\">", ": </span><span class=\"value\">", "</span></div>"]);
 
   _templateObject7 = function _templateObject7() {
     return data;
@@ -6765,7 +6770,7 @@ function _templateObject7() {
 }
 
 function _templateObject6() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<div><span class=\"key\">", ": </span><span class=\"value\">", "</span></div>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<display-line \n                               .values=\"", "\" \n                               .dates=\"", "\"\n                               .max=\"", "\"\n                               .limit=\"", "\"></display-line>"]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -6775,7 +6780,7 @@ function _templateObject6() {
 }
 
 function _templateObject5() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<display-line \n                               .values=\"", "\" \n                               .dates=\"", "\"\n                               .max=\"", "\"\n                               .limit=\"", "\"></display-line>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()([""]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -6884,8 +6889,8 @@ var ReportEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
   }, {
     key: "handleGauge",
     value: function handleGauge() {
-      if (this.isGauge(this.report.details)) {
-        return this.formatGauge(this.report.details);
+      if (isGauge(this.report.details)) {
+        return ReportEntry.formatGauge(this.report.details);
       }
 
       return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject3());
@@ -6894,76 +6899,61 @@ var ReportEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
     key: "formatKey",
     value: function formatKey(key) {
       var details = this.report.details[key];
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject4(), this.isHistory(details) ? this.formatHistory(key, details) : this.isHidden(key) ? this.visited.push(key) : this.isString(details) || this.isNumber(details) ? this.formatString(key, String(details)) : this.isObject(details) ? this.formatObject(key, details) : "Dropped " + key);
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject4(), this.doFormat(details, key));
     }
   }, {
-    key: "isGauge",
-    value: function isGauge(value) {
-      var keys = Object.keys(value);
-      return keys.indexOf("Current Usage") !== -1 && keys.indexOf("Maximum Usage") !== -1;
-    }
-  }, {
-    key: "isHistory",
-    value: function isHistory(value) {
-      return value.hasOwnProperty("type") && value.type === "history";
-    }
-  }, {
-    key: "isHidden",
-    value: function isHidden(key) {
-      return key === "Do Update";
-    }
-  }, {
-    key: "isObject",
-    value: function isObject(details) {
-      return String(details) === "[object Object]";
-    }
-  }, {
-    key: "isString",
-    value: function isString(details) {
-      return typeof details === 'string' || details instanceof String;
-    }
-  }, {
-    key: "isNumber",
-    value: function isNumber(details) {
-      return typeof details === 'number' || details instanceof Number;
-    }
-  }, {
-    key: "formatHistory",
-    value: function formatHistory(key, details) {
+    key: "doFormat",
+    value: function doFormat(details, key) {
       this.visited.push(key);
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject5(), details.values, details.dates, parseInt(details.max), parseInt(details.limit));
-    }
-  }, {
-    key: "formatString",
-    value: function formatString(key, value) {
-      this.visited.push(key);
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject6(), key, String(value));
-    }
-  }, {
-    key: "formatObject",
-    value: function formatObject(key, details) {
-      var _this4 = this;
 
-      this.visited.push(key);
-      var keys = Object.keys(details);
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject7(), keys.map(function (key) {
-        return _this4.subList(key, details);
-      }));
-    }
-  }, {
-    key: "subList",
-    value: function subList(key, details) {
-      return this.formatString(key, details[key]);
-    }
-  }, {
-    key: "formatGauge",
-    value: function formatGauge(details) {
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject8(), parseInt(details["Current Usage"]), parseInt(details["Maximum Usage"]));
+      if (isHistory(details)) {
+        return ReportEntry.formatHistory(details);
+      }
+
+      if (isHidden(key)) {
+        return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject5());
+      }
+
+      if (isString(details) || isNumber(details)) {
+        return ReportEntry.formatString(key, String(details));
+      }
+
+      if (isObject(details)) {
+        return ReportEntry.formatObject(details);
+      }
     }
   }], [{
     key: "dependencies",
     value: function dependencies() {
       return [_display_line_display_line__WEBPACK_IMPORTED_MODULE_13__["DisplayLine"], _display_gauge_display_gauge__WEBPACK_IMPORTED_MODULE_14__["DisplayGauge"]];
+    }
+  }, {
+    key: "formatHistory",
+    value: function formatHistory(details) {
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject6(), details.values, details.dates, parseInt(details.max), parseInt(details.limit));
+    }
+  }, {
+    key: "formatString",
+    value: function formatString(key, value) {
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject7(), key, String(value));
+    }
+  }, {
+    key: "formatObject",
+    value: function formatObject(details) {
+      var keys = Object.keys(details);
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject8(), keys.map(function (key) {
+        return ReportEntry.subList(key, details);
+      }));
+    }
+  }, {
+    key: "subList",
+    value: function subList(key, details) {
+      return ReportEntry.formatString(key, details[key]);
+    }
+  }, {
+    key: "formatGauge",
+    value: function formatGauge(details) {
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject9(), parseInt(details["Current Usage"]), parseInt(details["Maximum Usage"]));
     }
   }, {
     key: "styles",
@@ -6979,6 +6969,31 @@ var ReportEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
   writable: true,
   initializer: null
 })), _class2)) || _class);
+
+function isGauge(value) {
+  var keys = Object.keys(value);
+  return keys.indexOf("Current Usage") !== -1 && keys.indexOf("Maximum Usage") !== -1;
+}
+
+function isHistory(value) {
+  return value.hasOwnProperty("type") && value.type === "history";
+}
+
+function isHidden(key) {
+  return key === "Do Update";
+}
+
+function isObject(details) {
+  return String(details) === "[object Object]";
+}
+
+function isString(details) {
+  return typeof details === 'string' || details instanceof String;
+}
+
+function isNumber(details) {
+  return typeof details === 'number' || details instanceof Number;
+}
 
 /***/ }),
 
@@ -7433,7 +7448,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<div class=\"title\">", "</div> ", ""]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<div class=\"title\">", "</div>\n", ""]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7516,8 +7531,6 @@ var ServerEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["custo
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4___default()(ServerEntry, [{
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       this.classList.add("OK");
       this.classList.remove("NG");
 
@@ -7540,7 +7553,7 @@ var ServerEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["custo
       }
 
       return Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["html"])(_templateObject(), this.server.name, this.server.monitors.map(function (monitor) {
-        return _this2.formatMonitor(monitor);
+        return ServerEntry.formatMonitor(monitor);
       }));
     }
   }, {
@@ -7552,14 +7565,14 @@ var ServerEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["custo
       });
     }
   }, {
-    key: "formatMonitor",
-    value: function formatMonitor(monitor) {
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["html"])(_templateObject2(), monitor.state ? 'OK' : 'NG', monitor.name);
-    }
-  }, {
     key: "clicked",
     value: function clicked() {
       this.dispatchEvent(new ServerEntrySelectedEvent(this.server));
+    }
+  }], [{
+    key: "formatMonitor",
+    value: function formatMonitor(monitor) {
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["html"])(_templateObject2(), monitor.state ? 'OK' : 'NG', monitor.name);
     }
   }]);
 
@@ -7705,10 +7718,8 @@ var ServerList = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["custom
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(ServerList, [{
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       return Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["html"])(_templateObject(), this.servers.map(function (server) {
-        return _this2.formatServer(server);
+        return ServerList.formatServer(server);
       }));
     }
   }, {
@@ -7731,11 +7742,6 @@ var ServerList = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["custom
       });
     }
   }, {
-    key: "formatServer",
-    value: function formatServer(server) {
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["html"])(_templateObject2(), server);
-    }
-  }, {
     key: "resolve",
     value: function resolve(server, currentServer) {
       if (this.serverIPs.hasOwnProperty(server.name)) {
@@ -7743,6 +7749,11 @@ var ServerList = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["custom
       }
 
       return currentServer;
+    }
+  }], [{
+    key: "formatServer",
+    value: function formatServer(server) {
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["html"])(_templateObject2(), server);
     }
   }]);
 

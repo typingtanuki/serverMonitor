@@ -1,3 +1,5 @@
+// Keep in sync with ts file
+
 @Base03: #002b36;
 @Base02: #073642;
 @Base01: #586e75;
@@ -26,37 +28,3 @@
 @titleTextColor: @Base1;
 @mainTextColor: @Base0;
 @secondaryTextColor: @Base01;
-
-.mark(@color) {
-  border-left: 3px solid @color;
-}
-
-.mark-success() {
-  .mark(@colorOk);
-}
-
-.mark-failure() {
-  .mark(@colorNg);
-}
-
-.button-style() {
-  :host {
-    padding: 5px;
-
-    color: @mainTextColor;
-    background-color: @bgColorHighlight;
-    border: 1px solid @mainTextColor;
-    border-radius: 3px;
-
-    text-transform: capitalize;
-
-    cursor: pointer;
-    transition: background-color 300ms, color 300ms;
-  }
-
-  :host(:hover) {
-    background-color: @bgColorSelected;
-
-    color: @textColorSelected;
-  }
-}

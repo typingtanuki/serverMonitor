@@ -1,6 +1,6 @@
 import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from "lit-element";
 import buttonStyle from "./settings-button.less";
-import {ServerInfo} from "../rest/rest-client";
+import {ServerInfo} from "../rest/types";
 
 @customElement('settings-button')
 export class SettingsButton extends LitElement {

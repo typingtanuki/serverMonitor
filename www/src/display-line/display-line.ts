@@ -2,7 +2,7 @@ import {colorNg, colorOk, colorTick} from "../constants/colors";
 
 import {CSSResult, customElement, html, LitElement, property, TemplateResult, unsafeCSS} from 'lit-element';
 import lineStyle from "./display-line.less";
-import {isAttached} from "../layout";
+import {isAttached} from "../constants/mixins";
 
 @customElement('display-line')
 export class DisplayLine extends LitElement {
@@ -68,14 +68,12 @@ export class DisplayLine extends LitElement {
             axisLabel: {
                 fontWeight: 'bolder',
                 color: colorTick,
-                shadowColor: colorTick,
-                shadowBlur: 10
+                shadowColor: colorTick
             },
             axisTick: {
                 lineStyle: {
                     color: 'auto',
-                    shadowColor: colorTick,
-                    shadowBlur: 10
+                    shadowColor: colorTick
                 }
             },
             xAxis: {
@@ -95,8 +93,7 @@ export class DisplayLine extends LitElement {
                 type: 'line',
                 step: true,
                 lineStyle: {
-                    shadowColor: colorTick,
-                    shadowBlur: 10
+                    shadowColor: colorTick
                 },
                 color: {
                     type: 'linear',
@@ -121,8 +118,7 @@ export class DisplayLine extends LitElement {
                     silent: true,
                     lineStyle: {
                         color: colorNg,
-                        shadowColor: colorNg,
-                        shadowBlur: 10
+                        shadowColor: colorNg
                     },
                     data: [{
                         yAxis: this.max
@@ -132,8 +128,7 @@ export class DisplayLine extends LitElement {
                 }
             },
             pointer: {
-                shadowColor: colorTick,
-                shadowBlur: 5
+                shadowColor: colorTick
             }
         };
 

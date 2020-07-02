@@ -1,3 +1,5 @@
+// Keep in sync with less file
+
 const Base03: string = "#002b36";
 const Base02: string = "#073642";
 const Base01: string = "#586e75";
@@ -18,8 +20,12 @@ const Green: string = "#859900";
 export const colorOk: string = Blue;
 export const colorNg: string = Orange;
 export const colorTick: string = Cyan;
+
 export const bgColor: string = Base03;
 export const bgColorHighlight: string = Base02;
-export const titleTextolor: string = Base1;
-export const mainTextolor: string = Base0;
-export const secondrayTextolor: string = Base01;
+export const bgColorSelected: string = Base01;
+export const textColorSelected: string = Base03;
+
+export const titleTextColor: string = Base1;
+export const mainTextColor: string = Base0;
+export const secondaryTextColor: string = Base01;

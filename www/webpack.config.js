@@ -39,7 +39,8 @@ module.exports = {
     plugins: [
         new CopyPlugin({
             patterns: [
-                {from: './node_modules/echarts/dist/echarts.js', to: '.'}
+                {from: './node_modules/echarts/dist/echarts.js', to: '.'},
+                {from: './node_modules/echarts/dist/echarts.js.map', to: '.'}
             ],
         }),
     ]

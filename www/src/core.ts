@@ -31,7 +31,7 @@ export class Core {
     }
 
     public async showError(error: string | Error): Promise<void> {
-        return this.showModal("Error", this.formatMessage(error));
+        return this.showModal("Error", Core.formatMessage(error));
     }
 
     public closeDetails(): void {
@@ -39,7 +39,7 @@ export class Core {
         this.monitorRoot.refresh();
     }
 
-    private formatMessage(error: any): TemplateResult {
+    private static formatMessage(error: any): TemplateResult {
         if (error === null || error === undefined) {
             return html`<div>No error details</div>`;
         }

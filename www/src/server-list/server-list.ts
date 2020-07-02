@@ -1,7 +1,8 @@
 import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
 import listStyle from "./server-list.less";
-import {RestClient, ServerInfo} from "../rest/rest-client";
+import {RestClient} from "../rest/rest-client";
 import {ServerEntry} from "../server-entry/server-entry";
+import {ServerInfo} from "../rest/types";
 
 @customElement('server-list')
 export class ServerList extends LitElement {
@@ -30,7 +31,7 @@ export class ServerList extends LitElement {
     }
 
     public render(): TemplateResult {
-        return html`<div class="root">${this.servers.map(server => this.formatServer(server))}</div>`;
+        return html`<div class="root">${this.servers.map(server => ServerList.formatServer(server))}</div>`;
     }
 
     public firstUpdated(): void {
@@ -51,7 +52,7 @@ export class ServerList extends LitElement {
             });
     }
 
-    private formatServer(server: ServerInfo): TemplateResult {
+    private static formatServer(server: ServerInfo): TemplateResult {
         return html`<server-entry .server="${server}"></server-entry>`;
     }
 

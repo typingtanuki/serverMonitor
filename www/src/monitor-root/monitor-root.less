@@ -1,4 +1,4 @@
-@import "../constants/colors.less";
+@import "../constants/common.less";
 
 @rightColumn: 350px;
 
@@ -23,10 +23,10 @@ server-list {
   bottom: 0;
   padding: 20px;
   transition: right 300ms;
-}
 
-server-list.half {
-  right: @rightColumn;
+  &.half {
+    right: @rightColumn;
+  }
 }
 
 .details {

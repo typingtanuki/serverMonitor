@@ -1,7 +1,7 @@
 import {CSSResult, customElement, html, LitElement, property, TemplateResult, unsafeCSS} from 'lit-element';
 import reportStyle from "./report-list.less";
 import {ReportEntry} from "../report-entry/report-entry";
-import {Report} from "../report";
+import {Report} from "../rest/types";
 
 @customElement('report-list')
 export class ReportList extends LitElement {

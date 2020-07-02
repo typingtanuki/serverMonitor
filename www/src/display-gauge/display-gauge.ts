@@ -2,7 +2,7 @@ import {colorNg, colorOk, colorTick} from "../constants/colors";
 
 import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
 import gaugeStyle from "./display-gauge.less";
-import {isAttached} from "../layout";
+import {isAttached} from "../constants/mixins";
 
 @customElement('display-gauge')
 export class DisplayGauge extends LitElement {
@@ -73,22 +73,19 @@ export class DisplayGauge extends LitElement {
                         lineStyle: {
                             color: [[0, colorOk], [this.max / 100, colorOk], [1, colorNg]],
                             width: 3,
-                            shadowColor: colorTick,
-                            shadowBlur: 10
+                            shadowColor: colorTick
                         }
                     },
                     axisLabel: {
                         fontWeight: 'bolder',
                         color: colorTick,
-                        shadowColor: colorTick,
-                        shadowBlur: 10
+                        shadowColor: colorTick
                     },
                     axisTick: {
                         length: 15,
                         lineStyle: {
                             color: 'auto',
-                            shadowColor: colorTick,
-                            shadowBlur: 10
+                            shadowColor: colorTick
                         }
                     },
 
@@ -99,16 +96,14 @@ export class DisplayGauge extends LitElement {
                         }
                     },
                     pointer: {
-                        shadowColor: colorTick,
-                        shadowBlur: 5
+                        shadowColor: colorTick
                     },
                     title: {
                         fontWeight: 'bolder',
                         fontSize: 10,
                         fontStyle: 'italic',
                         color: colorTick,
-                        shadowColor: colorTick,
-                        shadowBlur: 10
+                        shadowColor: colorTick
                     },
                     data: [{value: this.current}]
                 }

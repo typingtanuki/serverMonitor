@@ -1,11 +1,11 @@
 import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
 import listStyle from "./detail-view.less";
-import {RestClient, ServerInfo, Settings} from "../rest/rest-client";
-import {Report} from "../report";
+import {RestClient} from "../rest/rest-client";
 import {ReportList} from "../report-list/report-list";
 import {detailViewTemplate, settingsViewTemplate} from "./detail-view.template";
 import {SettingsButton} from "../settings-button/settings-button";
 import {buildForm} from "./form-manager";
+import {Report, ServerInfo, Settings} from "../rest/types";
 
 @customElement('detail-view')
 export class DetailView extends LitElement {

@@ -4,3 +4,4 @@ build
 conf/monitor.json
 gradle
 *.log
+www/node_modules

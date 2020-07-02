@@ -1,12 +1,13 @@
 import {CSSResult, customElement, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
 
 import rootStyle from "./monitor-root.less";
-import {RestClient, ServerInfo} from "../rest/rest-client";
+import {RestClient} from "../rest/rest-client";
 import {ServerList} from "../server-list/server-list";
 import {ServerEntrySelectedEvent} from "../server-entry/server-entry";
 import {DetailView} from "../detail-view/detail-view";
 import {monitorRootTemplate} from "./monitor-root-template";
 import {ModalRoot} from "../modal-root/modal-root";
+import {ServerInfo} from "../rest/types";
 
 @customElement('monitor-root')
 export class MonitorRoot extends LitElement {

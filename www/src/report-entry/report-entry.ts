@@ -1,8 +1,8 @@
 import {CSSResult, customElement, html, LitElement, property, TemplateResult, unsafeCSS} from 'lit-element';
 import reportStyle from "./report-entry.less";
-import {Detail, HistoryDetail, Report} from "../report";
 import {DisplayLine} from "../display-line/display-line";
 import {DisplayGauge} from "../display-gauge/display-gauge";
+import {Detail, HistoryDetail, Report} from "../rest/types";
 
 @customElement('report-entry')
 export class ReportEntry extends LitElement {
@@ -46,48 +46,35 @@ export class ReportEntry extends LitElement {
     }
 
     private handleGauge(): TemplateResult {
-        if (this.isGauge(this.report.details)) {
-            return this.formatGauge(this.report.details);
+        if (isGauge(this.report.details)) {
+            return ReportEntry.formatGauge(this.report.details);
         }
         return html``;
     }
 
     private formatKey(key: string): TemplateResult {
         const details: Detail = this.report.details[key];
-        return html`${
-            this.isHistory(details) ? this.formatHistory(key, <HistoryDetail>details) :
-                this.isHidden(key) ? this.visited.push(key) :
-                    this.isString(details) || this.isNumber(details) ? this.formatString(key, String(details)) :
-                        this.isObject(details) ? this.formatObject(key, details) : "Dropped " + key}`;
+        return html`${this.doFormat(details, key)}`;
     }
 
-    private isGauge(value: Detail): boolean {
-        const keys: string[] = Object.keys(value);
-        return keys.indexOf("Current Usage") !== -1 && keys.indexOf("Maximum Usage") !== -1;
-    }
-
-    private isHistory(value: Detail): boolean {
-        return value.hasOwnProperty("type") && value.type === "history";
-    }
-
-    private isHidden(key: string): boolean {
-        return key === "Do Update";
-    }
-
-    private isObject(details: Detail): boolean {
-        return String(details) === "[object Object]";
-    }
-
-    private isString(details: Detail): boolean {
-        return typeof details === 'string' || details instanceof String;
-    }
-
-    private isNumber(details: Detail): boolean {
-        return typeof details === 'number' || details instanceof Number;
-    }
-
-    private formatHistory(key: string, details: HistoryDetail): TemplateResult {
+    private doFormat(details: Detail, key: string): TemplateResult {
         this.visited.push(key);
+
+        if (isHistory(details)) {
+            return ReportEntry.formatHistory(<HistoryDetail>details);
+        }
+        if (isHidden(key)) {
+            return html``;
+        }
+        if (isString(details) || isNumber(details)) {
+            return ReportEntry.formatString(key, String(details));
+        }
+        if (isObject(details)) {
+            return ReportEntry.formatObject(details);
+        }
+    }
+
+    private static formatHistory(details: HistoryDetail): TemplateResult {
         return html`<display-line 
                                .values="${details.values}" 
                                .dates="${details.dates}"
@@ -95,24 +82,48 @@ export class ReportEntry extends LitElement {
                                .limit="${parseInt(details.limit)}"></display-line>`;
     }
 
-    private formatString(key: string, value: string): TemplateResult {
-        this.visited.push(key);
+    private static formatString(key: string, value: string): TemplateResult {
         return html`<div><span class="key">${key}: </span><span class="value">${String(value)}</span></div>`;
     }
 
-    private formatObject(key: string, details: Detail): TemplateResult {
-        this.visited.push(key);
+    private static formatObject(details: Detail): TemplateResult {
         const keys: string[] = Object.keys(details);
-        return html`${keys.map(key => this.subList(key, details))}`;
+        return html`${keys.map(key => ReportEntry.subList(key, details))}`;
     }
 
-    private subList(key: string, details: Detail): TemplateResult {
-        return this.formatString(key, details[key]);
+    private static subList(key: string, details: Detail): TemplateResult {
+        return ReportEntry.formatString(key, details[key]);
     }
 
-    private formatGauge(details: Detail): TemplateResult {
+    private static formatGauge(details: Detail): TemplateResult {
         return html`<display-gauge 
                          .current="${parseInt((<any>details)["Current Usage"])}"
                          .max="${parseInt((<any>details)["Maximum Usage"])}"></display-gauge>`;
     }
+}
+
+
+function isGauge(value: Detail): boolean {
+    const keys: string[] = Object.keys(value);
+    return keys.indexOf("Current Usage") !== -1 && keys.indexOf("Maximum Usage") !== -1;
+}
+
+function isHistory(value: Detail): boolean {
+    return value.hasOwnProperty("type") && value.type === "history";
+}
+
+function isHidden(key: string): boolean {
+    return key === "Do Update";
+}
+
+function isObject(details: Detail): boolean {
+    return String(details) === "[object Object]";
+}
+
+function isString(details: Detail): boolean {
+    return typeof details === 'string' || details instanceof String;
+}
+
+function isNumber(details: Detail): boolean {
+    return typeof details === 'number' || details instanceof Number;
 }

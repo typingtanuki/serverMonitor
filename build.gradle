@@ -65,8 +65,13 @@ task tmpPack(type: Copy, dependsOn: ['jar']) {
         from("${project(':').projectDir}/conf")
         exclude("monitor.json")
     }
+    into('www/dist') {
+        from("${project(':').projectDir}/www/dist")
+        exclude "*.map"
+    }
     into('www') {
-        from("${project(':').projectDir}/www")
+        from("${project(':').projectDir}/www/index.html")
+        from("${project(':').projectDir}/www/monitor.css")
     }
 }
 

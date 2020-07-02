@@ -1,6 +1,6 @@
 import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
 import entryStyle from "./server-entry.less";
-import {Monitor, ServerInfo} from "../rest/rest-client";
+import {Monitor, ServerInfo} from "../rest/types";
 
 export interface ServerEntrySelectedEventInfo {
     server: ServerInfo;
@@ -44,7 +44,8 @@ export class ServerEntry extends LitElement {
                 this.classList.add("NG");
             }
         }
-        return html`<div class="title">${this.server.name}</div> ${this.server.monitors.map(monitor => this.formatMonitor(monitor))}`;
+        return html`<div class="title">${this.server.name}</div>
+${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
     }
 
     public firstUpdated(): void {
@@ -54,7 +55,7 @@ export class ServerEntry extends LitElement {
         });
     }
 
-    private formatMonitor(monitor: Monitor): TemplateResult {
+    private static formatMonitor(monitor: Monitor): TemplateResult {
         return html`<div class="${monitor.state ? 'OK' : 'NG'}">${monitor.name}</div>`;
     }
 

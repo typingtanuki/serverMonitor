@@ -1,5 +1,5 @@
-import {Settings} from "../rest/rest-client";
 import {html, TemplateResult} from "lit-element";
+import {Settings} from "../rest/types";
 
 export enum DataType {
     string = "string",
