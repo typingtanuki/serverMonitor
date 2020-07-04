@@ -628,6 +628,42 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/check.css":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/check.css ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, ".gg-check {\r\n    box-sizing: border-box;\r\n    position: relative;\r\n    display: block;\r\n    transform: scale(var(--ggs,1));\r\n    width: 22px;\r\n    height: 22px;\r\n    border: 2px solid transparent;\r\n    border-radius: 100px\r\n}\r\n\r\n.gg-check::after {\r\n    content: \"\";\r\n    display: block;\r\n    box-sizing: border-box;\r\n    position: absolute;\r\n    left: 3px;\r\n    top: -1px;\r\n    width: 6px;\r\n    height: 10px;\r\n    border-width: 0 2px 2px 0;\r\n    border-style: solid;\r\n    transform-origin: bottom left;\r\n    transform: rotate(45deg)\r\n}", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/close.css":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/close.css ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, ".gg-close {\r\n    box-sizing: border-box;\r\n    position: relative;\r\n    display: block;\r\n    transform: scale(var(--ggs,1));\r\n    width: 22px;\r\n    height: 22px;\r\n    border: 2px solid transparent;\r\n    border-radius: 40px\r\n}\r\n\r\n.gg-close::after,\r\n.gg-close::before {\r\n    content: \"\";\r\n    display: block;\r\n    box-sizing: border-box;\r\n    position: absolute;\r\n    width: 16px;\r\n    height: 2px;\r\n    background: currentColor;\r\n    transform: rotate(45deg);\r\n    border-radius: 5px;\r\n    top: 8px;\r\n    left: 1px\r\n}\r\n\r\n.gg-close::after {\r\n    transform: rotate(-45deg)\r\n}", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/runtime/api.js":
 /*!*****************************************************!*\
   !*** ./node_modules/css-loader/dist/runtime/api.js ***!
@@ -7384,9 +7420,13 @@ var RestClient = /*#__PURE__*/function () {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+var ___CSS_LOADER_AT_RULE_IMPORT_0___ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!../../node_modules/css.gg/icons/css/check.css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/check.css");
+var ___CSS_LOADER_AT_RULE_IMPORT_1___ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!../../node_modules/css.gg/icons/css/close.css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/close.css");
 exports = ___CSS_LOADER_API_IMPORT___(false);
+exports.i(___CSS_LOADER_AT_RULE_IMPORT_0___);
+exports.i(___CSS_LOADER_AT_RULE_IMPORT_1___);
 // Module
-exports.push([module.i, ":host {\n  padding: 5px;\n  color: #839496;\n  background-color: #073642;\n  border: 1px solid #839496;\n  border-radius: 3px;\n  text-transform: capitalize;\n  cursor: pointer;\n  transition: background-color 300ms, color 300ms;\n}\n:host(:hover) {\n  background-color: #586e75;\n  color: #002b36;\n}\n:host {\n  vertical-align: top;\n  display: inline-block;\n  width: 200px;\n  min-height: 100px;\n  margin: 10px;\n}\n:host(.OK) {\n  border-left: 3px solid #268bd2;\n}\n:host(.NG) {\n  border-left: 3px solid #cb4b16;\n}\n.title {\n  font-size: 20px;\n  font-weight: bolder;\n  color: #93a1a1;\n}\n.OK {\n  border-left: 3px solid #268bd2;\n  padding-left: 5px;\n}\n.NG {\n  border-left: 3px solid #cb4b16;\n  padding-left: 5px;\n}\n", ""]);
+exports.push([module.i, ":host {\n  padding: 5px;\n  color: #839496;\n  background-color: #073642;\n  border: 1px solid #839496;\n  border-radius: 3px;\n  text-transform: capitalize;\n  cursor: pointer;\n  transition: background-color 300ms, color 300ms;\n}\n:host(:hover) {\n  background-color: #586e75;\n  color: #002b36;\n}\n:host {\n  vertical-align: top;\n  display: inline-block;\n  width: 200px;\n  min-height: 100px;\n  margin: 10px;\n}\ndiv.icon {\n  display: inline-block;\n}\n:host(.OK) {\n  border-left: 3px solid #268bd2;\n}\n:host(.NG) {\n  border-left: 3px solid #cb4b16;\n}\n.title {\n  font-size: 20px;\n  font-weight: bolder;\n  color: #93a1a1;\n}\n.OK {\n  border-left: 3px solid #268bd2;\n  color: #268bd2;\n  padding-left: 5px;\n}\n.NG {\n  border-left: 3px solid #cb4b16;\n  padding-left: 5px;\n  color: #cb4b16;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -7438,7 +7478,7 @@ __webpack_require__.r(__webpack_exports__);
 var _dec, _class, _temp;
 
 function _templateObject2() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<div class=\"", "\">", "</div>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<div class=\"", "\"><div class=\"icon gg-", "\"></div>", "</div>"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -7572,7 +7612,7 @@ var ServerEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["custo
   }], [{
     key: "formatMonitor",
     value: function formatMonitor(monitor) {
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["html"])(_templateObject2(), monitor.state ? 'OK' : 'NG', monitor.name);
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["html"])(_templateObject2(), monitor.state ? 'OK' : 'NG', monitor.state ? 'check' : 'close', monitor.name);
     }
   }]);
 

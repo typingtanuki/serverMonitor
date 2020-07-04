@@ -56,7 +56,7 @@ ${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
     }
 
     private static formatMonitor(monitor: Monitor): TemplateResult {
-        return html`<div class="${monitor.state ? 'OK' : 'NG'}">${monitor.name}</div>`;
+        return html`<div class="${monitor.state ? 'OK' : 'NG'}"><div class="icon gg-${monitor.state ? 'check' : 'close'}"></div>${monitor.name}</div>`;
     }
 
     private clicked(): void {

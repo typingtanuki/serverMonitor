@@ -35,6 +35,7 @@
     "babel-loader": "^8.1.0",
     "copy-webpack-plugin": "^6.0.2",
     "css-loader": "^3.6.0",
+    "css.gg": "^2.0.0",
     "less-loader": "^6.1.2",
     "style-loader": "^1.2.1",
     "to-string-loader": "^1.1.6",
