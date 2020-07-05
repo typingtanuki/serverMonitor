@@ -11,12 +11,10 @@
   width: 200px;
   min-height: 100px;
   margin: 10px;
-}
 
-div.icon {
-  display: inline-block;
+  position: relative;
+  overflow: hidden;
 }
-
 
 :host(.OK) {
   .mark-success();
@@ -32,14 +30,33 @@ div.icon {
   color: @titleTextColor;
 }
 
-.OK {
+.monitor.OK {
   .mark-success();
-  color:@colorOk;
   padding-left: 5px;
+  color: @colorOk;
 }
 
-.NG {
+.monitor.NG {
   .mark-failure();
   padding-left: 5px;
-  color:@colorNg;
+  color: @colorNg;
+}
+
+
+div.icon {
+  display: block;
+  position: absolute;
+  zoom: 4;
+  opacity: .5;
+  pointer-events: none;
+  top: -5px;
+  right: -5px;
+}
+
+.icon.OK {
+  color: @colorOk;
+}
+
+.icon.NG {
+  color: @colorNg;
 }

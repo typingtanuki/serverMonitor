@@ -7,13 +7,24 @@ export interface HistoryDetail extends Detail {
 }
 
 export interface Detail {
-    type?: string;
-
     [key: string]: any;
+}
+
+export enum MonitorType {
+    cpu = "cpu",
+    memory = "memory",
+    disk = "disk",
+    handshake = "handshake",
+    ping = "ping",
+    update = "update",
+    network = "network",
+    server = "server",
+    process = "process"
 }
 
 export interface Report {
     title: string;
+    type?: MonitorType;
     details: { [id: string]: Detail };
 }
 
@@ -24,6 +35,7 @@ export interface ServerState {
 
 export interface ServerStates {
     clusterStatus: { [id: string]: ServerState };
+    advanced?: { [id: string]: SuccessFailureDetail };
     connections: { [id: string]: string };
 }
 
@@ -37,8 +49,9 @@ export interface DetailStatuses {
 }
 
 export interface Monitor {
-    name: string;
+    name: MonitorType;
     state: boolean;
+    advanced: Detail[];
 }
 
 export interface ServerInfo {

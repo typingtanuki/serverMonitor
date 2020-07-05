@@ -1,6 +1,6 @@
 import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
 import entryStyle from "./server-entry.less";
-import {Monitor, ServerInfo} from "../rest/types";
+import {Detail, Monitor, MonitorType, ServerInfo} from "../rest/types";
 
 export interface ServerEntrySelectedEventInfo {
     server: ServerInfo;
@@ -38,13 +38,15 @@ export class ServerEntry extends LitElement {
     public render(): TemplateResult {
         this.classList.add("OK");
         this.classList.remove("NG");
+        let ok: boolean = true;
         for (const monitor of this.server.monitors) {
             if (!monitor.state) {
                 this.classList.remove("OK");
                 this.classList.add("NG");
+                ok = false;
             }
         }
-        return html`<div class="title">${this.server.name}</div>
+        return html`<div class="icon bg gg-${ok ? 'check OK' : 'close NG'}"></div><div class="title">${this.server.name}</div>
 ${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
     }
 
@@ -56,7 +58,24 @@ ${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
     }
 
     private static formatMonitor(monitor: Monitor): TemplateResult {
-        return html`<div class="${monitor.state ? 'OK' : 'NG'}"><div class="icon gg-${monitor.state ? 'check' : 'close'}"></div>${monitor.name}</div>`;
+        let advanced: TemplateResult = html``;
+
+        if (monitor.advanced && monitor.advanced.length > 0) {
+            switch (monitor.name) {
+                case MonitorType.disk:
+                case MonitorType.cpu:
+                case MonitorType.memory:
+                    advanced = html`${monitor.advanced.map(detail => ServerEntry.formatDetails(monitor.name, detail))}`;
+            }
+        }
+
+        return html`<div class="monitor ${monitor.state ? 'OK' : 'NG'}">${monitor.name}${advanced}</div>`;
+    }
+
+    private static formatDetails(type: MonitorType, details: Detail): TemplateResult {
+        const current = parseInt(details["details"]["Current Usage"], 10);
+        const warn = parseInt(details["details"]["Maximum Usage"], 10);
+        return html`<progress-bar type="${type}" min="0" max="100" current='${current}' warn='${warn}'></progress-bar>`;
     }
 
     private clicked(): void {

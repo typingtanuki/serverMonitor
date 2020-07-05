@@ -1,6 +1,15 @@
 import {ServerList} from "../server-list/server-list";
 import {DetailView} from "../detail-view/detail-view";
-import {DetailStatuses, Monitor, ServerInfo, ServerState, ServerStates, Settings} from "./types";
+import {
+    Detail,
+    DetailStatuses,
+    Monitor,
+    ServerInfo,
+    ServerState,
+    ServerStates,
+    Settings,
+    SuccessFailureDetail
+} from "./types";
 
 export class RestClient {
     private readonly server: string;
@@ -13,7 +22,11 @@ export class RestClient {
         const response: Response = await fetch(this.server + "/status/cluster");
         const serverState: ServerStates = await response.json();
 
-        const cluster = serverState.clusterStatus;
+        const cluster: { [id: string]: ServerState } = serverState.clusterStatus;
+        let advanced: { [id: string]: SuccessFailureDetail } = serverState.advanced;
+        if (advanced === undefined) {
+            advanced = {};
+        }
         serverList.serverIPs = serverState.connections;
 
         const serverNames = Object.keys(cluster);
@@ -23,19 +36,44 @@ export class RestClient {
 
         for (const serverName of serverNames) {
             const status: ServerState = cluster[serverName];
+            let advancedServer: SuccessFailureDetail = {
+                success: [],
+                failure: []
+            };
+            if (advanced.hasOwnProperty(serverName)) {
+                advancedServer = advanced[serverName];
+            }
 
             const monitors: Monitor[] = [];
             const monitorNames: string[] = Object.keys(status);
             monitorNames.sort();
             let allOk = true;
             for (const monitorName of monitorNames) {
-                const state = status[monitorName];
+                const state: boolean = status[monitorName];
                 if (!state) {
                     allOk = false;
                 }
+
+                const allDetails: Detail[] = [];
+                if (advancedServer.success) {
+                    allDetails.push(...advancedServer.success);
+                }
+                if (advancedServer.failure) {
+                    allDetails.push(...advancedServer.failure);
+                }
+
+                const details: Detail[] = [];
+
+                for (const detail of allDetails) {
+                    if (detail.type == monitorName) {
+                        details.push(detail);
+                    }
+                }
+
                 monitors.push({
                     name: monitorName,
-                    state: state
+                    state: state,
+                    advanced: details
                 });
             }
 

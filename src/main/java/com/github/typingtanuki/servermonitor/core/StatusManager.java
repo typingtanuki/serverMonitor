@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
+import static com.github.typingtanuki.servermonitor.utils.SimpleStack.simpleStack;
+
 /**
  * Handles the status of this server
  */
@@ -45,15 +47,32 @@ public class StatusManager {
         List<String> remotes = new ArrayList<>(config.getHandshake().getMonitoring());
 
         Map<String, Map<MonitorType, Boolean>> statusMap = new LinkedHashMap<>();
+        Map<String, Map<String, Object>> advancedMap = new LinkedHashMap<>();
         Map<String, String> connections = new LinkedHashMap<>();
         addClusterStatus(statusMap, new ShortStatusResponse(config.getIdentity(), getStatus()));
         for (String remote : remotes) {
             ShortStatusResponse remoteStatus = getRemoteStatus(remote);
+            Map<String, Object> remoteAdvancedStatus = getAdvancedRemoteStatus(remote);
             connections.put(remoteStatus.getIdentity(), remote);
+            advancedMap.put(remoteStatus.getIdentity(), remoteAdvancedStatus);
             addClusterStatus(statusMap, remoteStatus);
         }
 
-        return new ClusterStatusResponse(config.getIdentity(), connections, statusMap);
+        return new ClusterStatusResponse(
+                config.getIdentity(),
+                connections,
+                statusMap,
+                advancedMap);
+    }
+
+    private Map<String, Object> getAdvancedRemoteStatus(String remote) {
+        RestCall<JsonStringObjectMap> call = new RestCall<>(remote, "/status", JsonStringObjectMap.class);
+        try {
+            return (Map<String, Object>) call.get().get("status");
+        } catch (RestCallException e) {
+            logger.debug("Could not get remote status: {}\r\n{}", remote, simpleStack(e));
+            return new LinkedHashMap<>();
+        }
     }
 
     private ShortStatusResponse getRemoteStatus(String remote) {
@@ -61,7 +80,7 @@ public class StatusManager {
         try {
             return call.get();
         } catch (RestCallException e) {
-            logger.warn("Could not get remote status: {}", remote, e);
+            logger.debug("Could not get remote status: {}\r\n{}", remote, simpleStack(e));
             ShortStatusResponse fake = new ShortStatusResponse();
             fake.setIdentity(remote);
             fake.setStatus(Map.of(MonitorType.handshake, Boolean.FALSE));

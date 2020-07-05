@@ -11,6 +11,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import static com.github.typingtanuki.servermonitor.utils.SimpleStack.simpleStack;
+
 public abstract class LinuxUpdateChecker extends UpdateChecker {
     protected static final Logger logger = LoggerFactory.getLogger(LinuxUpdateChecker.class);
 
@@ -30,11 +32,11 @@ public abstract class LinuxUpdateChecker extends UpdateChecker {
         try {
             out = runAndReadOutput(builder);
         } catch (IOException e) {
-            logger.warn("Could not check for command {}", binaryName(), e);
+            logger.warn("Could not check for command {}\r\n{}", binaryName(), simpleStack(e));
             return false;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            logger.warn("Interrupted while checking for command {}", binaryName(), e);
+            logger.warn("Interrupted while checking for command {}\r\n{}", binaryName(), simpleStack(e));
             return false;
         }
         return !out.isEmpty();
@@ -46,11 +48,11 @@ public abstract class LinuxUpdateChecker extends UpdateChecker {
         try {
             out = runAndReadOutput(builder);
         } catch (IOException e) {
-            logger.warn("Failed to get upgrade list", e);
+            logger.warn("Failed to get upgrade list\r\n{}", simpleStack(e));
             return null;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            logger.warn("Interrupted while getting upgrade list", e);
+            logger.warn("Interrupted while getting upgrade list\r\n{}", simpleStack(e));
             return null;
         }
         return out;

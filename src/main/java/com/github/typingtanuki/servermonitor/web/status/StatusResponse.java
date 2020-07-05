@@ -7,13 +7,25 @@ import com.github.typingtanuki.servermonitor.report.Status;
  * @since 2020/02/07
  */
 public class StatusResponse {
-    private final String identity;
-    private final Status status;
+    private String identity;
+    private Status status;
+
+    public StatusResponse() {
+        super();
+    }
 
     public StatusResponse(String identity, Status status) {
         super();
         this.identity = identity;
 
+        this.status = status;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
+    }
+
+    public void setStatus(Status status) {
         this.status = status;
     }
 

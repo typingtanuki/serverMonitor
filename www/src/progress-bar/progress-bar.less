@@ -1,0 +1,39 @@
+@import "../constants/common.less";
+
+@import "../../node_modules/css.gg/icons/css/smartphone-chip.css";
+@import "../../node_modules/css.gg/icons/css/drive.css";
+@import "../../node_modules/css.gg/icons/css/smartphone-ram.css";
+
+.icon {
+  font-size: 1em;
+}
+
+div, div.icon {
+  display: inline-block;
+}
+
+:host {
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
+  height: 1em;
+}
+
+.cursor {
+  background-color: @colorOk;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1em;
+}
+
+.body {
+  border: 1px dotted @mainTextColor;
+  position: relative;
+  height: 1em;
+  width: 100%;
+}
+
+.warn .cursor {
+  background-color: @colorNg;
+}

@@ -11,6 +11,10 @@ public class Status {
     private final List<MonitorReport> success = new LinkedList<>();
     private final List<MonitorReport> failure = new LinkedList<>();
 
+    public Status() {
+        super();
+    }
+
     public Status(List<MonitorReport> reports) {
         super();
 

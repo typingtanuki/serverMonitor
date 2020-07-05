@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Map;
 
+import static com.github.typingtanuki.servermonitor.utils.SimpleStack.simpleStack;
+
 /**
  * A connector reporting through the local logger
  *
@@ -40,7 +42,7 @@ public class LoggerConnector implements Connector {
             return writer.writeValueAsString(recoveredMonitorReport.getDetails());
         } catch (IOException e) {
             String details = "Failed to get details";
-            logger.warn(details, e);
+            logger.warn(details + "\r\n{}", simpleStack(e));
             return details;
         }
     }

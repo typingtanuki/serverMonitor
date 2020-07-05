@@ -3,11 +3,12 @@ import listStyle from "./server-list.less";
 import {RestClient} from "../rest/rest-client";
 import {ServerEntry} from "../server-entry/server-entry";
 import {ServerInfo} from "../rest/types";
+import {ProgressBar} from "../progress-bar/progress-bar";
 
 @customElement('server-list')
 export class ServerList extends LitElement {
     public static get dependencies(): any[] {
-        return [ServerEntry];
+        return [ServerEntry, ProgressBar];
     }
 
     public static get styles(): CSSResult {

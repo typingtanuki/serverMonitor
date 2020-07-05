@@ -16,6 +16,8 @@ import javax.ws.rs.client.*;
 import javax.ws.rs.core.Response;
 import java.util.Map;
 
+import static com.github.typingtanuki.servermonitor.utils.SimpleStack.simpleStack;
+
 /**
  * Connector for Microsoft Teams
  */
@@ -90,7 +92,7 @@ public class TeamsConnector implements Connector {
         try {
             payloadJson = mapper.writerFor(TeamsPayload.class).writeValueAsString(payload);
         } catch (JsonProcessingException e) {
-            logger.warn("Failure while preparing payload", e);
+            logger.warn("Failure while preparing payload\r\n{}", simpleStack(e));
             return;
         }
         sendPayload(payloadJson);

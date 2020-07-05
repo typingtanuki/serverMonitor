@@ -8,5 +8,6 @@ public enum MonitorType {
     ping,
     update,
     network,
+    server,
     process
 }

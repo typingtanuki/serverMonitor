@@ -17,6 +17,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static com.github.typingtanuki.servermonitor.utils.SimpleStack.simpleStack;
+
 /**
  * Monitors connectivity to other servers using ping (echo based)
  */
@@ -98,7 +100,7 @@ public class PingMonitor implements Monitor {
             }
             return report.ok("echo");
         } catch (IOException | RuntimeException e) {
-            logger.debug("Could not echo server {}", server, e);
+            logger.debug("Could not echo server {}\r\n{}", server, simpleStack(e));
         }
         return null;
     }
@@ -115,13 +117,13 @@ public class PingMonitor implements Monitor {
             return report.ok("Port " + port);
         } catch (IOException e) {
             report.ng(e, lastSeen.get(server));
-            logger.debug("Could not connect to {}", server, e);
+            logger.debug("Could not connect to {}\r\n{}", server, simpleStack(e));
         } finally {
             if (s != null) {
                 try {
                     s.close();
                 } catch (IOException e2) {
-                    logger.warn("Could not close connection to {}", server, e2);
+                    logger.warn("Could not close connection to {}\r\n{}", server, simpleStack(e2));
                 }
             }
         }
