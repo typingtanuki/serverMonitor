@@ -795,6 +795,24 @@ module.exports = exports;
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/options.css":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/options.css ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, ".gg-options {\r\n    box-sizing: border-box;\r\n    position: relative;\r\n    display: block;\r\n    transform: scale(var(--ggs,1));\r\n    width: 10px;\r\n    height: 2px;\r\n    box-shadow:\r\n        -3px 4px 0 0,\r\n        3px -4px 0 0\r\n}\r\n\r\n.gg-options::after,\r\n.gg-options::before {\r\n    content: \"\";\r\n    display: block;\r\n    box-sizing: border-box;\r\n    position: absolute;\r\n    width: 8px;\r\n    height: 8px;\r\n    border: 2px solid;\r\n    border-radius: 100%\r\n}\r\n\r\n.gg-options::before {\r\n    top: -7px;\r\n    left: -4px\r\n}\r\n\r\n.gg-options::after {\r\n    bottom: -7px;\r\n    right: -4px\r\n}", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/smartphone-chip.css":
 /*!*************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/smartphone-chip.css ***!
@@ -6890,7 +6908,7 @@ exports.i(___CSS_LOADER_AT_RULE_IMPORT_0___);
 exports.i(___CSS_LOADER_AT_RULE_IMPORT_1___);
 exports.i(___CSS_LOADER_AT_RULE_IMPORT_2___);
 // Module
-exports.push([module.i, ".icon {\n  font-size: 1em;\n}\ndiv {\n  display: inline-block;\n}\n:host {\n  white-space: nowrap;\n  position: relative;\n  width: 100%;\n  height: 1em;\n}\n.cursor {\n  background-color: #268bd2;\n  position: absolute;\n  left: 0;\n  top: 0;\n  height: 1em;\n}\n.body {\n  border: 1px dotted #839496;\n  position: relative;\n  height: 1em;\n  width: 100%;\n}\n.warn .cursor {\n  background-color: #cb4b16;\n}\n", ""]);
+exports.push([module.i, ".icon {\n  height: 1em;\n  width: 1em;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n:host {\n  display: block;\n  white-space: nowrap;\n  position: relative;\n  width: 100%;\n  height: 1em;\n}\n.core {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n}\n.cursor {\n  background-color: #268bd2;\n  position: absolute;\n  left: 0;\n  top: 0;\n  height: 1em;\n}\n.body {\n  border: 1px dotted #839496;\n  position: absolute;\n  top: 2px;\n  left: 1.5em;\n  right: 0;\n  bottom: 2px;\n  overflow: hidden;\n  border-radius: 1em;\n}\n.label {\n  text-transform: none;\n  height: 1em;\n  width: 0;\n  position: absolute;\n  top: 0;\n  left: 1.5em;\n  opacity: 0;\n  overflow: hidden;\n}\n.labelled .body {\n  left: 5em;\n}\n.labelled .label {\n  opacity: 1;\n  width: 3.5em;\n}\n.warn .cursor {\n  background-color: #cb4b16;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -6939,7 +6957,7 @@ __webpack_require__.r(__webpack_exports__);
 var _dec, _class, _temp;
 
 function _templateObject() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n<div class=\"icon ", "\"></div>\n<div class=\"body ", "\"><div class=\"cursor\" style=\"right:", "%\"></div></div>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n<div class=\"core ", "\" title=\"", "% ", "\">\n    <div class=\"icon ", "\"></div>\n    <div class=\"label\" title=\"", "\">", "</div>\n    <div class=\"body ", "\"><div class=\"cursor\" style=\"right:", "%\"></div></div>\n</div>"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -6970,6 +6988,9 @@ var ProgressBar = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["custo
     get: function get() {
       return {
         type: {
+          type: String
+        },
+        label: {
           type: String
         },
         min: {
@@ -7005,6 +7026,8 @@ var ProgressBar = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["custo
 
     _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this), "warn", void 0);
 
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_7___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_2___default()(_this), "label", "");
+
     return _this;
   }
 
@@ -7013,7 +7036,7 @@ var ProgressBar = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["custo
     value: function render() {
       var percent = Math.ceil(this.current - this.min / this.max - this.min);
       var warn = percent > this.warn;
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["html"])(_templateObject(), this.iconName(), warn ? "warn" : "", 100 - percent);
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["html"])(_templateObject(), this.label && this.label.length > 0 ? "labelled" : "", percent, this.label, this.iconName(), this.label, this.label, warn ? "warn" : "", 100 - percent);
     }
   }, {
     key: "iconName",
@@ -7093,6 +7116,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _report_entry_less__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_report_entry_less__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _display_line_display_line__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../display-line/display-line */ "./src/display-line/display-line.ts");
 /* harmony import */ var _display_gauge_display_gauge__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../display-gauge/display-gauge */ "./src/display-gauge/display-gauge.ts");
+/* harmony import */ var _rest_types__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../rest/types */ "./src/rest/types.ts");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../utils */ "./src/utils.ts");
 
 
 
@@ -7205,6 +7230,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 
+
+
 var ReportEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["customElement"])('report-entry'), _dec2 = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["property"])(), _dec(_class = (_class2 = (_temp = /*#__PURE__*/function (_LitElement) {
   _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(ReportEntry, _LitElement);
 
@@ -7257,7 +7284,7 @@ var ReportEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
   }, {
     key: "handleGauge",
     value: function handleGauge() {
-      if (isGauge(this.report.details)) {
+      if (Object(_utils__WEBPACK_IMPORTED_MODULE_16__["isGauge"])(this.report.details)) {
         return ReportEntry.formatGauge(this.report.details);
       }
 
@@ -7274,19 +7301,19 @@ var ReportEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
     value: function doFormat(details, key) {
       this.visited.push(key);
 
-      if (isHistory(details)) {
+      if (Object(_utils__WEBPACK_IMPORTED_MODULE_16__["isHistory"])(details)) {
         return ReportEntry.formatHistory(details);
       }
 
-      if (isHidden(key)) {
+      if (Object(_utils__WEBPACK_IMPORTED_MODULE_16__["isHidden"])(key)) {
         return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject5());
       }
 
-      if (isString(details) || isNumber(details)) {
+      if (Object(_utils__WEBPACK_IMPORTED_MODULE_16__["isString"])(details) || Object(_utils__WEBPACK_IMPORTED_MODULE_16__["isNumber"])(details)) {
         return ReportEntry.formatString(key, String(details));
       }
 
-      if (isObject(details)) {
+      if (Object(_utils__WEBPACK_IMPORTED_MODULE_16__["isObject"])(details)) {
         return ReportEntry.formatObject(details);
       }
     }
@@ -7321,7 +7348,7 @@ var ReportEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
   }, {
     key: "formatGauge",
     value: function formatGauge(details) {
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject9(), parseInt(details["Current Usage"]), parseInt(details["Maximum Usage"]));
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject9(), parseInt(details[_rest_types__WEBPACK_IMPORTED_MODULE_15__["ReportConstants"].USAGE_CURRENT]), parseInt(details[_rest_types__WEBPACK_IMPORTED_MODULE_15__["ReportConstants"].USAGE_MAX]));
     }
   }, {
     key: "styles",
@@ -7338,31 +7365,6 @@ var ReportEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
   initializer: null
 })), _class2)) || _class);
 
-function isGauge(value) {
-  var keys = Object.keys(value);
-  return keys.indexOf("Current Usage") !== -1 && keys.indexOf("Maximum Usage") !== -1;
-}
-
-function isHistory(value) {
-  return value.hasOwnProperty("type") && value.type === "history";
-}
-
-function isHidden(key) {
-  return key === "Do Update";
-}
-
-function isObject(details) {
-  return String(details) === "[object Object]";
-}
-
-function isString(details) {
-  return typeof details === 'string' || details instanceof String;
-}
-
-function isNumber(details) {
-  return typeof details === 'number' || details instanceof Number;
-}
-
 /***/ }),
 
 /***/ "./src/report-list/report-list.less":
@@ -7376,7 +7378,7 @@ function isNumber(details) {
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ":host {\n  display: block;\n}\nul {\n  margin: 0;\n  padding: 0 0 0 10px;\n  text-align: left;\n  list-style-type: disc;\n}\nli {\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n:host(.failure) report-entry {\n  border-left: 3px solid #cb4b16;\n}\n:host(.success) report-entry {\n  border-left: 3px solid #268bd2;\n}\n", ""]);
+exports.push([module.i, ":host {\n  display: block;\n}\nul {\n  margin: 0;\n  padding: 0 0 0 10px;\n  text-align: left;\n  list-style-type: disc;\n}\nli {\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n:host(.failure) report-entry {\n  border-left: 3px solid #cb4b16;\n  border-color: #cb4b16;\n}\n:host(.success) report-entry {\n  border-left: 3px solid #268bd2;\n  border-color: #268bd2;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -7786,12 +7788,178 @@ var RestClient = /*#__PURE__*/function () {
 /*!***************************!*\
   !*** ./src/rest/types.ts ***!
   \***************************/
-/*! exports provided: MonitorType */
+/*! exports provided: ReportConstants, MonitorType */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ReportConstants", function() { return ReportConstants; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MonitorType", function() { return MonitorType; });
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var ReportConstants = /*#__PURE__*/function () {
+  function ReportConstants() {
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, ReportConstants);
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ReportConstants, null, [{
+    key: "SERVER",
+    get: function get() {
+      return "Server";
+    }
+  }, {
+    key: "CAUSE",
+    get: function get() {
+      return "Cause";
+    }
+  }, {
+    key: "REQUEST_TIME",
+    get: function get() {
+      return "Request time";
+    }
+  }, {
+    key: "RESPONSE_TIME",
+    get: function get() {
+      return "Response time";
+    }
+  }, {
+    key: "DELTA",
+    get: function get() {
+      return "Delta";
+    }
+  }, {
+    key: "MAX_DELTA",
+    get: function get() {
+      return "Max delta";
+    }
+  }, {
+    key: "REASON",
+    get: function get() {
+      return "Reason";
+    }
+  }, {
+    key: "LAST_SEEN",
+    get: function get() {
+      return "Last Seen";
+    }
+  }, {
+    key: "METHOD",
+    get: function get() {
+      return "Method";
+    }
+  }, {
+    key: "HISTORY",
+    get: function get() {
+      return "History";
+    }
+  }, {
+    key: "MEMORY_TOTAL",
+    get: function get() {
+      return "Total memory";
+    }
+  }, {
+    key: "MEMORY_FREE",
+    get: function get() {
+      return "Free memory";
+    }
+  }, {
+    key: "USAGE_MAX",
+    get: function get() {
+      return "Maximum Usage";
+    }
+  }, {
+    key: "USAGE_CURRENT",
+    get: function get() {
+      return "Current Usage";
+    }
+  }, {
+    key: "PROCESS",
+    get: function get() {
+      return "Process";
+    }
+  }, {
+    key: "PID",
+    get: function get() {
+      return "PID";
+    }
+  }, {
+    key: "UPTIME",
+    get: function get() {
+      return "Uptime";
+    }
+  }, {
+    key: "NAME",
+    get: function get() {
+      return "Name";
+    }
+  }, {
+    key: "COMMAND_LINE",
+    get: function get() {
+      return "Command Line";
+    }
+  }, {
+    key: "DISK",
+    get: function get() {
+      return "Disk";
+    }
+  }, {
+    key: "SPACE_FREE",
+    get: function get() {
+      return "Free space";
+    }
+  }, {
+    key: "SPACE_TOTAL",
+    get: function get() {
+      return "Total space";
+    }
+  }, {
+    key: "UPDATES",
+    get: function get() {
+      return "Updates";
+    }
+  }, {
+    key: "INTERVAL",
+    get: function get() {
+      return "Interval";
+    }
+  }, {
+    key: "BYTES_SENT",
+    get: function get() {
+      return "Bytes sent";
+    }
+  }, {
+    key: "BYTES_RECEIVED",
+    get: function get() {
+      return "Bytes received";
+    }
+  }, {
+    key: "HISTORY_RECEIVED",
+    get: function get() {
+      return "History Received";
+    }
+  }, {
+    key: "HISTORY_SENT",
+    get: function get() {
+      return "History Sent";
+    }
+  }, {
+    key: "TOP",
+    get: function get() {
+      return "Top";
+    }
+  }, {
+    key: "ACTION_UPDATE",
+    get: function get() {
+      return "Do Update";
+    }
+  }]);
+
+  return ReportConstants;
+}();
 var MonitorType;
 
 (function (MonitorType) {
@@ -7823,7 +7991,7 @@ exports = ___CSS_LOADER_API_IMPORT___(false);
 exports.i(___CSS_LOADER_AT_RULE_IMPORT_0___);
 exports.i(___CSS_LOADER_AT_RULE_IMPORT_1___);
 // Module
-exports.push([module.i, ":host {\n  padding: 5px;\n  color: #839496;\n  background-color: #073642;\n  border: 1px solid #839496;\n  border-radius: 3px;\n  text-transform: capitalize;\n  cursor: pointer;\n  transition: background-color 300ms, color 300ms;\n}\n:host(:hover) {\n  background-color: #586e75;\n  color: #002b36;\n}\n:host {\n  vertical-align: top;\n  display: inline-block;\n  width: 200px;\n  min-height: 100px;\n  margin: 10px;\n  position: relative;\n  overflow: hidden;\n}\n:host(.OK) {\n  border-left: 3px solid #268bd2;\n}\n:host(.NG) {\n  border-left: 3px solid #cb4b16;\n}\n.title {\n  font-size: 20px;\n  font-weight: bolder;\n  color: #93a1a1;\n}\n.monitor.OK {\n  border-left: 3px solid #268bd2;\n  padding-left: 5px;\n  color: #268bd2;\n}\n.monitor.NG {\n  border-left: 3px solid #cb4b16;\n  padding-left: 5px;\n  color: #cb4b16;\n}\ndiv.icon {\n  display: block;\n  position: absolute;\n  zoom: 4;\n  opacity: 0.5;\n  pointer-events: none;\n  top: -5px;\n  right: -5px;\n}\n.icon.OK {\n  color: #268bd2;\n}\n.icon.NG {\n  color: #cb4b16;\n}\n", ""]);
+exports.push([module.i, ":host {\n  padding: 5px;\n  color: #839496;\n  background-color: #073642;\n  text-transform: capitalize;\n  cursor: pointer;\n  transition: background-color 300ms, color 300ms;\n}\n:host(:hover) {\n  background-color: #586e75;\n  color: #002b36;\n}\n:host {\n  vertical-align: top;\n  display: inline-block;\n  width: 200px;\n  min-height: 100px;\n  margin: 10px;\n  position: relative;\n  overflow: hidden;\n}\n:host(.OK) {\n  border: 1px solid;\n  border-left: 3px solid #268bd2;\n  border-color: #268bd2;\n}\n:host(.NG) {\n  border: 1px solid;\n  border-left: 3px solid #cb4b16;\n  border-color: #cb4b16;\n}\n.title {\n  font-size: 20px;\n  font-weight: bolder;\n  color: #93a1a1;\n}\n.monitor.OK {\n  border-left: 3px solid #268bd2;\n  border-color: #268bd2;\n  padding-left: 5px;\n  color: #268bd2;\n}\n.monitor.NG {\n  border-left: 3px solid #cb4b16;\n  border-color: #cb4b16;\n  padding-left: 5px;\n  color: #cb4b16;\n}\ndiv.icon {\n  display: block;\n  position: absolute;\n  zoom: 4;\n  opacity: 0.5;\n  pointer-events: none;\n  top: -5px;\n  right: -5px;\n}\n.icon.OK {\n  color: #268bd2;\n}\n.icon.NG {\n  color: #cb4b16;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -7876,7 +8044,7 @@ __webpack_require__.r(__webpack_exports__);
 var _dec, _class, _temp;
 
 function _templateObject5() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<progress-bar type=\"", "\" min=\"0\" max=\"100\" current='", "' warn='", "'></progress-bar>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<progress-bar type=\"", "\" min=\"0\" max=\"100\" current='", "' warn='", "' label=\"", "\"></progress-bar>"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -8061,9 +8229,16 @@ var ServerEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["custo
   }, {
     key: "formatDetails",
     value: function formatDetails(type, details) {
-      var current = parseInt(details["details"]["Current Usage"], 10);
-      var warn = parseInt(details["details"]["Maximum Usage"], 10);
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["html"])(_templateObject5(), type, current, warn);
+      var sub = details["details"];
+      var current = parseInt(sub[_rest_types__WEBPACK_IMPORTED_MODULE_11__["ReportConstants"].USAGE_CURRENT], 10);
+      var warn = parseInt(sub[_rest_types__WEBPACK_IMPORTED_MODULE_11__["ReportConstants"].USAGE_MAX], 10);
+      var label = "";
+
+      if (sub.hasOwnProperty(_rest_types__WEBPACK_IMPORTED_MODULE_11__["ReportConstants"].DISK)) {
+        label = sub[_rest_types__WEBPACK_IMPORTED_MODULE_11__["ReportConstants"].DISK];
+      }
+
+      if (details) return Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["html"])(_templateObject5(), type, current, warn, label);
     }
   }]);
 
@@ -8264,9 +8439,11 @@ var ServerList = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["custom
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+var ___CSS_LOADER_AT_RULE_IMPORT_0___ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!../../node_modules/css.gg/icons/css/options.css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/options.css");
 exports = ___CSS_LOADER_API_IMPORT___(false);
+exports.i(___CSS_LOADER_AT_RULE_IMPORT_0___);
 // Module
-exports.push([module.i, ":host {\n  padding: 5px;\n  color: #839496;\n  background-color: #073642;\n  border: 1px solid #839496;\n  border-radius: 3px;\n  text-transform: capitalize;\n  cursor: pointer;\n  transition: background-color 300ms, color 300ms;\n}\n:host(:hover) {\n  background-color: #586e75;\n  color: #002b36;\n}\n:host {\n  display: block;\n  text-align: center;\n}\n", ""]);
+exports.push([module.i, ":host {\n  padding: 5px;\n  color: #002b36;\n  background-color: #268bd2;\n  text-transform: capitalize;\n  cursor: pointer;\n  transition: background-color 300ms, color 300ms;\n}\n:host(:hover) {\n  background-color: #2aa198;\n  color: #002b36;\n}\n:host {\n  display: block;\n  text-align: center;\n  border-radius: 3px;\n}\ndiv.icon {\n  display: inline-block;\n  margin-right: 11px;\n  margin-bottom: 3px;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -8314,7 +8491,7 @@ __webpack_require__.r(__webpack_exports__);
 var _dec, _class, _temp;
 
 function _templateObject() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["", ""]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<div class=\"icon gg-options gg-align-middle\"></div>", ""]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -8381,6 +8558,45 @@ var SettingsButton = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["cu
 
   return SettingsButton;
 }(lit_element__WEBPACK_IMPORTED_MODULE_8__["LitElement"]), _temp)) || _class);
+
+/***/ }),
+
+/***/ "./src/utils.ts":
+/*!**********************!*\
+  !*** ./src/utils.ts ***!
+  \**********************/
+/*! exports provided: isGauge, isHistory, isHidden, isObject, isString, isNumber */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isGauge", function() { return isGauge; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isHistory", function() { return isHistory; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isHidden", function() { return isHidden; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isObject", function() { return isObject; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isString", function() { return isString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isNumber", function() { return isNumber; });
+/* harmony import */ var _rest_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rest/types */ "./src/rest/types.ts");
+
+function isGauge(value) {
+  var keys = Object.keys(value);
+  return keys.indexOf(_rest_types__WEBPACK_IMPORTED_MODULE_0__["ReportConstants"].USAGE_CURRENT) !== -1 && keys.indexOf(_rest_types__WEBPACK_IMPORTED_MODULE_0__["ReportConstants"].USAGE_MAX) !== -1;
+}
+function isHistory(value) {
+  return value.hasOwnProperty("type") && value.type === "history";
+}
+function isHidden(key) {
+  return key === _rest_types__WEBPACK_IMPORTED_MODULE_0__["ReportConstants"].ACTION_UPDATE;
+}
+function isObject(details) {
+  return String(details) === "[object Object]";
+}
+function isString(details) {
+  return typeof details === 'string' || details instanceof String;
+}
+function isNumber(details) {
+  return typeof details === 'number' || details instanceof Number;
+}
 
 /***/ })
 

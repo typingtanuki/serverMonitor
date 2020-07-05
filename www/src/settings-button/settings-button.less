@@ -1,8 +1,16 @@
 @import "../constants/common.less";
+@import "../../node_modules/css.gg/icons/css/options.css";
 
-.button-style();
+.button-style(@Blue, @Base03, @Cyan);
 
 :host {
   display: block;
   text-align: center;
+  border-radius: 3px;
+}
+
+div.icon {
+  display: inline-block;
+  margin-right: 11px;
+  margin-bottom: 3px;
 }

@@ -2,6 +2,7 @@
 
 .mark(@color) {
   border-left: 3px solid @color;
+  border-color: @color;
 }
 
 .mark-success() {
@@ -12,14 +13,14 @@
   .mark(@colorNg);
 }
 
-.button-style() {
+.button-style(@background: @bgColorHighlight,
+              @text: @mainTextColor,
+              @hover:@bgColorSelected) {
   :host {
     padding: 5px;
 
-    color: @mainTextColor;
-    background-color: @bgColorHighlight;
-    border: 1px solid @mainTextColor;
-    border-radius: 3px;
+    color: @text;
+    background-color: @background;
 
     text-transform: capitalize;
 
@@ -28,7 +29,7 @@
   }
 
   :host(:hover) {
-    background-color: @bgColorSelected;
+    background-color: @hover;
 
     color: @textColorSelected;
   }

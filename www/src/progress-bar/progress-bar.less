@@ -5,18 +5,27 @@
 @import "../../node_modules/css.gg/icons/css/smartphone-ram.css";
 
 .icon {
-  font-size: 1em;
-}
-
-div, div.icon {
-  display: inline-block;
+  height: 1em;
+  width: 1em;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 :host {
+  display: block;
   white-space: nowrap;
   position: relative;
   width: 100%;
   height: 1em;
+}
+
+.core {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .cursor {
@@ -29,9 +38,36 @@ div, div.icon {
 
 .body {
   border: 1px dotted @mainTextColor;
-  position: relative;
+  position: absolute;
+  top: 2px;
+  left: 1.5em;
+  right: 0;
+  bottom: 2px;
+
+  overflow: hidden;
+  border-radius: 1em;
+}
+
+.label {
+  text-transform: none;
   height: 1em;
-  width: 100%;
+  width: 0;
+  position: absolute;
+  top: 0;
+  left: 1.5em;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.labelled {
+  .body {
+    left: 5em;
+  }
+
+  .label {
+    opacity: 1;
+    width: 3.5em;
+  }
 }
 
 .warn .cursor {

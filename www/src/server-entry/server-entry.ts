@@ -1,6 +1,6 @@
 import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
 import entryStyle from "./server-entry.less";
-import {Detail, Monitor, MonitorType, ServerInfo} from "../rest/types";
+import {Detail, Monitor, MonitorType, ReportConstants, ServerInfo} from "../rest/types";
 
 export interface ServerEntrySelectedEventInfo {
     server: ServerInfo;
@@ -73,9 +73,15 @@ ${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
     }
 
     private static formatDetails(type: MonitorType, details: Detail): TemplateResult {
-        const current = parseInt(details["details"]["Current Usage"], 10);
-        const warn = parseInt(details["details"]["Maximum Usage"], 10);
-        return html`<progress-bar type="${type}" min="0" max="100" current='${current}' warn='${warn}'></progress-bar>`;
+        const sub = details["details"];
+        const current: number = parseInt(sub[ReportConstants.USAGE_CURRENT], 10);
+        const warn: number = parseInt(sub[ReportConstants.USAGE_MAX], 10);
+        let label: string = "";
+        if (sub.hasOwnProperty(ReportConstants.DISK)) {
+            label = sub[ReportConstants.DISK];
+        }
+        if (details)
+            return html`<progress-bar type="${type}" min="0" max="100" current='${current}' warn='${warn}' label="${label}"></progress-bar>`;
     }
 
     private clicked(): void {

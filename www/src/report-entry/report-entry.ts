@@ -2,7 +2,8 @@ import {CSSResult, customElement, html, LitElement, property, TemplateResult, un
 import reportStyle from "./report-entry.less";
 import {DisplayLine} from "../display-line/display-line";
 import {DisplayGauge} from "../display-gauge/display-gauge";
-import {Detail, HistoryDetail, Report} from "../rest/types";
+import {Detail, HistoryDetail, Report, ReportConstants} from "../rest/types";
+import {isGauge, isHidden, isHistory, isNumber, isObject, isString} from "../utils";
 
 @customElement('report-entry')
 export class ReportEntry extends LitElement {
@@ -97,33 +98,7 @@ export class ReportEntry extends LitElement {
 
     private static formatGauge(details: Detail): TemplateResult {
         return html`<display-gauge 
-                         .current="${parseInt((<any>details)["Current Usage"])}"
-                         .max="${parseInt((<any>details)["Maximum Usage"])}"></display-gauge>`;
+                         .current="${parseInt((<any>details)[ReportConstants.USAGE_CURRENT])}"
+                         .max="${parseInt((<any>details)[ReportConstants.USAGE_MAX])}"></display-gauge>`;
     }
-}
-
-
-function isGauge(value: Detail): boolean {
-    const keys: string[] = Object.keys(value);
-    return keys.indexOf("Current Usage") !== -1 && keys.indexOf("Maximum Usage") !== -1;
-}
-
-function isHistory(value: Detail): boolean {
-    return value.hasOwnProperty("type") && value.type === "history";
-}
-
-function isHidden(key: string): boolean {
-    return key === "Do Update";
-}
-
-function isObject(details: Detail): boolean {
-    return String(details) === "[object Object]";
-}
-
-function isString(details: Detail): boolean {
-    return typeof details === 'string' || details instanceof String;
-}
-
-function isNumber(details: Detail): boolean {
-    return typeof details === 'number' || details instanceof Number;
 }
