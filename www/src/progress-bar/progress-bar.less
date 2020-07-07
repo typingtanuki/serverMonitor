@@ -28,12 +28,19 @@
   bottom: 0;
 }
 
-.cursor {
-  background-color: @colorOk;
+.cursor, .tick {
   position: absolute;
   left: 0;
   top: 0;
   height: 1em;
+}
+
+.cursor {
+  background-color: @colorOk;
+}
+
+.tick {
+  border-right: 1px dotted @colorNg;
 }
 
 .body {

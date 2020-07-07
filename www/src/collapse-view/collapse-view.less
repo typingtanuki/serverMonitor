@@ -1,0 +1,30 @@
+@import "../constants/common.less";
+@import "../../node_modules/css.gg/icons/css/eye.css";
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+div.icon {
+  height: 1em;
+  display: inline-block;
+}
+
+.title {
+  .button-style-elem(fade(@Blue, 25%), @Base03, @Cyan);
+}
+
+.title:hover {
+  .button-style-hover(fade(@Blue, 25%), @Base03, @Cyan);
+}
+
+.body {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
+
+.body.collapsed {
+  height: 0;
+}

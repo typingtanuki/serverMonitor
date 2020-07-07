@@ -3,7 +3,8 @@ import reportStyle from "./report-entry.less";
 import {DisplayLine} from "../display-line/display-line";
 import {DisplayGauge} from "../display-gauge/display-gauge";
 import {Detail, HistoryDetail, Report, ReportConstants} from "../rest/types";
-import {isGauge, isHidden, isHistory, isNumber, isObject, isString} from "../utils";
+import {isCause, isGauge, isHidden, isHistory, isNumber, isObject, isString} from "../utils";
+import {CollapseView} from "../collapse-view/collapse-view";
 
 @customElement('report-entry')
 export class ReportEntry extends LitElement {
@@ -20,7 +21,7 @@ export class ReportEntry extends LitElement {
     }
 
     public static dependencies(): any[] {
-        return [DisplayLine, DisplayGauge];
+        return [DisplayLine, DisplayGauge, CollapseView];
     }
 
     public static get styles(): CSSResult {
@@ -29,6 +30,7 @@ export class ReportEntry extends LitElement {
 
     public render(): TemplateResult {
         return html`<div class="report-details">
+            ${this.handleTitle()}
             ${this.handleGauge()}
             ${this.keys().map(key => this.formatKey(key))}
             ${this.handleOthers()}
@@ -44,6 +46,10 @@ export class ReportEntry extends LitElement {
         const keys: string[] = this.keys();
         const left: string[] = keys.filter(key => !this.visited.includes(key));
         return html`${left.map(key => this.formatKey(key))}`;
+    }
+
+    private handleTitle(): TemplateResult {
+        return html`<div class="title">${this.report.title}</div>`;
     }
 
     private handleGauge(): TemplateResult {
@@ -62,21 +68,25 @@ export class ReportEntry extends LitElement {
         this.visited.push(key);
 
         if (isHistory(details)) {
-            return ReportEntry.formatHistory(<HistoryDetail>details);
+            return ReportEntry.formatHistory(key, <HistoryDetail>details);
         }
         if (isHidden(key)) {
             return html``;
+        }
+        if (isCause(key)) {
+            return html`<collapse-view .title="${key}"><div class="code">${String(details)}</div></collapse-view>`;
         }
         if (isString(details) || isNumber(details)) {
             return ReportEntry.formatString(key, String(details));
         }
         if (isObject(details)) {
-            return ReportEntry.formatObject(details);
+            return ReportEntry.formatObject(key, details);
         }
     }
 
-    private static formatHistory(details: HistoryDetail): TemplateResult {
-        return html`<display-line 
+    private static formatHistory(key: string, details: HistoryDetail): TemplateResult {
+        return html`<div class="legend">${key}</div>
+                    <display-line 
                                .values="${details.values}" 
                                .dates="${details.dates}"
                                .max="${parseInt(details.max)}"
@@ -87,9 +97,13 @@ export class ReportEntry extends LitElement {
         return html`<div><span class="key">${key}: </span><span class="value">${String(value)}</span></div>`;
     }
 
-    private static formatObject(details: Detail): TemplateResult {
+    private static formatObject(key: string, details: Detail): TemplateResult {
         const keys: string[] = Object.keys(details);
-        return html`${keys.map(key => ReportEntry.subList(key, details))}`;
+        return html`
+<collapse-view .title="${key}"><div>
+    ${keys.length === 0 ? "None" : ""}
+    ${keys.map(key => ReportEntry.subList(key, details))}
+</div></collapse-view>`;
     }
 
     private static subList(key: string, details: Detail): TemplateResult {

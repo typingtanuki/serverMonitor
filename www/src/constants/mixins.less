@@ -17,20 +17,32 @@
               @text: @mainTextColor,
               @hover:@bgColorSelected) {
   :host {
-    padding: 5px;
-
-    color: @text;
-    background-color: @background;
-
-    text-transform: capitalize;
-
-    cursor: pointer;
-    transition: background-color 300ms, color 300ms;
+    .button-style-elem(@background, @text, @hover);
   }
 
   :host(:hover) {
-    background-color: @hover;
-
-    color: @textColorSelected;
+    .button-style-hover(@background, @text, @hover);
   }
+}
+
+.button-style-elem(@background: @bgColorHighlight,
+              @text: @mainTextColor,
+              @hover:@bgColorSelected) {
+  padding: 5px;
+
+  color: @text;
+  background-color: @background;
+
+  text-transform: capitalize;
+
+  cursor: pointer;
+  transition: background-color 300ms, color 300ms;
+}
+
+.button-style-hover(@background: @bgColorHighlight,
+              @text: @mainTextColor,
+              @hover:@bgColorSelected) {
+  background-color: @hover;
+
+  color: @textColorSelected;
 }

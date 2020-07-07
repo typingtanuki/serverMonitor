@@ -54,9 +54,9 @@ public class MemoryMonitor implements Monitor {
 
     private Map<String, String> getTopProcesses(OperatingSystem operatingSystem) {
         Map<String, String> top = new LinkedHashMap<>();
-        List<OSProcess> topCpu = operatingSystem.getProcesses(10, OperatingSystem.ProcessSort.MEMORY);
+        List<OSProcess> topMemory = operatingSystem.getProcesses(10, OperatingSystem.ProcessSort.MEMORY);
         Map<Integer, Long> newTop = new LinkedHashMap<>();
-        for (OSProcess process : topCpu) {
+        for (OSProcess process : topMemory) {
             int pid = process.getProcessID();
             long memory = process.getVirtualSize();
             newTop.put(pid, memory);

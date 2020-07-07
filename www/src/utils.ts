@@ -9,8 +9,19 @@ export function isHistory(value: Detail): boolean {
     return value.hasOwnProperty("type") && value.type === "history";
 }
 
+export function isCause(key: string): boolean {
+    return key === ReportConstants.CAUSE;
+}
+
 export function isHidden(key: string): boolean {
-    return key === ReportConstants.ACTION_UPDATE;
+    switch (key) {
+        case ReportConstants.ACTION_UPDATE:
+        case ReportConstants.USAGE_MAX:
+        case ReportConstants.USAGE_CURRENT:
+            return true;
+
+    }
+    return false;
 }
 
 export function isObject(details: Detail): boolean {

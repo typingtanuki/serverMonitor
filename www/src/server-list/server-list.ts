@@ -45,7 +45,7 @@ export class ServerList extends LitElement {
             .then(function (): void {
                 const servers: NodeListOf<ServerEntry> = self.shadowRoot.querySelectorAll("server-entry");
                 for (let i = 0; i < servers.length; i++) {
-                    servers[i].requestUpdate();
+                    servers[i].refresh();
                 }
             })
             .catch(function (error: string | Error) {

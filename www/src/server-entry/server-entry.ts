@@ -1,6 +1,7 @@
 import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
 import entryStyle from "./server-entry.less";
 import {Detail, Monitor, MonitorType, ReportConstants, ServerInfo} from "../rest/types";
+import {ProgressBar} from "../progress-bar/progress-bar";
 
 export interface ServerEntrySelectedEventInfo {
     server: ServerInfo;
@@ -48,6 +49,14 @@ export class ServerEntry extends LitElement {
         }
         return html`<div class="icon bg gg-${ok ? 'check OK' : 'close NG'}"></div><div class="title">${this.server.name}</div>
 ${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
+    }
+
+    public async refresh(): Promise<void> {
+        await this.requestUpdate();
+        const bars: NodeListOf<ProgressBar> = this.shadowRoot.querySelectorAll("progress-bar");
+        for (let i = 0; i < bars.length; i++) {
+            await bars[i].requestUpdate();
+        }
     }
 
     public firstUpdated(): void {

@@ -6,7 +6,7 @@ export function detailViewTemplate(element: DetailView): TemplateResult {
     return html`
     <div id="server">${element.server.name}</div>
     <div id="response">
-        <settings-button label="Edit Settings" @click="{${element.showSettings}"></settings-button>
+        <settings-button label="Edit Settings" @click="${element.showSettings}"></settings-button>
         <report-list class="failure" .reports="${element.failure}"></report-list>
         <report-list class="success" .reports="${element.success}"></report-list>
     </div>`;
@@ -58,5 +58,5 @@ export function settingsViewTemplate(element: DetailView): TemplateResult {
         ${formSection("System Updates")}
         ${formCheckbox("Enabled", element.settings, "updates.enabled")}
     </table></div>
-        <settings-button label="Save Settings" @click="{${element.saveSettings}"></settings-button>`;
+        <settings-button label="Save Settings" @click="${element.saveSettings}"></settings-button>`;
 }

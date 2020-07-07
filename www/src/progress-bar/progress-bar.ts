@@ -39,7 +39,10 @@ export class ProgressBar extends LitElement {
 <div class="core ${this.label && this.label.length > 0 ? "labelled" : ""}" title="${percent}% ${this.label}">
     <div class="icon ${this.iconName()}"></div>
     <div class="label" title="${this.label}">${this.label}</div>
-    <div class="body ${warn ? "warn" : ""}"><div class="cursor" style="right:${100 - percent}%"></div></div>
+    <div class="body ${warn ? "warn" : ""}">
+        <div class="cursor" style="right:${100 - percent}%"></div>
+        <div class="tick" style="right:${100 - this.warn}%"></div>
+    </div>
 </div>`;
     }
 
