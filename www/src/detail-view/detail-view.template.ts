@@ -45,6 +45,7 @@ export function settingsViewTemplate(element: DetailView): TemplateResult {
         ${formSection("Process")}
         ${formCheckbox("Enabled", element.settings, "process.enabled")}
         ${formText("Processes", element.settings, "process.monitoring", DataType.array)}
+        ${formText("History Size", element.settings, "process.historySize", DataType.number)}
     
         ${formSection("Ping")}
         ${formCheckbox("Enabled", element.settings, "ping.enabled")}

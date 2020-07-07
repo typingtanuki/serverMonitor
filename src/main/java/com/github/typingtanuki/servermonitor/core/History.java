@@ -13,7 +13,7 @@ public class History {
     private final long limit;
     private LinkedList<Long> values = new LinkedList<>();
     private LinkedList<String> dates = new LinkedList<>();
-    private Long max;
+    private long max;
 
     public History(long limit) {
         super();

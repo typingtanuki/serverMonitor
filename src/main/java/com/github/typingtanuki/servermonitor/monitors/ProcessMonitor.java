@@ -4,12 +4,11 @@ import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import com.github.typingtanuki.servermonitor.report.ProcessMonitorReport;
 import oshi.SystemInfo;
+import oshi.hardware.GlobalMemory;
 import oshi.software.os.OSProcess;
 import oshi.software.os.OperatingSystem;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Monitors running processes on the server.
@@ -17,7 +16,8 @@ import java.util.List;
  * If an expected process is not running, a failure will be raised
  */
 public class ProcessMonitor implements Monitor {
-    private MainConfig config;
+    private final MainConfig config;
+    private final Map<String, ProcessInfo> infos = new HashMap<>();
 
     public ProcessMonitor(MainConfig config) {
         super();
@@ -27,34 +27,54 @@ public class ProcessMonitor implements Monitor {
 
     @Override
     public List<MonitorReport> monitor(SystemInfo systemInfo) {
+        GlobalMemory memory = systemInfo.getHardware().getMemory();
+
         List<String> processes = new ArrayList<>(config.getProcess().getMonitoring());
 
         List<OSProcess> current = systemInfo.getOperatingSystem().getProcesses(0, OperatingSystem.ProcessSort.PID);
         List<MonitorReport> out = new LinkedList<>();
-        int pid = -1;
-        long uptime = -1;
-        String name = null;
-        String commandLine = null;
+
+        List<String> keys = new ArrayList<>(infos.keySet());
+        for (String key : keys) {
+            if (!processes.contains(key)) {
+                infos.remove(key);
+            }
+        }
+
         for (String proc : processes) {
             ProcessMonitorReport report = new ProcessMonitorReport(proc);
-            boolean running = false;
+
+            ProcessInfo info = getOrInit(proc);
+            info.setRunning(false);
+
             for (OSProcess c : current) {
                 if (c.getName().contains(proc) || c.getCommandLine().contains(proc)) {
-                    running = true;
-                    pid = c.getProcessID();
-                    uptime = c.getUpTime();
-                    name = c.getName();
-                    commandLine = c.getCommandLine();
+                    info.fromProcess(
+                            c,
+                            memory.getTotal(),
+                            config.getProcess().getHistorySize());
                     break;
                 }
             }
-            if (running) {
-                report.ok(pid, uptime, name, commandLine);
+            if (info.isRunning()) {
+                report.ok(info);
             } else {
-                report.ng();
+                info.missing(config.getProcess().getHistorySize());
+                report.ng(info);
             }
             out.add(report);
         }
+
+        return out;
+    }
+
+    private ProcessInfo getOrInit(String proc) {
+        ProcessInfo out = infos.get(proc);
+        if (out != null) {
+            return out;
+        }
+        out = new ProcessInfo(proc);
+        infos.put(proc, out);
         return out;
     }
 

@@ -6,6 +6,8 @@ import java.util.List;
 
 public class ProcessMonitorConfig extends MonitorConfig {
     private List<String> monitoring = Collections.emptyList();
+    private int historySize = 1000;
+
 
     public ProcessMonitorConfig() {
         super();
@@ -13,7 +15,9 @@ public class ProcessMonitorConfig extends MonitorConfig {
 
     @Override
     public void validate() {
-        // Nothing to do
+        if (historySize < 0) {
+            throw new IllegalStateException("Process CPU history should be greater or equal to 0");
+        }
     }
 
     public void copyTo(ProcessMonitorConfig targetConfig) {
@@ -27,5 +31,13 @@ public class ProcessMonitorConfig extends MonitorConfig {
 
     public void setMonitoring(List<String> monitoring) {
         this.monitoring = new ArrayList<>(monitoring);
+    }
+
+    public int getHistorySize() {
+        return historySize;
+    }
+
+    public void setHistorySize(int historySize) {
+        this.historySize = historySize;
     }
 }

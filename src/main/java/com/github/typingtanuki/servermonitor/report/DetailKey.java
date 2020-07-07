@@ -13,6 +13,8 @@ public enum DetailKey {
     LAST_SEEN("Last Seen"),
     METHOD("Method"),
     HISTORY("History"),
+    CPU_HISTORY("CPU History"),
+    MEMORY_HISTORY("Memory History"),
     MEMORY_TOTAL("Total memory"),
     MEMORY_FREE("Free memory"),
     USAGE_MAX("Maximum Usage"),
@@ -32,7 +34,9 @@ public enum DetailKey {
     HISTORY_RECEIVED("History Received"),
     HISTORY_SENT("History Sent"),
     TOP("Top"),
-    ACTION_UPDATE("Do Update");
+    ACTION_UPDATE("Do Update"),
+    CURRENT_CPU("CPU Usage"),
+    CURRENT_MEMORY("Memory Usage");
 
     private final String value;
 

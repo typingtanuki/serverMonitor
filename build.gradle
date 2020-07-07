@@ -11,7 +11,7 @@ dependencies {
             jersey  : '2.31',
             jetty   : '9.4.30.v20200611',
             logback : '1.2.3',
-            oshi    : '5.1.2',
+            oshi    : '5.2.0',
             restEasy: '4.5.5.Final',
             slf4j   : '1.7.30'
     ]
