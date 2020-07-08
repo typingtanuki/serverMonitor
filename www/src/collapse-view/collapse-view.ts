@@ -30,7 +30,7 @@ export class CollapseView extends LitElement {
 
     public render(): TemplateResult {
         return html`
-<div class="title" @click="${this.toggle}"><div class="icon gg-eye"></div>${this.title}</div>
+<div class="title" @click="${this.toggle}"><icon-svg icon="eye"></icon-svg>${this.title}</div>
 <div class="body ${this.collapsed ? 'collapsed' : 'visible'}"><slot></slot></div>`;
     }
 

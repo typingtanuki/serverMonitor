@@ -55,9 +55,7 @@ export class ServerEntry extends LitElement {
                 ok = false;
             }
         }
-        return html`<div class="icon bg gg-${ok ?
-            'check OK' :
-            'close NG'}"></div><div class="title">${this.server.name}</div>
+        return html`<div class="title">${this.server.name}</div>
 ${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
     }
 

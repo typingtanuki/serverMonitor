@@ -1,10 +1,4 @@
-import {
-    CSSResult,
-    customElement,
-    LitElement,
-    TemplateResult,
-    unsafeCSS
-} from 'lit-element';
+import {CSSResult, customElement, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
 
 import rootStyle from "./monitor-root.less";
 import {RestClient} from "../rest/rest-client";
@@ -14,6 +8,7 @@ import {DetailView} from "../detail-view/detail-view";
 import {monitorRootTemplate} from "./monitor-root-template";
 import {ModalRoot} from "../modal-root/modal-root";
 import {ServerInfo} from "../rest/types";
+import {IconSvg} from "../icon-svg/icon-svg";
 
 @customElement('monitor-root')
 export class MonitorRoot extends LitElement {
@@ -43,7 +38,7 @@ export class MonitorRoot extends LitElement {
     }
 
     public static get dependencies(): any[] {
-        return [ServerList, DetailView, ModalRoot];
+        return [ServerList, DetailView, ModalRoot, IconSvg];
     }
 
     public render(): TemplateResult {

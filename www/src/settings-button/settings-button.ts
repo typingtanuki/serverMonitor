@@ -31,7 +31,7 @@ export class SettingsButton extends LitElement {
     }
 
     public render(): TemplateResult {
-        return html`<div class="icon gg-options gg-align-middle"></div>${this.label}`;
+        return html`<icon-svg icon="options"></icon-svg>${this.label}`;
     }
 
     public firstUpdated(): void {

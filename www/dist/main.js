@@ -741,78 +741,6 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/check.css":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/check.css ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.i, ".gg-check {\r\n    box-sizing: border-box;\r\n    position: relative;\r\n    display: block;\r\n    transform: scale(var(--ggs,1));\r\n    width: 22px;\r\n    height: 22px;\r\n    border: 2px solid transparent;\r\n    border-radius: 100px\r\n}\r\n\r\n.gg-check::after {\r\n    content: \"\";\r\n    display: block;\r\n    box-sizing: border-box;\r\n    position: absolute;\r\n    left: 3px;\r\n    top: -1px;\r\n    width: 6px;\r\n    height: 10px;\r\n    border-width: 0 2px 2px 0;\r\n    border-style: solid;\r\n    transform-origin: bottom left;\r\n    transform: rotate(45deg)\r\n}", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/close.css":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/close.css ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.i, ".gg-close {\r\n    box-sizing: border-box;\r\n    position: relative;\r\n    display: block;\r\n    transform: scale(var(--ggs,1));\r\n    width: 22px;\r\n    height: 22px;\r\n    border: 2px solid transparent;\r\n    border-radius: 40px\r\n}\r\n\r\n.gg-close::after,\r\n.gg-close::before {\r\n    content: \"\";\r\n    display: block;\r\n    box-sizing: border-box;\r\n    position: absolute;\r\n    width: 16px;\r\n    height: 2px;\r\n    background: currentColor;\r\n    transform: rotate(45deg);\r\n    border-radius: 5px;\r\n    top: 8px;\r\n    left: 1px\r\n}\r\n\r\n.gg-close::after {\r\n    transform: rotate(-45deg)\r\n}", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/drive.css":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/drive.css ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.i, ".gg-drive {\r\n    box-sizing: border-box;\r\n    position: relative;\r\n    display: block;\r\n    transform: scale(var(--ggs,1));\r\n    width: 26px;\r\n    height: 10px;\r\n    border: 2px solid;\r\n    border-radius: 2px\r\n}\r\n\r\n.gg-drive::after,\r\n.gg-drive::before {\r\n    content: \"\";\r\n    display: block;\r\n    box-sizing: border-box;\r\n    position: absolute;\r\n    width: 2px;\r\n    height: 2px;\r\n    border-radius: 10px;\r\n    background: currentColor;\r\n    top: 2px;\r\n    right: 2px\r\n}\r\n\r\n.gg-drive::before {\r\n    right: 6px\r\n}", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/eye.css":
-/*!*************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/eye.css ***!
-  \*************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.i, ".gg-eye {\r\n    position: relative;\r\n    display: block;\r\n    transform: scale(var(--ggs,1));\r\n    width: 24px;\r\n    height: 18px;\r\n    border-bottom-right-radius: 100px;\r\n    border-bottom-left-radius: 100px;\r\n    overflow: hidden;\r\n    box-sizing: border-box\r\n}\r\n\r\n.gg-eye::after,\r\n.gg-eye::before {\r\n    content: \"\";\r\n    display: block;\r\n    border-radius: 100px;\r\n    position: absolute;\r\n    box-sizing: border-box\r\n}\r\n\r\n.gg-eye::after {\r\n    top: 2px;\r\n    box-shadow:\r\n        inset 0 -8px 0 2px,\r\n        inset 0 0 0 2px;\r\n    width: 24px;\r\n    height: 24px\r\n}\r\n\r\n.gg-eye::before {\r\n    width: 8px;\r\n    height: 8px;\r\n    border: 2px solid;\r\n    bottom: 4px;\r\n    left: 8px\r\n}", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/options.css":
 /*!*****************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/options.css ***!
@@ -825,42 +753,6 @@ var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../css-loader/di
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
 exports.push([module.i, ".gg-options {\r\n    box-sizing: border-box;\r\n    position: relative;\r\n    display: block;\r\n    transform: scale(var(--ggs,1));\r\n    width: 10px;\r\n    height: 2px;\r\n    box-shadow:\r\n        -3px 4px 0 0,\r\n        3px -4px 0 0\r\n}\r\n\r\n.gg-options::after,\r\n.gg-options::before {\r\n    content: \"\";\r\n    display: block;\r\n    box-sizing: border-box;\r\n    position: absolute;\r\n    width: 8px;\r\n    height: 8px;\r\n    border: 2px solid;\r\n    border-radius: 100%\r\n}\r\n\r\n.gg-options::before {\r\n    top: -7px;\r\n    left: -4px\r\n}\r\n\r\n.gg-options::after {\r\n    bottom: -7px;\r\n    right: -4px\r\n}", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/smartphone-chip.css":
-/*!*************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/smartphone-chip.css ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.i, ".gg-smartphone-chip {\r\n    box-sizing: border-box;\r\n    position: relative;\r\n    display: block;\r\n    transform: scale(var(--ggs,1));\r\n    width: 16px;\r\n    height: 16px;\r\n    border: 6px double;\r\n    border-radius: 3px\r\n}\r\n\r\n.gg-smartphone-chip::after {\r\n    content: \"\";\r\n    display: block;\r\n    box-sizing: border-box;\r\n    position: absolute;\r\n    border-radius: 3px;\r\n    width: 2px;\r\n    height: 2px;\r\n    left: -3px;\r\n    top: -9px;\r\n    background: currentColor;\r\n    box-shadow:\r\n        4px 0 0,\r\n        8px 0 0,\r\n        0 20px 0,\r\n        4px 20px 0,\r\n        -6px 6px 0,\r\n        14px 6px 0,\r\n        14px 10px 0,\r\n        14px 14px 0,\r\n        -6px 10px 0,\r\n        -6px 14px 0,\r\n        8px 20px 0\r\n}", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/smartphone-ram.css":
-/*!************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/smartphone-ram.css ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.i, ".gg-smartphone-ram {\r\n    box-sizing: border-box;\r\n    position: relative;\r\n    display: block;\r\n    transform: scale(var(--ggs,1));\r\n    width: 26px;\r\n    height: 14px;\r\n    border: 2px solid;\r\n    border-radius: 3px\r\n}\r\n\r\n.gg-smartphone-ram::after,\r\n.gg-smartphone-ram::before {\r\n    content: \"\";\r\n    display: block;\r\n    box-sizing: border-box;\r\n    position: absolute;\r\n    border-radius: 3px;\r\n    width: 2px;\r\n    height: 2px;\r\n    background: currentColor;\r\n    box-shadow: 16px 4px 0;\r\n    top: 2px;\r\n    left: 2px\r\n}\r\n\r\n.gg-smartphone-ram::after {\r\n    box-shadow: 4px 0 0, 8px 0 0,\r\n        12px 0 0, 16px 0 0,\r\n        0 18px 0, 4px 18px 0,\r\n        8px 18px 0, 12px 18px 0,\r\n        16px 18px 0;\r\n    top: -5px\r\n}", ""]);
 // Exports
 module.exports = exports;
 
@@ -969,6 +861,127 @@ function toComment(sourceMap) {
   var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
   return "/*# ".concat(data, " */");
 }
+
+/***/ }),
+
+/***/ "./node_modules/css.gg/icons/svg/clapper-board.svg":
+/*!*********************************************************!*\
+  !*** ./node_modules/css.gg/icons/svg/clapper-board.svg ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M20.1702 3L20.1663 3.00453C21.7458 3.09084 23 4.39896 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6C1 4.34315 2.34315 3 4 3H20.1702ZM10.4764 5H16.4764L13.089 9H7.08899L10.4764 5ZM5.08899 9L8.47644 5H4C3.44772 5 3 5.44772 3 6V9H5.08899ZM3 11V18C3 18.5523 3.44772 19 4 19H20C20.5523 19 21 18.5523 21 18V11H3ZM21 9V6C21 5.44771 20.5523 5 20 5H18.4764L15.089 9H21Z\" fill=\"currentColor\"></path></svg>"
+
+/***/ }),
+
+/***/ "./node_modules/css.gg/icons/svg/compress.svg":
+/*!****************************************************!*\
+  !*** ./node_modules/css.gg/icons/svg/compress.svg ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M19.0954 8.42986L17.6711 7.02576L12.7568 12.0107L17.7417 16.925L19.1458 15.5007L16.644 13.0344L23.1411 13.0847L23.1565 11.0848L16.5286 11.0334L19.0954 8.42986Z\" fill=\"currentColor\"></path><path d=\"M5.46742 15.5618L6.88341 16.9742L11.827 12.0183L6.87102 7.07476L5.45857 8.49074L8.04995 11.0756L0.843506 11.1004L0.850384 13.1004L7.94701 13.076L5.46742 15.5618Z\" fill=\"currentColor\"></path></svg>"
+
+/***/ }),
+
+/***/ "./node_modules/css.gg/icons/svg/danger.svg":
+/*!**************************************************!*\
+  !*** ./node_modules/css.gg/icons/svg/danger.svg ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 6C12.5523 6 13 6.44772 13 7V13C13 13.5523 12.5523 14 12 14C11.4477 14 11 13.5523 11 13V7C11 6.44772 11.4477 6 12 6Z\" fill=\"currentColor\"></path><path d=\"M12 16C11.4477 16 11 16.4477 11 17C11 17.5523 11.4477 18 12 18C12.5523 18 13 17.5523 13 17C13 16.4477 12.5523 16 12 16Z\" fill=\"currentColor\"></path><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12Z\" fill=\"currentColor\"></path></svg>"
+
+/***/ }),
+
+/***/ "./node_modules/css.gg/icons/svg/database.svg":
+/*!****************************************************!*\
+  !*** ./node_modules/css.gg/icons/svg/database.svg ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 9V7H7V9H5Z\" fill=\"currentColor\"></path><path d=\"M9 9H19V7H9V9Z\" fill=\"currentColor\"></path><path d=\"M5 15V17H7V15H5Z\" fill=\"currentColor\"></path><path d=\"M19 17H9V15H19V17Z\" fill=\"currentColor\"></path><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M1 6C1 4.34315 2.34315 3 4 3H20C21.6569 3 23 4.34315 23 6V18C23 19.6569 21.6569 21 20 21H4C2.34315 21 1 19.6569 1 18V6ZM4 5H20C20.5523 5 21 5.44772 21 6V11H3V6C3 5.44772 3.44772 5 4 5ZM3 13V18C3 18.5523 3.44772 19 4 19H20C20.5523 19 21 18.5523 21 18V13H3Z\" fill=\"currentColor\"></path></svg>"
+
+/***/ }),
+
+/***/ "./node_modules/css.gg/icons/svg/drive.svg":
+/*!*************************************************!*\
+  !*** ./node_modules/css.gg/icons/svg/drive.svg ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M19 11C18.4477 11 18 11.4477 18 12C18 12.5523 18.4477 13 19 13C19.5523 13 20 12.5523 20 12C20 11.4477 19.5523 11 19 11Z\" fill=\"currentColor\"></path><path d=\"M14 12C14 11.4477 14.4477 11 15 11C15.5523 11 16 11.4477 16 12C16 12.5523 15.5523 13 15 13C14.4477 13 14 12.5523 14 12Z\" fill=\"currentColor\"></path><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2 8C0.895431 8 0 8.89543 0 10V14C0 15.1046 0.89543 16 2 16H22C23.1046 16 24 15.1046 24 14V10C24 8.89543 23.1046 8 22 8H2ZM22 10H2L2 14H22V10Z\" fill=\"currentColor\"></path></svg>"
+
+/***/ }),
+
+/***/ "./node_modules/css.gg/icons/svg/ethernet.svg":
+/*!****************************************************!*\
+  !*** ./node_modules/css.gg/icons/svg/ethernet.svg ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M4 0.5V20.5H11V23.5H13V20.5H20V0.5H4ZM18 2.5H6V8.5H10V14.5H14V8.5H18V2.5ZM6 18.5V10.5H8V16.5H16V10.5H18V18.5H6Z\" fill=\"currentColor\"></path></svg>"
+
+/***/ }),
+
+/***/ "./node_modules/css.gg/icons/svg/eye.svg":
+/*!***********************************************!*\
+  !*** ./node_modules/css.gg/icons/svg/eye.svg ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12ZM14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z\" fill=\"currentColor\"></path><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M12 3C17.5915 3 22.2898 6.82432 23.6219 12C22.2898 17.1757 17.5915 21 12 21C6.40848 21 1.71018 17.1757 0.378052 12C1.71018 6.82432 6.40848 3 12 3ZM12 19C7.52443 19 3.73132 16.0581 2.45723 12C3.73132 7.94186 7.52443 5 12 5C16.4756 5 20.2687 7.94186 21.5428 12C20.2687 16.0581 16.4756 19 12 19Z\" fill=\"currentColor\"></path></svg>"
+
+/***/ }),
+
+/***/ "./node_modules/css.gg/icons/svg/options.svg":
+/*!***************************************************!*\
+  !*** ./node_modules/css.gg/icons/svg/options.svg ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7 3C8.86384 3 10.4299 4.27477 10.874 6H19V8H10.874C10.4299 9.72523 8.86384 11 7 11C4.79086 11 3 9.20914 3 7C3 4.79086 4.79086 3 7 3ZM7 9C8.10457 9 9 8.10457 9 7C9 5.89543 8.10457 5 7 5C5.89543 5 5 5.89543 5 7C5 8.10457 5.89543 9 7 9Z\" fill=\"currentColor\"></path><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M17 20C15.1362 20 13.5701 18.7252 13.126 17H5V15H13.126C13.5701 13.2748 15.1362 12 17 12C19.2091 12 21 13.7909 21 16C21 18.2091 19.2091 20 17 20ZM17 18C18.1046 18 19 17.1046 19 16C19 14.8954 18.1046 14 17 14C15.8954 14 15 14.8954 15 16C15 17.1046 15.8954 18 17 18Z\" fill=\"currentColor\"></path></svg>"
+
+/***/ }),
+
+/***/ "./node_modules/css.gg/icons/svg/repeat.svg":
+/*!**************************************************!*\
+  !*** ./node_modules/css.gg/icons/svg/repeat.svg ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M18.3701 7.99993L13.8701 10.598V8.99993H6.88989V12.9999H4.88989V6.99993H13.8701V5.40186L18.3701 7.99993Z\" fill=\"currentColor\"></path><path d=\"M10.1299 16.9999H19.1101V10.9999H17.1101V14.9999H10.1299V13.4019L5.62988 15.9999L10.1299 18.598V16.9999Z\" fill=\"currentColor\"></path></svg>"
+
+/***/ }),
+
+/***/ "./node_modules/css.gg/icons/svg/smartphone-chip.svg":
+/*!***********************************************************!*\
+  !*** ./node_modules/css.gg/icons/svg/smartphone-chip.svg ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9 22C9 22.5523 8.55228 23 8 23C7.44772 23 7 22.5523 7 22C7 21.4477 7.44772 21 8 21C8.55228 21 9 21.4477 9 22ZM13 22C13 22.5523 12.5523 23 12 23C11.4477 23 11 22.5523 11 22C11 21.4477 11.4477 21 12 21C12.5523 21 13 21.4477 13 22ZM16 23C16.5523 23 17 22.5523 17 22C17 21.4477 16.5523 21 16 21C15.4477 21 15 21.4477 15 22C15 22.5523 15.4477 23 16 23Z\" fill=\"currentColor\"></path><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M9 2C9 2.55228 8.55228 3 8 3C7.44772 3 7 2.55228 7 2C7 1.44772 7.44772 1 8 1C8.55228 1 9 1.44772 9 2ZM13 2C13 2.55228 12.5523 3 12 3C11.4477 3 11 2.55228 11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2ZM16 3C16.5523 3 17 2.55228 17 2C17 1.44772 16.5523 1 16 1C15.4477 1 15 1.44772 15 2C15 2.55228 15.4477 3 16 3ZM9 22C9 22.5523 8.55228 23 8 23C7.44772 23 7 22.5523 7 22C7 21.4477 7.44772 21 8 21C8.55228 21 9 21.4477 9 22ZM13 22C13 22.5523 12.5523 23 12 23C11.4477 23 11 22.5523 11 22C11 21.4477 11.4477 21 12 21C12.5523 21 13 21.4477 13 22ZM16 23C16.5523 23 17 22.5523 17 22C17 21.4477 16.5523 21 16 21C15.4477 21 15 21.4477 15 22C15 22.5523 15.4477 23 16 23ZM23 16C23 15.4477 22.5523 15 22 15C21.4477 15 21 15.4477 21 16C21 16.5523 21.4477 17 22 17C22.5523 17 23 16.5523 23 16ZM23 12C23 11.4477 22.5523 11 22 11C21.4477 11 21 11.4477 21 12C21 12.5523 21.4477 13 22 13C22.5523 13 23 12.5523 23 12ZM22 7C22.5523 7 23 7.44771 23 8C23 8.55229 22.5523 9 22 9C21.4477 9 21 8.55229 21 8C21 7.44771 21.4477 7 22 7ZM2 15C2.55228 15 3 15.4477 3 16C3 16.5523 2.55228 17 2 17C1.44772 17 1 16.5523 1 16C1 15.4477 1.44772 15 2 15ZM2 11C2.55228 11 3 11.4477 3 12C3 12.5523 2.55228 13 2 13C1.44772 13 1 12.5523 1 12C1 11.4477 1.44772 11 2 11ZM3 8C3 7.44771 2.55228 7 2 7C1.44772 7 1 7.44771 1 8C1 8.55229 1.44772 9 2 9C2.55228 9 3 8.55229 3 8ZM17 6H7C6.44772 6 6 6.44772 6 7V17C6 17.5523 6.44772 18 7 18H17C17.5523 18 18 17.5523 18 17V7C18 6.44772 17.5523 6 17 6ZM7 4C5.34315 4 4 5.34315 4 7V17C4 18.6569 5.34315 20 7 20H17C18.6569 20 20 18.6569 20 17V7C20 5.34315 18.6569 4 17 4H7ZM14 10H10V14H14V10ZM8 8V16H16V8H8Z\" fill=\"currentColor\"></path></svg>"
+
+/***/ }),
+
+/***/ "./node_modules/css.gg/icons/svg/smartphone-ram.svg":
+/*!**********************************************************!*\
+  !*** ./node_modules/css.gg/icons/svg/smartphone-ram.svg ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M5 4C5 4.55228 4.55228 5 4 5C3.44772 5 3 4.55228 3 4C3 3.44772 3.44772 3 4 3C4.55228 3 5 3.44772 5 4Z\" fill=\"currentColor\"></path><path d=\"M9 4C9 4.55228 8.55228 5 8 5C7.44772 5 7 4.55228 7 4C7 3.44772 7.44772 3 8 3C8.55228 3 9 3.44772 9 4Z\" fill=\"currentColor\"></path><path d=\"M12 5C12.5523 5 13 4.55228 13 4C13 3.44772 12.5523 3 12 3C11.4477 3 11 3.44772 11 4C11 4.55228 11.4477 5 12 5Z\" fill=\"currentColor\"></path><path d=\"M17 4C17 4.55228 16.5523 5 16 5C15.4477 5 15 4.55228 15 4C15 3.44772 15.4477 3 16 3C16.5523 3 17 3.44772 17 4Z\" fill=\"currentColor\"></path><path d=\"M20 5C20.5523 5 21 4.55228 21 4C21 3.44772 20.5523 3 20 3C19.4477 3 19 3.44772 19 4C19 4.55228 19.4477 5 20 5Z\" fill=\"currentColor\"></path><path d=\"M5 20C5 20.5523 4.55228 21 4 21C3.44772 21 3 20.5523 3 20C3 19.4477 3.44772 19 4 19C4.55228 19 5 19.4477 5 20Z\" fill=\"currentColor\"></path><path d=\"M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20Z\" fill=\"currentColor\"></path><path d=\"M12 21C12.5523 21 13 20.5523 13 20C13 19.4477 12.5523 19 12 19C11.4477 19 11 19.4477 11 20C11 20.5523 11.4477 21 12 21Z\" fill=\"currentColor\"></path><path d=\"M17 20C17 20.5523 16.5523 21 16 21C15.4477 21 15 20.5523 15 20C15 19.4477 15.4477 19 16 19C16.5523 19 17 19.4477 17 20Z\" fill=\"currentColor\"></path><path d=\"M20 21C20.5523 21 21 20.5523 21 20C21 19.4477 20.5523 19 20 19C19.4477 19 19 19.4477 19 20C19 20.5523 19.4477 21 20 21Z\" fill=\"currentColor\"></path><path d=\"M5 12C5.55228 12 6 11.5523 6 11C6 10.4477 5.55228 10 5 10C4.44772 10 4 10.4477 4 11C4 11.5523 4.44772 12 5 12Z\" fill=\"currentColor\"></path><path d=\"M20 13C20 13.5523 19.5523 14 19 14C18.4477 14 18 13.5523 18 13C18 12.4477 18.4477 12 19 12C19.5523 12 20 12.4477 20 13Z\" fill=\"currentColor\"></path><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M0 9C0 7.34315 1.34315 6 3 6H21C22.6569 6 24 7.34315 24 9V15C24 16.6569 22.6569 18 21 18H3C1.34315 18 0 16.6569 0 15V9ZM3 8H21C21.5523 8 22 8.44772 22 9V15C22 15.5523 21.5523 16 21 16H3C2.44772 16 2 15.5523 2 15V9C2 8.44772 2.44772 8 3 8Z\" fill=\"currentColor\"></path></svg>"
 
 /***/ }),
 
@@ -5187,11 +5200,9 @@ try {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-var ___CSS_LOADER_AT_RULE_IMPORT_0___ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!../../node_modules/css.gg/icons/css/eye.css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/eye.css");
 exports = ___CSS_LOADER_API_IMPORT___(false);
-exports.i(___CSS_LOADER_AT_RULE_IMPORT_0___);
 // Module
-exports.push([module.i, ":host {\n  display: block;\n  width: 100%;\n}\ndiv.icon {\n  height: 1em;\n  display: inline-block;\n}\n.title {\n  padding: 5px;\n  color: #002b36;\n  background-color: rgba(38, 139, 210, 0.25);\n  text-transform: capitalize;\n  cursor: pointer;\n  transition: background-color 300ms, color 300ms;\n}\n.title:hover {\n  background-color: #2aa198;\n  color: #002b36;\n}\n.body {\n  display: block;\n  width: 100%;\n  overflow: hidden;\n}\n.body.collapsed {\n  height: 0;\n}\n", ""]);
+exports.push([module.i, ":host {\n  display: block;\n  width: 100%;\n}\n.title {\n  border-radius: 3px;\n  padding: 5px;\n  color: #002b36;\n  background-color: rgba(38, 139, 210, 0.25);\n  text-transform: capitalize;\n  cursor: pointer;\n  transition: background-color 300ms, color 300ms;\n}\n.title:hover {\n  background-color: #2aa198;\n  color: #002b36;\n}\n.body {\n  display: block;\n  width: 100%;\n  overflow: hidden;\n}\n.body.collapsed {\n  height: 0;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -5239,7 +5250,7 @@ __webpack_require__.r(__webpack_exports__);
 var _dec, _class, _temp;
 
 function _templateObject() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n<div class=\"title\" @click=\"", "\"><div class=\"icon gg-eye\"></div>", "</div>\n<div class=\"body ", "\"><slot></slot></div>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n<div class=\"title\" @click=\"", "\"><icon-svg icon=\"eye\"></icon-svg>", "</div>\n<div class=\"body ", "\"><slot></slot></div>"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -5579,7 +5590,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function _templateObject2() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <div id=\"server\">", "</div>\n    <div id=\"response\"><table class=\"settings\">\n        ", "\n        ", "\n        ", "\n        ", "\n        ", "\n        ", "\n        \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n    </table></div>\n        <settings-button label=\"Save Settings\" @click=\"", "\"></settings-button>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <div id=\"server\">", "</div>\n    <div id=\"response\"><table class=\"settings\">\n        ", "\n        ", "\n        ", "\n        ", "\n        ", "\n        ", "\n        \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n    </table></div>\n        <settings-button label=\"Save Settings\" @click=\"", "\"></settings-button>"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -5604,7 +5615,7 @@ function detailViewTemplate(element) {
   return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject(), element.server.name, element.showSettings, element.failure, element.success);
 }
 function settingsViewTemplate(element) {
-  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject2(), element.server.name, Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Global"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Name", element.settings, "identity", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].string), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Monitor time", element.settings, "monitorTime", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Debounce time", element.settings, "debounceTime", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("API port", element.settings, "port", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].string), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Teams Hook", element.settings, "teamsHook", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].string), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("CPU"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "cpu.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Warn Level", element.settings, "cpu.maxUsage", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("History Size", element.settings, "cpu.historySize", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Memory"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "memory.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Warn Level", element.settings, "memory.maxUsage", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("History Size", element.settings, "memory.historySize", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Network"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "network.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("History Size", element.settings, "network.historySize", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Disks"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "disk.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Warn Level", element.settings, "disk.maxUsage", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Disks", element.settings, "disk.mounts", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Process"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "process.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Processes", element.settings, "process.monitoring", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Ping"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "ping.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Servers", element.settings, "ping.monitoring", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Handshake"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "handshake.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Servers", element.settings, "handshake.monitoring", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Timeout", element.settings, "handshake.maxHandshakeTime", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("System Updates"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "updates.enabled"), element.saveSettings);
+  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject2(), element.server.name, Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Global"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Name", element.settings, "identity", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].string), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Monitor time", element.settings, "monitorTime", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Debounce time", element.settings, "debounceTime", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("API port", element.settings, "port", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].string), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Teams Hook", element.settings, "teamsHook", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].string), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("CPU"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "cpu.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Warn Level", element.settings, "cpu.maxUsage", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("History Size", element.settings, "cpu.historySize", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Memory"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "memory.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Warn Level", element.settings, "memory.maxUsage", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("History Size", element.settings, "memory.historySize", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Network"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "network.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("History Size", element.settings, "network.historySize", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Disks"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "disk.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Warn Level", element.settings, "disk.maxUsage", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Disks", element.settings, "disk.mounts", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Process"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "process.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Processes", element.settings, "process.monitoring", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("History Size", element.settings, "process.historySize", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Ping"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "ping.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Servers", element.settings, "ping.monitoring", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Handshake"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "handshake.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Servers", element.settings, "handshake.monitoring", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Timeout", element.settings, "handshake.maxHandshakeTime", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("System Updates"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "updates.enabled"), element.saveSettings);
 }
 
 /***/ }),
@@ -6535,6 +6546,275 @@ var DisplayLine = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_13__["cust
 
 /***/ }),
 
+/***/ "./src/icon-svg/icon-svg.less":
+/*!************************************!*\
+  !*** ./src/icon-svg/icon-svg.less ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, ":host {\n  display: inline-block;\n  height: 1em;\n  width: 1em;\n  padding: 0 5px;\n  vertical-align: text-top;\n}\n", ""]);
+// Exports
+module.exports = exports;
+
+
+/***/ }),
+
+/***/ "./src/icon-svg/icon-svg.ts":
+/*!**********************************!*\
+  !*** ./src/icon-svg/icon-svg.ts ***!
+  \**********************************/
+/*! exports provided: IconSvg, IconType, iconForType */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IconSvg", function() { return IconSvg; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IconType", function() { return IconType; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "iconForType", function() { return iconForType; });
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js");
+/* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_initializerDefineProperty__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/initializerDefineProperty */ "./node_modules/@babel/runtime/helpers/initializerDefineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_initializerDefineProperty__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_initializerDefineProperty__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/assertThisInitialized */ "./node_modules/@babel/runtime/helpers/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _babel_runtime_helpers_applyDecoratedDescriptor__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @babel/runtime/helpers/applyDecoratedDescriptor */ "./node_modules/@babel/runtime/helpers/applyDecoratedDescriptor.js");
+/* harmony import */ var _babel_runtime_helpers_applyDecoratedDescriptor__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_applyDecoratedDescriptor__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _babel_runtime_helpers_initializerWarningHelper__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @babel/runtime/helpers/initializerWarningHelper */ "./node_modules/@babel/runtime/helpers/initializerWarningHelper.js");
+/* harmony import */ var _babel_runtime_helpers_initializerWarningHelper__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_initializerWarningHelper__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var lit_element__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! lit-element */ "./node_modules/lit-element/lit-element.js");
+/* harmony import */ var _icon_svg_less__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./icon-svg.less */ "./src/icon-svg/icon-svg.less");
+/* harmony import */ var _icon_svg_less__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_icon_svg_less__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _node_modules_css_gg_icons_svg_options_svg__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../node_modules/css.gg/icons/svg/options.svg */ "./node_modules/css.gg/icons/svg/options.svg");
+/* harmony import */ var _node_modules_css_gg_icons_svg_options_svg__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_gg_icons_svg_options_svg__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _node_modules_css_gg_icons_svg_eye_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../node_modules/css.gg/icons/svg/eye.svg */ "./node_modules/css.gg/icons/svg/eye.svg");
+/* harmony import */ var _node_modules_css_gg_icons_svg_eye_svg__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_gg_icons_svg_eye_svg__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _node_modules_css_gg_icons_svg_smartphone_chip_svg__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../node_modules/css.gg/icons/svg/smartphone-chip.svg */ "./node_modules/css.gg/icons/svg/smartphone-chip.svg");
+/* harmony import */ var _node_modules_css_gg_icons_svg_smartphone_chip_svg__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_gg_icons_svg_smartphone_chip_svg__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _node_modules_css_gg_icons_svg_drive_svg__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../node_modules/css.gg/icons/svg/drive.svg */ "./node_modules/css.gg/icons/svg/drive.svg");
+/* harmony import */ var _node_modules_css_gg_icons_svg_drive_svg__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_gg_icons_svg_drive_svg__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _node_modules_css_gg_icons_svg_smartphone_ram_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../node_modules/css.gg/icons/svg/smartphone-ram.svg */ "./node_modules/css.gg/icons/svg/smartphone-ram.svg");
+/* harmony import */ var _node_modules_css_gg_icons_svg_smartphone_ram_svg__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_gg_icons_svg_smartphone_ram_svg__WEBPACK_IMPORTED_MODULE_17__);
+/* harmony import */ var _node_modules_css_gg_icons_svg_compress_svg__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../node_modules/css.gg/icons/svg/compress.svg */ "./node_modules/css.gg/icons/svg/compress.svg");
+/* harmony import */ var _node_modules_css_gg_icons_svg_compress_svg__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_gg_icons_svg_compress_svg__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _node_modules_css_gg_icons_svg_ethernet_svg__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../node_modules/css.gg/icons/svg/ethernet.svg */ "./node_modules/css.gg/icons/svg/ethernet.svg");
+/* harmony import */ var _node_modules_css_gg_icons_svg_ethernet_svg__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_gg_icons_svg_ethernet_svg__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var _node_modules_css_gg_icons_svg_repeat_svg__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../node_modules/css.gg/icons/svg/repeat.svg */ "./node_modules/css.gg/icons/svg/repeat.svg");
+/* harmony import */ var _node_modules_css_gg_icons_svg_repeat_svg__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_gg_icons_svg_repeat_svg__WEBPACK_IMPORTED_MODULE_20__);
+/* harmony import */ var _node_modules_css_gg_icons_svg_clapper_board_svg__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../node_modules/css.gg/icons/svg/clapper-board.svg */ "./node_modules/css.gg/icons/svg/clapper-board.svg");
+/* harmony import */ var _node_modules_css_gg_icons_svg_clapper_board_svg__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_gg_icons_svg_clapper_board_svg__WEBPACK_IMPORTED_MODULE_21__);
+/* harmony import */ var _node_modules_css_gg_icons_svg_database_svg__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../../node_modules/css.gg/icons/svg/database.svg */ "./node_modules/css.gg/icons/svg/database.svg");
+/* harmony import */ var _node_modules_css_gg_icons_svg_database_svg__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_gg_icons_svg_database_svg__WEBPACK_IMPORTED_MODULE_22__);
+/* harmony import */ var _node_modules_css_gg_icons_svg_danger_svg__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../node_modules/css.gg/icons/svg/danger.svg */ "./node_modules/css.gg/icons/svg/danger.svg");
+/* harmony import */ var _node_modules_css_gg_icons_svg_danger_svg__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_gg_icons_svg_danger_svg__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var _rest_types__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../rest/types */ "./src/rest/types.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+var _dec, _dec2, _class, _class2, _descriptor, _temp;
+
+function _templateObject() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["", ""]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default()(this, result); }; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var IconSvg = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["customElement"])('icon-svg'), _dec2 = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["property"])(), _dec(_class = (_class2 = (_temp = /*#__PURE__*/function (_LitElement) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(IconSvg, _LitElement);
+
+  var _super = _createSuper(IconSvg);
+
+  function IconSvg(icon) {
+    var _this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(this, IconSvg);
+
+    _this = _super.call(this);
+
+    _babel_runtime_helpers_initializerDefineProperty__WEBPACK_IMPORTED_MODULE_1___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "icon", _descriptor, _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
+
+    _this.icon = icon;
+    return _this;
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(IconSvg, [{
+    key: "render",
+    value: function render() {
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject(), this.iconSvg());
+    }
+  }, {
+    key: "iconSvg",
+    value: function iconSvg() {
+      var resolved = null;
+
+      switch (this.icon) {
+        case IconType.options:
+          resolved = _node_modules_css_gg_icons_svg_options_svg__WEBPACK_IMPORTED_MODULE_13___default.a;
+          break;
+
+        case IconType.eye:
+          resolved = _node_modules_css_gg_icons_svg_eye_svg__WEBPACK_IMPORTED_MODULE_14___default.a;
+          break;
+
+        case IconType.cpu:
+          resolved = _node_modules_css_gg_icons_svg_smartphone_chip_svg__WEBPACK_IMPORTED_MODULE_15___default.a;
+          break;
+
+        case IconType.disk:
+          resolved = _node_modules_css_gg_icons_svg_drive_svg__WEBPACK_IMPORTED_MODULE_16___default.a;
+          break;
+
+        case IconType.memory:
+          resolved = _node_modules_css_gg_icons_svg_smartphone_ram_svg__WEBPACK_IMPORTED_MODULE_17___default.a;
+          break;
+
+        case IconType.handshake:
+          resolved = _node_modules_css_gg_icons_svg_compress_svg__WEBPACK_IMPORTED_MODULE_18___default.a;
+          break;
+
+        case IconType.network:
+          resolved = _node_modules_css_gg_icons_svg_ethernet_svg__WEBPACK_IMPORTED_MODULE_19___default.a;
+          break;
+
+        case IconType.ping:
+          resolved = _node_modules_css_gg_icons_svg_repeat_svg__WEBPACK_IMPORTED_MODULE_20___default.a;
+          break;
+
+        case IconType.process:
+          resolved = _node_modules_css_gg_icons_svg_clapper_board_svg__WEBPACK_IMPORTED_MODULE_21___default.a;
+          break;
+
+        case IconType.server:
+          resolved = _node_modules_css_gg_icons_svg_database_svg__WEBPACK_IMPORTED_MODULE_22___default.a;
+          break;
+
+        case IconType.update:
+          resolved = _node_modules_css_gg_icons_svg_danger_svg__WEBPACK_IMPORTED_MODULE_23___default.a;
+          break;
+      }
+
+      if (resolved === null) {
+        return "--";
+      }
+
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(resolved, "image/svg+xml");
+      return doc.documentElement;
+    }
+  }], [{
+    key: "styles",
+    get: function get() {
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["unsafeCSS"])(_icon_svg_less__WEBPACK_IMPORTED_MODULE_12___default.a);
+    }
+  }]);
+
+  return IconSvg;
+}(lit_element__WEBPACK_IMPORTED_MODULE_11__["LitElement"]), _temp), (_descriptor = _babel_runtime_helpers_applyDecoratedDescriptor__WEBPACK_IMPORTED_MODULE_9___default()(_class2.prototype, "icon", [_dec2], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: function initializer() {
+    return null;
+  }
+})), _class2)) || _class);
+var IconType;
+
+(function (IconType) {
+  IconType["options"] = "options";
+  IconType["eye"] = "eye";
+  IconType["cpu"] = "cpu";
+  IconType["disk"] = "drive";
+  IconType["memory"] = "memory";
+  IconType["handshake"] = "handshake";
+  IconType["network"] = "network";
+  IconType["ping"] = "ping";
+  IconType["process"] = "process";
+  IconType["server"] = "server";
+  IconType["update"] = "update";
+})(IconType || (IconType = {}));
+
+function iconForType(type) {
+  switch (type) {
+    case _rest_types__WEBPACK_IMPORTED_MODULE_24__["MonitorType"].cpu:
+      return IconType.cpu;
+
+    case _rest_types__WEBPACK_IMPORTED_MODULE_24__["MonitorType"].disk:
+      return IconType.disk;
+
+    case _rest_types__WEBPACK_IMPORTED_MODULE_24__["MonitorType"].memory:
+      return IconType.memory;
+
+    case _rest_types__WEBPACK_IMPORTED_MODULE_24__["MonitorType"].handshake:
+      return IconType.handshake;
+
+    case _rest_types__WEBPACK_IMPORTED_MODULE_24__["MonitorType"].network:
+      return IconType.network;
+
+    case _rest_types__WEBPACK_IMPORTED_MODULE_24__["MonitorType"].ping:
+      return IconType.ping;
+
+    case _rest_types__WEBPACK_IMPORTED_MODULE_24__["MonitorType"].process:
+      return IconType.process;
+
+    case _rest_types__WEBPACK_IMPORTED_MODULE_24__["MonitorType"].server:
+      return IconType.server;
+
+    case _rest_types__WEBPACK_IMPORTED_MODULE_24__["MonitorType"].update:
+      return IconType.update;
+  }
+
+  return IconType.eye;
+}
+
+/***/ }),
+
 /***/ "./src/modal-root/modal-root-template.ts":
 /*!***********************************************!*\
   !*** ./src/modal-root/modal-root-template.ts ***!
@@ -6823,6 +7103,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _detail_view_detail_view__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../detail-view/detail-view */ "./src/detail-view/detail-view.ts");
 /* harmony import */ var _monitor_root_template__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./monitor-root-template */ "./src/monitor-root/monitor-root-template.ts");
 /* harmony import */ var _modal_root_modal_root__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../modal-root/modal-root */ "./src/modal-root/modal-root.ts");
+/* harmony import */ var _icon_svg_icon_svg__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../icon-svg/icon-svg */ "./src/icon-svg/icon-svg.ts");
 
 
 
@@ -6838,6 +7119,7 @@ var _dec, _class, _temp;
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_7___default()(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_6___default()(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
 
 
 
@@ -7029,7 +7311,7 @@ var MonitorRoot = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["custo
   }], [{
     key: "dependencies",
     get: function get() {
-      return [_server_list_server_list__WEBPACK_IMPORTED_MODULE_12__["ServerList"], _detail_view_detail_view__WEBPACK_IMPORTED_MODULE_14__["DetailView"], _modal_root_modal_root__WEBPACK_IMPORTED_MODULE_16__["ModalRoot"]];
+      return [_server_list_server_list__WEBPACK_IMPORTED_MODULE_12__["ServerList"], _detail_view_detail_view__WEBPACK_IMPORTED_MODULE_14__["DetailView"], _modal_root_modal_root__WEBPACK_IMPORTED_MODULE_16__["ModalRoot"], _icon_svg_icon_svg__WEBPACK_IMPORTED_MODULE_17__["IconSvg"]];
     }
   }]);
 
@@ -7047,15 +7329,9 @@ var MonitorRoot = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_9__["custo
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-var ___CSS_LOADER_AT_RULE_IMPORT_0___ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!../../node_modules/css.gg/icons/css/smartphone-chip.css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/smartphone-chip.css");
-var ___CSS_LOADER_AT_RULE_IMPORT_1___ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!../../node_modules/css.gg/icons/css/drive.css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/drive.css");
-var ___CSS_LOADER_AT_RULE_IMPORT_2___ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!../../node_modules/css.gg/icons/css/smartphone-ram.css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/smartphone-ram.css");
 exports = ___CSS_LOADER_API_IMPORT___(false);
-exports.i(___CSS_LOADER_AT_RULE_IMPORT_0___);
-exports.i(___CSS_LOADER_AT_RULE_IMPORT_1___);
-exports.i(___CSS_LOADER_AT_RULE_IMPORT_2___);
 // Module
-exports.push([module.i, ".icon {\n  height: 1em;\n  width: 1em;\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n:host {\n  display: block;\n  white-space: nowrap;\n  position: relative;\n  width: 100%;\n  height: 1em;\n}\n.core {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n}\n.cursor,\n.tick {\n  position: absolute;\n  left: 0;\n  top: 0;\n  height: 1em;\n}\n.cursor {\n  background-color: #268bd2;\n}\n.tick {\n  border-right: 1px dotted #cb4b16;\n}\n.body {\n  border: 1px dotted #839496;\n  position: absolute;\n  top: 2px;\n  left: 1.5em;\n  right: 0;\n  bottom: 2px;\n  overflow: hidden;\n  border-radius: 1em;\n}\n.label {\n  text-transform: none;\n  height: 1em;\n  width: 0;\n  position: absolute;\n  top: 0;\n  left: 1.5em;\n  opacity: 0;\n  overflow: hidden;\n}\n.labelled .body {\n  left: 5em;\n}\n.labelled .label {\n  opacity: 1;\n  width: 3.5em;\n}\n.warn .cursor {\n  background-color: #cb4b16;\n}\n", ""]);
+exports.push([module.i, "icon-svg {\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n:host {\n  display: block;\n  white-space: nowrap;\n  position: relative;\n  width: 100%;\n  height: 1em;\n}\n.core {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n}\n.cursor,\n.tick {\n  position: absolute;\n  left: 0;\n  top: 0;\n  height: 1em;\n}\n.cursor {\n  background-color: #268bd2;\n}\n.tick {\n  border-right: 1px dotted #cb4b16;\n}\n.body {\n  border: 1px dotted #839496;\n  position: absolute;\n  top: 2px;\n  left: 1.5em;\n  right: 0;\n  bottom: 2px;\n  overflow: hidden;\n  border-radius: 1em;\n}\n.label {\n  text-transform: none;\n  height: 1em;\n  width: 0;\n  position: absolute;\n  top: 0;\n  left: 1.5em;\n  opacity: 0;\n  overflow: hidden;\n}\n.labelled .body {\n  left: 5em;\n}\n.labelled .label {\n  opacity: 1;\n  width: 3.5em;\n}\n.warn .cursor {\n  background-color: #cb4b16;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -7091,7 +7367,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lit_element__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lit-element */ "./node_modules/lit-element/lit-element.js");
 /* harmony import */ var _progress_bar_less__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./progress-bar.less */ "./src/progress-bar/progress-bar.less");
 /* harmony import */ var _progress_bar_less__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_progress_bar_less__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _rest_types__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../rest/types */ "./src/rest/types.ts");
+/* harmony import */ var _icon_svg_icon_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../icon-svg/icon-svg */ "./src/icon-svg/icon-svg.ts");
 
 
 
@@ -7104,7 +7380,7 @@ __webpack_require__.r(__webpack_exports__);
 var _dec, _class, _temp;
 
 function _templateObject() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n<div class=\"core ", "\" title=\"", "% ", "\">\n    <div class=\"icon ", "\"></div>\n    <div class=\"label\" title=\"", "\">", "</div>\n    <div class=\"body ", "\">\n        <div class=\"cursor\" style=\"right:", "%\"></div>\n        <div class=\"tick\" style=\"right:", "%\"></div>\n    </div>\n</div>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n<div class=\"core ", "\" title=\"", "% ", "\">\n    <icon-svg icon=\"", "\"></icon-svg>\n    <div class=\"label\" title=\"", "\">", "</div>\n    <div class=\"body ", "\">\n        <div class=\"cursor\" style=\"right:", "%\"></div>\n        <div class=\"tick\" style=\"right:", "%\"></div>\n    </div>\n</div>"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -7183,23 +7459,8 @@ var ProgressBar = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["custo
     value: function render() {
       var percent = Math.ceil(this.current - this.min / this.max - this.min);
       var warn = percent > this.warn;
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["html"])(_templateObject(), this.label && this.label.length > 0 ? "labelled" : "", percent, this.label, this.iconName(), this.label, this.label, warn ? "warn" : "", 100 - percent, 100 - this.warn);
-    }
-  }, {
-    key: "iconName",
-    value: function iconName() {
-      switch (this.type) {
-        case _rest_types__WEBPACK_IMPORTED_MODULE_10__["MonitorType"].cpu:
-          return "gg-smartphone-chip";
-
-        case _rest_types__WEBPACK_IMPORTED_MODULE_10__["MonitorType"].disk:
-          return "gg-drive";
-
-        case _rest_types__WEBPACK_IMPORTED_MODULE_10__["MonitorType"].memory:
-          return "gg-smartphone-ram";
-      }
-
-      return "";
+      var icon = Object(_icon_svg_icon_svg__WEBPACK_IMPORTED_MODULE_10__["iconForType"])(this.type);
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["html"])(_templateObject(), this.label && this.label.length > 0 ? "labelled" : "", percent, this.label, icon, this.label, this.label, warn ? "warn" : "", 100 - percent, 100 - this.warn);
     }
   }]);
 
@@ -7219,7 +7480,7 @@ var ProgressBar = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_8__["custo
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ":host {\n  display: block;\n  padding-left: 5px;\n  margin-left: 5px;\n  margin-top: 5px;\n  margin-bottom: 5px;\n}\nul {\n  margin: 0;\n  padding: 0 0 0 10px;\n  text-align: left;\n  list-style-type: disc;\n}\nul.report-details {\n  padding: 0;\n  list-style-type: none;\n}\nli {\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.key {\n  font-weight: bold;\n}\n.title {\n  font-weight: bolder;\n  font-size: 1.25em;\n  text-align: center;\n  padding-top: 10px;\n}\n.legend {\n  font-weight: lighter;\n  font-size: 0.75em;\n  text-align: left;\n  height: 0px;\n}\n.code {\n  white-space: pre-line;\n  font-family: monospace;\n}\n", ""]);
+exports.push([module.i, ":host {\n  display: block;\n  padding-left: 5px;\n  margin-left: 5px;\n  margin-top: 5px;\n  margin-bottom: 5px;\n}\nul {\n  margin: 0;\n  padding: 0 0 0 10px;\n  text-align: left;\n  list-style-type: disc;\n}\nul.report-details {\n  padding: 0;\n  list-style-type: none;\n}\nli {\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.key {\n  font-weight: bold;\n}\n.title {\n  font-weight: bolder;\n  font-size: 1.25em;\n  text-align: center;\n  padding-top: 5px;\n}\n.legend {\n  font-weight: lighter;\n  font-size: 0.75em;\n  text-align: left;\n  height: 0px;\n}\n.code {\n  white-space: pre-line;\n  font-family: monospace;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -7556,7 +7817,7 @@ var ReportEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ":host {\n  display: block;\n}\nul {\n  margin: 0;\n  padding: 0 0 0 10px;\n  text-align: left;\n  list-style-type: disc;\n}\nli {\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n:host(.failure) report-entry {\n  border-left: 3px solid #cb4b16;\n  border-color: #cb4b16;\n}\n:host(.success) report-entry {\n  border-left: 3px solid #268bd2;\n  border-color: #268bd2;\n}\n", ""]);
+exports.push([module.i, ":host {\n  display: block;\n}\nul {\n  margin: 0;\n  padding: 0 0 0 10px;\n  text-align: left;\n  list-style-type: disc;\n}\nli {\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n:host(.failure) report-entry {\n  border-left: 3px solid #cb4b16;\n  border-color: #cb4b16;\n}\n:host(.success) report-entry {\n  border-left: 3px solid #268bd2;\n  border-color: #268bd2;\n}\n.header {\n  background-color: #839496;\n  color: #002b36;\n  border-radius: 3px;\n  font-size: 1.25em;\n  text-align: center;\n  text-transform: capitalize;\n  margin-top: 20px;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -7599,6 +7860,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _report_list_less__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./report-list.less */ "./src/report-list/report-list.less");
 /* harmony import */ var _report_list_less__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_report_list_less__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var _report_entry_report_entry__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../report-entry/report-entry */ "./src/report-entry/report-entry.ts");
+/* harmony import */ var _icon_svg_icon_svg__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../icon-svg/icon-svg */ "./src/icon-svg/icon-svg.ts");
 
 
 
@@ -7613,8 +7875,38 @@ __webpack_require__.r(__webpack_exports__);
 
 var _dec, _dec2, _class, _class2, _descriptor, _temp;
 
-function _templateObject2() {
+function _templateObject5() {
   var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<report-entry .report=\"", "\"></report-entry>"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()([""]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<div class=\"header\"><icon-svg icon=\"", "\"></icon-svg>", "</div>"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["", "", ""]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -7640,6 +7932,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 
+
 var ReportList = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["customElement"])('report-list'), _dec2 = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["property"])(), _dec(_class = (_class2 = (_temp = /*#__PURE__*/function (_LitElement) {
   _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(ReportList, _LitElement);
 
@@ -7654,6 +7947,8 @@ var ReportList = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["custo
 
     _babel_runtime_helpers_initializerDefineProperty__WEBPACK_IMPORTED_MODULE_1___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "reports", _descriptor, _babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this));
 
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_8___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "lastType", null);
+
     return _this;
   }
 
@@ -7663,13 +7958,23 @@ var ReportList = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["custo
       var _this2 = this;
 
       return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject(), this.reports.map(function (report) {
-        return _this2.formatReport(report);
+        return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject2(), _this2.formatHeader(report), _this2.formatReport(report));
       }));
+    }
+  }, {
+    key: "formatHeader",
+    value: function formatHeader(report) {
+      if (this.lastType !== report.type) {
+        this.lastType = report.type;
+        return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject3(), Object(_icon_svg_icon_svg__WEBPACK_IMPORTED_MODULE_14__["iconForType"])(report.type), report.type);
+      }
+
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject4());
     }
   }, {
     key: "formatReport",
     value: function formatReport(report) {
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject2(), report);
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject5(), report);
     }
   }, {
     key: "refresh",
@@ -8163,13 +8468,9 @@ var MonitorType;
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-var ___CSS_LOADER_AT_RULE_IMPORT_0___ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!../../node_modules/css.gg/icons/css/check.css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/check.css");
-var ___CSS_LOADER_AT_RULE_IMPORT_1___ = __webpack_require__(/*! -!../../node_modules/css-loader/dist/cjs.js!../../node_modules/css.gg/icons/css/close.css */ "./node_modules/css-loader/dist/cjs.js!./node_modules/css.gg/icons/css/close.css");
 exports = ___CSS_LOADER_API_IMPORT___(false);
-exports.i(___CSS_LOADER_AT_RULE_IMPORT_0___);
-exports.i(___CSS_LOADER_AT_RULE_IMPORT_1___);
 // Module
-exports.push([module.i, ":host {\n  padding: 5px;\n  color: #839496;\n  background-color: #073642;\n  text-transform: capitalize;\n  cursor: pointer;\n  transition: background-color 300ms, color 300ms;\n}\n:host(:hover) {\n  background-color: #586e75;\n  color: #002b36;\n}\n:host {\n  vertical-align: top;\n  display: inline-block;\n  width: 200px;\n  min-height: 100px;\n  margin: 10px;\n  position: relative;\n  overflow: hidden;\n}\n:host(.OK) {\n  border: 1px solid;\n  border-left: 3px solid #268bd2;\n  border-color: #268bd2;\n}\n:host(.NG) {\n  border: 1px solid;\n  border-left: 3px solid #cb4b16;\n  border-color: #cb4b16;\n}\n.title {\n  font-size: 20px;\n  font-weight: bolder;\n  color: #93a1a1;\n}\n.monitor.OK {\n  border-left: 3px solid #268bd2;\n  border-color: #268bd2;\n  padding-left: 5px;\n  color: #268bd2;\n}\n.monitor.NG {\n  border-left: 3px solid #cb4b16;\n  border-color: #cb4b16;\n  padding-left: 5px;\n  color: #cb4b16;\n}\ndiv.icon {\n  display: block;\n  position: absolute;\n  zoom: 4;\n  opacity: 0.5;\n  pointer-events: none;\n  top: -5px;\n  right: -5px;\n}\n.icon.OK {\n  color: #268bd2;\n}\n.icon.NG {\n  color: #cb4b16;\n}\n", ""]);
+exports.push([module.i, ":host {\n  padding: 5px;\n  color: #839496;\n  background-color: #073642;\n  text-transform: capitalize;\n  cursor: pointer;\n  transition: background-color 300ms, color 300ms;\n}\n:host(:hover) {\n  background-color: #586e75;\n  color: #002b36;\n}\n:host {\n  vertical-align: top;\n  display: inline-block;\n  width: 200px;\n  min-height: 100px;\n  margin: 10px;\n  position: relative;\n  overflow: hidden;\n}\n:host(.OK) {\n  border: 1px solid;\n  border-left: 3px solid #268bd2;\n  border-color: #268bd2;\n}\n:host(.NG) {\n  border: 1px solid;\n  border-left: 3px solid #cb4b16;\n  border-color: #cb4b16;\n}\n.title {\n  font-size: 20px;\n  font-weight: bolder;\n  color: #93a1a1;\n}\n.monitor.OK {\n  border-left: 3px solid #268bd2;\n  border-color: #268bd2;\n  padding-left: 5px;\n  color: #268bd2;\n}\n.monitor.NG {\n  border-left: 3px solid #cb4b16;\n  border-color: #cb4b16;\n  padding-left: 5px;\n  color: #cb4b16;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -8268,7 +8569,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2___default()(["<div class=\"icon bg gg-", "\"></div><div class=\"title\">", "</div>\n", ""]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2___default()(["<div class=\"title\">", "</div>\n", ""]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -8375,7 +8676,7 @@ var ServerEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
         _iterator.f();
       }
 
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject(), ok ? 'check OK' : 'close NG', this.server.name, this.server.monitors.map(function (monitor) {
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject(), this.server.name, this.server.monitors.map(function (monitor) {
         return ServerEntry.formatMonitor(monitor);
       }));
     }
@@ -8719,7 +9020,7 @@ __webpack_require__.r(__webpack_exports__);
 var _dec, _class, _temp;
 
 function _templateObject() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<div class=\"icon gg-options gg-align-middle\"></div>", ""]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<icon-svg icon=\"options\"></icon-svg>", ""]);
 
   _templateObject = function _templateObject() {
     return data;

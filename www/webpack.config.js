@@ -32,6 +32,10 @@ module.exports = {
             {
                 test: /\.css$/i,
                 use: ['to-string-loader', 'css-loader'],
+            },
+            {
+                test: /\.svg/i,
+                use: ['svg-inline-loader'],
             }
         ]
     },
