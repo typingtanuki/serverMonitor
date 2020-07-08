@@ -11,28 +11,28 @@ import java.io.IOException;
  * @since 2020/01/24
  */
 public class MonitorMain {
-    private static final Logger logger = LoggerFactory.getLogger(MonitorMain.class);
-    public static ServerMonitor monitor;
+   private static final Logger logger = LoggerFactory.getLogger(MonitorMain.class);
+   public static ServerMonitor monitor;
 
-    public static void main(String... args) {
-        monitor = new ServerMonitor();
-        try {
-            monitor.loadConfig();
-            monitor.startServer();
-            monitor.startMonitoring();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            logger.warn("Monitor interrupted", e);
-            System.exit(20);
-        } catch (IOException e) {
-            logger.warn("IO error", e);
-            System.exit(21);
-        } catch (IllegalArgumentException | IllegalStateException e) {
-            logger.warn("Invalid monitor state", e);
-            System.exit(22);
-        } catch (RuntimeException e) {
-            logger.warn("Unexpected internal error", e);
-            System.exit(23);
-        }
-    }
+   public static void main(String... args) {
+      monitor = new ServerMonitor();
+      try {
+         monitor.loadConfig();
+         monitor.startServer();
+         monitor.startMonitoring();
+      } catch (InterruptedException e) {
+         Thread.currentThread().interrupt();
+         logger.warn("Monitor interrupted", e);
+         System.exit(20);
+      } catch (IOException e) {
+         logger.warn("IO error", e);
+         System.exit(21);
+      } catch (IllegalArgumentException | IllegalStateException e) {
+         logger.warn("Invalid monitor state", e);
+         System.exit(22);
+      } catch (RuntimeException e) {
+         logger.warn("Unexpected internal error", e);
+         System.exit(23);
+      }
+   }
 }

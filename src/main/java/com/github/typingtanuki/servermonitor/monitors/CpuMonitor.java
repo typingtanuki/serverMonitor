@@ -18,72 +18,76 @@ import java.util.Map;
  * Monitors CPU usage against a max allowed percentage
  */
 public class CpuMonitor implements Monitor {
-    private MainConfig config;
-    private History history = new History(100);
-    private Map<Integer, Double> prevTop = new LinkedHashMap<>();
+   private MainConfig config;
+   private History history = new History(100);
+   private Map<Integer, Double> prevTop = new LinkedHashMap<>();
 
-    public CpuMonitor(MainConfig config) {
-        super();
+   public CpuMonitor(MainConfig config) {
+      super();
 
-        this.config = config;
-    }
+      this.config = config;
+   }
 
-    @Override
-    public List<MonitorReport> monitor(SystemInfo systemInfo) {
-        CentralProcessor processor = systemInfo.getHardware().getProcessor();
-        double[] loads = processor.getSystemLoadAverage(1);
-        long last = (long) loads[0];
-        history.touch(last, config.getCpu().getHistorySize(), (long) config.getCpu().getMaxUsage());
-        return Collections.singletonList(new CpuMonitorReport(
-                last,
-                history,
-                config.getCpu().getMaxUsage(),
-                getTopProcesses(systemInfo.getOperatingSystem())));
-    }
+   @Override
+   public List<MonitorReport> monitor(SystemInfo systemInfo) {
+      CentralProcessor processor = systemInfo.getHardware().getProcessor();
+      double[] loads = processor.getSystemLoadAverage(1);
+      long last = (long) loads[0];
+      history.touch(last,
+                    config.getCpu().getHistorySize(),
+                    (long) config.getCpu().getMaxUsage());
+      return Collections.singletonList(new CpuMonitorReport(
+            last,
+            history,
+            config.getCpu().getMaxUsage(),
+            getTopProcesses(systemInfo.getOperatingSystem())));
+   }
 
-    private Map<String, String> getTopProcesses(OperatingSystem operatingSystem) {
-        Map<String, String> top = new LinkedHashMap<>();
-        List<OSProcess> topCpu = operatingSystem.getProcesses(10, OperatingSystem.ProcessSort.CPU);
-        Map<Integer, Double> newTop = new LinkedHashMap<>();
-        for (OSProcess process : topCpu) {
-            int pid = process.getProcessID();
-            double cpu = process.getProcessCpuLoadCumulative();
-            newTop.put(pid, cpu);
-            top.put(pid + " " + process.getName(), asPercent(cpu) + " " + compare(prevTop.get(pid), cpu));
-        }
-        prevTop = newTop;
-        return top;
-    }
+   private Map<String, String> getTopProcesses(OperatingSystem operatingSystem) {
+      Map<String, String> top = new LinkedHashMap<>();
+      List<OSProcess> topCpu =
+            operatingSystem.getProcesses(10, OperatingSystem.ProcessSort.CPU);
+      Map<Integer, Double> newTop = new LinkedHashMap<>();
+      for (OSProcess process : topCpu) {
+         int pid = process.getProcessID();
+         double cpu = process.getProcessCpuLoadCumulative();
+         newTop.put(pid, cpu);
+         top.put(pid + " " + process.getName(),
+                 asPercent(cpu) + " " + compare(prevTop.get(pid), cpu));
+      }
+      prevTop = newTop;
+      return top;
+   }
 
-    private String compare(Double prev, double cpu) {
-        if (prev == null) {
-            return "new";
-        }
-        if (prev - 0.01 < cpu && cpu < prev + 0.01) {
-            return "-";
-        }
-        if (prev > cpu) {
-            return "↓" + asPercent(prev - cpu);
-        }
-        return "↑" + asPercent(cpu - prev);
-    }
+   private String compare(Double prev, double cpu) {
+      if (prev == null) {
+         return "new";
+      }
+      if (prev - 0.01 < cpu && cpu < prev + 0.01) {
+         return "-";
+      }
+      if (prev > cpu) {
+         return "↓" + asPercent(prev - cpu);
+      }
+      return "↑" + asPercent(cpu - prev);
+   }
 
-    private String asPercent(double ratio) {
-        return Math.round(ratio * 100) + "%";
-    }
+   private String asPercent(double ratio) {
+      return Math.round(ratio * 100) + "%";
+   }
 
-    @Override
-    public boolean isEnabled() {
-        return config.getCpu().isEnabled();
-    }
+   @Override
+   public boolean isEnabled() {
+      return config.getCpu().isEnabled();
+   }
 
-    @Override
-    public MonitorType getType() {
-        return MonitorType.cpu;
-    }
+   @Override
+   public MonitorType getType() {
+      return MonitorType.cpu;
+   }
 
-    @Override
-    public MonitorCategory getCategory() {
-        return MonitorCategory.system;
-    }
+   @Override
+   public MonitorCategory getCategory() {
+      return MonitorCategory.system;
+   }
 }

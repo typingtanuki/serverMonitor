@@ -7,49 +7,49 @@ import java.util.Collections;
 import java.util.Map;
 
 public class InvalidReport implements MonitorReport {
-    private MonitorCategory monitorCategory;
-    private MonitorType monitorType;
+   private MonitorCategory monitorCategory;
+   private MonitorType monitorType;
 
-    public InvalidReport(MonitorType monitorType,
-                         MonitorCategory monitorCategory) {
-        super();
-        this.monitorType = monitorType;
-        this.monitorCategory = monitorCategory;
-    }
+   public InvalidReport(MonitorType monitorType,
+                        MonitorCategory monitorCategory) {
+      super();
+      this.monitorType = monitorType;
+      this.monitorCategory = monitorCategory;
+   }
 
-    @Override
-    public boolean isOK() {
-        return true;
-    }
+   @Override
+   public boolean isOK() {
+      return true;
+   }
 
-    @Override
-    public String getTitle() {
-        return "State is unknown";
-    }
+   @Override
+   public String getTitle() {
+      return "State is unknown";
+   }
 
-    @Override
-    public String getDescription() {
-        return "State is unknown";
-    }
+   @Override
+   public String getDescription() {
+      return "State is unknown";
+   }
 
-    @Override
-    public Map<DetailKey, Object> getDetails() {
-        return Collections.emptyMap();
-    }
+   @Override
+   public Map<DetailKey, Object> getDetails() {
+      return Collections.emptyMap();
+   }
 
-    @Override
-    public MonitorType getType() {
-        return monitorType;
-    }
+   @Override
+   public MonitorType getType() {
+      return monitorType;
+   }
 
-    @Override
-    public MonitorCategory getCategory() {
-        return monitorCategory;
-    }
+   @Override
+   public MonitorCategory getCategory() {
+      return monitorCategory;
+   }
 
-    @Override
-    public String monitorKey() {
-        return getType().name();
-    }
+   @Override
+   public String monitorKey() {
+      return getType().name();
+   }
 
 }

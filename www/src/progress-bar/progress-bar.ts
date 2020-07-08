@@ -1,4 +1,11 @@
-import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
+import {
+    CSSResult,
+    customElement,
+    html,
+    LitElement,
+    TemplateResult,
+    unsafeCSS
+} from 'lit-element';
 import progressStyle from "./progress-bar.less";
 import {MonitorType} from "../rest/types";
 
@@ -36,7 +43,9 @@ export class ProgressBar extends LitElement {
         const percent: number = Math.ceil(this.current - this.min / this.max - this.min);
         const warn: boolean = percent > this.warn;
         return html`
-<div class="core ${this.label && this.label.length > 0 ? "labelled" : ""}" title="${percent}% ${this.label}">
+<div class="core ${this.label && this.label.length > 0 ?
+            "labelled" :
+            ""}" title="${percent}% ${this.label}">
     <div class="icon ${this.iconName()}"></div>
     <div class="label" title="${this.label}">${this.label}</div>
     <div class="body ${warn ? "warn" : ""}">

@@ -31,11 +31,17 @@ export function settingsViewTemplate(element: DetailView): TemplateResult {
         ${formSection("Memory")}
         ${formCheckbox("Enabled", element.settings, "memory.enabled")}
         ${formText("Warn Level", element.settings, "memory.maxUsage", DataType.number)}
-        ${formText("History Size", element.settings, "memory.historySize", DataType.number)}
+        ${formText("History Size",
+        element.settings,
+        "memory.historySize",
+        DataType.number)}
     
         ${formSection("Network")}
         ${formCheckbox("Enabled", element.settings, "network.enabled")}
-        ${formText("History Size", element.settings, "network.historySize", DataType.number)}
+        ${formText("History Size",
+        element.settings,
+        "network.historySize",
+        DataType.number)}
     
         ${formSection("Disks")}
         ${formCheckbox("Enabled", element.settings, "disk.enabled")}
@@ -45,7 +51,10 @@ export function settingsViewTemplate(element: DetailView): TemplateResult {
         ${formSection("Process")}
         ${formCheckbox("Enabled", element.settings, "process.enabled")}
         ${formText("Processes", element.settings, "process.monitoring", DataType.array)}
-        ${formText("History Size", element.settings, "process.historySize", DataType.number)}
+        ${formText("History Size",
+        element.settings,
+        "process.historySize",
+        DataType.number)}
     
         ${formSection("Ping")}
         ${formCheckbox("Enabled", element.settings, "ping.enabled")}
@@ -54,7 +63,10 @@ export function settingsViewTemplate(element: DetailView): TemplateResult {
         ${formSection("Handshake")}
         ${formCheckbox("Enabled", element.settings, "handshake.enabled")}
         ${formText("Servers", element.settings, "handshake.monitoring", DataType.array)}
-        ${formText("Timeout", element.settings, "handshake.maxHandshakeTime", DataType.number)}
+        ${formText("Timeout",
+        element.settings,
+        "handshake.maxHandshakeTime",
+        DataType.number)}
     
         ${formSection("System Updates")}
         ${formCheckbox("Enabled", element.settings, "updates.enabled")}

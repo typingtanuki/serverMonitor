@@ -1,4 +1,11 @@
-import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
+import {
+    CSSResult,
+    customElement,
+    html,
+    LitElement,
+    TemplateResult,
+    unsafeCSS
+} from 'lit-element';
 import entryStyle from "./server-entry.less";
 import {Detail, Monitor, MonitorType, ReportConstants, ServerInfo} from "../rest/types";
 import {ProgressBar} from "../progress-bar/progress-bar";
@@ -13,7 +20,8 @@ export class ServerEntrySelectedEvent extends CustomEvent<ServerEntrySelectedEve
     }
 
     constructor(serverInfo: ServerInfo) {
-        super(ServerEntrySelectedEvent.event, {bubbles: true, composed: true, detail: {server: serverInfo}});
+        super(ServerEntrySelectedEvent.event,
+            {bubbles: true, composed: true, detail: {server: serverInfo}});
     }
 }
 
@@ -47,13 +55,16 @@ export class ServerEntry extends LitElement {
                 ok = false;
             }
         }
-        return html`<div class="icon bg gg-${ok ? 'check OK' : 'close NG'}"></div><div class="title">${this.server.name}</div>
+        return html`<div class="icon bg gg-${ok ?
+            'check OK' :
+            'close NG'}"></div><div class="title">${this.server.name}</div>
 ${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
     }
 
     public async refresh(): Promise<void> {
         await this.requestUpdate();
-        const bars: NodeListOf<ProgressBar> = this.shadowRoot.querySelectorAll("progress-bar");
+        const bars: NodeListOf<ProgressBar> = this.shadowRoot.querySelectorAll(
+            "progress-bar");
         for (let i = 0; i < bars.length; i++) {
             await bars[i].requestUpdate();
         }
@@ -74,11 +85,16 @@ ${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
                 case MonitorType.disk:
                 case MonitorType.cpu:
                 case MonitorType.memory:
-                    advanced = html`${monitor.advanced.map(detail => ServerEntry.formatDetails(monitor.name, detail))}`;
+                    advanced =
+                        html`${monitor.advanced.map(detail => ServerEntry.formatDetails(
+                            monitor.name,
+                            detail))}`;
             }
         }
 
-        return html`<div class="monitor ${monitor.state ? 'OK' : 'NG'}">${monitor.name}${advanced}</div>`;
+        return html`<div class="monitor ${monitor.state ?
+            'OK' :
+            'NG'}">${monitor.name}${advanced}</div>`;
     }
 
     private static formatDetails(type: MonitorType, details: Detail): TemplateResult {

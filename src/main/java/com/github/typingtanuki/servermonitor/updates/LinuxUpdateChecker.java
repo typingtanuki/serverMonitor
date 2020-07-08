@@ -14,86 +14,95 @@ import java.util.Locale;
 import static com.github.typingtanuki.servermonitor.utils.SimpleStack.simpleStack;
 
 public abstract class LinuxUpdateChecker extends UpdateChecker {
-    protected static final Logger logger = LoggerFactory.getLogger(LinuxUpdateChecker.class);
+   protected static final Logger logger =
+         LoggerFactory.getLogger(LinuxUpdateChecker.class);
 
-    public LinuxUpdateChecker(MainConfig config) {
-        super(config);
-    }
+   public LinuxUpdateChecker(MainConfig config) {
+      super(config);
+   }
 
-    protected abstract String binaryName();
+   protected abstract String binaryName();
 
-    protected boolean isGoodOs() {
-        return System.getProperty("os.name").toLowerCase(Locale.ENGLISH).startsWith("linux");
-    }
+   protected boolean isGoodOs() {
+      return System.getProperty("os.name")
+                   .toLowerCase(Locale.ENGLISH)
+                   .startsWith("linux");
+   }
 
-    protected boolean hasBinary() {
-        ProcessBuilder builder = new ProcessBuilder("which", binaryName());
-        List<String> out;
-        try {
-            out = runAndReadOutput(builder);
-        } catch (IOException e) {
-            logger.warn("Could not check for command {}\r\n{}", binaryName(), simpleStack(e));
-            return false;
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            logger.warn("Interrupted while checking for command {}\r\n{}", binaryName(), simpleStack(e));
-            return false;
-        }
-        return !out.isEmpty();
-    }
+   protected boolean hasBinary() {
+      ProcessBuilder builder = new ProcessBuilder("which", binaryName());
+      List<String> out;
+      try {
+         out = runAndReadOutput(builder);
+      } catch (IOException e) {
+         logger.warn("Could not check for command {}\r\n{}",
+                     binaryName(),
+                     simpleStack(e));
+         return false;
+      } catch (InterruptedException e) {
+         Thread.currentThread().interrupt();
+         logger.warn("Interrupted while checking for command {}\r\n{}",
+                     binaryName(),
+                     simpleStack(e));
+         return false;
+      }
+      return !out.isEmpty();
+   }
 
-    protected List<String> runAndReadOutput(String... commands) {
-        ProcessBuilder builder = new ProcessBuilder(commands);
-        List<String> out;
-        try {
-            out = runAndReadOutput(builder);
-        } catch (IOException e) {
-            logger.warn("Failed to get upgrade list\r\n{}", simpleStack(e));
-            return null;
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            logger.warn("Interrupted while getting upgrade list\r\n{}", simpleStack(e));
-            return null;
-        }
-        return out;
-    }
+   protected List<String> runAndReadOutput(String... commands) {
+      ProcessBuilder builder = new ProcessBuilder(commands);
+      List<String> out;
+      try {
+         out = runAndReadOutput(builder);
+      } catch (IOException e) {
+         logger.warn("Failed to get upgrade list\r\n{}", simpleStack(e));
+         return null;
+      } catch (InterruptedException e) {
+         Thread.currentThread().interrupt();
+         logger.warn("Interrupted while getting upgrade list\r\n{}", simpleStack(e));
+         return null;
+      }
+      return out;
+   }
 
-    private List<String> runAndReadOutput(ProcessBuilder builder) throws IOException, InterruptedException {
-        builder.redirectErrorStream(true);
+   private List<String> runAndReadOutput(ProcessBuilder builder)
+         throws IOException, InterruptedException {
+      builder.redirectErrorStream(true);
 
-        Process process = builder.start();
-        InputStreamReader isReader = new InputStreamReader(process.getInputStream());
-        BufferedReader reader = new BufferedReader(isReader);
-        List<String> output = new LinkedList<>();
-        while (process.isAlive()) {
-            Thread.sleep(100);
-            swallowOutput(reader, output);
-        }
-        Thread.sleep(100);
-        swallowOutput(reader, output);
-        return output;
-    }
+      Process process = builder.start();
+      InputStreamReader isReader = new InputStreamReader(process.getInputStream());
+      BufferedReader reader = new BufferedReader(isReader);
+      List<String> output = new LinkedList<>();
+      while (process.isAlive()) {
+         Thread.sleep(100);
+         swallowOutput(reader, output);
+      }
+      Thread.sleep(100);
+      swallowOutput(reader, output);
+      return output;
+   }
 
-    private void swallowOutput(BufferedReader reader, List<String> output) throws IOException {
-        String str;
-        while ((str = reader.readLine()) != null) {
-            if (!str.isBlank()) {
-                output.add(str.strip());
-            }
-        }
-    }
+   private void swallowOutput(BufferedReader reader, List<String> output)
+         throws IOException {
+      String str;
+      while ((str = reader.readLine()) != null) {
+         if (!str.isBlank()) {
+            output.add(str.strip());
+         }
+      }
+   }
 
-    @Override
-    protected boolean isAvailable() {
-        if (!isGoodOs()) {
-            logger.info("Not good os for {}", binaryName());
-            return false;
-        }
-        if (!hasBinary()) {
-            logger.info("Binary {} not installed", binaryName());
-            return false;
-        }
-        logger.info("Checking updates for {}", binaryName());
-        return true;
-    }
+   @Override
+   protected boolean isAvailable() {
+      if (!isGoodOs()) {
+         logger.info("Not good os for {}", binaryName());
+         return false;
+      }
+      if (!hasBinary()) {
+         logger.info("Binary {} not installed", binaryName());
+         return false;
+      }
+      logger.info("Checking updates for {}", binaryName());
+      return true;
+   }
 }

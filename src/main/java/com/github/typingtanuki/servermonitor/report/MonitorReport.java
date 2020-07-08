@@ -6,17 +6,17 @@ import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 import java.util.Map;
 
 public interface MonitorReport {
-    boolean isOK();
+   boolean isOK();
 
-    String getTitle();
+   String getTitle();
 
-    String getDescription();
+   String getDescription();
 
-    Map<DetailKey, Object> getDetails();
+   Map<DetailKey, Object> getDetails();
 
-    MonitorType getType();
+   MonitorType getType();
 
-    MonitorCategory getCategory();
+   MonitorCategory getCategory();
 
-    String monitorKey();
+   String monitorKey();
 }

@@ -1,4 +1,10 @@
-import {CSSResult, customElement, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
+import {
+    CSSResult,
+    customElement,
+    LitElement,
+    TemplateResult,
+    unsafeCSS
+} from 'lit-element';
 
 import rootStyle from "./modal-root.less";
 import {modalRootTemplate} from "./modal-root-template";

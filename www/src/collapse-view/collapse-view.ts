@@ -1,4 +1,11 @@
-import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
+import {
+    CSSResult,
+    customElement,
+    html,
+    LitElement,
+    TemplateResult,
+    unsafeCSS
+} from 'lit-element';
 import progressStyle from "./collapse-view.less";
 
 @customElement('collapse-view')

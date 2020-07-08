@@ -23,91 +23,96 @@ import static com.github.typingtanuki.servermonitor.report.ReportUtils.now;
  * </ul>
  */
 public class HandshakeMonitor implements Monitor {
-    private final MainConfig config;
-    private final Map<String, String> lastSeen = new LinkedHashMap<>();
+   private final MainConfig config;
+   private final Map<String, String> lastSeen = new LinkedHashMap<>();
 
-    public HandshakeMonitor(MainConfig config) {
-        super();
-        this.config = config;
-    }
+   public HandshakeMonitor(MainConfig config) {
+      super();
+      this.config = config;
+   }
 
-    @Override
-    public List<MonitorReport> monitor(SystemInfo systemInfo) {
-        List<String> targets = config.getHandshake().getMonitoring();
-        int maxHandshakeTime = config.getHandshake().getMaxHandshakeTime();
+   @Override
+   public List<MonitorReport> monitor(SystemInfo systemInfo) {
+      List<String> targets = config.getHandshake().getMonitoring();
+      int maxHandshakeTime = config.getHandshake().getMaxHandshakeTime();
 
-        List<MonitorReport> out = new ArrayList<>(targets.size());
-        for (String target : targets) {
-            ShakeMonitorReport monitor = new ShakeMonitorReport(target);
-            shakeHand(target, monitor, maxHandshakeTime);
-            out.add(monitor);
-        }
+      List<MonitorReport> out = new ArrayList<>(targets.size());
+      for (String target : targets) {
+         ShakeMonitorReport monitor = new ShakeMonitorReport(target);
+         shakeHand(target, monitor, maxHandshakeTime);
+         out.add(monitor);
+      }
 
-        List<String> removed = new LinkedList<>();
-        for (String key : lastSeen.keySet()) {
-            if (!targets.contains(key)) {
-                removed.add(key);
-            }
-        }
-        for (String r : removed) {
-            lastSeen.remove(r);
-        }
+      List<String> removed = new LinkedList<>();
+      for (String key : lastSeen.keySet()) {
+         if (!targets.contains(key)) {
+            removed.add(key);
+         }
+      }
+      for (String r : removed) {
+         lastSeen.remove(r);
+      }
 
-        return out;
-    }
+      return out;
+   }
 
-    @Override
-    public boolean isEnabled() {
-        if (!config.getHandshake().isEnabled()) {
-            return false;
-        }
-        List<String> monitoring = config.getHandshake().getMonitoring();
-        return monitoring != null && !monitoring.isEmpty();
-    }
+   @Override
+   public boolean isEnabled() {
+      if (!config.getHandshake().isEnabled()) {
+         return false;
+      }
+      List<String> monitoring = config.getHandshake().getMonitoring();
+      return monitoring != null && !monitoring.isEmpty();
+   }
 
-    @Override
-    public MonitorType getType() {
-        return MonitorType.handshake;
-    }
+   @Override
+   public MonitorType getType() {
+      return MonitorType.handshake;
+   }
 
-    @Override
-    public MonitorCategory getCategory() {
-        return MonitorCategory.remote;
-    }
+   @Override
+   public MonitorCategory getCategory() {
+      return MonitorCategory.remote;
+   }
 
-    private void shakeHand(String target,
-                           ShakeMonitorReport monitor,
-                           int maxHandshakeTime) {
-        RestCall<HandshakeResponse> call = new RestCall<>(target, "/handshake?request=" + System.currentTimeMillis(), HandshakeResponse.class);
-        HandshakeResponse handshake;
-        try {
-            handshake = call.get();
-        } catch (RestCallException e) {
-            monitor.noConnect(
-                    e.shortMessage(),
-                    lastSeen.get(target));
-            return;
-        }
+   private void shakeHand(String target,
+                          ShakeMonitorReport monitor,
+                          int maxHandshakeTime) {
+      RestCall<HandshakeResponse> call = new RestCall<>(target,
+                                                        "/handshake?request=" +
+                                                        System.currentTimeMillis(),
+                                                        HandshakeResponse.class);
+      HandshakeResponse handshake;
+      try {
+         handshake = call.get();
+      } catch (RestCallException e) {
+         monitor.noConnect(
+               e.shortMessage(),
+               lastSeen.get(target));
+         return;
+      }
 
-        //Validate the response content
-        if (handshake.getRequestTime() - handshake.getResponseTime() > maxHandshakeTime) {
-            monitor.pingBackInTime(
-                    handshake.getRequestTime(),
-                    handshake.getResponseTime(),
-                    maxHandshakeTime,
-                    lastSeen.get(target));
-            return;
-        }
+      //Validate the response content
+      if (handshake.getRequestTime() - handshake.getResponseTime() > maxHandshakeTime) {
+         monitor.pingBackInTime(
+               handshake.getRequestTime(),
+               handshake.getResponseTime(),
+               maxHandshakeTime,
+               lastSeen.get(target));
+         return;
+      }
 
-        if (handshake.getResponseTime() - handshake.getRequestTime() > maxHandshakeTime) {
-            monitor.pingTooLong(
-                    handshake.getRequestTime(),
-                    handshake.getResponseTime(),
-                    maxHandshakeTime,
-                    lastSeen.get(target));
-            return;
-        }
-        monitor.ok(handshake.getRequestTime(), handshake.getResponseTime(), maxHandshakeTime);
-        lastSeen.put(target, now());
-    }
+      if (handshake.getResponseTime() - handshake.getRequestTime() > maxHandshakeTime) {
+         monitor.pingTooLong(
+               handshake.getRequestTime(),
+               handshake.getResponseTime(),
+               maxHandshakeTime,
+               lastSeen.get(target));
+         return;
+      }
+      monitor.ok(handshake.getRequestTime(),
+                 handshake.getResponseTime(),
+                 maxHandshakeTime);
+      lastSeen.put(target, now());
+   }
 }

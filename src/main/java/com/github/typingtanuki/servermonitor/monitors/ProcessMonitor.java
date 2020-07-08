@@ -16,84 +16,86 @@ import java.util.*;
  * If an expected process is not running, a failure will be raised
  */
 public class ProcessMonitor implements Monitor {
-    private final MainConfig config;
-    private final Map<String, ProcessInfo> infos = new HashMap<>();
+   private final MainConfig config;
+   private final Map<String, ProcessInfo> infos = new HashMap<>();
 
-    public ProcessMonitor(MainConfig config) {
-        super();
+   public ProcessMonitor(MainConfig config) {
+      super();
 
-        this.config = config;
-    }
+      this.config = config;
+   }
 
-    @Override
-    public List<MonitorReport> monitor(SystemInfo systemInfo) {
-        GlobalMemory memory = systemInfo.getHardware().getMemory();
+   @Override
+   public List<MonitorReport> monitor(SystemInfo systemInfo) {
+      GlobalMemory memory = systemInfo.getHardware().getMemory();
 
-        List<String> processes = new ArrayList<>(config.getProcess().getMonitoring());
+      List<String> processes = new ArrayList<>(config.getProcess().getMonitoring());
 
-        List<OSProcess> current = systemInfo.getOperatingSystem().getProcesses(0, OperatingSystem.ProcessSort.PID);
-        List<MonitorReport> out = new LinkedList<>();
+      List<OSProcess> current = systemInfo.getOperatingSystem()
+                                          .getProcesses(0,
+                                                        OperatingSystem.ProcessSort.PID);
+      List<MonitorReport> out = new LinkedList<>();
 
-        List<String> keys = new ArrayList<>(infos.keySet());
-        for (String key : keys) {
-            if (!processes.contains(key)) {
-                infos.remove(key);
+      List<String> keys = new ArrayList<>(infos.keySet());
+      for (String key : keys) {
+         if (!processes.contains(key)) {
+            infos.remove(key);
+         }
+      }
+
+      for (String proc : processes) {
+         ProcessMonitorReport report = new ProcessMonitorReport(proc);
+
+         ProcessInfo info = getOrInit(proc);
+         info.setRunning(false);
+
+         for (OSProcess c : current) {
+            if (c.getName().contains(proc) || c.getCommandLine().contains(proc)) {
+               info.fromProcess(
+                     c,
+                     memory.getTotal(),
+                     config.getProcess().getHistorySize());
+               break;
             }
-        }
+         }
+         if (info.isRunning()) {
+            report.ok(info);
+         } else {
+            info.missing(config.getProcess().getHistorySize());
+            report.ng(info);
+         }
+         out.add(report);
+      }
 
-        for (String proc : processes) {
-            ProcessMonitorReport report = new ProcessMonitorReport(proc);
+      return out;
+   }
 
-            ProcessInfo info = getOrInit(proc);
-            info.setRunning(false);
+   private ProcessInfo getOrInit(String proc) {
+      ProcessInfo out = infos.get(proc);
+      if (out != null) {
+         return out;
+      }
+      out = new ProcessInfo(proc);
+      infos.put(proc, out);
+      return out;
+   }
 
-            for (OSProcess c : current) {
-                if (c.getName().contains(proc) || c.getCommandLine().contains(proc)) {
-                    info.fromProcess(
-                            c,
-                            memory.getTotal(),
-                            config.getProcess().getHistorySize());
-                    break;
-                }
-            }
-            if (info.isRunning()) {
-                report.ok(info);
-            } else {
-                info.missing(config.getProcess().getHistorySize());
-                report.ng(info);
-            }
-            out.add(report);
-        }
+   @Override
+   public boolean isEnabled() {
+      if (!config.getProcess().isEnabled()) {
+         return false;
+      }
+      List<String> monitoring = config.getProcess().getMonitoring();
+      return monitoring != null && !monitoring.isEmpty();
+   }
 
-        return out;
-    }
+   @Override
+   public MonitorType getType() {
+      return MonitorType.process;
+   }
 
-    private ProcessInfo getOrInit(String proc) {
-        ProcessInfo out = infos.get(proc);
-        if (out != null) {
-            return out;
-        }
-        out = new ProcessInfo(proc);
-        infos.put(proc, out);
-        return out;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        if (!config.getProcess().isEnabled()) {
-            return false;
-        }
-        List<String> monitoring = config.getProcess().getMonitoring();
-        return monitoring != null && !monitoring.isEmpty();
-    }
-
-    @Override
-    public MonitorType getType() {
-        return MonitorType.process;
-    }
-
-    @Override
-    public MonitorCategory getCategory() {
-        return MonitorCategory.system;
-    }
+   @Override
+   public MonitorCategory getCategory() {
+      return MonitorCategory.system;
+   }
 }

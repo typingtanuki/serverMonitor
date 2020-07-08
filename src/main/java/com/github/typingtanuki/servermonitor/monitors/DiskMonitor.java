@@ -17,73 +17,76 @@ import java.util.*;
  * Monitors disk (partition) usage against a max allowed percentage
  */
 public class DiskMonitor implements Monitor {
-    private static final Logger logger = LoggerFactory.getLogger(DiskMonitor.class);
+   private static final Logger logger = LoggerFactory.getLogger(DiskMonitor.class);
 
-    private MainConfig config;
+   private MainConfig config;
 
-    public DiskMonitor(MainConfig config) {
-        super();
+   public DiskMonitor(MainConfig config) {
+      super();
 
-        this.config = config;
-    }
+      this.config = config;
+   }
 
 
-    @Override
-    public List<MonitorReport> monitor(SystemInfo systemInfo) {
-        List<MonitorReport> out = new LinkedList<>();
-        int maxDiskUsage = config.getDisk().getMaxUsage();
+   @Override
+   public List<MonitorReport> monitor(SystemInfo systemInfo) {
+      List<MonitorReport> out = new LinkedList<>();
+      int maxDiskUsage = config.getDisk().getMaxUsage();
 
-        Set<String> extraPath = new LinkedHashSet<>();
-        Set<String> skip = new LinkedHashSet<>();
-        if (System.getProperty("os.name").toLowerCase(Locale.ENGLISH).startsWith("linux")) {
-            extraPath.add("/"); // Common root
-            extraPath.add("/home"); // Often, home is a different disk
-            skip.add("/boot/efi"); // Fixed partition used for boot
-        } else {
-            extraPath.add("c:\\");
-        }
-        // User defined paths
-        extraPath.addAll(config.getDisk().getMounts());
+      Set<String> extraPath = new LinkedHashSet<>();
+      Set<String> skip = new LinkedHashSet<>();
+      if (System.getProperty("os.name").toLowerCase(Locale.ENGLISH).startsWith("linux")) {
+         extraPath.add("/"); // Common root
+         extraPath.add("/home"); // Often, home is a different disk
+         skip.add("/boot/efi"); // Fixed partition used for boot
+      } else {
+         extraPath.add("c:\\");
+      }
+      // User defined paths
+      extraPath.addAll(config.getDisk().getMounts());
 
-        for (HWDiskStore store : systemInfo.getHardware().getDiskStores()) {
-            for (HWPartition partition : store.getPartitions()) {
-                String mount = partition.getMountPoint();
-                extraPath.remove(mount.toLowerCase(Locale.ENGLISH));
-                if (!skip.contains(mount.toLowerCase(Locale.ENGLISH))) {
-                    out.addAll(monitorPartition(mount, maxDiskUsage));
-                }
+      for (HWDiskStore store : systemInfo.getHardware().getDiskStores()) {
+         for (HWPartition partition : store.getPartitions()) {
+            String mount = partition.getMountPoint();
+            extraPath.remove(mount.toLowerCase(Locale.ENGLISH));
+            if (!skip.contains(mount.toLowerCase(Locale.ENGLISH))) {
+               out.addAll(monitorPartition(mount, maxDiskUsage));
             }
-        }
+         }
+      }
 
-        for (String extra : extraPath) {
-            out.addAll(monitorPartition(extra, maxDiskUsage));
-        }
-        return out;
-    }
+      for (String extra : extraPath) {
+         out.addAll(monitorPartition(extra, maxDiskUsage));
+      }
+      return out;
+   }
 
-    private List<MonitorReport> monitorPartition(String mount, int maxDiskUsage) {
-        Path disk = Paths.get(mount);
-        long free = disk.toFile().getFreeSpace();
-        long total = disk.toFile().getTotalSpace();
-        if (total > 0) {
-            return Collections.singletonList(new DiskMonitorReport(mount, free, total, maxDiskUsage));
-        }
-        logger.warn("Could not monitor {}, total is 0", mount);
-        return Collections.emptyList();
-    }
+   private List<MonitorReport> monitorPartition(String mount, int maxDiskUsage) {
+      Path disk = Paths.get(mount);
+      long free = disk.toFile().getFreeSpace();
+      long total = disk.toFile().getTotalSpace();
+      if (total > 0) {
+         return Collections.singletonList(new DiskMonitorReport(mount,
+                                                                free,
+                                                                total,
+                                                                maxDiskUsage));
+      }
+      logger.warn("Could not monitor {}, total is 0", mount);
+      return Collections.emptyList();
+   }
 
-    @Override
-    public boolean isEnabled() {
-        return config.getDisk().isEnabled();
-    }
+   @Override
+   public boolean isEnabled() {
+      return config.getDisk().isEnabled();
+   }
 
-    @Override
-    public MonitorType getType() {
-        return MonitorType.disk;
-    }
+   @Override
+   public MonitorType getType() {
+      return MonitorType.disk;
+   }
 
-    @Override
-    public MonitorCategory getCategory() {
-        return MonitorCategory.system;
-    }
+   @Override
+   public MonitorCategory getCategory() {
+      return MonitorCategory.system;
+   }
 }

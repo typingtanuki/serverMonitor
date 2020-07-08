@@ -46,7 +46,10 @@ export class Core {
         if (error instanceof Error) {
             const err: Error = <Error>error;
             // Looks like an error
-            return html`<div class="info">${err.message}</div><div class="info">${JSON.stringify(err.stack, null, 4)}</div>`;
+            return html`<div class="info">${err.message}</div><div class="info">${JSON.stringify(
+                err.stack,
+                null,
+                4)}</div>`;
         }
         return html`<div class="info">${String(error)}</div>`
     }

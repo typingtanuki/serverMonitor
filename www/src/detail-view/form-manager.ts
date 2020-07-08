@@ -18,10 +18,14 @@ export function formText(name: string,
     </tr>`;
 }
 
-export function formCheckbox(name: string, settings: Settings, key: string): TemplateResult {
+export function formCheckbox(name: string,
+                             settings: Settings,
+                             key: string): TemplateResult {
     return html`
     <tr class="form check" .settings="${settings}" .key="${key}">
-        <th>${name}: </th><td><input type="checkbox" .checked="${getKey(settings, key, DataType.boolean)}"/></td></tr>
+        <th>${name}: </th><td><input type="checkbox" .checked="${getKey(settings,
+        key,
+        DataType.boolean)}"/></td></tr>
     </tr>`;
 }
 
@@ -74,7 +78,8 @@ interface SettingRow extends HTMLTableRowElement {
 }
 
 export function buildForm(root: HTMLElement): void {
-    const entries: NodeListOf<SettingRow> = <NodeListOf<SettingRow>>root.querySelectorAll("tr");
+    const entries: NodeListOf<SettingRow> = <NodeListOf<SettingRow>>root.querySelectorAll(
+        "tr");
     for (let i = 0; i < entries.length; i++) {
         const tr: SettingRow = entries[i];
         if (tr.classList.contains("text")) {

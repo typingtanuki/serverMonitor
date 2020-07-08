@@ -5,6 +5,6 @@ package com.github.typingtanuki.servermonitor;
  * @since 2020/01/24
  */
 public enum MonitorStatus {
-    OK,
-    NG
+   OK,
+   NG
 }

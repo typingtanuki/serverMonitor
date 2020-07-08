@@ -1,9 +1,25 @@
-import {CSSResult, customElement, html, LitElement, property, TemplateResult, unsafeCSS} from 'lit-element';
+import {
+    CSSResult,
+    customElement,
+    html,
+    LitElement,
+    property,
+    TemplateResult,
+    unsafeCSS
+} from 'lit-element';
 import reportStyle from "./report-entry.less";
 import {DisplayLine} from "../display-line/display-line";
 import {DisplayGauge} from "../display-gauge/display-gauge";
 import {Detail, HistoryDetail, Report, ReportConstants} from "../rest/types";
-import {isCause, isGauge, isHidden, isHistory, isNumber, isObject, isString} from "../utils";
+import {
+    isCause,
+    isGauge,
+    isHidden,
+    isHistory,
+    isNumber,
+    isObject,
+    isString
+} from "../utils";
 import {CollapseView} from "../collapse-view/collapse-view";
 
 @customElement('report-entry')
@@ -94,7 +110,8 @@ export class ReportEntry extends LitElement {
     }
 
     private static formatString(key: string, value: string): TemplateResult {
-        return html`<div><span class="key">${key}: </span><span class="value">${String(value)}</span></div>`;
+        return html`<div><span class="key">${key}: </span><span class="value">${String(
+            value)}</span></div>`;
     }
 
     private static formatObject(key: string, details: Detail): TemplateResult {

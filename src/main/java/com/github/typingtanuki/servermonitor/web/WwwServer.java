@@ -12,31 +12,31 @@ import java.nio.file.Paths;
 import java.util.Locale;
 
 public class WwwServer {
-    private static final Path ROOT_PATH = Paths.get("www").toAbsolutePath();
+   private static final Path ROOT_PATH = Paths.get("www").toAbsolutePath();
 
-    public Response serve(String path) throws IOException {
-        Path target = ROOT_PATH.resolve(path);
-        if (Files.exists(target) && target.toAbsolutePath().startsWith(ROOT_PATH)) {
-            Response.ResponseBuilder builder = Response.ok();
-            builder.type(typeFromExtension(path.toLowerCase(Locale.ENGLISH)));
-            builder.entity(Files.readString(target, StandardCharsets.UTF_8));
-            return builder.build();
-        } else {
-            return Response.ok().status(HttpStatus.NOT_FOUND_404).build();
-        }
-    }
+   public Response serve(String path) throws IOException {
+      Path target = ROOT_PATH.resolve(path);
+      if (Files.exists(target) && target.toAbsolutePath().startsWith(ROOT_PATH)) {
+         Response.ResponseBuilder builder = Response.ok();
+         builder.type(typeFromExtension(path.toLowerCase(Locale.ENGLISH)));
+         builder.entity(Files.readString(target, StandardCharsets.UTF_8));
+         return builder.build();
+      } else {
+         return Response.ok().status(HttpStatus.NOT_FOUND_404).build();
+      }
+   }
 
-    private String typeFromExtension(String path) {
-        String[] parts = path.split("\\.");
-        String ext = parts[parts.length - 1];
-        switch (ext) {
-            case "html":
-                return "text/html";
-            case "js":
-                return "application/javascript";
-            case "css":
-                return "text/css";
-        }
-        return ContentType.TEXT_PLAIN.getMimeType();
-    }
+   private String typeFromExtension(String path) {
+      String[] parts = path.split("\\.");
+      String ext = parts[parts.length - 1];
+      switch (ext) {
+         case "html":
+            return "text/html";
+         case "js":
+            return "application/javascript";
+         case "css":
+            return "text/css";
+      }
+      return ContentType.TEXT_PLAIN.getMimeType();
+   }
 }

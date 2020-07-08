@@ -7,27 +7,27 @@ import java.util.Collections;
 import java.util.List;
 
 public class NoUpdateChecker extends UpdateChecker {
-    public NoUpdateChecker() {
-        super(null);
-    }
+   public NoUpdateChecker() {
+      super(null);
+   }
 
-    @Override
-    public String runUpdate() {
-        return "Can not handle updates on this platform";
-    }
+   @Override
+   public String runUpdate() {
+      return "Can not handle updates on this platform";
+   }
 
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
+   @Override
+   public boolean isEnabled() {
+      return false;
+   }
 
-    @Override
-    protected boolean isAvailable() {
-        return false;
-    }
+   @Override
+   protected boolean isAvailable() {
+      return false;
+   }
 
-    @Override
-    public List<MonitorReport> monitor(SystemInfo systemInfo) {
-        return Collections.emptyList();
-    }
+   @Override
+   public List<MonitorReport> monitor(SystemInfo systemInfo) {
+      return Collections.emptyList();
+   }
 }

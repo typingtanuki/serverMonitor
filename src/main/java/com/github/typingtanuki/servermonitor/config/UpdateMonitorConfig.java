@@ -1,12 +1,12 @@
 package com.github.typingtanuki.servermonitor.config;
 
 public class UpdateMonitorConfig extends MonitorConfig {
-    @Override
-    public void validate() {
-        // Nothing to do
-    }
+   @Override
+   public void validate() {
+      // Nothing to do
+   }
 
-    public void copyTo(UpdateMonitorConfig targetConfig) {
-        innerCopyTo(targetConfig);
-    }
+   public void copyTo(UpdateMonitorConfig targetConfig) {
+      innerCopyTo(targetConfig);
+   }
 }

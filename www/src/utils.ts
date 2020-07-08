@@ -2,7 +2,10 @@ import {Detail, ReportConstants} from "./rest/types";
 
 export function isGauge(value: Detail): boolean {
     const keys: string[] = Object.keys(value);
-    return keys.indexOf(ReportConstants.USAGE_CURRENT) !== -1 && keys.indexOf(ReportConstants.USAGE_MAX) !== -1;
+    return keys.indexOf(ReportConstants.USAGE_CURRENT) !==
+        -1 &&
+        keys.indexOf(ReportConstants.USAGE_MAX) !==
+        -1;
 }
 
 export function isHistory(value: Detail): boolean {

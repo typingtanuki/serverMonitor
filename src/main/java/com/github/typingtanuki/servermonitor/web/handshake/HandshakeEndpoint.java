@@ -8,12 +8,12 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/handshake")
 public class HandshakeEndpoint {
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public HandshakeResponse shake(
-            @QueryParam("request") String requestTime) {
-        return new HandshakeResponse(
-                Long.parseLong(requestTime),
-                System.currentTimeMillis());
-    }
+   @GET
+   @Produces(MediaType.APPLICATION_JSON)
+   public HandshakeResponse shake(
+         @QueryParam("request") String requestTime) {
+      return new HandshakeResponse(
+            Long.parseLong(requestTime),
+            System.currentTimeMillis());
+   }
 }

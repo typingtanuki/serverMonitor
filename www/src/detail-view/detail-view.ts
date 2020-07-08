@@ -1,4 +1,11 @@
-import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
+import {
+    CSSResult,
+    customElement,
+    html,
+    LitElement,
+    TemplateResult,
+    unsafeCSS
+} from 'lit-element';
 import listStyle from "./detail-view.less";
 import {RestClient} from "../rest/rest-client";
 import {ReportList} from "../report-list/report-list";
@@ -73,7 +80,8 @@ export class DetailView extends LitElement {
 
     public async redraw(): Promise<void> {
         await this.requestUpdate();
-        const lists: NodeListOf<ReportList> = this.shadowRoot.querySelectorAll("report-list");
+        const lists: NodeListOf<ReportList> = this.shadowRoot.querySelectorAll(
+            "report-list");
         requestAnimationFrame(function () {
             for (let i = 0; i < lists.length; i++) {
                 lists[i].requestUpdate();

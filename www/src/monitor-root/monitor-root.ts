@@ -1,4 +1,10 @@
-import {CSSResult, customElement, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
+import {
+    CSSResult,
+    customElement,
+    LitElement,
+    TemplateResult,
+    unsafeCSS
+} from 'lit-element';
 
 import rootStyle from "./monitor-root.less";
 import {RestClient} from "../rest/rest-client";
@@ -46,13 +52,15 @@ export class MonitorRoot extends LitElement {
 
     public firstUpdated(): void {
         const self: MonitorRoot = this;
-        this.addEventListener(ServerEntrySelectedEvent.event, function (event: ServerEntrySelectedEvent) {
-            self.selectedServer(event.detail.server);
-        });
+        this.addEventListener(ServerEntrySelectedEvent.event,
+            function (event: ServerEntrySelectedEvent) {
+                self.selectedServer(event.detail.server);
+            });
     }
 
     public closeDetails(): void {
-        const detailsView: DetailView = this.shadowRoot.querySelector(".details.half detail-view");
+        const detailsView: DetailView = this.shadowRoot.querySelector(
+            ".details.half detail-view");
         detailsView.client = null;
         this.showDetails = false;
     }
@@ -64,7 +72,8 @@ export class MonitorRoot extends LitElement {
             serverList.refresh();
         }
 
-        const detailsView: DetailView = this.shadowRoot.querySelector(".details.half detail-view");
+        const detailsView: DetailView = this.shadowRoot.querySelector(
+            ".details.half detail-view");
         if (detailsView !== null) {
             detailsView.changeProperties();
         }

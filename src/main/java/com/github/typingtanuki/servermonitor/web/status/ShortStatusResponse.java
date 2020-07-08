@@ -8,38 +8,38 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ShortStatusResponse {
-    private String identity;
-    private Map<MonitorType, Boolean> status = new LinkedHashMap<>();
+   private String identity;
+   private Map<MonitorType, Boolean> status = new LinkedHashMap<>();
 
-    public ShortStatusResponse() {
-        super();
-    }
+   public ShortStatusResponse() {
+      super();
+   }
 
-    public ShortStatusResponse(String identity, Status current) {
-        super();
+   public ShortStatusResponse(String identity, Status current) {
+      super();
 
-        this.identity = identity;
-        for (MonitorReport report : current.getSuccess()) {
-            status.put(report.getType(), true);
-        }
-        for (MonitorReport report : current.getFailure()) {
-            status.put(report.getType(), false);
-        }
-    }
+      this.identity = identity;
+      for (MonitorReport report : current.getSuccess()) {
+         status.put(report.getType(), true);
+      }
+      for (MonitorReport report : current.getFailure()) {
+         status.put(report.getType(), false);
+      }
+   }
 
-    public String getIdentity() {
-        return identity;
-    }
+   public String getIdentity() {
+      return identity;
+   }
 
-    public void setIdentity(String identity) {
-        this.identity = identity;
-    }
+   public void setIdentity(String identity) {
+      this.identity = identity;
+   }
 
-    public Map<MonitorType, Boolean> getStatus() {
-        return status;
-    }
+   public Map<MonitorType, Boolean> getStatus() {
+      return status;
+   }
 
-    public void setStatus(Map<MonitorType, Boolean> status) {
-        this.status = status;
-    }
+   public void setStatus(Map<MonitorType, Boolean> status) {
+      this.status = status;
+   }
 }

@@ -1,4 +1,11 @@
-import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
+import {
+    CSSResult,
+    customElement,
+    html,
+    LitElement,
+    TemplateResult,
+    unsafeCSS
+} from 'lit-element';
 import listStyle from "./server-list.less";
 import {RestClient} from "../rest/rest-client";
 import {ServerEntry} from "../server-entry/server-entry";
@@ -32,7 +39,8 @@ export class ServerList extends LitElement {
     }
 
     public render(): TemplateResult {
-        return html`<div class="root">${this.servers.map(server => ServerList.formatServer(server))}</div>`;
+        return html`<div class="root">${this.servers.map(server => ServerList.formatServer(
+            server))}</div>`;
     }
 
     public firstUpdated(): void {
@@ -43,7 +51,8 @@ export class ServerList extends LitElement {
         const self: ServerList = this;
         this.client.getServerState(this)
             .then(function (): void {
-                const servers: NodeListOf<ServerEntry> = self.shadowRoot.querySelectorAll("server-entry");
+                const servers: NodeListOf<ServerEntry> = self.shadowRoot.querySelectorAll(
+                    "server-entry");
                 for (let i = 0; i < servers.length; i++) {
                     servers[i].refresh();
                 }

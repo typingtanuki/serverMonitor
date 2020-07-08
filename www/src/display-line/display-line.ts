@@ -1,6 +1,14 @@
 import {colorNg, colorOk, colorTick} from "../constants/colors";
 
-import {CSSResult, customElement, html, LitElement, property, TemplateResult, unsafeCSS} from 'lit-element';
+import {
+    CSSResult,
+    customElement,
+    html,
+    LitElement,
+    property,
+    TemplateResult,
+    unsafeCSS
+} from 'lit-element';
 import lineStyle from "./display-line.less";
 import {isAttached} from "../constants/mixins";
 

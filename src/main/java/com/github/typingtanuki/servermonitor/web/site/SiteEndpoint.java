@@ -13,23 +13,25 @@ import java.io.IOException;
 
 @Path("/")
 public class SiteEndpoint {
-    @GET
-    public HttpServletResponse redirect(@Context final HttpServletResponse response) throws IOException {
-        response.sendRedirect("/www/index.html");
-        return response;
-    }
+   @GET
+   public HttpServletResponse redirect(@Context final HttpServletResponse response)
+         throws IOException {
+      response.sendRedirect("/www/index.html");
+      return response;
+   }
 
-    @GET
-    @Path("/www")
-    public HttpServletResponse getRoot(@Context final HttpServletResponse response) throws IOException {
-        response.sendRedirect("/www/index.html");
-        return response;
-    }
+   @GET
+   @Path("/www")
+   public HttpServletResponse getRoot(@Context final HttpServletResponse response)
+         throws IOException {
+      response.sendRedirect("/www/index.html");
+      return response;
+   }
 
-    @GET
-    @Path("/www/{path:.*}")
-    public Response getSubPage(@PathParam("path") String path) throws IOException {
-        ServerMonitor monitor = MonitorMain.monitor;
-        return monitor.wwwServer().serve(path);
-    }
+   @GET
+   @Path("/www/{path:.*}")
+   public Response getSubPage(@PathParam("path") String path) throws IOException {
+      ServerMonitor monitor = MonitorMain.monitor;
+      return monitor.wwwServer().serve(path);
+   }
 }

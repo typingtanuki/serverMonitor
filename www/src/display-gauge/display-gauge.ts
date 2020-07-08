@@ -1,6 +1,13 @@
 import {colorNg, colorOk, colorTick} from "../constants/colors";
 
-import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
+import {
+    CSSResult,
+    customElement,
+    html,
+    LitElement,
+    TemplateResult,
+    unsafeCSS
+} from 'lit-element';
 import gaugeStyle from "./display-gauge.less";
 import {isAttached} from "../constants/mixins";
 
@@ -71,7 +78,9 @@ export class DisplayGauge extends LitElement {
                     radius: '80%',
                     axisLine: {
                         lineStyle: {
-                            color: [[0, colorOk], [this.max / 100, colorOk], [1, colorNg]],
+                            color: [[0, colorOk],
+                                [this.max / 100, colorOk],
+                                [1, colorNg]],
                             width: 3,
                             shadowColor: colorTick
                         }
