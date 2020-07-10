@@ -8041,6 +8041,14 @@ var RestClient = /*#__PURE__*/function () {
 
     _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(this, "server", void 0);
 
+    if (server.startsWith("http://")) {
+      server = server.split("http://")[1];
+    }
+
+    if (server.startsWith("https://")) {
+      server = server.split("https://")[1];
+    }
+
     this.server = server;
   }
 

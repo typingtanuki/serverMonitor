@@ -20,6 +20,12 @@ export class RestClient {
     private static savingSettings:boolean=false;
 
     constructor(server: string) {
+        if(server.startsWith("http://")){
+            server=server.split("http://")[1];
+        }
+        if(server.startsWith("https://")){
+            server=server.split("https://")[1];
+        }
         this.server = server;
     }
 
