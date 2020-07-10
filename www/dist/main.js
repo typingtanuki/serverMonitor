@@ -8054,15 +8054,25 @@ var RestClient = /*#__PURE__*/function () {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return fetch(this.server + "/status/cluster");
+                if (!RestClient.fetchingState) {
+                  _context.next = 2;
+                  break;
+                }
+
+                return _context.abrupt("return");
 
               case 2:
+                RestClient.fetchingState = true;
+                _context.prev = 3;
+                _context.next = 6;
+                return fetch(this.server + "/status/cluster");
+
+              case 6:
                 response = _context.sent;
-                _context.next = 5;
+                _context.next = 9;
                 return response.json();
 
-              case 5:
+              case 9:
                 serverState = _context.sent;
                 cluster = serverState.clusterStatus;
                 advanced = serverState.advanced;
@@ -8135,15 +8145,25 @@ var RestClient = /*#__PURE__*/function () {
                 }
 
                 serverList.servers = servers;
-                _context.next = 17;
+                _context.next = 21;
                 return serverList.requestUpdate();
 
-              case 17:
+              case 21:
+                RestClient.fetchingState = false;
+                _context.next = 27;
+                break;
+
+              case 24:
+                _context.prev = 24;
+                _context.t0 = _context["catch"](3);
+                RestClient.fetchingState = false;
+
+              case 27:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this);
+        }, _callee, this, [[3, 24]]);
       }));
 
       function getServerState(_x) {
@@ -8161,27 +8181,48 @@ var RestClient = /*#__PURE__*/function () {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
-                return fetch("http://" + this.server + "/status");
+                if (!RestClient.fetchingDetails) {
+                  _context2.next = 2;
+                  break;
+                }
+
+                return _context2.abrupt("return");
 
               case 2:
+                RestClient.fetchingDetails = true;
+                _context2.prev = 3;
+                _context2.next = 6;
+                return fetch("http://" + this.server + "/status");
+
+              case 6:
                 response = _context2.sent;
-                _context2.next = 5;
+                _context2.next = 9;
                 return response.json();
 
-              case 5:
+              case 9:
                 status = _context2.sent;
                 detailView.success = status.status.success;
                 detailView.failure = status.status.failure;
-                _context2.next = 10;
+                _context2.next = 14;
                 return detailView.redraw();
 
-              case 10:
+              case 14:
+                RestClient.fetchingDetails = false;
+                _context2.next = 21;
+                break;
+
+              case 17:
+                _context2.prev = 17;
+                _context2.t0 = _context2["catch"](3);
+                RestClient.fetchingDetails = false;
+                throw _context2.t0;
+
+              case 21:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee2, this, [[3, 17]]);
       }));
 
       function fetchDetails(_x2) {
@@ -8199,25 +8240,46 @@ var RestClient = /*#__PURE__*/function () {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
-                return fetch("http://" + this.server + "/config");
+                if (!RestClient.fetchingSettings) {
+                  _context3.next = 2;
+                  break;
+                }
+
+                return _context3.abrupt("return");
 
               case 2:
+                RestClient.fetchingSettings = true;
+                _context3.prev = 3;
+                _context3.next = 6;
+                return fetch("http://" + this.server + "/config");
+
+              case 6:
                 response = _context3.sent;
-                _context3.next = 5;
+                _context3.next = 9;
                 return response.json();
 
-              case 5:
+              case 9:
                 detailView.settings = _context3.sent;
-                _context3.next = 8;
+                _context3.next = 12;
                 return detailView.redraw();
 
-              case 8:
+              case 12:
+                RestClient.savingSettings = false;
+                _context3.next = 19;
+                break;
+
+              case 15:
+                _context3.prev = 15;
+                _context3.t0 = _context3["catch"](3);
+                RestClient.savingSettings = false;
+                throw _context3.t0;
+
+              case 19:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee3, this, [[3, 15]]);
       }));
 
       function fetchSettings(_x3) {
@@ -8234,7 +8296,17 @@ var RestClient = /*#__PURE__*/function () {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _context4.next = 2;
+                if (!RestClient.savingSettings) {
+                  _context4.next = 2;
+                  break;
+                }
+
+                return _context4.abrupt("return");
+
+              case 2:
+                RestClient.fetchingSettings = true;
+                _context4.prev = 3;
+                _context4.next = 6;
                 return fetch("http://" + this.server + "/config?persist=true", {
                   method: 'POST',
                   headers: {
@@ -8243,15 +8315,23 @@ var RestClient = /*#__PURE__*/function () {
                   body: JSON.stringify(settings)
                 });
 
-              case 2:
-                return _context4.abrupt("return");
+              case 6:
+                RestClient.savingSettings = false;
+                _context4.next = 13;
+                break;
 
-              case 3:
+              case 9:
+                _context4.prev = 9;
+                _context4.t0 = _context4["catch"](3);
+                RestClient.savingSettings = false;
+                throw _context4.t0;
+
+              case 13:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee4, this, [[3, 9]]);
       }));
 
       function saveSettings(_x4) {
@@ -8264,6 +8344,14 @@ var RestClient = /*#__PURE__*/function () {
 
   return RestClient;
 }();
+
+_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(RestClient, "fetchingState", false);
+
+_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(RestClient, "fetchingDetails", false);
+
+_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(RestClient, "fetchingSettings", false);
+
+_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(RestClient, "savingSettings", false);
 
 /***/ }),
 

@@ -52,6 +52,7 @@ public class StatusManager {
       addClusterStatus(statusMap,
                        new ShortStatusResponse(config.getIdentity(), getStatus()));
       for (String remote : remotes) {
+         System.out.println("Getting remote status of "+remote);
          ShortStatusResponse remoteStatus = getRemoteStatus(remote);
          Map<String, Object> remoteAdvancedStatus = getAdvancedRemoteStatus(remote);
          connections.put(remoteStatus.getIdentity(), remote);

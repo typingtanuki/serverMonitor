@@ -10,6 +10,7 @@ import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Small wrapper for doing a REST call and de-serializing the response
@@ -43,6 +44,8 @@ public class RestCall<T> {
       // Sends the handshake request and wait for response
       Response response;
       ClientBuilder builder = ResteasyClientBuilder.newBuilder();
+      builder.connectTimeout(10, TimeUnit.SECONDS);
+
       Client client = builder.build();
       try {
          WebTarget resource = client.target(url);
