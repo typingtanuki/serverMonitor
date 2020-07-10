@@ -18,6 +18,8 @@ import java.util.concurrent.TimeUnit;
  * @param <T> The type of the expected response
  */
 public class RestCall<T> {
+   private static final long DEFAULT_GET_TIMEOUT = 10_000L;
+
    private final ObjectReader reader;
    private final String url;
 
@@ -41,10 +43,22 @@ public class RestCall<T> {
     *                           the response
     */
    public T get() throws RestCallException {
+      return get(DEFAULT_GET_TIMEOUT);
+   }
+
+   /**
+    * Do an HTTP GET no the endpoint
+    *
+    * @param timeout The time we want to wait for remote server response (in millis)
+    * @return The de-serialized response
+    * @throws RestCallException If we could not connect to the server or could not read
+    *                           the response
+    */
+   public T get(long timeout) throws RestCallException {
       // Sends the handshake request and wait for response
       Response response;
       ClientBuilder builder = ResteasyClientBuilder.newBuilder();
-      builder.connectTimeout(10, TimeUnit.SECONDS);
+      builder.connectTimeout(timeout, TimeUnit.MILLISECONDS);
 
       Client client = builder.build();
       try {

@@ -8041,15 +8041,15 @@ var RestClient = /*#__PURE__*/function () {
 
     _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(this, "server", void 0);
 
-    if (server.startsWith("http://")) {
+    while (server.startsWith("http://")) {
       server = server.split("http://")[1];
     }
 
-    if (server.startsWith("https://")) {
+    while (server.startsWith("https://")) {
       server = server.split("https://")[1];
     }
 
-    this.server = server;
+    this.server = "http://" + server;
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_4___default()(RestClient, [{
@@ -8200,7 +8200,7 @@ var RestClient = /*#__PURE__*/function () {
                 RestClient.fetchingDetails = true;
                 _context2.prev = 3;
                 _context2.next = 6;
-                return fetch("http://" + this.server + "/status");
+                return fetch(this.server + "/status");
 
               case 6:
                 response = _context2.sent;
@@ -8259,7 +8259,7 @@ var RestClient = /*#__PURE__*/function () {
                 RestClient.fetchingSettings = true;
                 _context3.prev = 3;
                 _context3.next = 6;
-                return fetch("http://" + this.server + "/config");
+                return fetch(this.server + "/config");
 
               case 6:
                 response = _context3.sent;
@@ -8315,7 +8315,7 @@ var RestClient = /*#__PURE__*/function () {
                 RestClient.fetchingSettings = true;
                 _context4.prev = 3;
                 _context4.next = 6;
-                return fetch("http://" + this.server + "/config?persist=true", {
+                return fetch(this.server + "/config?persist=true", {
                   method: 'POST',
                   headers: {
                     'Content-Type': 'application/json'

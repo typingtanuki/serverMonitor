@@ -20,13 +20,13 @@ export class RestClient {
     private static savingSettings:boolean=false;
 
     constructor(server: string) {
-        if(server.startsWith("http://")){
+        while(server.startsWith("http://")){
             server=server.split("http://")[1];
         }
-        if(server.startsWith("https://")){
+        while(server.startsWith("https://")){
             server=server.split("https://")[1];
         }
-        this.server = server;
+        this.server = "http://"+server;
     }
 
     public async getServerState(serverList: ServerList): Promise<void> {
@@ -115,7 +115,7 @@ export class RestClient {
         RestClient.fetchingDetails = true;
 
         try{
-            const response: Response = await fetch("http://" + this.server + "/status")
+            const response: Response = await fetch( this.server + "/status")
             const status: DetailStatuses = await response.json();
             detailView.success = status.status.success;
             detailView.failure = status.status.failure;
@@ -134,7 +134,7 @@ export class RestClient {
         RestClient.fetchingSettings = true;
 
         try{
-            const response = await fetch("http://" + this.server + "/config");
+            const response = await fetch( this.server + "/config");
             detailView.settings = await response.json();
             await detailView.redraw();
             RestClient.savingSettings = false;
@@ -151,7 +151,7 @@ export class RestClient {
         RestClient.fetchingSettings = true;
 
         try{
-            await fetch("http://" + this.server + "/config?persist=true", {
+            await fetch( this.server + "/config?persist=true", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

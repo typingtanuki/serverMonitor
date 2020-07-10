@@ -18,9 +18,12 @@ import static com.github.typingtanuki.servermonitor.utils.SimpleStack.simpleStac
  */
 public class StatusManager {
    private static final Logger logger = LoggerFactory.getLogger(StatusManager.class);
+   private static final Object CLUSTER_STATUS_LOCK = new Object[0];
 
    private final MainConfig config;
    private Status status;
+
+   private ClusterStatusResponse lastClusterStatus;
 
    public StatusManager(MainConfig config) {
       this.config = config;
@@ -44,34 +47,43 @@ public class StatusManager {
     * @return A short status of each node in the cluster
     */
    public ClusterStatusResponse getClusterStatus() {
-      List<String> remotes = new ArrayList<>(config.getHandshake().getMonitoring());
+      synchronized (CLUSTER_STATUS_LOCK) {
+         if (lastClusterStatus != null &&
+             new Date().getTime() - lastClusterStatus.getTime() <
+             config.getMonitorTime() * 5) {
+            return lastClusterStatus;
+         }
 
-      Map<String, Map<MonitorType, Boolean>> statusMap = new LinkedHashMap<>();
-      Map<String, Map<String, Object>> advancedMap = new LinkedHashMap<>();
-      Map<String, String> connections = new LinkedHashMap<>();
-      addClusterStatus(statusMap,
-                       new ShortStatusResponse(config.getIdentity(), getStatus()));
-      for (String remote : remotes) {
-         System.out.println("Getting remote status of "+remote);
-         ShortStatusResponse remoteStatus = getRemoteStatus(remote);
-         Map<String, Object> remoteAdvancedStatus = getAdvancedRemoteStatus(remote);
-         connections.put(remoteStatus.getIdentity(), remote);
-         advancedMap.put(remoteStatus.getIdentity(), remoteAdvancedStatus);
-         addClusterStatus(statusMap, remoteStatus);
+         List<String> remotes = new ArrayList<>(config.getHandshake().getMonitoring());
+
+         Map<String, Map<MonitorType, Boolean>> statusMap = new LinkedHashMap<>();
+         Map<String, Map<String, Object>> advancedMap = new LinkedHashMap<>();
+         Map<String, String> connections = new LinkedHashMap<>();
+         addClusterStatus(statusMap,
+                          new ShortStatusResponse(config.getIdentity(), getStatus()));
+         for (String remote : remotes) {
+            System.out.println("Getting remote status of " + remote);
+            ShortStatusResponse remoteStatus = getRemoteStatus(remote);
+            Map<String, Object> remoteAdvancedStatus = getAdvancedRemoteStatus(remote);
+            connections.put(remoteStatus.getIdentity(), remote);
+            advancedMap.put(remoteStatus.getIdentity(), remoteAdvancedStatus);
+            addClusterStatus(statusMap, remoteStatus);
+         }
+
+         lastClusterStatus = new ClusterStatusResponse(
+               config.getIdentity(),
+               connections,
+               statusMap,
+               advancedMap);
+         return lastClusterStatus;
       }
-
-      return new ClusterStatusResponse(
-            config.getIdentity(),
-            connections,
-            statusMap,
-            advancedMap);
    }
 
    private Map<String, Object> getAdvancedRemoteStatus(String remote) {
       RestCall<JsonStringObjectMap> call =
             new RestCall<>(remote, "/status", JsonStringObjectMap.class);
       try {
-         return (Map<String, Object>) call.get().get("status");
+         return (Map<String, Object>) call.get(500).get("status");
       } catch (RestCallException e) {
          logger.debug("Could not get remote status: {}\r\n{}", remote, simpleStack(e));
          return new LinkedHashMap<>();

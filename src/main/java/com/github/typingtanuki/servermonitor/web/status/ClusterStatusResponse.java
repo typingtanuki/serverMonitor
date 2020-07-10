@@ -2,6 +2,7 @@ package com.github.typingtanuki.servermonitor.web.status;
 
 import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 
+import java.util.Date;
 import java.util.Map;
 
 public class ClusterStatusResponse {
@@ -9,6 +10,7 @@ public class ClusterStatusResponse {
    private final Map<String, Map<MonitorType, Boolean>> clusterStatus;
    private final Map<String, Map<String, Object>> advanced;
    private final Map<String, String> connections;
+   private final long time;
 
    public ClusterStatusResponse(String identity,
                                 Map<String, String> connections,
@@ -18,6 +20,7 @@ public class ClusterStatusResponse {
       this.connections = connections;
       this.clusterStatus = clusterStatus;
       this.advanced = advanced;
+      this.time = new Date().getTime();
    }
 
    public String getIdentity() {
@@ -34,5 +37,9 @@ public class ClusterStatusResponse {
 
    public Map<String, Map<String, Object>> getAdvanced() {
       return advanced;
+   }
+
+   public long getTime() {
+      return time;
    }
 }
