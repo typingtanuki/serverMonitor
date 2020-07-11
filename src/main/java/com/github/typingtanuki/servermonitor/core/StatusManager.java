@@ -6,6 +6,7 @@ import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import com.github.typingtanuki.servermonitor.report.Status;
 import com.github.typingtanuki.servermonitor.web.status.ClusterStatusResponse;
 import com.github.typingtanuki.servermonitor.web.status.ShortStatusResponse;
+import com.github.typingtanuki.servermonitor.web.status.SimpleStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,95 +18,92 @@ import static com.github.typingtanuki.servermonitor.utils.SimpleStack.simpleStac
  * Handles the status of this server
  */
 public class StatusManager {
-   private static final Logger logger = LoggerFactory.getLogger(StatusManager.class);
-   private static final Object CLUSTER_STATUS_LOCK = new Object[0];
+    private static final Logger logger = LoggerFactory.getLogger(StatusManager.class);
+    private static final Object CLUSTER_STATUS_LOCK = new Object[0];
 
-   private final MainConfig config;
-   private Status status;
+    private final MainConfig config;
+    private Status status;
 
-   private ClusterStatusResponse lastClusterStatus;
+    private HashMap<String, SimpleStatus> areaStatus = null;
+    private List<MonitorReport> fastReports = Collections.emptyList();
+    private List<MonitorReport> slowReports = Collections.emptyList();
 
-   public StatusManager(MainConfig config) {
-      this.config = config;
-   }
+    public StatusManager(MainConfig config) {
+        this.config = config;
+    }
 
-   public synchronized void updateStatus(List<MonitorReport> reports) {
-      status = new Status(reports);
-   }
+    public synchronized void updateStatus(List<MonitorReport> newFastReports,
+                                          List<MonitorReport> newSlowReports) {
+        List<MonitorReport> all = new LinkedList<>();
+        if (newFastReports != null) {
+            fastReports = newFastReports;
+        }
+        all.addAll(fastReports);
 
-   /**
-    * @return The current status, in full
-    */
-   public synchronized Status getStatus() {
-      if (status == null) {
-         return new Status(Collections.emptyList());
-      }
-      return status;
-   }
+        if (newSlowReports != null) {
+            slowReports = newSlowReports;
+        }
+        all.addAll(slowReports);
+        status = new Status(all);
+    }
 
-   /**
-    * @return A short status of each node in the cluster
-    */
-   public ClusterStatusResponse getClusterStatus() {
-      synchronized (CLUSTER_STATUS_LOCK) {
-         if (lastClusterStatus != null &&
-             new Date().getTime() - lastClusterStatus.getTime() <
-             config.getMonitorTime() * 5) {
-            return lastClusterStatus;
-         }
+    public synchronized void updateAreaStatus(Map<String, SimpleStatus> areaStatus) {
+        this.areaStatus = new HashMap<>(areaStatus);
+    }
 
-         List<String> remotes = new ArrayList<>(config.getHandshake().getMonitoring());
+    /**
+     * @return The current status, in full
+     */
+    public synchronized Status getStatus() {
+        if (status == null) {
+            return new Status(Collections.emptyList());
+        }
+        return status;
+    }
 
-         Map<String, Map<MonitorType, Boolean>> statusMap = new LinkedHashMap<>();
-         Map<String, Map<String, Object>> advancedMap = new LinkedHashMap<>();
-         Map<String, String> connections = new LinkedHashMap<>();
-         addClusterStatus(statusMap,
-                          new ShortStatusResponse(config.getIdentity(), getStatus()));
-         for (String remote : remotes) {
-            System.out.println("Getting remote status of " + remote);
-            ShortStatusResponse remoteStatus = getRemoteStatus(remote);
-            Map<String, Object> remoteAdvancedStatus = getAdvancedRemoteStatus(remote);
-            connections.put(remoteStatus.getIdentity(), remote);
-            advancedMap.put(remoteStatus.getIdentity(), remoteAdvancedStatus);
-            addClusterStatus(statusMap, remoteStatus);
-         }
+    /**
+     * @return A short status of each node in the cluster
+     */
+    public ClusterStatusResponse getClusterStatus() {
+        synchronized (CLUSTER_STATUS_LOCK) {
+            List<String> remotes = new ArrayList<>(config.getHandshake().getMonitoring());
 
-         lastClusterStatus = new ClusterStatusResponse(
-               config.getIdentity(),
-               connections,
-               statusMap,
-               advancedMap);
-         return lastClusterStatus;
-      }
-   }
+            Map<String, Map<MonitorType, Boolean>> statusMap = new LinkedHashMap<>();
+            Map<String, String> connections = new LinkedHashMap<>();
+            addClusterStatus(statusMap,
+                    new ShortStatusResponse(config.getIdentity(), getStatus()));
+            for (String remote : remotes) {
+                System.out.println("Getting remote status of " + remote);
+                ShortStatusResponse remoteStatus = getRemoteStatus(remote);
+                connections.put(remoteStatus.getIdentity(), remote);
+                addClusterStatus(statusMap, remoteStatus);
+            }
 
-   private Map<String, Object> getAdvancedRemoteStatus(String remote) {
-      RestCall<JsonStringObjectMap> call =
-            new RestCall<>(remote, "/status", JsonStringObjectMap.class);
-      try {
-         return (Map<String, Object>) call.get(500).get("status");
-      } catch (RestCallException e) {
-         logger.debug("Could not get remote status: {}\r\n{}", remote, simpleStack(e));
-         return new LinkedHashMap<>();
-      }
-   }
+            return new ClusterStatusResponse(
+                    config.getIdentity(),
+                    connections,
+                    statusMap,
+                    areaStatus);
+        }
+    }
 
-   private ShortStatusResponse getRemoteStatus(String remote) {
-      RestCall<ShortStatusResponse> call =
-            new RestCall<>(remote, "/status/short", ShortStatusResponse.class);
-      try {
-         return call.get();
-      } catch (RestCallException e) {
-         logger.debug("Could not get remote status: {}\r\n{}", remote, simpleStack(e));
-         ShortStatusResponse fake = new ShortStatusResponse();
-         fake.setIdentity(remote);
-         fake.setStatus(Map.of(MonitorType.handshake, Boolean.FALSE));
-         return fake;
-      }
-   }
+    private ShortStatusResponse getRemoteStatus(String remote) {
+        RestCall<ShortStatusResponse> call =
+                new RestCall<>(remote, "/status/short", ShortStatusResponse.class);
+        try {
+            return call.get();
+        } catch (RestCallException e) {
+            logger.debug("Could not get remote status: {}\r\n{}", remote, simpleStack(e));
+            ShortStatusResponse fake = new ShortStatusResponse();
+            fake.setIdentity(remote);
+            fake.setStatus(Map.of(MonitorType.handshake, Boolean.FALSE));
+            return fake;
+        }
+    }
 
-   private void addClusterStatus(Map<String, Map<MonitorType, Boolean>> statuses,
-                                 ShortStatusResponse toAdd) {
-      statuses.put(toAdd.getIdentity(), toAdd.getStatus());
-   }
+    private void addClusterStatus(Map<String, Map<MonitorType, Boolean>> statuses,
+                                  ShortStatusResponse toAdd) {
+        statuses.put(toAdd.getIdentity(), toAdd.getStatus());
+    }
+
 }

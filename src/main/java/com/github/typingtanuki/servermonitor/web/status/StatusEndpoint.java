@@ -14,28 +14,30 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/status")
 public class StatusEndpoint {
-   @GET
-   @Produces(MediaType.APPLICATION_JSON)
-   public StatusResponse status() {
-      ServerMonitor monitor = MonitorMain.monitor;
-      return new StatusResponse(monitor.currentConfig().getIdentity(),
-                                monitor.currentStatus().getStatus());
-   }
+    @GET()
+    @Produces(MediaType.APPLICATION_JSON)
+    public StatusResponse status() {
+        ServerMonitor monitor = MonitorMain.monitor;
+        return new StatusResponse(
+                monitor.currentConfig().getIdentity(),
+                monitor.currentStatus().getStatus());
+    }
 
-   @Path("/short")
-   @GET
-   @Produces(MediaType.APPLICATION_JSON)
-   public ShortStatusResponse shortStatus() {
-      ServerMonitor monitor = MonitorMain.monitor;
-      return new ShortStatusResponse(monitor.currentConfig().getIdentity(),
-                                     monitor.currentStatus().getStatus());
-   }
+    @Path("/short")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public ShortStatusResponse shortStatus() {
+        ServerMonitor monitor = MonitorMain.monitor;
+        return new ShortStatusResponse(
+                monitor.currentConfig().getIdentity(),
+                monitor.currentStatus().getStatus());
+    }
 
-   @Path("/cluster")
-   @GET
-   @Produces(MediaType.APPLICATION_JSON)
-   public ClusterStatusResponse clusterStatus() {
-      ServerMonitor monitor = MonitorMain.monitor;
-      return monitor.currentStatus().getClusterStatus();
-   }
+    @Path("/cluster")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public ClusterStatusResponse clusterStatus() {
+        ServerMonitor monitor = MonitorMain.monitor;
+        return monitor.currentStatus().getClusterStatus();
+    }
 }

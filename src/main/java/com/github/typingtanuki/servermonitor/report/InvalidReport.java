@@ -7,49 +7,54 @@ import java.util.Collections;
 import java.util.Map;
 
 public class InvalidReport implements MonitorReport {
-   private MonitorCategory monitorCategory;
-   private MonitorType monitorType;
+    private MonitorCategory monitorCategory;
+    private MonitorType monitorType;
 
-   public InvalidReport(MonitorType monitorType,
-                        MonitorCategory monitorCategory) {
-      super();
-      this.monitorType = monitorType;
-      this.monitorCategory = monitorCategory;
-   }
+    @Deprecated
+    public InvalidReport() {
+        super();
+    }
 
-   @Override
-   public boolean isOK() {
-      return true;
-   }
+    public InvalidReport(MonitorType monitorType,
+                         MonitorCategory monitorCategory) {
+        super();
+        this.monitorType = monitorType;
+        this.monitorCategory = monitorCategory;
+    }
 
-   @Override
-   public String getTitle() {
-      return "State is unknown";
-   }
+    @Override
+    public boolean isOK() {
+        return true;
+    }
 
-   @Override
-   public String getDescription() {
-      return "State is unknown";
-   }
+    @Override
+    public String getTitle() {
+        return "State is unknown";
+    }
 
-   @Override
-   public Map<DetailKey, Object> getDetails() {
-      return Collections.emptyMap();
-   }
+    @Override
+    public String getDescription() {
+        return "State is unknown";
+    }
 
-   @Override
-   public MonitorType getType() {
-      return monitorType;
-   }
+    @Override
+    public Map<DetailKey, Object> getDetails() {
+        return Collections.emptyMap();
+    }
 
-   @Override
-   public MonitorCategory getCategory() {
-      return monitorCategory;
-   }
+    @Override
+    public MonitorType getType() {
+        return monitorType;
+    }
 
-   @Override
-   public String monitorKey() {
-      return getType().name();
-   }
+    @Override
+    public MonitorCategory getCategory() {
+        return monitorCategory;
+    }
+
+    @Override
+    public String monitorKey() {
+        return getType().name();
+    }
 
 }

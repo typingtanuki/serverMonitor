@@ -9,74 +9,79 @@ import java.util.Map;
 import static com.github.typingtanuki.servermonitor.report.ReportUtils.now;
 
 public class PingMonitorReport extends AbstractBoolMonitorReport {
-   private String method;
-   private String cause;
-   private String lastSeen;
+    private String method;
+    private String cause;
+    private String lastSeen;
 
-   public PingMonitorReport(String monitored) {
-      super(monitored);
-   }
+    @Deprecated
+    public PingMonitorReport() {
+        super();
+    }
 
-   @Override
-   public String getTitle() {
-      return "Ping test";
-   }
+    public PingMonitorReport(String monitored) {
+        super(monitored);
+    }
 
-   @Override
-   public String getDescription() {
-      return "Ping to " + monitored;
-   }
+    @Override
+    public String getTitle() {
+        return "Ping test";
+    }
 
-   @Override
-   public Map<DetailKey, Object> getDetails() {
-      Map<DetailKey, Object> out = new LinkedHashMap<>();
-      out.put(DetailKey.SERVER, monitored);
-      if (cause != null) {
-         out.put(DetailKey.CAUSE, cause);
-         out.put(DetailKey.LAST_SEEN, lastSeen);
-      } else {
-         out.put(DetailKey.METHOD, method);
-      }
-      return out;
-   }
+    @Override
+    public String getDescription() {
+        return "Ping to " + monitored;
+    }
 
-   @Override
-   public MonitorType getType() {
-      return MonitorType.ping;
-   }
+    @Override
+    public Map<DetailKey, Object> getDetails() {
+        Map<DetailKey, Object> out = new LinkedHashMap<>();
+        out.put(DetailKey.SERVER, monitored);
+        if (cause != null) {
+            out.put(DetailKey.CAUSE, cause);
+            out.put(DetailKey.LAST_SEEN, lastSeen);
+        } else {
+            out.put(DetailKey.METHOD, method);
+        }
+        return out;
+    }
 
-   @Override
-   public MonitorCategory getCategory() {
-      return MonitorCategory.remote;
-   }
+    @Override
+    public MonitorType getType() {
+        return MonitorType.ping;
+    }
 
-   public String getMethod() {
-      return method;
-   }
+    @Override
+    public MonitorCategory getCategory() {
+        return MonitorCategory.remote;
+    }
 
-   public void setMethod(String method) {
-      this.method = method;
-   }
+    public String getMethod() {
+        return method;
+    }
 
-   public String getCause() {
-      return cause;
-   }
+    public void setMethod(String method) {
+        this.method = method;
+    }
 
-   public void setCause(String cause) {
-      this.cause = cause;
-   }
+    public String getCause() {
+        return cause;
+    }
 
-   public String ok(String method) {
-      this.method = method;
-      this.cause = null;
-      super.ok();
-      return now();
-   }
+    public void setCause(String cause) {
+        this.cause = cause;
+    }
 
-   public void ng(Exception cause, String lastSeen) {
-      this.cause = cause.getMessage();
-      this.lastSeen = lastSeen;
-      super.ng();
-   }
+    public String ok(String method) {
+        this.method = method;
+        this.cause = null;
+        super.ok();
+        return now();
+    }
+
+    public void ng(Exception cause, String lastSeen) {
+        this.cause = cause.getMessage();
+        this.lastSeen = lastSeen;
+        super.ng();
+    }
 
 }

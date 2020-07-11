@@ -3,7 +3,8 @@ import {DetailView} from "../detail-view/detail-view";
 import {
     Detail,
     DetailStatuses,
-    Monitor,MonitorType,
+    Monitor,
+    MonitorType,
     ServerInfo,
     ServerState,
     ServerStates,
@@ -14,34 +15,34 @@ import {
 export class RestClient {
     private readonly server: string;
 
-    private static fetchingState:boolean=false;
-    private static fetchingDetails:boolean=false;
-    private static fetchingSettings:boolean=false;
-    private static savingSettings:boolean=false;
+    public static fetchingState: boolean = false;
+    public static fetchingDetails: boolean = false;
+    public static fetchingSettings: boolean = false;
+    public static savingSettings: boolean = false;
 
     constructor(server: string) {
-        while(server.startsWith("http://")){
-            server=server.split("http://")[1];
+        while (server.startsWith("http://")) {
+            server = server.split("http://")[1];
         }
-        while(server.startsWith("https://")){
-            server=server.split("https://")[1];
+        while (server.startsWith("https://")) {
+            server = server.split("https://")[1];
         }
-        this.server = "http://"+server;
+        this.server = "http://" + server;
     }
 
     public async getServerState(serverList: ServerList): Promise<void> {
-        if(RestClient.fetchingState){
-           return;
+        if (RestClient.fetchingState) {
+            return;
         }
         RestClient.fetchingState = true;
 
-        try{
+        try {
             const response: Response = await fetch(this.server + "/status/cluster");
             const serverState: ServerStates = await response.json();
 
             const cluster: { [id: string]: ServerState } = serverState.clusterStatus;
             let advanced: { [id: string]: SuccessFailureDetail } = serverState.advanced;
-            if (advanced === undefined) {
+            if (advanced === undefined || advanced === null) {
                 advanced = {};
             }
             serverList.serverIPs = serverState.connections;
@@ -53,13 +54,8 @@ export class RestClient {
 
             for (const serverName of serverNames) {
                 const status: ServerState = cluster[serverName];
-                let advancedServer: SuccessFailureDetail = {
-                    success: [],
-                    failure: []
-                };
-                if (advanced.hasOwnProperty(serverName)) {
-                    advancedServer = advanced[serverName];
-                }
+
+                let advancedServer: SuccessFailureDetail | null | undefined = advanced[serverName];
 
                 const monitors: Monitor[] = [];
                 const monitorNames: string[] = Object.keys(status);
@@ -72,11 +68,13 @@ export class RestClient {
                     }
 
                     const allDetails: Detail[] = [];
-                    if (advancedServer.success) {
-                        allDetails.push(...advancedServer.success);
-                    }
-                    if (advancedServer.failure) {
-                        allDetails.push(...advancedServer.failure);
+                    if (advancedServer !== null && advancedServer !== undefined) {
+                        if (advancedServer.success) {
+                            allDetails.push(...advancedServer.success);
+                        }
+                        if (advancedServer.failure) {
+                            allDetails.push(...advancedServer.failure);
+                        }
                     }
 
                     const details: Detail[] = [];
@@ -103,55 +101,56 @@ export class RestClient {
             serverList.servers = servers;
             await serverList.requestUpdate();
             RestClient.fetchingState = false;
-        }catch (e) {
+        } catch (e) {
             RestClient.fetchingState = false;
+            throw e;
         }
     }
 
     public async fetchDetails(detailView: DetailView): Promise<void> {
-        if(RestClient.fetchingDetails){
-           return;
+        if (RestClient.fetchingDetails) {
+            return;
         }
         RestClient.fetchingDetails = true;
 
-        try{
-            const response: Response = await fetch( this.server + "/status")
+        try {
+            const response: Response = await fetch(this.server + "/status")
             const status: DetailStatuses = await response.json();
             detailView.success = status.status.success;
             detailView.failure = status.status.failure;
             await detailView.redraw();
             RestClient.fetchingDetails = false;
-        }catch(e){
+        } catch (e) {
             RestClient.fetchingDetails = false;
             throw e;
         }
     }
 
     public async fetchSettings(detailView: DetailView): Promise<void> {
-        if(RestClient.fetchingSettings){
-           return;
+        if (RestClient.fetchingSettings) {
+            return;
         }
         RestClient.fetchingSettings = true;
 
-        try{
-            const response = await fetch( this.server + "/config");
+        try {
+            const response = await fetch(this.server + "/config");
             detailView.settings = await response.json();
             await detailView.redraw();
             RestClient.savingSettings = false;
-        }catch (e) {
+        } catch (e) {
             RestClient.savingSettings = false;
             throw e;
         }
     }
 
     public async saveSettings(settings: Settings): Promise<void> {
-        if(RestClient.savingSettings){
-           return;
+        if (RestClient.savingSettings) {
+            return;
         }
         RestClient.fetchingSettings = true;
 
-        try{
-            await fetch( this.server + "/config?persist=true", {
+        try {
+            await fetch(this.server + "/config?persist=true", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -159,7 +158,7 @@ export class RestClient {
                 body: JSON.stringify(settings)
             });
             RestClient.savingSettings = false;
-        }catch (e) {
+        } catch (e) {
             RestClient.savingSettings = false;
             throw e;
         }

@@ -8085,7 +8085,7 @@ var RestClient = /*#__PURE__*/function () {
                 cluster = serverState.clusterStatus;
                 advanced = serverState.advanced;
 
-                if (advanced === undefined) {
+                if (advanced === undefined || advanced === null) {
                   advanced = {};
                 }
 
@@ -8097,15 +8097,7 @@ var RestClient = /*#__PURE__*/function () {
                 for (_i = 0, _serverNames = serverNames; _i < _serverNames.length; _i++) {
                   serverName = _serverNames[_i];
                   status = cluster[serverName];
-                  advancedServer = {
-                    success: [],
-                    failure: []
-                  };
-
-                  if (advanced.hasOwnProperty(serverName)) {
-                    advancedServer = advanced[serverName];
-                  }
-
+                  advancedServer = advanced[serverName];
                   monitors = [];
                   monitorNames = Object.keys(status);
                   monitorNames.sort();
@@ -8121,12 +8113,14 @@ var RestClient = /*#__PURE__*/function () {
 
                     allDetails = [];
 
-                    if (advancedServer.success) {
-                      allDetails.push.apply(allDetails, _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(advancedServer.success));
-                    }
+                    if (advancedServer !== null && advancedServer !== undefined) {
+                      if (advancedServer.success) {
+                        allDetails.push.apply(allDetails, _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(advancedServer.success));
+                      }
 
-                    if (advancedServer.failure) {
-                      allDetails.push.apply(allDetails, _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(advancedServer.failure));
+                      if (advancedServer.failure) {
+                        allDetails.push.apply(allDetails, _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1___default()(advancedServer.failure));
+                      }
                     }
 
                     details = [];
@@ -8158,15 +8152,16 @@ var RestClient = /*#__PURE__*/function () {
 
               case 21:
                 RestClient.fetchingState = false;
-                _context.next = 27;
+                _context.next = 28;
                 break;
 
               case 24:
                 _context.prev = 24;
                 _context.t0 = _context["catch"](3);
                 RestClient.fetchingState = false;
+                throw _context.t0;
 
-              case 27:
+              case 28:
               case "end":
                 return _context.stop();
             }
@@ -8566,7 +8561,7 @@ var MonitorType;
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
 exports = ___CSS_LOADER_API_IMPORT___(false);
 // Module
-exports.push([module.i, ":host {\n  padding: 5px;\n  color: #839496;\n  background-color: #073642;\n  text-transform: capitalize;\n  cursor: pointer;\n  transition: background-color 300ms, color 300ms;\n}\n:host(:hover) {\n  background-color: #586e75;\n  color: #002b36;\n}\n:host {\n  vertical-align: top;\n  display: inline-block;\n  width: 200px;\n  min-height: 100px;\n  margin: 10px;\n  position: relative;\n  overflow: hidden;\n}\n:host(.OK) {\n  border: 1px solid;\n  border-left: 3px solid #268bd2;\n  border-color: #268bd2;\n}\n:host(.NG) {\n  border: 1px solid;\n  border-left: 3px solid #cb4b16;\n  border-color: #cb4b16;\n}\n.title {\n  font-size: 20px;\n  font-weight: bolder;\n  color: #93a1a1;\n}\n.monitor.OK {\n  border-left: 3px solid #268bd2;\n  border-color: #268bd2;\n  padding-left: 5px;\n  color: #268bd2;\n}\n.monitor.NG {\n  border-left: 3px solid #cb4b16;\n  border-color: #cb4b16;\n  padding-left: 5px;\n  color: #cb4b16;\n}\n", ""]);
+exports.push([module.i, ":host {\n  padding: 5px;\n  color: #839496;\n  background-color: #073642;\n  text-transform: capitalize;\n  cursor: pointer;\n  transition: background-color 300ms, color 300ms;\n}\n:host(:hover) {\n  background-color: #586e75;\n  color: #002b36;\n}\n:host {\n  vertical-align: top;\n  display: inline-block;\n  width: 200px;\n  min-height: 100px;\n  margin: 10px;\n  position: relative;\n  overflow: hidden;\n}\n:host(.OK) {\n  border: 1px solid;\n  border-left: 3px solid #268bd2;\n  border-color: #268bd2;\n}\n:host(.NG) {\n  border: 1px solid;\n  border-left: 3px solid #cb4b16;\n  border-color: #cb4b16;\n}\n.title {\n  font-size: 20px;\n  font-weight: bolder;\n  color: #93a1a1;\n}\n.monitor.OK {\n  border-left: 3px solid #268bd2;\n  border-color: #268bd2;\n  padding-left: 5px;\n  color: #268bd2;\n}\n.monitor.NG {\n  border-left: 3px solid #cb4b16;\n  border-color: #cb4b16;\n  padding-left: 5px;\n  color: #cb4b16;\n}\n.shakebox {\n  display: block;\n  width: 100%;\n  padding-left: 5px;\n}\n.shake {\n  display: inline-block;\n  width: 15px;\n  height: 15px;\n  margin-right: 2px;\n  border-radius: 3px;\n}\n.shake.OK {\n  background-color: #268bd2;\n}\n.shake.NG {\n  background-color: #cb4b16;\n}\n", ""]);
 // Exports
 module.exports = exports;
 
@@ -8624,8 +8619,28 @@ __webpack_require__.r(__webpack_exports__);
 
 var _dec, _class, _temp;
 
-function _templateObject5() {
+function _templateObject7() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2___default()(["<div class=\"shake ", "\" title=\"", "\"></div>"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
   var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2___default()(["<progress-bar type=\"", "\" min=\"0\" max=\"100\" current='", "' warn='", "' label=\"", "\"></progress-bar>"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2___default()(["<div class=\"monitor ", "\">", "", "</div>"]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -8635,7 +8650,7 @@ function _templateObject5() {
 }
 
 function _templateObject4() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2___default()(["<div class=\"monitor ", "\">", "", "</div>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_2___default()(["<div class=\"shakebox\">", "</div>"]);
 
   _templateObject4 = function _templateObject4() {
     return data;
@@ -8846,10 +8861,17 @@ var ServerEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
             advanced = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject3(), monitor.advanced.map(function (detail) {
               return ServerEntry.formatDetails(monitor.name, detail);
             }));
+            break;
+
+          case _rest_types__WEBPACK_IMPORTED_MODULE_13__["MonitorType"].handshake:
+            advanced = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject4(), monitor.advanced.map(function (detail) {
+              return ServerEntry.formatHandshake(detail);
+            }));
+            break;
         }
       }
 
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject4(), monitor.state ? 'OK' : 'NG', monitor.name, advanced);
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject5(), monitor.state ? 'OK' : 'NG', monitor.name, advanced);
     }
   }, {
     key: "formatDetails",
@@ -8863,7 +8885,14 @@ var ServerEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
         label = sub[_rest_types__WEBPACK_IMPORTED_MODULE_13__["ReportConstants"].DISK];
       }
 
-      if (details) return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject5(), type, current, warn, label);
+      if (details) {
+        return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject6(), type, current, warn, label);
+      }
+    }
+  }, {
+    key: "formatHandshake",
+    value: function formatHandshake(details) {
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject7(), details["ok"] ? "OK" : "NG", details["description"]);
     }
   }]);
 

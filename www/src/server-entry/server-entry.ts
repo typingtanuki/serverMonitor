@@ -1,11 +1,4 @@
-import {
-    CSSResult,
-    customElement,
-    html,
-    LitElement,
-    TemplateResult,
-    unsafeCSS
-} from 'lit-element';
+import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
 import entryStyle from "./server-entry.less";
 import {Detail, Monitor, MonitorType, ReportConstants, ServerInfo} from "../rest/types";
 import {ProgressBar} from "../progress-bar/progress-bar";
@@ -87,6 +80,11 @@ ${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
                         html`${monitor.advanced.map(detail => ServerEntry.formatDetails(
                             monitor.name,
                             detail))}`;
+                    break
+                case MonitorType.handshake:
+                    advanced =
+                        html`<div class="shakebox">${monitor.advanced.map(detail => ServerEntry.formatHandshake(detail))}</div>`;
+                    break;
             }
         }
 
@@ -103,8 +101,13 @@ ${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
         if (sub.hasOwnProperty(ReportConstants.DISK)) {
             label = sub[ReportConstants.DISK];
         }
-        if (details)
+        if (details) {
             return html`<progress-bar type="${type}" min="0" max="100" current='${current}' warn='${warn}' label="${label}"></progress-bar>`;
+        }
+    }
+
+    private static formatHandshake(details: Detail): TemplateResult {
+        return html`<div class="shake ${details["ok"] ? "OK" : "NG"}" title="${details["description"]}"></div>`;
     }
 
     private clicked(): void {

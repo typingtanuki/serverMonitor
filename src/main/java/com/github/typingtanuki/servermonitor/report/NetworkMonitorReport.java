@@ -11,62 +11,67 @@ import static com.github.typingtanuki.servermonitor.report.ReportUtils.bytesToHu
 import static com.github.typingtanuki.servermonitor.report.ReportUtils.millisToHuman;
 
 public class NetworkMonitorReport implements MonitorReport {
-   private final long recv;
-   private final long sent;
-   private final History historyRecv;
-   private final History historySent;
-   private final long monitorTime;
+    private long recv;
+    private long sent;
+    private History historyRecv;
+    private History historySent;
+    private long monitorTime;
 
-   public NetworkMonitorReport(long recv,
-                               long sent,
-                               History historyRecv,
-                               History historySent,
-                               long monitorTime) {
-      this.recv = recv;
-      this.sent = sent;
-      this.historyRecv = historyRecv;
-      this.historySent = historySent;
-      this.monitorTime = monitorTime;
-   }
+    @Deprecated
+    public NetworkMonitorReport() {
+        super();
+    }
 
-   @Override
-   public boolean isOK() {
-      return true;
-   }
+    public NetworkMonitorReport(long recv,
+                                long sent,
+                                History historyRecv,
+                                History historySent,
+                                long monitorTime) {
+        this.recv = recv;
+        this.sent = sent;
+        this.historyRecv = historyRecv;
+        this.historySent = historySent;
+        this.monitorTime = monitorTime;
+    }
 
-   @Override
-   public String getTitle() {
-      return "Network Monitor";
-   }
+    @Override
+    public boolean isOK() {
+        return true;
+    }
 
-   @Override
-   public String getDescription() {
-      return "Traffic through all interfaces";
-   }
+    @Override
+    public String getTitle() {
+        return "Network Monitor";
+    }
 
-   @Override
-   public Map<DetailKey, Object> getDetails() {
-      Map<DetailKey, Object> out = new LinkedHashMap<>();
-      out.put(DetailKey.BYTES_RECEIVED, bytesToHuman(recv));
-      out.put(DetailKey.BYTES_SENT, bytesToHuman(sent));
-      out.put(DetailKey.INTERVAL, millisToHuman(monitorTime));
-      out.put(DetailKey.HISTORY_RECEIVED, historyRecv);
-      out.put(DetailKey.HISTORY_SENT, historySent);
-      return out;
-   }
+    @Override
+    public String getDescription() {
+        return "Traffic through all interfaces";
+    }
 
-   @Override
-   public MonitorType getType() {
-      return MonitorType.network;
-   }
+    @Override
+    public Map<DetailKey, Object> getDetails() {
+        Map<DetailKey, Object> out = new LinkedHashMap<>();
+        out.put(DetailKey.BYTES_RECEIVED, bytesToHuman(recv));
+        out.put(DetailKey.BYTES_SENT, bytesToHuman(sent));
+        out.put(DetailKey.INTERVAL, millisToHuman(monitorTime));
+        out.put(DetailKey.HISTORY_RECEIVED, historyRecv);
+        out.put(DetailKey.HISTORY_SENT, historySent);
+        return out;
+    }
 
-   @Override
-   public MonitorCategory getCategory() {
-      return MonitorCategory.system;
-   }
+    @Override
+    public MonitorType getType() {
+        return MonitorType.network;
+    }
 
-   @Override
-   public String monitorKey() {
-      return getType().name();
-   }
+    @Override
+    public MonitorCategory getCategory() {
+        return MonitorCategory.system;
+    }
+
+    @Override
+    public String monitorKey() {
+        return getType().name();
+    }
 }

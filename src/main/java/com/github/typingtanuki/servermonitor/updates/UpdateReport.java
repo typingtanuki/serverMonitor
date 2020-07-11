@@ -5,49 +5,55 @@ import com.github.typingtanuki.servermonitor.monitors.MonitorType;
 import com.github.typingtanuki.servermonitor.report.AbstractBoolMonitorReport;
 import com.github.typingtanuki.servermonitor.report.DetailKey;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class UpdateReport extends AbstractBoolMonitorReport {
-   private final Map<String, String> updates;
+    private Map<String, String> updates = Collections.emptyMap();
 
-   public UpdateReport(Map<String, String> updates) {
-      super("Updates");
-      if (updates.isEmpty()) {
-         ok();
-      } else {
-         ng();
-      }
-      this.updates = updates;
-   }
+    @Deprecated
+    public UpdateReport() {
+        super();
+    }
 
-   @Override
-   public String getTitle() {
-      return "System updates";
-   }
+    public UpdateReport(Map<String, String> updates) {
+        super("Updates");
+        if (updates.isEmpty()) {
+            ok();
+        } else {
+            ng();
+        }
+        this.updates = updates;
+    }
 
-   @Override
-   public String getDescription() {
-      return "There are " + updates.size() + " updates available.";
-   }
+    @Override
+    public String getTitle() {
+        return "System updates";
+    }
 
-   @Override
-   public Map<DetailKey, Object> getDetails() {
-      Map<DetailKey, Object> details = new LinkedHashMap<>();
-      details.put(DetailKey.UPDATES, updates);
-      if (!updates.isEmpty()) {
-         details.put(DetailKey.ACTION_UPDATE, true);
-      }
-      return details;
-   }
+    @Override
+    public String getDescription() {
+        return "There are " + updates.size() + " updates available.";
+    }
 
-   @Override
-   public MonitorType getType() {
-      return MonitorType.update;
-   }
+    @Override
+    public Map<DetailKey, Object> getDetails() {
+        Map<DetailKey, Object> details = new LinkedHashMap<>();
+        details.put(DetailKey.UPDATES, updates);
+        if (!updates.isEmpty()) {
+            details.put(DetailKey.ACTION_UPDATE, true);
+        }
+        return details;
+    }
 
-   @Override
-   public MonitorCategory getCategory() {
-      return MonitorCategory.system;
-   }
+    @Override
+    public MonitorType getType() {
+        return MonitorType.update;
+    }
+
+    @Override
+    public MonitorCategory getCategory() {
+        return MonitorCategory.system;
+    }
 }

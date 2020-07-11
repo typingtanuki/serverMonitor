@@ -1,42 +1,47 @@
 package com.github.typingtanuki.servermonitor.report;
 
 public abstract class AbstractPercentMonitorReport implements MonitorReport {
-   protected final long free;
-   protected final long total;
-   protected final int maxUsage;
-   protected final long usage;
+    protected long free;
+    protected long total;
+    protected int maxUsage;
+    protected long usage;
 
-   public AbstractPercentMonitorReport(long free, long total, int maxUsage) {
-      super();
+    @Deprecated
+    public AbstractPercentMonitorReport() {
+        super();
+    }
 
-      this.free = free;
-      this.total = total;
-      this.maxUsage = maxUsage;
+    public AbstractPercentMonitorReport(long free, long total, int maxUsage) {
+        super();
 
-      this.usage = usage(free, total);
-   }
+        this.free = free;
+        this.total = total;
+        this.maxUsage = maxUsage;
 
-   public AbstractPercentMonitorReport(long usage, int maxUsage) {
-      super();
+        this.usage = usage(free, total);
+    }
 
-      this.free = -1;
-      this.total = -1;
+    public AbstractPercentMonitorReport(long usage, int maxUsage) {
+        super();
 
-      this.usage = usage;
-      this.maxUsage = maxUsage;
-   }
+        this.free = -1;
+        this.total = -1;
 
-   public static long usage(long free, long total) {
-      return 100 - free * 100 / total;
-   }
+        this.usage = usage;
+        this.maxUsage = maxUsage;
+    }
 
-   @Override
-   public boolean isOK() {
-      return usage < maxUsage;
-   }
+    public static long usage(long free, long total) {
+        return 100 - free * 100 / total;
+    }
 
-   @Override
-   public String monitorKey() {
-      return getType().name();
-   }
+    @Override
+    public boolean isOK() {
+        return usage < maxUsage;
+    }
+
+    @Override
+    public String monitorKey() {
+        return getType().name();
+    }
 }

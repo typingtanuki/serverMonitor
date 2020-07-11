@@ -8,45 +8,50 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class CpuMonitorReport extends AbstractPercentMonitorReport {
-   private final History history;
-   private final Map<String, String> topProcesses;
+    private History history;
+    private Map<String, String> topProcesses;
 
-   public CpuMonitorReport(long load,
-                           History history,
-                           int maxUsage,
-                           Map<String, String> topProcesses) {
-      super(load, maxUsage);
-      this.history = history;
-      this.topProcesses = new LinkedHashMap<>(topProcesses);
-   }
+    @Deprecated
+    public CpuMonitorReport() {
+        super();
+    }
 
-   @Override
-   public String getTitle() {
-      return "CPU usage";
-   }
+    public CpuMonitorReport(long load,
+                            History history,
+                            int maxUsage,
+                            Map<String, String> topProcesses) {
+        super(load, maxUsage);
+        this.history = history;
+        this.topProcesses = new LinkedHashMap<>(topProcesses);
+    }
 
-   @Override
-   public String getDescription() {
-      return "CPU usage " + usage + "% (Maximum allowed " + maxUsage + "%)";
-   }
+    @Override
+    public String getTitle() {
+        return "CPU usage";
+    }
 
-   @Override
-   public Map<DetailKey, Object> getDetails() {
-      Map<DetailKey, Object> out = new LinkedHashMap<>();
-      out.put(DetailKey.USAGE_CURRENT, usage + "%");
-      out.put(DetailKey.USAGE_MAX, maxUsage + "%");
-      out.put(DetailKey.HISTORY, history);
-      out.put(DetailKey.TOP, topProcesses);
-      return out;
-   }
+    @Override
+    public String getDescription() {
+        return "CPU usage " + usage + "% (Maximum allowed " + maxUsage + "%)";
+    }
 
-   @Override
-   public MonitorType getType() {
-      return MonitorType.cpu;
-   }
+    @Override
+    public Map<DetailKey, Object> getDetails() {
+        Map<DetailKey, Object> out = new LinkedHashMap<>();
+        out.put(DetailKey.USAGE_CURRENT, usage + "%");
+        out.put(DetailKey.USAGE_MAX, maxUsage + "%");
+        out.put(DetailKey.HISTORY, history);
+        out.put(DetailKey.TOP, topProcesses);
+        return out;
+    }
 
-   @Override
-   public MonitorCategory getCategory() {
-      return MonitorCategory.system;
-   }
+    @Override
+    public MonitorType getType() {
+        return MonitorType.cpu;
+    }
+
+    @Override
+    public MonitorCategory getCategory() {
+        return MonitorCategory.system;
+    }
 }
