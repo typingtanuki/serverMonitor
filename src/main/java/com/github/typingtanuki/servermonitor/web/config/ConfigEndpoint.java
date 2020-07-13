@@ -19,59 +19,59 @@ import java.nio.file.Files;
  */
 @Path("/config")
 public class ConfigEndpoint {
-   @GET
-   @Produces(MediaType.APPLICATION_JSON)
-   public MainConfig fetchSettings() {
-      ServerMonitor monitor = MonitorMain.monitor;
-      return monitor.currentConfig();
-   }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public MainConfig fetchSettings() {
+        ServerMonitor monitor = MonitorMain.monitor;
+        return monitor.currentConfig();
+    }
 
-   @POST
-   @Consumes(MediaType.APPLICATION_JSON)
-   @Produces(MediaType.APPLICATION_JSON)
-   public MainConfig updateSettings(@QueryParam("persist") boolean persist,
-                                    MainConfig newConfig) throws IOException {
-      ServerMonitor monitor = MonitorMain.monitor;
-      return monitor.updateConfig(newConfig, persist);
-   }
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public MainConfig updateSettings(@QueryParam("persist") boolean persist,
+                                     MainConfig newConfig) throws IOException {
+        ServerMonitor monitor = MonitorMain.monitor;
+        return monitor.updateConfig(newConfig, persist);
+    }
 
-   @POST
-   @Path("/doUpdate")
-   @Produces(MediaType.TEXT_PLAIN)
-   public String doUpdate() {
-      return MonitorMain.monitor.doUpdate();
-   }
+    @POST
+    @Path("/doUpdate")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String doUpdate() {
+        return MonitorMain.monitor.doUpdate();
+    }
 
-   @POST
-   @Path("/updateMonitor")
-   @Consumes(MediaType.MULTIPART_FORM_DATA)
-   @Produces(MediaType.APPLICATION_JSON)
-   public void updateMonitor(
-         @FormDataParam("zip") InputStream zipInputStream,
-         @FormDataParam("cert") InputStream certInputStream) throws IOException {
-      java.nio.file.Path uploadedZip = Files.createTempFile("monitorUpdate", ".zip");
-      java.nio.file.Path uploadedCert = Files.createTempFile("monitorUpdate", ".cert");
+    @POST
+    @Path("/updateMonitor")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public void updateMonitor(
+            @FormDataParam("zip") InputStream zipInputStream,
+            @FormDataParam("cert") InputStream certInputStream) throws IOException {
+        java.nio.file.Path uploadedZip = Files.createTempFile("monitorUpdate", ".zip");
+        java.nio.file.Path uploadedCert = Files.createTempFile("monitorUpdate", ".cert");
 
-      download(zipInputStream, uploadedZip);
-      download(certInputStream, uploadedCert);
+        download(zipInputStream, uploadedZip);
+        download(certInputStream, uploadedCert);
 
-      ServerMonitor monitor = MonitorMain.monitor;
-      monitor.updateMonitor(uploadedZip, uploadedCert);
-   }
+        ServerMonitor monitor = MonitorMain.monitor;
+        monitor.updateMonitor(uploadedZip, uploadedCert);
+    }
 
-   private void download(InputStream inputStream,
-                         java.nio.file.Path target) {
-      int read = 0;
-      byte[] bytes = new byte[1024];
+    private void download(InputStream inputStream,
+                          java.nio.file.Path target) {
+        int read = 0;
+        byte[] bytes = new byte[1024];
 
-      try (OutputStream out = new FileOutputStream(target.toFile())) {
-         while ((read = inputStream.read(bytes)) != -1) {
-            out.write(bytes, 0, read);
-         }
-         out.flush();
-      } catch (IOException e) {
-         throw new WebApplicationException(
-               "Error while uploading file. Please try again !!");
-      }
-   }
+        try (OutputStream out = new FileOutputStream(target.toFile())) {
+            while ((read = inputStream.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            out.flush();
+        } catch (IOException e) {
+            throw new WebApplicationException(
+                    "Error while uploading file. Please try again !!");
+        }
+    }
 }

@@ -175,7 +175,7 @@ export class RestClient {
             await fetch(this.server + "/config/updateMonitor", {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Accept': 'application/json'
                 },
                 body: formData
             });
