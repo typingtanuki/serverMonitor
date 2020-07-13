@@ -7,6 +7,7 @@ export function detailViewTemplate(element: DetailView): TemplateResult {
     <div id="server">${element.server.name}</div>
     <div id="response">
         <settings-button label="Edit Settings" @click="${element.showSettings}"></settings-button>
+        <settings-button label="Update Monitor" @click="${element.showUpdateMonitor}"></settings-button>
         <report-list class="failure" .reports="${element.failure}"></report-list>
         <report-list class="success" .reports="${element.success}"></report-list>
     </div>`;
@@ -72,4 +73,14 @@ export function settingsViewTemplate(element: DetailView): TemplateResult {
         ${formCheckbox("Enabled", element.settings, "updates.enabled")}
     </table></div>
         <settings-button label="Save Settings" @click="${element.saveSettings}"></settings-button>`;
+}
+
+export function uploadViewTemplate(element: DetailView): TemplateResult {
+    return html`
+    <div id="server">${element.server.name}</div>
+    <div id="response"><form id="uploadForm"><table class="settings">
+        <tr><th>ZIP file</th><td><input type="file" id="zip"/></td></tr>
+        <tr><th>Cert file</th><td><input type="file" id="cert"/></td></tr>
+    </table></form></div>
+    <settings-button label="Upload" @click="${element.uploadBundle}"></settings-button>`;
 }

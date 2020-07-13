@@ -9,7 +9,11 @@ import {
 import listStyle from "./detail-view.less";
 import {RestClient} from "../rest/rest-client";
 import {ReportList} from "../report-list/report-list";
-import {detailViewTemplate, settingsViewTemplate} from "./detail-view.template";
+import {
+    detailViewTemplate,
+    settingsViewTemplate,
+    uploadViewTemplate
+} from "./detail-view.template";
 import {SettingsButton} from "../settings-button/settings-button";
 import {buildForm} from "./form-manager";
 import {Report, ServerInfo, Settings} from "../rest/types";
@@ -32,6 +36,7 @@ export class DetailView extends LitElement {
             success: {type: Array},
             failure: {type: Array},
             settingsMode: {type: Boolean},
+            uploadMode: {type: Boolean},
             settings: {type: Object}
         };
     }
@@ -41,6 +46,7 @@ export class DetailView extends LitElement {
     public success: Report[] = [];
     public failure: Report[] = [];
     public settingsMode: boolean = false;
+    public uploadMode: boolean = false;
     public settings: Settings = <any>{};
 
     constructor() {
@@ -53,6 +59,9 @@ export class DetailView extends LitElement {
         }
         if (this.settingsMode) {
             return settingsViewTemplate(this);
+        }
+        if (this.uploadMode) {
+            return uploadViewTemplate(this);
         }
         return detailViewTemplate(this);
     }
@@ -97,9 +106,25 @@ export class DetailView extends LitElement {
             });
     }
 
+    public showUpdateMonitor(): void {
+        this.uploadMode = true;
+    }
+
     public saveSettings(): void {
         buildForm(this.shadowRoot.querySelector(".settings"));
         this.client.saveSettings(this.settings)
+            .catch(function (error: string | Error) {
+                window.core.showError(error);
+            });
+    }
+
+    public uploadBundle(): void {
+        const formData: FormData = new FormData();
+        formData.append("zip",
+            (<HTMLInputElement>this.shadowRoot.querySelector("#zip")).files[0]);
+        formData.append("cert",
+            (<HTMLInputElement>this.shadowRoot.querySelector("#cert")).files[0]);
+        this.client.uploadBundle(formData)
             .catch(function (error: string | Error) {
                 window.core.showError(error);
             });

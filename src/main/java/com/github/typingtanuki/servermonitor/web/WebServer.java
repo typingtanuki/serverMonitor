@@ -13,6 +13,7 @@ import org.glassfish.jersey.CommonProperties;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import org.glassfish.jersey.jetty.JettyHttpContainerProvider;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.servlet.ServletContainer;
@@ -35,6 +36,7 @@ public class WebServer extends Thread {
       ResourceConfig config = new ResourceConfig();
       config.register(new CORSFilter());
       config.register(JacksonFeature.class);
+      config.register(MultiPartFeature.class);
       config.register(JettyHttpContainerProvider.class);
       config.property(ServerProperties.BV_FEATURE_DISABLE, Boolean.TRUE);
       config.property(CommonProperties.FEATURE_AUTO_DISCOVERY_DISABLE, Boolean.TRUE);

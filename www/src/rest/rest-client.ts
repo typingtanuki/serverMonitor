@@ -19,6 +19,7 @@ export class RestClient {
     public static fetchingDetails: boolean = false;
     public static fetchingSettings: boolean = false;
     public static savingSettings: boolean = false;
+    public static uploadingBundle: boolean = false;
 
     constructor(server: string) {
         while (server.startsWith("http://")) {
@@ -160,6 +161,27 @@ export class RestClient {
             RestClient.savingSettings = false;
         } catch (e) {
             RestClient.savingSettings = false;
+            throw e;
+        }
+    }
+
+    public async uploadBundle(formData:FormData): Promise<void>{
+        if (RestClient.uploadingBundle) {
+            return;
+        }
+        RestClient.uploadingBundle = true;
+
+        try {
+            await fetch(this.server + "/config/updateMonitor", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                body: formData
+            });
+            RestClient.uploadingBundle = false;
+        } catch (e) {
+            RestClient.uploadingBundle = false;
             throw e;
         }
     }

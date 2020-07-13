@@ -32,6 +32,7 @@ dependencies {
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: versions.jersey
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-jetty-http', version: versions.jersey
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: versions.jersey
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-multipart', version: versions.jersey
     compile group: 'org.eclipse.jetty', name: 'jetty-server', version: versions.jetty
     compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: versions.jetty
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: versions.jaxb
@@ -64,6 +65,7 @@ task tmpPack(type: Copy, dependsOn: ['jar']) {
     into('conf') {
         from("${project(':').projectDir}/conf")
         exclude("monitor.json")
+        exclude("key.pri")
     }
     into('www/dist') {
         from("${project(':').projectDir}/www/dist")

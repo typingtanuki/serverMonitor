@@ -5576,18 +5576,29 @@ module.exports = exports;
 /*!*************************************************!*\
   !*** ./src/detail-view/detail-view.template.ts ***!
   \*************************************************/
-/*! exports provided: detailViewTemplate, settingsViewTemplate */
+/*! exports provided: detailViewTemplate, settingsViewTemplate, uploadViewTemplate */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "detailViewTemplate", function() { return detailViewTemplate; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "settingsViewTemplate", function() { return settingsViewTemplate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uploadViewTemplate", function() { return uploadViewTemplate; });
 /* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/taggedTemplateLiteral */ "./node_modules/@babel/runtime/helpers/taggedTemplateLiteral.js");
 /* harmony import */ var _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var lit_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lit-element */ "./node_modules/lit-element/lit-element.js");
 /* harmony import */ var _form_manager__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form-manager */ "./src/detail-view/form-manager.ts");
 
+
+function _templateObject3() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <div id=\"server\">", "</div>\n    <div id=\"response\"><form id=\"uploadForm\"><table class=\"settings\">\n        <tr><th>ZIP file</th><td><input type=\"file\" id=\"zip\"/></td></tr>\n        <tr><th>Cert file</th><td><input type=\"file\" id=\"cert\"/></td></tr>\n    </table></form></div>\n    <settings-button label=\"Upload\" @click=\"", "\"></settings-button>"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
 
 function _templateObject2() {
   var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <div id=\"server\">", "</div>\n    <div id=\"response\"><table class=\"settings\">\n        ", "\n        ", "\n        ", "\n        ", "\n        ", "\n        ", "\n        \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n        ", "\n        ", "\n    \n        ", "\n        ", "\n    </table></div>\n        <settings-button label=\"Save Settings\" @click=\"", "\"></settings-button>"]);
@@ -5600,7 +5611,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <div id=\"server\">", "</div>\n    <div id=\"response\">\n        <settings-button label=\"Edit Settings\" @click=\"", "\"></settings-button>\n        <report-list class=\"failure\" .reports=\"", "\"></report-list>\n        <report-list class=\"success\" .reports=\"", "\"></report-list>\n    </div>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n    <div id=\"server\">", "</div>\n    <div id=\"response\">\n        <settings-button label=\"Edit Settings\" @click=\"", "\"></settings-button>\n        <settings-button label=\"Update Monitor\" @click=\"", "\"></settings-button>\n        <report-list class=\"failure\" .reports=\"", "\"></report-list>\n        <report-list class=\"success\" .reports=\"", "\"></report-list>\n    </div>"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -5612,10 +5623,13 @@ function _templateObject() {
 
 
 function detailViewTemplate(element) {
-  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject(), element.server.name, element.showSettings, element.failure, element.success);
+  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject(), element.server.name, element.showSettings, element.showUpdateMonitor, element.failure, element.success);
 }
 function settingsViewTemplate(element) {
   return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject2(), element.server.name, Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Global"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Name", element.settings, "identity", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].string), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Monitor time", element.settings, "monitorTime", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Debounce time", element.settings, "debounceTime", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("API port", element.settings, "port", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].string), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Teams Hook", element.settings, "teamsHook", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].string), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("CPU"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "cpu.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Warn Level", element.settings, "cpu.maxUsage", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("History Size", element.settings, "cpu.historySize", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Memory"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "memory.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Warn Level", element.settings, "memory.maxUsage", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("History Size", element.settings, "memory.historySize", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Network"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "network.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("History Size", element.settings, "network.historySize", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Disks"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "disk.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Warn Level", element.settings, "disk.maxUsage", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Disks", element.settings, "disk.mounts", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Process"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "process.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Processes", element.settings, "process.monitoring", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("History Size", element.settings, "process.historySize", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Ping"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "ping.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Servers", element.settings, "ping.monitoring", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("Handshake"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "handshake.enabled"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Servers", element.settings, "handshake.monitoring", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].array), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formText"])("Timeout", element.settings, "handshake.maxHandshakeTime", _form_manager__WEBPACK_IMPORTED_MODULE_2__["DataType"].number), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formSection"])("System Updates"), Object(_form_manager__WEBPACK_IMPORTED_MODULE_2__["formCheckbox"])("Enabled", element.settings, "updates.enabled"), element.saveSettings);
+}
+function uploadViewTemplate(element) {
+  return Object(lit_element__WEBPACK_IMPORTED_MODULE_1__["html"])(_templateObject3(), element.server.name, element.uploadBundle);
 }
 
 /***/ }),
@@ -5724,6 +5738,9 @@ var DetailView = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["custo
         settingsMode: {
           type: Boolean
         },
+        uploadMode: {
+          type: Boolean
+        },
         settings: {
           type: Object
         }
@@ -5751,6 +5768,8 @@ var DetailView = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["custo
 
     _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "settingsMode", false);
 
+    _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "uploadMode", false);
+
     _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_9___default()(_babel_runtime_helpers_assertThisInitialized__WEBPACK_IMPORTED_MODULE_4___default()(_this), "settings", {});
 
     return _this;
@@ -5765,6 +5784,10 @@ var DetailView = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["custo
 
       if (this.settingsMode) {
         return Object(_detail_view_template__WEBPACK_IMPORTED_MODULE_13__["settingsViewTemplate"])(this);
+      }
+
+      if (this.uploadMode) {
+        return Object(_detail_view_template__WEBPACK_IMPORTED_MODULE_13__["uploadViewTemplate"])(this);
       }
 
       return Object(_detail_view_template__WEBPACK_IMPORTED_MODULE_13__["detailViewTemplate"])(this);
@@ -5832,10 +5855,25 @@ var DetailView = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["custo
       });
     }
   }, {
+    key: "showUpdateMonitor",
+    value: function showUpdateMonitor() {
+      this.uploadMode = true;
+    }
+  }, {
     key: "saveSettings",
     value: function saveSettings() {
       Object(_form_manager__WEBPACK_IMPORTED_MODULE_15__["buildForm"])(this.shadowRoot.querySelector(".settings"));
       this.client.saveSettings(this.settings)["catch"](function (error) {
+        window.core.showError(error);
+      });
+    }
+  }, {
+    key: "uploadBundle",
+    value: function uploadBundle() {
+      var formData = new FormData();
+      formData.append("zip", this.shadowRoot.querySelector("#zip").files[0]);
+      formData.append("cert", this.shadowRoot.querySelector("#cert").files[0]);
+      this.client.uploadBundle(formData)["catch"](function (error) {
         window.core.showError(error);
       });
     }
@@ -8343,6 +8381,58 @@ var RestClient = /*#__PURE__*/function () {
 
       return saveSettings;
     }()
+  }, {
+    key: "uploadBundle",
+    value: function () {
+      var _uploadBundle = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_2___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(formData) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                if (!RestClient.uploadingBundle) {
+                  _context5.next = 2;
+                  break;
+                }
+
+                return _context5.abrupt("return");
+
+              case 2:
+                RestClient.uploadingBundle = true;
+                _context5.prev = 3;
+                _context5.next = 6;
+                return fetch(this.server + "/config/updateMonitor", {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  },
+                  body: formData
+                });
+
+              case 6:
+                RestClient.uploadingBundle = false;
+                _context5.next = 13;
+                break;
+
+              case 9:
+                _context5.prev = 9;
+                _context5.t0 = _context5["catch"](3);
+                RestClient.uploadingBundle = false;
+                throw _context5.t0;
+
+              case 13:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5, this, [[3, 9]]);
+      }));
+
+      function uploadBundle(_x5) {
+        return _uploadBundle.apply(this, arguments);
+      }
+
+      return uploadBundle;
+    }()
   }]);
 
   return RestClient;
@@ -8355,6 +8445,8 @@ _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(Res
 _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(RestClient, "fetchingSettings", false);
 
 _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(RestClient, "savingSettings", false);
+
+_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_5___default()(RestClient, "uploadingBundle", false);
 
 /***/ }),
 
