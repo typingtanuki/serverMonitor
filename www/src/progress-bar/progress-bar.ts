@@ -1,7 +1,6 @@
 import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
 import progressStyle from "./progress-bar.less";
-import {MonitorType} from "../rest/types";
-import {iconForType, IconType} from "../icon-svg/icon-svg";
+import {iconForType, MonitorType} from "../rest/types";
 
 @customElement('progress-bar')
 export class ProgressBar extends LitElement {
@@ -36,12 +35,11 @@ export class ProgressBar extends LitElement {
     public render(): TemplateResult {
         const percent: number = Math.ceil(this.current - this.min / this.max - this.min);
         const warn: boolean = percent > this.warn;
-        const icon: IconType = iconForType(this.type);
         return html`
 <div class="core ${this.label && this.label.length > 0 ?
             "labelled" :
             ""}" title="${percent}% ${this.label}">
-    <icon-svg icon="${icon}"></icon-svg>
+    <icon-svg .icon="${iconForType(this.type)}"></icon-svg>
     <div class="label" title="${this.label}">${this.label}</div>
     <div class="body ${warn ? "warn" : ""}">
         <div class="cursor" style="right:${100 - percent}%"></div>

@@ -1,12 +1,6 @@
-import {
-    CSSResult,
-    customElement,
-    html,
-    LitElement,
-    TemplateResult,
-    unsafeCSS
-} from 'lit-element';
+import {CSSResult, customElement, html, LitElement, property, TemplateResult, unsafeCSS} from 'lit-element';
 import progressStyle from "./collapse-view.less";
+import {icon, Icon, iconCollapse} from "../icon-svg/icons";
 
 @customElement('collapse-view')
 export class CollapseView extends LitElement {
@@ -15,23 +9,29 @@ export class CollapseView extends LitElement {
         return unsafeCSS(progressStyle);
     }
 
-    static get properties() {
-        return {
-            title: {type: String}
-        };
-    }
-
-    public title: string = "";
-    public collapsed: boolean = true;
+    @property({type: String})
+    public title: string;
+    @property({type: Boolean})
+    public collapsed: boolean;
+    @property({type: Object})
+    private iconCollapse: Icon = icon(iconCollapse);
 
     constructor() {
         super();
+
+        this.title = "";
+        this.collapsed = true;
     }
 
     public render(): TemplateResult {
         return html`
-<div class="title" @click="${this.toggle}"><icon-svg icon="eye"></icon-svg>${this.title}</div>
-<div class="body ${this.collapsed ? 'collapsed' : 'visible'}"><slot></slot></div>`;
+<div class="title" @click="${this.toggle}"><icon-svg .icon="${this.iconCollapse}"></icon-svg>${this.title}</div>
+<div class="body" ?collapsed=${this.collapsed}><slot></slot></div>`;
+    }
+
+    public attributeChangedCallback(name: string, oldVal: any, newVal: any): void {
+        console.log('attribute change: ', name, newVal);
+        super.attributeChangedCallback(name, oldVal, newVal);
     }
 
     public toggle(): void {

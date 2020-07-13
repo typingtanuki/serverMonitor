@@ -1,8 +1,7 @@
 import {CSSResult, customElement, html, LitElement, property, TemplateResult, unsafeCSS} from 'lit-element';
 import reportStyle from "./report-list.less";
 import {ReportEntry} from "../report-entry/report-entry";
-import {MonitorType, Report} from "../rest/types";
-import {iconForType} from "../icon-svg/icon-svg";
+import {iconForType, MonitorType, Report} from "../rest/types";
 
 @customElement('report-list')
 export class ReportList extends LitElement {
@@ -32,7 +31,7 @@ export class ReportList extends LitElement {
     private formatHeader(report: Report): TemplateResult {
         if (this.lastType !== report.type) {
             this.lastType = report.type;
-            return html`<div class="header"><icon-svg icon="${iconForType(report.type)}"></icon-svg>${report.type}</div>`;
+            return html`<div class="header"><icon-svg .icon="${iconForType(report.type)}"></icon-svg>${report.type}</div>`;
         }
         return html``;
     }

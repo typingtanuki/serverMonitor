@@ -1,3 +1,17 @@
+import {
+    icon,
+    Icon,
+    iconCollapse,
+    iconCpu,
+    iconDisk,
+    iconHandshake,
+    iconMemory,
+    iconNetwork,
+    iconPing,
+    iconProcess,
+    iconUpdates
+} from "../icon-svg/icons";
+
 export class ReportConstants {
     public static get SERVER(): string {
         return "Server";
@@ -238,4 +252,42 @@ export interface Settings {
     handshake: SettingsHandShake;
     updates: SettingUpdate;
     network: SettingsNetwork;
+}
+
+
+export function iconForType(type: MonitorType): Icon {
+    let svg: string | null = null;
+    switch (type) {
+        case MonitorType.cpu:
+            svg = iconCpu;
+            break;
+        case MonitorType.disk:
+            svg = iconDisk;
+            break;
+        case MonitorType.memory:
+            svg = iconMemory;
+            break;
+        case MonitorType.handshake:
+            svg = iconHandshake;
+            break;
+        case MonitorType.network:
+            svg = iconNetwork;
+            break;
+        case MonitorType.ping:
+            svg = iconPing;
+            break;
+        case MonitorType.process:
+            svg = iconProcess;
+            break;
+        case MonitorType.server:
+            svg = iconProcess;
+            break;
+        case MonitorType.update:
+            svg = iconUpdates;
+            break;
+    }
+    if (svg === null) {
+        svg = iconCollapse;
+    }
+    return icon(svg);
 }
