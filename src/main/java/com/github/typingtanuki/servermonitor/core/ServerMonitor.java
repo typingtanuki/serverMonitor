@@ -128,7 +128,10 @@ public class ServerMonitor {
       Map<String, SimpleStatus> areaStatus = new LinkedHashMap<>();
       Map<String, Map<MonitorType, Boolean>> areaShortStatus = new LinkedHashMap<>();
 
-      for (String remote : remotes) {
+      Set<String> allRemotes = new LinkedHashSet<>(remotes);
+      allRemotes.add("localhost:" + config.getPort());
+
+      for (String remote : allRemotes) {
          ShortStatusResponse shortStatus = getRemoteStatus(remote);
          SimpleStatusResponse advanced = getAdvancedRemoteStatus(remote);
          if (advanced != null) {
@@ -140,6 +143,7 @@ public class ServerMonitor {
             areaShortStatus.put(remote, Map.of(MonitorType.handshake, Boolean.FALSE));
          }
       }
+
       statusManager.updateAreaStatus(areaStatus);
       statusManager.updateAreaShortStatus(areaShortStatus);
    }
