@@ -13,6 +13,7 @@ import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import com.github.typingtanuki.servermonitor.updates.UpdateChecker;
 import com.github.typingtanuki.servermonitor.web.WebServer;
 import com.github.typingtanuki.servermonitor.web.WwwServer;
+import com.github.typingtanuki.servermonitor.web.status.ShortStatusResponse;
 import com.github.typingtanuki.servermonitor.web.status.SimpleStatus;
 import com.github.typingtanuki.servermonitor.web.status.SimpleStatusResponse;
 import org.eclipse.jetty.util.BlockingArrayQueue;
@@ -125,19 +126,38 @@ public class ServerMonitor {
 
    private void scanArea(List<String> remotes) {
       Map<String, SimpleStatus> areaStatus = new LinkedHashMap<>();
+      Map<String, Map<MonitorType, Boolean>> areaShortStatus = new LinkedHashMap<>();
 
       for (String remote : remotes) {
+         ShortStatusResponse shortStatus = getRemoteStatus(remote);
          SimpleStatusResponse advanced = getAdvancedRemoteStatus(remote);
          if (advanced != null) {
             areaStatus.put(advanced.getIdentity(), advanced.getStatus());
          }
+         if (shortStatus != null) {
+            areaShortStatus.put(shortStatus.getIdentity(), shortStatus.getStatus());
+         } else {
+            areaShortStatus.put(remote, Map.of(MonitorType.handshake, Boolean.FALSE));
+         }
       }
       statusManager.updateAreaStatus(areaStatus);
+      statusManager.updateAreaShortStatus(areaShortStatus);
    }
 
    private SimpleStatusResponse getAdvancedRemoteStatus(String remote) {
       RestCall<SimpleStatusResponse> call =
             new RestCall<>(remote, "/status?skipHistory", SimpleStatusResponse.class);
+      try {
+         return call.get(1000);
+      } catch (RestCallException e) {
+         logger.debug("Could not get remote status: {}\r\n{}", remote, simpleStack(e));
+         return null;
+      }
+   }
+
+   private ShortStatusResponse getRemoteStatus(String remote) {
+      RestCall<ShortStatusResponse> call =
+            new RestCall<>(remote, "/status/short", ShortStatusResponse.class);
       try {
          return call.get(1000);
       } catch (RestCallException e) {

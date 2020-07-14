@@ -97,6 +97,7 @@ export class DetailView extends LitElement {
 
     public showUpdateMonitor(): void {
         this.uploadMode = true;
+        this.requestUpdate();
     }
 
     public saveSettings(): void {

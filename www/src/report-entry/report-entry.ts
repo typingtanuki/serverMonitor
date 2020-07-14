@@ -77,6 +77,9 @@ export class ReportEntry extends LitElement {
 
     private formatKey(key: string): TemplateResult {
         const details: Detail = this.report.details[key];
+        if (details === null) {
+            return html``;
+        }
         return html`${this.doFormat(details, key)}`;
     }
 

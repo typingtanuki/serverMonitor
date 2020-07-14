@@ -5903,6 +5903,7 @@ var DetailView = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["custo
     key: "showUpdateMonitor",
     value: function showUpdateMonitor() {
       this.uploadMode = true;
+      this.requestUpdate();
     }
   }, {
     key: "saveSettings",
@@ -7619,8 +7620,18 @@ __webpack_require__.r(__webpack_exports__);
 
 var _dec, _dec2, _class, _class2, _descriptor, _temp;
 
-function _templateObject11() {
+function _templateObject12() {
   var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<display-gauge \n                         .current=\"", "\"\n                         .max=\"", "\"></display-gauge>"]);
+
+  _templateObject12 = function _templateObject12() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject11() {
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n<collapse-view .title=\"", "\"><div>\n    ", "\n    ", "\n</div></collapse-view>"]);
 
   _templateObject11 = function _templateObject11() {
     return data;
@@ -7630,7 +7641,7 @@ function _templateObject11() {
 }
 
 function _templateObject10() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["\n<collapse-view .title=\"", "\"><div>\n    ", "\n    ", "\n</div></collapse-view>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<div><span class=\"key\">", ": </span><span class=\"value\">", "</span></div>"]);
 
   _templateObject10 = function _templateObject10() {
     return data;
@@ -7640,7 +7651,7 @@ function _templateObject10() {
 }
 
 function _templateObject9() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<div><span class=\"key\">", ": </span><span class=\"value\">", "</span></div>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<div class=\"legend\">", "</div>\n                    <display-line \n                               .values=\"", "\" \n                               .dates=\"", "\"\n                               .max=\"", "\"\n                               .limit=\"", "\"></display-line>"]);
 
   _templateObject9 = function _templateObject9() {
     return data;
@@ -7650,7 +7661,7 @@ function _templateObject9() {
 }
 
 function _templateObject8() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<div class=\"legend\">", "</div>\n                    <display-line \n                               .values=\"", "\" \n                               .dates=\"", "\"\n                               .max=\"", "\"\n                               .limit=\"", "\"></display-line>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<collapse-view .title=\"", "\"><div class=\"code\">", "</div></collapse-view>"]);
 
   _templateObject8 = function _templateObject8() {
     return data;
@@ -7660,7 +7671,7 @@ function _templateObject8() {
 }
 
 function _templateObject7() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["<collapse-view .title=\"", "\"><div class=\"code\">", "</div></collapse-view>"]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()([""]);
 
   _templateObject7 = function _templateObject7() {
     return data;
@@ -7670,7 +7681,7 @@ function _templateObject7() {
 }
 
 function _templateObject6() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()([""]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["", ""]);
 
   _templateObject6 = function _templateObject6() {
     return data;
@@ -7680,7 +7691,7 @@ function _templateObject6() {
 }
 
 function _templateObject5() {
-  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()(["", ""]);
+  var data = _babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0___default()([""]);
 
   _templateObject5 = function _templateObject5() {
     return data;
@@ -7807,7 +7818,12 @@ var ReportEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
     key: "formatKey",
     value: function formatKey(key) {
       var details = this.report.details[key];
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject5(), this.doFormat(details, key));
+
+      if (details === null) {
+        return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject5());
+      }
+
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject6(), this.doFormat(details, key));
     }
   }, {
     key: "doFormat",
@@ -7819,11 +7835,11 @@ var ReportEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
       }
 
       if (Object(_utils__WEBPACK_IMPORTED_MODULE_16__["isHidden"])(key)) {
-        return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject6());
+        return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject7());
       }
 
       if (Object(_utils__WEBPACK_IMPORTED_MODULE_16__["isCause"])(key)) {
-        return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject7(), key, String(details));
+        return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject8(), key, String(details));
       }
 
       if (Object(_utils__WEBPACK_IMPORTED_MODULE_16__["isString"])(details) || Object(_utils__WEBPACK_IMPORTED_MODULE_16__["isNumber"])(details)) {
@@ -7842,18 +7858,18 @@ var ReportEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
   }, {
     key: "formatHistory",
     value: function formatHistory(key, details) {
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject8(), key, details.values, details.dates, parseInt(details.max), parseInt(details.limit));
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject9(), key, details.values, details.dates, parseInt(details.max), parseInt(details.limit));
     }
   }, {
     key: "formatString",
     value: function formatString(key, value) {
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject9(), key, String(value));
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject10(), key, String(value));
     }
   }, {
     key: "formatObject",
     value: function formatObject(key, details) {
       var keys = Object.keys(details);
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject10(), key, keys.length === 0 ? "None" : "", keys.map(function (key) {
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject11(), key, keys.length === 0 ? "None" : "", keys.map(function (key) {
         return ReportEntry.subList(key, details);
       }));
     }
@@ -7865,7 +7881,7 @@ var ReportEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
   }, {
     key: "formatGauge",
     value: function formatGauge(details) {
-      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject11(), parseInt(details[_rest_types__WEBPACK_IMPORTED_MODULE_15__["ReportConstants"].USAGE_CURRENT]), parseInt(details[_rest_types__WEBPACK_IMPORTED_MODULE_15__["ReportConstants"].USAGE_MAX]));
+      return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject12(), parseInt(details[_rest_types__WEBPACK_IMPORTED_MODULE_15__["ReportConstants"].USAGE_CURRENT]), parseInt(details[_rest_types__WEBPACK_IMPORTED_MODULE_15__["ReportConstants"].USAGE_MAX]));
     }
   }, {
     key: "styles",
