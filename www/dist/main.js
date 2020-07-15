@@ -5939,6 +5939,8 @@ var DetailView = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_10__["custo
       } finally {
         _iterator.f();
       }
+
+      input.value = "";
     }
   }]);
 

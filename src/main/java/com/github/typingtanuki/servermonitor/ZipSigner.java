@@ -6,9 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.*;
-import java.security.spec.DSAPrivateKeySpec;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 
 public class ZipSigner {
 
@@ -32,7 +31,7 @@ public class ZipSigner {
       PublicKey publicKey = savedPublicKey();
 
       try {
-         Signature signature = Signature.getInstance("SHA1withDSA", "SUN");
+         Signature signature = Signature.getInstance("SHA512withRSA", "SunRsaSign");
          signature.initVerify(publicKey);
 
          byte[] bytes = Files.readAllBytes(toCheck);
@@ -47,6 +46,24 @@ public class ZipSigner {
       }
    }
 
+   private static Signature getOrMakeSignature()
+         throws IOException {
+      try {
+         PrivateKey privateKey = savedPrivateKey();
+         if (privateKey == null) {
+            privateKey = makeNewKeys();
+         }
+
+         // Get an instance of Signature object and initialize it.
+         Signature signature = Signature.getInstance("SHA512withRSA", "SunRsaSign");
+         signature.initSign(privateKey);
+
+         return signature;
+      } catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidKeyException e) {
+         throw new IOException("Could not build signature", e);
+      }
+   }
+
 
    private static PublicKey savedPublicKey()
          throws IOException {
@@ -57,28 +74,12 @@ public class ZipSigner {
 
       try {
          byte[] bytes = Files.readAllBytes(path);
-         KeyFactory kf = KeyFactory.getInstance("DSA", "SUN");
-         return kf.generatePublic(new PKCS8EncodedKeySpec(bytes));
-      } catch (InvalidKeySpecException | NoSuchAlgorithmException | NoSuchProviderException e) {
+
+         X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(bytes);
+         KeyFactory factory = KeyFactory.getInstance("RSA");
+         return factory.generatePublic(publicKeySpec);
+      } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
          throw new IOException("Could not load private key", e);
-      }
-   }
-
-   private static Signature getOrMakeSignature()
-         throws IOException {
-      try {
-         PrivateKey privateKey = savedPrivateKey();
-         if (privateKey == null) {
-            privateKey = makeNewKeys();
-         }
-
-         // Get an instance of Signature object and initialize it.
-         Signature signature = Signature.getInstance("SHA1withDSA", "SUN");
-         signature.initSign(privateKey);
-
-         return signature;
-      } catch (NoSuchAlgorithmException | NoSuchProviderException | InvalidKeyException e) {
-         throw new IOException("Could not build signature", e);
       }
    }
 
@@ -90,17 +91,20 @@ public class ZipSigner {
 
       try {
          byte[] bytes = Files.readAllBytes(path);
-         KeyFactory kf = KeyFactory.getInstance("DSA", "SUN");
-         return kf.generatePrivate(new PKCS8EncodedKeySpec(bytes));
-      } catch (InvalidKeySpecException | NoSuchAlgorithmException | NoSuchProviderException e) {
+
+         X509EncodedKeySpec privateKeySpec = new X509EncodedKeySpec(bytes);
+         KeyFactory factory = KeyFactory.getInstance("RSA");
+         return factory.generatePrivate(privateKeySpec);
+      } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
          throw new IOException("Could not load private key", e);
       }
    }
 
    private static PrivateKey makeNewKeys() throws IOException {
       try {
+
          // Get instance and initialize a KeyPairGenerator object.
-         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DSA", "SUN");
+         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA", "SunRsaSign");
          SecureRandom random = SecureRandom.getInstance("SHA1PRNG", "SUN");
          keyGen.initialize(1024, random);
 

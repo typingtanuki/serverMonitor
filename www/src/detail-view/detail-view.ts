@@ -1,8 +1,19 @@
-import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
+import {
+    CSSResult,
+    customElement,
+    html,
+    LitElement,
+    TemplateResult,
+    unsafeCSS
+} from 'lit-element';
 import listStyle from "./detail-view.less";
 import {RestClient} from "../rest/rest-client";
 import {ReportList} from "../report-list/report-list";
-import {detailViewTemplate, settingsViewTemplate, uploadViewTemplate} from "./detail-view.template";
+import {
+    detailViewTemplate,
+    settingsViewTemplate,
+    uploadViewTemplate
+} from "./detail-view.template";
 import {SettingsButton} from "../settings-button/settings-button";
 import {buildForm} from "./form-manager";
 import {Report, ServerInfo, Settings} from "../rest/types";
@@ -110,8 +121,12 @@ export class DetailView extends LitElement {
 
     public uploadBundle(): void {
         const formData: FormData = new FormData();
-        this.addFiles("zip", <HTMLInputElement>this.shadowRoot.querySelector("#zip"), formData);
-        this.addFiles("cert", <HTMLInputElement>this.shadowRoot.querySelector("#cert"), formData);
+        this.addFiles("zip",
+            <HTMLInputElement>this.shadowRoot.querySelector("#zip"),
+            formData);
+        this.addFiles("cert",
+            <HTMLInputElement>this.shadowRoot.querySelector("#cert"),
+            formData);
 
         this.client.uploadBundle(formData)
             .catch(function (error: string | Error) {
@@ -123,5 +138,6 @@ export class DetailView extends LitElement {
         for (const file of input.files) {
             form.append(id, file, file.name);
         }
+        input.value = "";
     }
 }
