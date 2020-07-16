@@ -17,30 +17,30 @@ dependencies {
     ]
 
     // System monitor
-    compile group: 'com.github.oshi', name: 'oshi-core', version: versions.oshi
+    implementation group: 'com.github.oshi', name: 'oshi-core', version: versions.oshi
 
     // JSON
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: versions.jackson
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: versions.jackson
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jackson
-    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: versions.jackson
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: versions.jackson
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: versions.jackson
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: versions.jackson
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: versions.jackson
 
     // REST/web server
-    compile group: 'org.jboss.resteasy', name: 'resteasy-client', version: versions.restEasy
-    compile group: 'org.glassfish.jersey.core', name: 'jersey-server', version: versions.jersey
-    compile group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: versions.jersey
-    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: versions.jersey
-    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-jetty-http', version: versions.jersey
-    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: versions.jersey
-    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-multipart', version: versions.jersey
-    compile group: 'org.eclipse.jetty', name: 'jetty-server', version: versions.jetty
-    compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: versions.jetty
-    compile group: 'javax.xml.bind', name: 'jaxb-api', version: versions.jaxb
+    implementation group: 'org.jboss.resteasy', name: 'resteasy-client', version: versions.restEasy
+    implementation group: 'org.glassfish.jersey.core', name: 'jersey-server', version: versions.jersey
+    implementation group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: versions.jersey
+    implementation group: 'org.glassfish.jersey.containers', name: 'jersey-container-servlet-core', version: versions.jersey
+    implementation group: 'org.glassfish.jersey.containers', name: 'jersey-container-jetty-http', version: versions.jersey
+    implementation group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: versions.jersey
+    implementation group: 'org.glassfish.jersey.media', name: 'jersey-media-multipart', version: versions.jersey
+    implementation group: 'org.eclipse.jetty', name: 'jetty-server', version: versions.jetty
+    implementation group: 'org.eclipse.jetty', name: 'jetty-servlet', version: versions.jetty
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: versions.jaxb
 
     // Logging
-    compile group: 'org.slf4j', name: 'slf4j-api', version: versions.slf4j
-    compile group: 'ch.qos.logback', name: 'logback-core', version: versions.logback
-    compile group: 'ch.qos.logback', name: 'logback-classic', version: versions.logback
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: versions.slf4j
+    implementation group: 'ch.qos.logback', name: 'logback-core', version: versions.logback
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: versions.logback
 }
 
 jar {

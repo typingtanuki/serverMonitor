@@ -6,3 +6,4 @@ gradle
 *.log
 www/node_modules
 conf/key*
+update
