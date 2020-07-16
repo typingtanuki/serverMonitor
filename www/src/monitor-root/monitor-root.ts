@@ -9,6 +9,7 @@ import {monitorRootTemplate} from "./monitor-root-template";
 import {ModalRoot} from "../modal-root/modal-root";
 import {ServerInfo} from "../rest/types";
 import {IconSvg} from "../icon-svg/icon-svg";
+import {icon, Icon, iconSpinner} from "../icon-svg/icons";
 
 @customElement('monitor-root')
 export class MonitorRoot extends LitElement {
@@ -26,10 +27,14 @@ export class MonitorRoot extends LitElement {
         };
     }
 
+    public iconLoading: Icon = icon(iconSpinner);
     public showDetails: boolean;
     public readonly rootClient: RestClient | null;
     public currentClient: RestClient | null;
     public currentServerInfo: ServerInfo;
+
+    private restChecker: (() => void) | null = null;
+    private restCheckerHandle: number;
 
     constructor() {
         super();
@@ -43,6 +48,24 @@ export class MonitorRoot extends LitElement {
 
     public render(): TemplateResult {
         return monitorRootTemplate(this);
+    }
+
+    public connectedCallback(): void {
+        super.connectedCallback();
+
+        if (this.restChecker === null) {
+            const self: MonitorRoot = this;
+            this.restChecker = function () {
+                self.checkRest();
+            }
+        }
+        this.restCheckerHandle = window.setInterval(this.restChecker, 1000);
+    }
+
+    public disconnectedCallback(): void {
+        super.disconnectedCallback();
+
+        window.clearInterval(this.restCheckerHandle);
     }
 
     public firstUpdated(): void {
@@ -98,6 +121,18 @@ export class MonitorRoot extends LitElement {
         if (detailView !== null) {
             detailView.settingsMode = false;
             detailView.changeProperties();
+        }
+    }
+
+    private checkRest(): void {
+        const spinner: HTMLElement | null = this.shadowRoot.querySelector(".loading");
+        if (spinner === null) {
+            return;
+        }
+        if (RestClient.isBusy()) {
+            spinner.style.opacity = "1";
+        } else {
+            spinner.style.opacity = "0";
         }
     }
 }

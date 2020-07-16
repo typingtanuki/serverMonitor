@@ -15,11 +15,19 @@ import {
 export class RestClient {
     private readonly server: string;
 
-    public static fetchingState: boolean = false;
-    public static fetchingDetails: boolean = false;
-    public static fetchingSettings: boolean = false;
-    public static savingSettings: boolean = false;
-    public static uploadingBundle: boolean = false;
+    private static fetchingState: boolean = false;
+    private static fetchingDetails: boolean = false;
+    private static fetchingSettings: boolean = false;
+    private static savingSettings: boolean = false;
+    private static uploadingBundle: boolean = false;
+
+    public static isBusy(): boolean {
+        return RestClient.fetchingState ||
+            RestClient.fetchingDetails ||
+            RestClient.fetchingSettings ||
+            RestClient.savingSettings ||
+            RestClient.uploadingBundle;
+    }
 
     constructor(server: string) {
         while (server.startsWith("http://")) {
@@ -165,7 +173,7 @@ export class RestClient {
         }
     }
 
-    public async uploadBundle(formData:FormData): Promise<void>{
+    public async uploadBundle(formData: FormData): Promise<void> {
         if (RestClient.uploadingBundle) {
             return;
         }

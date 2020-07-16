@@ -45,3 +45,26 @@ server-list {
   overflow: auto;
   padding: 10px;
 }
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  font-size: 5em;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  opacity: 0;
+
+  animation: rotating 2s linear infinite;
+  transition: opacity 300ms;
+
+  pointer-events: none;
+}

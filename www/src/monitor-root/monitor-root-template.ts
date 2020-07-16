@@ -8,5 +8,6 @@ export function monitorRootTemplate(monitorRoot: MonitorRoot): TemplateResult {
 <div class="${classMap({details: true, half: monitorRoot.showDetails})}">
     <detail-view .client="${monitorRoot.currentClient}" .server="${monitorRoot.currentServerInfo}"></detail-view>
 </div>
+<icon-svg class="loading" .icon="${monitorRoot.iconLoading}"></icon-svg>
 <modal-root></modal-root>`;
 }
