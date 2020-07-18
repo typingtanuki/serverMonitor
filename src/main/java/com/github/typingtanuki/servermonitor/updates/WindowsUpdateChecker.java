@@ -6,36 +6,39 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Locale;
 
-public abstract class LinuxUpdateChecker extends UpdateChecker {
+public abstract class WindowsUpdateChecker extends UpdateChecker {
     protected static final Logger logger =
             LoggerFactory.getLogger(LinuxUpdateChecker.class);
 
-    public LinuxUpdateChecker(MainConfig config) {
+    public WindowsUpdateChecker(MainConfig config) {
         super(config);
     }
 
     protected boolean isGoodOs() {
-        return System.getProperty("os.name")
-                .toLowerCase(Locale.ENGLISH)
-                .startsWith("linux");
+        return !
+                System.getProperty("os.name")
+                        .toLowerCase(Locale.ENGLISH)
+                        .startsWith("linux");
     }
+
 
     @Override
     protected String binaryCheckCommand() {
-        return "which";
+        return "where";
     }
 
     @Override
     protected boolean isAvailable() {
         if (!isGoodOs()) {
-            logger.info("Not good os for {}", binaryName());
+            logger.info("Not good os for powershell");
             return false;
         }
         if (!hasBinary()) {
             logger.info("Binary {} not installed", binaryName());
             return false;
         }
-        logger.info("Checking updates for {}", binaryName());
+        logger.info("Checking updates for powershell");
         return true;
     }
+
 }
