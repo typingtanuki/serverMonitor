@@ -1,1 +1,1 @@
-java -jar serverMonitor.jar
+nohup java -jar serverMonitor.jar &

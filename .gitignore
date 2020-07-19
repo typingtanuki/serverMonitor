@@ -7,3 +7,4 @@ gradle
 www/node_modules
 conf/key*
 update
+deploy.sh

@@ -12,6 +12,16 @@ public class NoUpdateChecker extends UpdateChecker {
    }
 
    @Override
+   protected String binaryName() {
+      return null;
+   }
+
+   @Override
+   protected String binaryCheckCommand() {
+      return null;
+   }
+
+   @Override
    public String runUpdate() {
       return "Can not handle updates on this platform";
    }

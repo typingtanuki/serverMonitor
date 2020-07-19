@@ -121,19 +121,21 @@ public abstract class UpdateChecker implements Monitor {
     protected abstract String binaryCheckCommand();
 
     protected boolean hasBinary() {
-        ProcessBuilder builder = new ProcessBuilder(binaryCheckCommand(), binaryName());
+        String binary = binaryName();
+
+        ProcessBuilder builder = new ProcessBuilder(binaryCheckCommand(),binary);
         List<String> out;
         try {
             out = runAndReadOutput(builder);
         } catch (IOException e) {
             logger.warn("Could not check for command {}\r\n{}",
-                    binaryName(),
+                        binary,
                     simpleStack(e));
             return false;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             logger.warn("Interrupted while checking for command {}\r\n{}",
-                    binaryName(),
+                        binary,
                     simpleStack(e));
             return false;
         }
