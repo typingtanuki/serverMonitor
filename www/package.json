@@ -19,7 +19,8 @@
   "homepage": "https://github.com/typingtanuki/serverMonitor#readme",
   "dependencies": {
     "echarts": "^4.8.0",
-    "lit-element": "^2.3.1"
+    "lit-element": "^2.3.1",
+    "velocity-animate": "^2.0.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",

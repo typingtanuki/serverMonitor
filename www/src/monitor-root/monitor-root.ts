@@ -10,6 +10,7 @@ import {ModalRoot} from "../modal-root/modal-root";
 import {ServerInfo} from "../rest/types";
 import {IconSvg} from "../icon-svg/icon-svg";
 import {icon, Icon, iconSpinner} from "../icon-svg/icons";
+import Velocity from "velocity-animate";
 
 @customElement('monitor-root')
 export class MonitorRoot extends LitElement {
@@ -120,6 +121,7 @@ export class MonitorRoot extends LitElement {
         const detailView: DetailView | null = this.shadowRoot.querySelector("detail-view");
         if (detailView !== null) {
             detailView.settingsMode = false;
+            detailView.uploadMode = false;
             detailView.changeProperties();
         }
     }
