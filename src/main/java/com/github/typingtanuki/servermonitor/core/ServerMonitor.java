@@ -226,7 +226,7 @@ public class ServerMonitor {
         for (MonitorReport failedMonitorReport : failedMonitorReports) {
             String monitorKey = failedMonitorReport.monitorKey();
             Long lastTrigger = triggered.get(monitorKey);
-            if (lastTrigger != null && lastTrigger < now - debounceTime) {
+            if (lastTrigger != null && lastTrigger > now - debounceTime) {
                 // Debounced
                 continue;
             }

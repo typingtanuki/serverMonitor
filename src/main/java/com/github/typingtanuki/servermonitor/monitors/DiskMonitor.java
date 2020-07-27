@@ -62,6 +62,9 @@ public class DiskMonitor implements Monitor {
    }
 
    private List<MonitorReport> monitorPartition(String mount, int maxDiskUsage) {
+      if (mount.isBlank()) {
+         return Collections.emptyList();
+      }
       Path disk = Paths.get(mount);
       long free = disk.toFile().getFreeSpace();
       long total = disk.toFile().getTotalSpace();
