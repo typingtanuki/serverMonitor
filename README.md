@@ -1,5 +1,7 @@
 # serverMonitor
 
+WARNING: Experimental
+
 ## Short abstract
 
 Easy monitor the state of linux and windows servers, as well as the tools running on them.
