@@ -9,7 +9,7 @@ import {
 import entryStyle from "./server-entry.less";
 import {Detail, Monitor, MonitorType, ReportConstants, ServerInfo} from "../rest/types";
 import {ProgressBar} from "../progress-bar/progress-bar";
-import {icon, Icon, iconBim, iconCollapse} from "../icon-svg/icons";
+import {icon, Icon, iconServerNg, iconServerOK} from "../icon-svg/icons";
 
 export interface ServerEntrySelectedEventInfo {
     server: ServerInfo;
@@ -56,7 +56,7 @@ export class ServerEntry extends LitElement {
                 ok = false;
             }
         }
-        const statusIcon: Icon = ok ? icon(iconCollapse) : icon(iconBim);
+        const statusIcon: Icon = ok ? icon(iconServerOK) : icon(iconServerNg);
         return html`<icon-svg .icon="${statusIcon}"></icon-svg>
         <div class="title">${this.server.name}</div>
         ${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;

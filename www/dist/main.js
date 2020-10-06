@@ -11809,7 +11809,7 @@ var IconSvg = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["customEl
 /*!*******************************!*\
   !*** ./src/icon-svg/icons.ts ***!
   \*******************************/
-/*! exports provided: iconSettings, iconCollapse, iconCpu, iconDisk, iconMemory, iconHandshake, iconNetwork, iconPing, iconProcess, iconServer, iconUpdates, iconBim, iconSpinner, Icon, icon */
+/*! exports provided: iconSettings, iconCollapse, iconCpu, iconDisk, iconMemory, iconHandshake, iconNetwork, iconPing, iconProcess, iconServer, iconUpdates, iconBim, iconSpinner, iconServerNg, iconServerOK, Icon, icon */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11827,6 +11827,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "iconUpdates", function() { return iconUpdates; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "iconBim", function() { return iconBim; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "iconSpinner", function() { return iconSpinner; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "iconServerNg", function() { return iconServerNg; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "iconServerOK", function() { return iconServerOK; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Icon", function() { return Icon; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "icon", function() { return icon; });
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
@@ -11874,7 +11876,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var iconSettings = _node_modules_css_gg_icons_svg_options_svg__WEBPACK_IMPORTED_MODULE_3___default.a;
 var iconCollapse = _node_modules_css_gg_icons_svg_eye_svg__WEBPACK_IMPORTED_MODULE_4___default.a;
 var iconCpu = _node_modules_css_gg_icons_svg_smartphone_chip_svg__WEBPACK_IMPORTED_MODULE_5___default.a;
@@ -11888,6 +11889,8 @@ var iconServer = _node_modules_css_gg_icons_svg_database_svg__WEBPACK_IMPORTED_M
 var iconUpdates = _node_modules_css_gg_icons_svg_danger_svg__WEBPACK_IMPORTED_MODULE_13___default.a;
 var iconBim = _node_modules_css_gg_icons_svg_danger_svg__WEBPACK_IMPORTED_MODULE_13___default.a;
 var iconSpinner = _node_modules_css_gg_icons_svg_spinner_two_svg__WEBPACK_IMPORTED_MODULE_14___default.a;
+var iconServerNg = _node_modules_css_gg_icons_svg_danger_svg__WEBPACK_IMPORTED_MODULE_13___default.a;
+var iconServerOK = _node_modules_css_gg_icons_svg_eye_svg__WEBPACK_IMPORTED_MODULE_4___default.a;
 var Icon = /*#__PURE__*/function () {
   function Icon(svg) {
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Icon);
@@ -14091,7 +14094,7 @@ var ServerEntry = (_dec = Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["cust
         _iterator.f();
       }
 
-      var statusIcon = ok ? Object(_icon_svg_icons__WEBPACK_IMPORTED_MODULE_14__["icon"])(_icon_svg_icons__WEBPACK_IMPORTED_MODULE_14__["iconCollapse"]) : Object(_icon_svg_icons__WEBPACK_IMPORTED_MODULE_14__["icon"])(_icon_svg_icons__WEBPACK_IMPORTED_MODULE_14__["iconBim"]);
+      var statusIcon = ok ? Object(_icon_svg_icons__WEBPACK_IMPORTED_MODULE_14__["icon"])(_icon_svg_icons__WEBPACK_IMPORTED_MODULE_14__["iconServerOK"]) : Object(_icon_svg_icons__WEBPACK_IMPORTED_MODULE_14__["icon"])(_icon_svg_icons__WEBPACK_IMPORTED_MODULE_14__["iconServerNg"]);
       return Object(lit_element__WEBPACK_IMPORTED_MODULE_11__["html"])(_templateObject(), statusIcon, this.server.name, this.server.monitors.map(function (monitor) {
         return ServerEntry.formatMonitor(monitor);
       }));

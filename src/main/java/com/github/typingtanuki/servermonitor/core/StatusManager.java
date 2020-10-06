@@ -75,11 +75,9 @@ public class StatusManager {
     */
    public ClusterStatusResponse getClusterStatus() {
       synchronized (CLUSTER_STATUS_LOCK) {
-         Map<String, String> connections = new LinkedHashMap<>();
-
          return new ClusterStatusResponse(
                config.getIdentity(),
-               connections,
+               ConnectionManager.getConnections(),
                areaShortStatus,
                areaStatus);
       }

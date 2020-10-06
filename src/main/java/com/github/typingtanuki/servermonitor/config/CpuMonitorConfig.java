@@ -21,6 +21,7 @@ public class CpuMonitorConfig extends MonitorConfig {
    public void copyTo(CpuMonitorConfig targetConfig) {
       innerCopyTo(targetConfig);
       targetConfig.maxUsage = maxUsage;
+      targetConfig.historySize = historySize;
    }
 
    public int getMaxUsage() {

@@ -8,21 +8,22 @@ repositories {
     jcenter()
 }
 
-configurations{
+configurations {
     distJar.extendsFrom implementation
 }
 
 dependencies {
     def versions = [
-            jackson : '2.11.3',
-            jaxb    : '2.3.1',
-            jersey  : '2.32',
-            jetty   : '9.4.32.v20200930',
-            logback : '1.2.3',
-            oshi    : '5.2.5',
-            restEasy: '4.5.8.Final',
-            slf4j   : '1.7.30',
-            errorProne: '2.4.0'
+            jackson   : '2.11.3',
+            jaxb      : '2.3.1',
+            jersey    : '2.32',
+            jetty     : '9.4.32.v20200930',
+            logback   : '1.2.3',
+            oshi      : '5.2.5',
+            restEasy  : '4.5.8.Final',
+            slf4j     : '1.7.30',
+            errorProne: '2.4.0',
+            junit     : '4.13'
     ]
 
     errorprone("com.google.errorprone:error_prone_core:${versions.errorProne}")
@@ -52,13 +53,16 @@ dependencies {
     implementation group: 'org.slf4j', name: 'slf4j-api', version: versions.slf4j
     implementation group: 'ch.qos.logback', name: 'logback-core', version: versions.logback
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: versions.logback
+
+    // Test
+    testImplementation group: 'junit', name: 'junit', version: versions.junit
 }
 
 jar {
     manifest {
         attributes "Main-Class": "com.github.typingtanuki.servermonitor.MonitorMain"
     }
-    
+
     from {
         // Fat jar
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }

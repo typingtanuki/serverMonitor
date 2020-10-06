@@ -1,6 +1,7 @@
 package com.github.typingtanuki.servermonitor.monitors;
 
 import com.github.typingtanuki.servermonitor.config.MainConfig;
+import com.github.typingtanuki.servermonitor.core.ConnectionManager;
 import com.github.typingtanuki.servermonitor.core.RestCall;
 import com.github.typingtanuki.servermonitor.core.RestCallException;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
@@ -81,6 +82,7 @@ public class HandshakeMonitor implements Monitor {
    private void shakeHand(String target,
                           ShakeMonitorReport monitor,
                           int maxHandshakeTime) {
+      ConnectionManager.addUnknownConnection(target);
       RestCall<HandshakeResponse> call = new RestCall<>(target,
                                                         "/handshake?request=" +
                                                         System.currentTimeMillis(),
@@ -94,6 +96,7 @@ public class HandshakeMonitor implements Monitor {
                lastSeen.get(target));
          return;
       }
+
 
       //Validate the response content
       if (handshake.getRequestTime() - handshake.getResponseTime() > maxHandshakeTime) {

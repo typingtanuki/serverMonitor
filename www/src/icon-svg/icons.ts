@@ -9,7 +9,6 @@ import repeat from "../../node_modules/css.gg/icons/svg/repeat.svg";
 import clapperBoard from "../../node_modules/css.gg/icons/svg/clapper-board.svg";
 import database from "../../node_modules/css.gg/icons/svg/database.svg";
 import danger from "../../node_modules/css.gg/icons/svg/danger.svg";
-import bim from "../../node_modules/css.gg/icons/svg/danger.svg";
 import spinnerTwo from "../../node_modules/css.gg/icons/svg/spinner-two.svg";
 
 export const iconSettings: string = options;
@@ -23,9 +22,10 @@ export const iconPing: string = repeat;
 export const iconProcess: string = clapperBoard;
 export const iconServer: string = database;
 export const iconUpdates: string = danger;
-export const iconBim: string = bim;
+export const iconBim: string = danger;
 export const iconSpinner: string = spinnerTwo;
-
+export const iconServerNg: string = danger;
+export const iconServerOK: string = eye;
 
 export class Icon {
     private element: HTMLElement;

@@ -182,10 +182,13 @@ public class ServerMonitor {
    }
 
    private SimpleStatusResponse getAdvancedRemoteStatus(String remote) {
+      ConnectionManager.addUnknownConnection(remote);
       RestCall<SimpleStatusResponse> call =
             new RestCall<>(remote, "/status?skipHistory", SimpleStatusResponse.class);
       try {
-         return call.get(1000);
+         SimpleStatusResponse response = call.get(1000);
+         ConnectionManager.addConnection(response.getIdentity(), remote);
+         return response;
       } catch (RestCallException e) {
          logger.debug("Could not get remote status: {}\r\n{}", remote, simpleStack(e));
          return null;
@@ -193,10 +196,13 @@ public class ServerMonitor {
    }
 
    private ShortStatusResponse getRemoteStatus(String remote) {
+      ConnectionManager.addUnknownConnection(remote);
       RestCall<ShortStatusResponse> call =
             new RestCall<>(remote, "/status/short", ShortStatusResponse.class);
       try {
-         return call.get(1000);
+         ShortStatusResponse response = call.get(1000);
+         ConnectionManager.addConnection(response.getIdentity(), remote);
+         return response;
       } catch (RestCallException e) {
          logger.debug("Could not get remote status: {}\r\n{}", remote, simpleStack(e));
          return null;
