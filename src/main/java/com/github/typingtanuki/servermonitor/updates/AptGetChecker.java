@@ -24,7 +24,7 @@ public class AptGetChecker extends LinuxUpdateChecker {
 
    @Override
    public String runUpdate() {
-      List<String> out = new LinkedList<>();
+      List<String> out = new ArrayList<>();
       out.addAll(runAndReadOutput("sudo", "apt-get", "update"));
       out.addAll(runAndReadOutput("sudo", "apt-get", "upgrade", "-y"));
       out.addAll(runAndReadOutput("sudo", "apt-get", "dist-upgrade", "-y"));

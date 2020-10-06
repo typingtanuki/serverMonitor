@@ -3,7 +3,7 @@ package com.github.typingtanuki.servermonitor.config;
 public abstract class MonitorConfig {
    private boolean enabled = true;
 
-   public MonitorConfig() {
+   protected MonitorConfig() {
       super();
    }
 

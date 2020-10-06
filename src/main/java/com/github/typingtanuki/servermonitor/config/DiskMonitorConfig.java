@@ -1,11 +1,11 @@
 package com.github.typingtanuki.servermonitor.config;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiskMonitorConfig extends MonitorConfig {
    private int maxUsage = 80;
-   private List<String> mounts = new LinkedList<>();
+   private List<String> mounts = new ArrayList<>();
 
    public DiskMonitorConfig() {
       super();
@@ -38,7 +38,7 @@ public class DiskMonitorConfig extends MonitorConfig {
 
    public void setMounts(List<String> mounts) {
       if (mounts == null) {
-         this.mounts = new LinkedList<>();
+         this.mounts = new ArrayList<>();
          return;
       }
       this.mounts = mounts;

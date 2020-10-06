@@ -17,12 +17,16 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.servlet.ServletContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class WebServer extends Thread {
+   private static final Logger logger = LoggerFactory.getLogger(WebServer.class);
+
    private final int port;
    private Server jettyServer;
 
@@ -78,6 +82,7 @@ public class WebServer extends Thread {
       try {
          jettyServer.join();
       } catch (Exception e) {
+         logger.error("Failed starting webserver", e);
          e.printStackTrace();
       } finally {
          jettyServer.destroy();

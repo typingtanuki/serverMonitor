@@ -12,8 +12,8 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,10 +23,10 @@ import static com.github.typingtanuki.servermonitor.utils.SimpleStack.simpleStac
  * Monitors connectivity to other servers using ping (echo based)
  */
 public class PingMonitor implements Monitor {
-   private static Logger logger = LoggerFactory.getLogger(PingMonitor.class);
+   private static final Logger logger = LoggerFactory.getLogger(PingMonitor.class);
    private final Map<String, String> lastSeen = new LinkedHashMap<>();
 
-   private MainConfig config;
+   private final MainConfig config;
 
    public PingMonitor(MainConfig config) {
       super();
@@ -38,11 +38,11 @@ public class PingMonitor implements Monitor {
    public List<MonitorReport> monitor(SystemInfo systemInfo) {
       List<String> ping = config.getPing().getMonitoring();
 
-      List<MonitorReport> out = new LinkedList<>();
+      List<MonitorReport> out = new ArrayList<>();
       for (String server : ping) {
          out.add(tryPing(server));
       }
-      List<String> removed = new LinkedList<>();
+      List<String> removed = new ArrayList<>();
       for (String key : lastSeen.keySet()) {
          if (!ping.contains(key)) {
             removed.add(key);

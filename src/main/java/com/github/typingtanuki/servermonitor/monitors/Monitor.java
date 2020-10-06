@@ -17,17 +17,17 @@ public interface Monitor {
    List<MonitorReport> monitor(SystemInfo systemInfo);
 
    /**
-    * @return true if this monitor is enabled
+    * true if this monitor is enabled
     */
    boolean isEnabled();
 
    /**
-    * @return The type of monitor
+    * The type of monitor
     */
    MonitorType getType();
 
    /**
-    * @return The category fo the monitor
+    * The category fo the monitor
     */
    MonitorCategory getCategory();
 }

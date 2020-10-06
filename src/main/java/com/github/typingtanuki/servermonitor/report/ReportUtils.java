@@ -1,25 +1,25 @@
 package com.github.typingtanuki.servermonitor.report;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 /**
+ * Utility class for formatting data
+ *
  * @author clerc
  * @since 2020/01/29
  */
 public final class ReportUtils {
-   private static final DateFormat FORMATTER =
-         new SimpleDateFormat("yyyy-dd-MM HH:mm:ss");
-
    private ReportUtils() {
       super();
    }
 
    public static String now() {
-      return FORMATTER.format(new Date());
+      return Instant.now()
+                    .atZone(ZoneId.of("UTC"))
+                    .format(DateTimeFormatter.ofPattern("yyyy-dd-MM HH:mm:ss"));
    }
 
    public static String bytesToHuman(long bytes) {
@@ -35,10 +35,9 @@ public final class ReportUtils {
    }
 
    public static String timestampToHuman(long ts) {
-      Date date = new Date(ts);
-      DateFormat formatter = new SimpleDateFormat("HH:mm:ss.SSS");
-      formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
-      return formatter.format(date);
+      return Instant.ofEpochMilli(ts)
+                    .atZone(ZoneId.of("UTC"))
+                    .format(DateTimeFormatter.ofPattern("HH:mm:ss.SSS"));
    }
 
 

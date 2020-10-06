@@ -8,7 +8,10 @@ import oshi.hardware.GlobalMemory;
 import oshi.software.os.OSProcess;
 import oshi.software.os.OperatingSystem;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Monitors running processes on the server.
@@ -34,7 +37,7 @@ public class ProcessMonitor implements Monitor {
       List<OSProcess> current = systemInfo.getOperatingSystem()
                                           .getProcesses(0,
                                                         OperatingSystem.ProcessSort.PID);
-      List<MonitorReport> out = new LinkedList<>();
+      List<MonitorReport> out = new ArrayList<>();
 
       List<String> keys = new ArrayList<>(infos.keySet());
       for (String key : keys) {

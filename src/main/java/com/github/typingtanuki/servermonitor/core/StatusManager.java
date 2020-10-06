@@ -6,8 +6,6 @@ import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import com.github.typingtanuki.servermonitor.report.Status;
 import com.github.typingtanuki.servermonitor.web.status.ClusterStatusResponse;
 import com.github.typingtanuki.servermonitor.web.status.SimpleStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -15,7 +13,6 @@ import java.util.*;
  * Handles the status of this server
  */
 public class StatusManager {
-   private static final Logger logger = LoggerFactory.getLogger(StatusManager.class);
    private static final Object CLUSTER_STATUS_LOCK = new Object[0];
 
    private final MainConfig config;
@@ -33,7 +30,7 @@ public class StatusManager {
 
    public synchronized void updateStatus(List<MonitorReport> newFastReports,
                                          List<MonitorReport> newSlowReports) {
-      List<MonitorReport> all = new LinkedList<>();
+      List<MonitorReport> all = new ArrayList<>();
       if (newFastReports != null) {
          fastReports = newFastReports;
       }
@@ -60,6 +57,8 @@ public class StatusManager {
    }
 
    /**
+    * Status machine
+    *
     * @return The current status, in full
     */
    public synchronized Status getStatus() {
@@ -70,6 +69,8 @@ public class StatusManager {
    }
 
    /**
+    * Status of the full cluster
+    *
     * @return A short status of each node in the cluster
     */
    public ClusterStatusResponse getClusterStatus() {

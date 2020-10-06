@@ -19,7 +19,7 @@ import java.util.*;
 public class DiskMonitor implements Monitor {
    private static final Logger logger = LoggerFactory.getLogger(DiskMonitor.class);
 
-   private MainConfig config;
+   private final MainConfig config;
 
    public DiskMonitor(MainConfig config) {
       super();
@@ -30,7 +30,7 @@ public class DiskMonitor implements Monitor {
 
    @Override
    public List<MonitorReport> monitor(SystemInfo systemInfo) {
-      List<MonitorReport> out = new LinkedList<>();
+      List<MonitorReport> out = new ArrayList<>();
       int maxDiskUsage = config.getDisk().getMaxUsage();
 
       Set<String> extraPath = new LinkedHashSet<>();

@@ -8,7 +8,10 @@ import com.github.typingtanuki.servermonitor.report.ShakeMonitorReport;
 import com.github.typingtanuki.servermonitor.web.handshake.HandshakeResponse;
 import oshi.SystemInfo;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import static com.github.typingtanuki.servermonitor.report.ReportUtils.now;
 
@@ -43,7 +46,7 @@ public class HandshakeMonitor implements Monitor {
          out.add(monitor);
       }
 
-      List<String> removed = new LinkedList<>();
+      List<String> removed = new ArrayList<>();
       for (String key : lastSeen.keySet()) {
          if (!targets.contains(key)) {
             removed.add(key);

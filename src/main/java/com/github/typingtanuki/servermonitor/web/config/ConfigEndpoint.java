@@ -14,6 +14,8 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 
 /**
+ * REST endpoint for config
+ *
  * @author clerc
  * @since 2020/02/07
  */

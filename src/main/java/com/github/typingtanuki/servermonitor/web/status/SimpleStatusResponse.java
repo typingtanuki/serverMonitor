@@ -1,22 +1,22 @@
 package com.github.typingtanuki.servermonitor.web.status;
 
 public class SimpleStatusResponse {
-    private String identity;
-    private SimpleStatus status;
+   private String identity;
+   private SimpleStatus status;
 
-    public String getIdentity() {
-        return identity;
-    }
+   public String getIdentity() {
+      return identity;
+   }
 
-    public void setIdentity(String identity) {
-        this.identity = identity;
-    }
+   public void setIdentity(String identity) {
+      this.identity = identity;
+   }
 
-    public SimpleStatus getStatus() {
-        return status;
-    }
+   public SimpleStatus getStatus() {
+      return status;
+   }
 
-    public void setStatus(SimpleStatus status) {
-        this.status = status;
-    }
+   public void setStatus(SimpleStatus status) {
+      this.status = status;
+   }
 }

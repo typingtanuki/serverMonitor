@@ -4,18 +4,21 @@ import com.github.typingtanuki.servermonitor.core.History;
 import oshi.software.os.OSProcess;
 
 /**
+ * Details on a running process
+ *
  * @author clerc
  * @since 2020/07/03
  */
 public class ProcessInfo {
+   private final History cpuHistory = new History(100);
+   private final History memoryHistory = new History(100);
+
    private String name;
    private boolean running = false;
    private int pid = -1;
    private long uptime = -1;
    private String commandLine = null;
    private OSProcess lastInstance;
-   private History cpuHistory = new History(100);
-   private History memoryHistory = new History(100);
    private long currentCpu;
    private long currentMemory;
    private long memoryPercent;

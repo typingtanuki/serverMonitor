@@ -26,6 +26,7 @@ public class WwwServer {
       }
    }
 
+   @SuppressWarnings("StringSplitter")
    private String typeFromExtension(String path) {
       String[] parts = path.split("\\.");
       String ext = parts[parts.length - 1];

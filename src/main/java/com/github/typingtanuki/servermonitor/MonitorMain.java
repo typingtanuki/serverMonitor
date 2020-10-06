@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 
 /**
+ * Main class for the monitor
+ *
  * @author clerc
  * @since 2020/01/24
  */

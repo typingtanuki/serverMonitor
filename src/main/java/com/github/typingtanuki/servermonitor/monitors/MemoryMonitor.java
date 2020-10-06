@@ -22,8 +22,8 @@ import static com.github.typingtanuki.servermonitor.report.ReportUtils.bytesToHu
  * Monitors Memory usage against a max allowed percentage
  */
 public class MemoryMonitor implements Monitor {
-   private MainConfig config;
-   private History history = new History(100);
+   private final MainConfig config;
+   private final History history = new History(100);
    private Map<Integer, Long> prevTop = new LinkedHashMap<>();
 
    public MemoryMonitor(MainConfig config) {

@@ -1,3 +1,7 @@
+plugins {
+    id("net.ltgt.errorprone") version "1.2.1"
+}
+
 apply plugin: 'java'
 
 repositories {
@@ -10,15 +14,18 @@ configurations{
 
 dependencies {
     def versions = [
-            jackson : '2.11.1',
+            jackson : '2.11.3',
             jaxb    : '2.3.1',
-            jersey  : '2.31',
-            jetty   : '9.4.30.v20200611',
+            jersey  : '2.32',
+            jetty   : '9.4.32.v20200930',
             logback : '1.2.3',
-            oshi    : '5.2.1',
-            restEasy: '4.5.5.Final',
-            slf4j   : '1.7.30'
+            oshi    : '5.2.5',
+            restEasy: '4.5.8.Final',
+            slf4j   : '1.7.30',
+            errorProne: '2.4.0'
     ]
+
+    errorprone("com.google.errorprone:error_prone_core:${versions.errorProne}")
 
     // System monitor
     implementation group: 'com.github.oshi', name: 'oshi-core', version: versions.oshi

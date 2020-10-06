@@ -1,6 +1,5 @@
 package com.github.typingtanuki.servermonitor.report;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.github.typingtanuki.servermonitor.monitors.MonitorCategory;
@@ -10,31 +9,31 @@ import com.github.typingtanuki.servermonitor.updates.UpdateReport;
 import java.util.Map;
 
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.EXISTING_PROPERTY,
-        property = "type"
+      include = JsonTypeInfo.As.EXISTING_PROPERTY,
+      property = "type"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = NetworkMonitorReport.class, name = "network"),
-        @JsonSubTypes.Type(value = UpdateReport.class, name = "update"),
-        @JsonSubTypes.Type(value = ProcessMonitorReport.class, name = "process"),
-        @JsonSubTypes.Type(value = ShakeMonitorReport.class, name = "handshake"),
-        @JsonSubTypes.Type(value = PingMonitorReport.class, name = "ping"),
-        @JsonSubTypes.Type(value = MemoryMonitorReport.class, name = "memory"),
-        @JsonSubTypes.Type(value = DiskMonitorReport.class, name = "disk"),
-        @JsonSubTypes.Type(value = CpuMonitorReport.class, name = "cpu")
+      @JsonSubTypes.Type(value = NetworkMonitorReport.class, name = "network"),
+      @JsonSubTypes.Type(value = UpdateReport.class, name = "update"),
+      @JsonSubTypes.Type(value = ProcessMonitorReport.class, name = "process"),
+      @JsonSubTypes.Type(value = ShakeMonitorReport.class, name = "handshake"),
+      @JsonSubTypes.Type(value = PingMonitorReport.class, name = "ping"),
+      @JsonSubTypes.Type(value = MemoryMonitorReport.class, name = "memory"),
+      @JsonSubTypes.Type(value = DiskMonitorReport.class, name = "disk"),
+      @JsonSubTypes.Type(value = CpuMonitorReport.class, name = "cpu")
 })
 public interface MonitorReport {
-    boolean isOK();
+   boolean isOK();
 
-    String getTitle();
+   String getTitle();
 
-    String getDescription();
+   String getDescription();
 
-    Map<DetailKey, Object> getDetails();
+   Map<DetailKey, Object> getDetails();
 
-    MonitorType getType();
+   MonitorType getType();
 
-    MonitorCategory getCategory();
+   MonitorCategory getCategory();
 
-    String monitorKey();
+   String monitorKey();
 }

@@ -1,35 +1,35 @@
 package com.github.typingtanuki.servermonitor.report;
 
 public abstract class AbstractBoolMonitorReport implements MonitorReport {
-    protected String monitored;
-    private boolean ng = true;
+   protected String monitored;
+   private boolean ng = true;
 
-    @Deprecated
-    public AbstractBoolMonitorReport() {
-        super();
-    }
+   @Deprecated
+   protected AbstractBoolMonitorReport() {
+      super();
+   }
 
-    public AbstractBoolMonitorReport(String monitored) {
-        super();
+   protected AbstractBoolMonitorReport(String monitored) {
+      super();
 
-        this.monitored = monitored;
-    }
+      this.monitored = monitored;
+   }
 
-    public void ok() {
-        ng = false;
-    }
+   public void ok() {
+      ng = false;
+   }
 
-    public void ng() {
-        ng = true;
-    }
+   public void ng() {
+      ng = true;
+   }
 
-    @Override
-    public boolean isOK() {
-        return !ng;
-    }
+   @Override
+   public boolean isOK() {
+      return !ng;
+   }
 
-    @Override
-    public String monitorKey() {
-        return getType() + monitored;
-    }
+   @Override
+   public String monitorKey() {
+      return getType() + monitored;
+   }
 }

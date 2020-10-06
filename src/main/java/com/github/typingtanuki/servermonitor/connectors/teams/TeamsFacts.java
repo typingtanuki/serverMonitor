@@ -1,12 +1,12 @@
 package com.github.typingtanuki.servermonitor.connectors.teams;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 public class TeamsFacts extends TeamsItem {
    private String type = "FactSet";
-   private List<TeamsFact> facts = new LinkedList<>();
+   private List<TeamsFact> facts = new ArrayList<>();
 
    public String getType() {
       return type;

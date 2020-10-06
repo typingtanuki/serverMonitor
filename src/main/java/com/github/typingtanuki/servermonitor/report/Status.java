@@ -1,15 +1,17 @@
 package com.github.typingtanuki.servermonitor.report;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * The status of the latest update of the monitors
+ *
  * @author clerc
  * @since 2020/02/07
  */
 public class Status {
-   private final List<MonitorReport> success = new LinkedList<>();
-   private final List<MonitorReport> failure = new LinkedList<>();
+   private final List<MonitorReport> success = new ArrayList<>();
+   private final List<MonitorReport> failure = new ArrayList<>();
 
    public Status() {
       super();

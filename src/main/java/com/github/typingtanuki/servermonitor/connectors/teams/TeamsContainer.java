@@ -1,12 +1,12 @@
 package com.github.typingtanuki.servermonitor.connectors.teams;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TeamsContainer {
    private String type = "Container";
    private String style = "default";
-   private List<TeamsItem> items = new LinkedList<>();
+   private List<TeamsItem> items = new ArrayList<>();
 
    public String getType() {
       return type;

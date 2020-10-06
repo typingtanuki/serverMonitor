@@ -2,7 +2,7 @@ package com.github.typingtanuki.servermonitor.connectors.teams;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
@@ -12,7 +12,7 @@ public class TeamsPayload {
    @JsonProperty("@context")
    private final String context = "http://schema.org/extensions";
    private String summary;
-   private List<TeamsSection> sections = new LinkedList<>();
+   private List<TeamsSection> sections = new ArrayList<>();
 
    public String getType() {
       return type;

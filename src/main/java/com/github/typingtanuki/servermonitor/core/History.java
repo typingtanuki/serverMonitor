@@ -2,7 +2,8 @@ package com.github.typingtanuki.servermonitor.core;
 
 import org.glassfish.jersey.internal.guava.Lists;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 
 import static com.github.typingtanuki.servermonitor.report.ReportUtils.now;
@@ -11,8 +12,8 @@ public class History {
    public static final long UNLIMITED = -1L;
 
    private final long limit;
-   private LinkedList<Long> values = new LinkedList<>();
-   private LinkedList<String> dates = new LinkedList<>();
+   private final Deque<Long> values = new ArrayDeque<>();
+   private final Deque<String> dates = new ArrayDeque<>();
    private long max;
 
    public History(long limit) {
