@@ -12,7 +12,7 @@
 
   padding: 10px;
 
-  background-color: @bgColorHighlight;
+  .grad(@bgColorHighlight);
 }
 
 #server {
@@ -46,4 +46,8 @@ input, select, textarea {
   background-color: @bgColor;
 
   border: 1px solid @mainTextColor;
+}
+
+settings-button + settings-button {
+  margin-top: 3px;
 }

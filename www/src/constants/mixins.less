@@ -31,7 +31,7 @@
   padding: 5px;
 
   color: @text;
-  background-color: @background;
+  .grad(@background);
 
   text-transform: capitalize;
 
@@ -42,7 +42,13 @@
 .button-style-hover(@background: @bgColorHighlight,
               @text: @mainTextColor,
               @hover:@bgColorSelected) {
+  .grad(@background);
   background-color: @hover;
 
   color: @textColorSelected;
+}
+
+.grad(@baseColor) {
+  background-image: linear-gradient(112.1deg, @baseColor 11.4%, lighten(@baseColor, 5%) 70.2%);
+  background-attachment: fixed;
 }

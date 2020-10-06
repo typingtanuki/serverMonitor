@@ -1,7 +1,15 @@
-import {CSSResult, customElement, html, LitElement, TemplateResult, unsafeCSS} from 'lit-element';
+import {
+    CSSResult,
+    customElement,
+    html,
+    LitElement,
+    TemplateResult,
+    unsafeCSS
+} from 'lit-element';
 import entryStyle from "./server-entry.less";
 import {Detail, Monitor, MonitorType, ReportConstants, ServerInfo} from "../rest/types";
 import {ProgressBar} from "../progress-bar/progress-bar";
+import {icon, Icon, iconBim, iconCollapse} from "../icon-svg/icons";
 
 export interface ServerEntrySelectedEventInfo {
     server: ServerInfo;
@@ -48,8 +56,10 @@ export class ServerEntry extends LitElement {
                 ok = false;
             }
         }
-        return html`<div class="title">${this.server.name}</div>
-${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
+        const statusIcon: Icon = ok ? icon(iconCollapse) : icon(iconBim);
+        return html`<icon-svg .icon="${statusIcon}"></icon-svg>
+        <div class="title">${this.server.name}</div>
+        ${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
     }
 
     public async refresh(): Promise<void> {
@@ -83,7 +93,8 @@ ${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
                     break
                 case MonitorType.handshake:
                     advanced =
-                        html`<div class="shakebox">${monitor.advanced.map(detail => ServerEntry.formatHandshake(detail))}</div>`;
+                        html`<div class="shakebox">${monitor.advanced.map(detail => ServerEntry.formatHandshake(
+                            detail))}</div>`;
                     break;
             }
         }
@@ -107,7 +118,9 @@ ${this.server.monitors.map(monitor => ServerEntry.formatMonitor(monitor))}`;
     }
 
     private static formatHandshake(details: Detail): TemplateResult {
-        return html`<div class="shake ${details["ok"] ? "OK" : "NG"}" title="${details["description"]}"></div>`;
+        return html`<div class="shake ${details["ok"] ?
+            "OK" :
+            "NG"}" title="${details["description"]}"></div>`;
     }
 
     private clicked(): void {

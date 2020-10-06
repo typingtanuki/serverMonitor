@@ -12,16 +12,35 @@
 
   position: relative;
   overflow: hidden;
+
+  icon-svg {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+
+    height: 6em;
+    width: 6em;
+
+    opacity: 25%;
+  }
 }
 
 :host(.OK) {
   border: 1px solid;
   .mark-success();
+
+  icon-svg {
+    color: @colorOk;
+  }
 }
 
 :host(.NG) {
   border: 1px solid;
   .mark-failure();
+
+  icon-svg {
+    color: @colorNg;
+  }
 }
 
 .title {
@@ -56,10 +75,10 @@
   border-radius: 3px;
 
   &.OK {
-    background-color: @colorOk;
+    .grad(@colorOk);
   }
 
   &.NG {
-    background-color: @colorNg;
+    .grad(@colorNg);
   }
 }
