@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Settings for the handshake monitors
+ */
 public class HandshakeMonitorConfig extends MonitorConfig {
+   /** The list of servers we want to do an handshake with */
    private List<String> monitoring = Collections.emptyList();
+   /** The time after we are giving up contacting the server and consider it "down" */
    private int maxHandshakeTime = 2_000;
 
    public HandshakeMonitorConfig() {

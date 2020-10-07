@@ -3,8 +3,18 @@ package com.github.typingtanuki.servermonitor.config;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Settings for the disk monitors
+ */
 public class DiskMonitorConfig extends MonitorConfig {
+   /** The usage (in percent) over which we are triggering a warning */
    private int maxUsage = 80;
+   /**
+    * The list of extra mount points we are to monitor
+    * <p>
+    * In most cases the mounts will be auto-detected and the list can be kept empty.
+    * Mounts will be de-duplicated.
+    */
    private List<String> mounts = new ArrayList<>();
 
    public DiskMonitorConfig() {

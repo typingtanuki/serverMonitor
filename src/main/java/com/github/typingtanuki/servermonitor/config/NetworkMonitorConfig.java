@@ -1,6 +1,10 @@
 package com.github.typingtanuki.servermonitor.config;
 
+/**
+ * Settings for the network load monitors
+ */
 public class NetworkMonitorConfig extends MonitorConfig {
+   /** The maximum amount of past entries to preserve in history */
    private int historySize = 1000;
 
    @Override

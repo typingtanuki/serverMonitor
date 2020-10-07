@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Settings for the process monitors
+ */
 public class ProcessMonitorConfig extends MonitorConfig {
+   /** List of processes to monitor */
    private List<String> monitoring = Collections.emptyList();
+   /** The maximum amount of past entries to preserve in history */
    private int historySize = 1000;
 
 
@@ -24,6 +29,7 @@ public class ProcessMonitorConfig extends MonitorConfig {
    public void copyTo(ProcessMonitorConfig targetConfig) {
       innerCopyTo(targetConfig);
       targetConfig.monitoring = new ArrayList<>(monitoring);
+      targetConfig.historySize = historySize;
    }
 
    public List<String> getMonitoring() {

@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Settings for the server ping monitors
+ */
 public class PingMonitorConfig extends MonitorConfig {
+   /** List of servers to ping (IP or hostname) */
    private List<String> monitoring = Collections.emptyList();
 
    public PingMonitorConfig() {

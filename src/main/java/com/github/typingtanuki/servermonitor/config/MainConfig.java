@@ -1,22 +1,37 @@
 package com.github.typingtanuki.servermonitor.config;
 
+/**
+ * Configuration for the wntire server monitor
+ */
 public class MainConfig {
+   /** The identity of this server (hostname, ip, nickname, ...) */
    private String identity = null;
+   /** The interval at which the different monitors will be checked (in ms) */
    private long monitorTime = 30_000;
+   /** The cool-down period during which we do not re-trigger a notification (in ms) */
    private long debounceTime = 86_400_000;
+   /** The port on which to listen for connection (web and REST) */
    private int port = 9191;
 
+   /** Hook for the teams hook (or any office365 hook) */
    private String teamsHook = null;
 
+   /** Settings for CPU monitoring */
    private CpuMonitorConfig cpu = new CpuMonitorConfig();
+   /** Settings for disk monitoring */
    private DiskMonitorConfig disk = new DiskMonitorConfig();
+   /** Settings for memory monitoring */
    private MemoryMonitorConfig memory = new MemoryMonitorConfig();
+   /** Settings for process monitoring */
    private ProcessMonitorConfig process = new ProcessMonitorConfig();
+   /** Settings for ping-based server monitoring */
    private PingMonitorConfig ping = new PingMonitorConfig();
+   /** Settings for handshake-based server monitoring */
    private HandshakeMonitorConfig handshake = new HandshakeMonitorConfig();
+   /** Settings for the OS update monitoring */
    private UpdateMonitorConfig updates = new UpdateMonitorConfig();
+   /** Settings for the network load monitoring */
    private NetworkMonitorConfig network = new NetworkMonitorConfig();
-
 
    public void copyTo(MainConfig config) {
       config.identity = identity;
@@ -52,14 +67,25 @@ public class MainConfig {
          throw new IllegalStateException("REST port should be between 1 and 65535");
       }
 
-      cpu.validate();
-      disk.validate();
-      memory.validate();
-      process.validate();
-      ping.validate();
-      handshake.validate();
-      updates.validate();
-      network.validate();
+      validateSub("cpu", cpu);
+      validateSub("disk", disk);
+      validateSub("memory", memory);
+      validateSub("process", process);
+      validateSub("ping", ping);
+      validateSub("handshake", handshake);
+      validateSub("updates", updates);
+      validateSub("network", network);
+   }
+
+   private static void validateSub(String type, MonitorConfig monitorConfig) {
+      if (monitorConfig == null) {
+         throw new IllegalStateException("Settings " + type + " are null.");
+      }
+      try {
+         monitorConfig.validate();
+      } catch (IllegalStateException e) {
+         throw new IllegalStateException("Failed to validate settings for " + type, e);
+      }
    }
 
    public String getIdentity() {

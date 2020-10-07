@@ -1,7 +1,12 @@
 package com.github.typingtanuki.servermonitor.config;
 
+/**
+ * Settings for the CPU monitors
+ */
 public class CpuMonitorConfig extends MonitorConfig {
+   /** The usage (in percent) over which we are triggering a warning */
    private int maxUsage = 80;
+   /** The maximum amount of past entries to preserve in history */
    private int historySize = 1000;
 
    public CpuMonitorConfig() {
