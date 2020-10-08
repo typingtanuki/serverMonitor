@@ -1,11 +1,10 @@
 package com.github.typingtanuki.servermonitor.connectors.teams;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.connectors.Connector;
 import com.github.typingtanuki.servermonitor.report.DetailKey;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
+import com.github.typingtanuki.servermonitor.utils.Json;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +13,7 @@ import oshi.software.os.OperatingSystem;
 
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.util.Map;
 
 import static com.github.typingtanuki.servermonitor.utils.SimpleStack.simpleStack;
@@ -88,12 +88,10 @@ public class TeamsConnector implements Connector {
     * @param payload The payload to send
     */
    private void sendPayload(TeamsPayload payload) {
-      ObjectMapper mapper = new ObjectMapper();
       String payloadJson;
-
       try {
-         payloadJson = mapper.writerFor(TeamsPayload.class).writeValueAsString(payload);
-      } catch (JsonProcessingException e) {
+         payloadJson = Json.pretty(payload);
+      } catch (IOException e) {
          logger.warn("Failure while preparing payload\r\n{}", simpleStack(e));
          return;
       }

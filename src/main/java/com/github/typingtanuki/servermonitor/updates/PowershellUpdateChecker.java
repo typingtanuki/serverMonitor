@@ -22,11 +22,6 @@ public class PowershellUpdateChecker extends WindowsUpdateChecker {
    }
 
    @Override
-   public String runUpdate() {
-      return "Can not handle updates on this platform";
-   }
-
-   @Override
    public List<MonitorReport> monitor(SystemInfo systemInfo) {
       List<String> out = runAndReadOutput(
             "cmd", "/c",

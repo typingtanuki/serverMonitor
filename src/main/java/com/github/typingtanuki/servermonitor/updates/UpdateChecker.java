@@ -61,19 +61,6 @@ public abstract class UpdateChecker implements Monitor {
       return new NoUpdateChecker();
    }
 
-   public static String doUpdate() {
-      UpdateChecker checker;
-      synchronized (currentCheckerLock) {
-         checker = currentChecker;
-      }
-      if (checker == null) {
-         return "Not initialized";
-      }
-
-      return checker.runUpdate();
-   }
-
-
    protected List<String> runAndReadOutput(String... commands) {
       ProcessBuilder builder = new ProcessBuilder(commands);
       List<String> out;
@@ -143,9 +130,6 @@ public abstract class UpdateChecker implements Monitor {
       }
       return !out.isEmpty();
    }
-
-
-   public abstract String runUpdate();
 
    @Override
    public final MonitorType getType() {

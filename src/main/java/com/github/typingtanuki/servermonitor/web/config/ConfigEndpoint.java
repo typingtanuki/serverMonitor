@@ -38,13 +38,6 @@ public class ConfigEndpoint {
    }
 
    @POST
-   @Path("/doUpdate")
-   @Produces(MediaType.TEXT_PLAIN)
-   public String doUpdate() {
-      return MonitorMain.monitor.doUpdate();
-   }
-
-   @POST
    @Path("/updateMonitor")
    @Consumes(MediaType.MULTIPART_FORM_DATA)
    @Produces(MediaType.APPLICATION_JSON)

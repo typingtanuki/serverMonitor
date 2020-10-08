@@ -21,7 +21,6 @@ public abstract class WindowsUpdateChecker extends UpdateChecker {
                   .startsWith("linux");
    }
 
-
    @Override
    protected String binaryCheckCommand() {
       return "where";
@@ -40,5 +39,4 @@ public abstract class WindowsUpdateChecker extends UpdateChecker {
       logger.info("Checking updates for powershell");
       return true;
    }
-
 }

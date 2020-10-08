@@ -1,4 +1,4 @@
-package com.github.typingtanuki.servermonitor.core;
+package com.github.typingtanuki.servermonitor.utils;
 
 import java.util.LinkedHashMap;
 

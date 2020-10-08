@@ -1,7 +1,6 @@
 package com.github.typingtanuki.servermonitor.core;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.typingtanuki.servermonitor.ZipSigner;
 import com.github.typingtanuki.servermonitor.config.MainConfig;
@@ -11,6 +10,7 @@ import com.github.typingtanuki.servermonitor.connectors.teams.TeamsConnector;
 import com.github.typingtanuki.servermonitor.monitors.*;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import com.github.typingtanuki.servermonitor.updates.UpdateChecker;
+import com.github.typingtanuki.servermonitor.utils.Json;
 import com.github.typingtanuki.servermonitor.web.WebServer;
 import com.github.typingtanuki.servermonitor.web.WwwServer;
 import com.github.typingtanuki.servermonitor.web.status.ShortStatusResponse;
@@ -101,6 +101,7 @@ public class ServerMonitor {
          }
       } catch (InterruptedException e) {
          Thread.currentThread().interrupt();
+         throw e;
       }
    }
 
@@ -343,24 +344,12 @@ public class ServerMonitor {
    }
 
    private void persistConfig() throws IOException {
-      try {
-         String jsonConfig = new ObjectMapper()
-               .writerFor(MainConfig.class)
-               .withDefaultPrettyPrinter()
-               .writeValueAsString(config);
-         Path configPath = Paths.get("./conf/monitor.json");
-         Files.writeString(configPath, jsonConfig, StandardCharsets.UTF_8);
-      } catch (JsonProcessingException e) {
-         throw new IOException("Could not convert config object to JSON", e);
-      }
+      Path configPath = Paths.get("./conf/monitor.json");
+      Files.writeString(configPath, Json.pretty(config), StandardCharsets.UTF_8);
    }
 
    public WwwServer wwwServer() {
       return wwwServer;
-   }
-
-   public String doUpdate() {
-      return UpdateChecker.doUpdate();
    }
 
    public void updateMonitor(Path uploadedZip, Path uploadedCert) throws IOException {

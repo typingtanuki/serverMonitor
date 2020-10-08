@@ -5,7 +5,10 @@ import com.github.typingtanuki.servermonitor.report.InvalidReport;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import oshi.SystemInfo;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,20 +26,9 @@ public class AptGetChecker extends LinuxUpdateChecker {
    }
 
    @Override
-   public String runUpdate() {
-      List<String> out = new ArrayList<>();
-      out.addAll(runAndReadOutput("sudo", "apt-get", "update"));
-      out.addAll(runAndReadOutput("sudo", "apt-get", "upgrade", "-y"));
-      out.addAll(runAndReadOutput("sudo", "apt-get", "dist-upgrade", "-y"));
-      out.addAll(runAndReadOutput("sudo", "apt-get", "autoremove", "-y"));
-      return String.join("\r\n", out);
-   }
-
-   @Override
    protected String binaryName() {
       return "apt-get";
    }
-
 
    @Override
    public List<MonitorReport> monitor(SystemInfo systemInfo) {

@@ -83,10 +83,11 @@ public class HandshakeMonitor implements Monitor {
                           ShakeMonitorReport monitor,
                           int maxHandshakeTime) {
       ConnectionManager.addUnknownConnection(target);
-      RestCall<HandshakeResponse> call = new RestCall<>(target,
-                                                        "/handshake?request=" +
-                                                        System.currentTimeMillis(),
-                                                        HandshakeResponse.class);
+      RestCall<HandshakeResponse> call = new RestCall<>(
+            target,
+            "/handshake?request=" +
+            System.currentTimeMillis(),
+            HandshakeResponse.class);
       HandshakeResponse handshake;
       try {
          handshake = call.get();

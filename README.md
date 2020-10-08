@@ -57,12 +57,6 @@ Doing a `POST` on `/config`, with the new settings as a payload will update sett
 The new settings will be kept in memory, by adding the parameter `?persist=true`, the new settings will also be persisted to disk.
 
 NOTE: The web server port is the only setting which can not be updated through this method at this time.
-  
-### Running a system update on the remote machine
-
-Doing a `POST` on `/config/doUpdate`, without payload will run a system update on the remote server.
-
-NOTE: Is only possible if user is in the sudoer group and set as nopasswd
 
 ## How can it report ?
 
@@ -78,6 +72,7 @@ NOTE: Is only possible if user is in the sudoer group and set as nopasswd
 * Jersey+jetty for the handshake server
 * RestEasy for the handshake client
 * Logback+Slf4j for logging
+* Echarts for the charts
 * Echarts for the UI
 
 ## Planned features

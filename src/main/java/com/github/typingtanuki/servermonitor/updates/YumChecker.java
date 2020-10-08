@@ -21,11 +21,6 @@ public class YumChecker extends LinuxUpdateChecker {
    }
 
    @Override
-   public String runUpdate() {
-      return String.join("\r\n", runAndReadOutput("sudo", "yum", "update", "-y"));
-   }
-
-   @Override
    protected String binaryName() {
       return "yum";
    }

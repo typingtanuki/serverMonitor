@@ -3,6 +3,7 @@ package com.github.typingtanuki.servermonitor.connectors;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
+import com.github.typingtanuki.servermonitor.utils.Json;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,8 +17,6 @@ import static com.github.typingtanuki.servermonitor.utils.SimpleStack.simpleStac
  */
 public class LoggerConnector implements Connector {
    private static final Logger logger = LoggerFactory.getLogger(LoggerConnector.class);
-   private static final ObjectWriter writer =
-         new ObjectMapper().writerFor(Map.class).withDefaultPrettyPrinter();
 
    @Override
    public void reportFailure(MonitorReport failedMonitorReport) {
@@ -37,7 +36,7 @@ public class LoggerConnector implements Connector {
 
    private String details(MonitorReport recoveredMonitorReport) {
       try {
-         return writer.writeValueAsString(recoveredMonitorReport.getDetails());
+         return Json.pretty(recoveredMonitorReport.getDetails());
       } catch (IOException e) {
          String details = "Failed to get details";
          logger.warn(details + "\r\n{}", simpleStack(e));
