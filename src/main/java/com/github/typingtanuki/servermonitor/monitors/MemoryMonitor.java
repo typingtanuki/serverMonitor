@@ -23,7 +23,7 @@ import static com.github.typingtanuki.servermonitor.report.ReportUtils.bytesToHu
  */
 public class MemoryMonitor implements Monitor {
    private final MainConfig config;
-   private final History history = new History(100);
+   private final History history = new History();
    private Map<Integer, Long> prevTop = new LinkedHashMap<>();
 
    public MemoryMonitor(MainConfig config) {

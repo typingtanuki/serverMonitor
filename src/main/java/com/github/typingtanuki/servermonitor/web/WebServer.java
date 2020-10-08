@@ -24,10 +24,15 @@ import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * Jetty web server
+ */
 public class WebServer extends Thread {
    private static final Logger logger = LoggerFactory.getLogger(WebServer.class);
 
+   /** Port on which we want to listen for REST or HTML requests */
    private final int port;
+   /** The Jetty server instance */
    private Server jettyServer;
 
    public WebServer(MainConfig mainConfig) {
@@ -36,15 +41,9 @@ public class WebServer extends Thread {
       this.port = mainConfig.getPort();
    }
 
+   /** Start Jetty web server */
    public void startServer() throws IOException {
-      ResourceConfig config = new ResourceConfig();
-      config.register(new CORSFilter());
-      config.register(JacksonFeature.class);
-      config.register(MultiPartFeature.class);
-      config.register(JettyHttpContainerProvider.class);
-      config.property(ServerProperties.BV_FEATURE_DISABLE, Boolean.TRUE);
-      config.property(CommonProperties.FEATURE_AUTO_DISCOVERY_DISABLE, Boolean.TRUE);
-      config.register(JacksonJaxbJsonProvider.class);
+      ResourceConfig config = createConfig();
 
       //Jersey servlet <> Jetty binding
       ServletHolder holder = new ServletHolder(new ServletContainer(config));
@@ -58,13 +57,6 @@ public class WebServer extends Thread {
       jettyServer = new Server(port);
       jettyServer.setHandler(servlet);
 
-      Set<Class<?>> endpoints = new LinkedHashSet<>();
-      endpoints.add(HandshakeEndpoint.class);
-      endpoints.add(StatusEndpoint.class);
-      endpoints.add(ConfigEndpoint.class);
-      endpoints.add(SiteEndpoint.class);
-      config.registerClasses(endpoints);
-
       try {
          jettyServer.start();
       } catch (Exception e) {
@@ -75,6 +67,34 @@ public class WebServer extends Thread {
          }
          throw new IOException("Error starting server", e);
       }
+   }
+
+   /** Creates the Jetty configuration */
+   private static ResourceConfig createConfig() {
+      ResourceConfig config = new ResourceConfig();
+      config.register(new CORSFilter());
+      config.register(JacksonFeature.class);
+      config.register(MultiPartFeature.class);
+      config.register(JettyHttpContainerProvider.class);
+      config.property(ServerProperties.BV_FEATURE_DISABLE, Boolean.TRUE);
+      config.property(CommonProperties.FEATURE_AUTO_DISCOVERY_DISABLE, Boolean.TRUE);
+      config.register(JacksonJaxbJsonProvider.class);
+
+      config.registerClasses(endpoints());
+
+      return config;
+   }
+
+   /** List of endpoints exposed through the REST API */
+   private static Set<Class<?>> endpoints() {
+      Set<Class<?>> endpoints = new LinkedHashSet<>();
+      // REST endpoints
+      endpoints.add(HandshakeEndpoint.class);
+      endpoints.add(StatusEndpoint.class);
+      endpoints.add(ConfigEndpoint.class);
+      // HTTP endpoint
+      endpoints.add(SiteEndpoint.class);
+      return endpoints;
    }
 
    @Override

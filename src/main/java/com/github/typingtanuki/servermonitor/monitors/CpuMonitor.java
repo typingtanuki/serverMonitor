@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class CpuMonitor implements Monitor {
    private final MainConfig config;
-   private final History history = new History(100);
+   private final History history = new History();
    private Map<Integer, Double> prevTop = new LinkedHashMap<>();
 
    public CpuMonitor(MainConfig config) {

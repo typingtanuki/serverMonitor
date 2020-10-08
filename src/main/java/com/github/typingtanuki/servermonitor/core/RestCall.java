@@ -22,10 +22,14 @@ import java.util.concurrent.TimeUnit;
 public class RestCall<T> {
    private static final Logger logger = LoggerFactory.getLogger(RestCall.class);
 
+   /** Default timeout for the remote server to respond */
    private static final long DEFAULT_GET_TIMEOUT = 10_000L;
 
+   /** JSON reader for the given class */
    private final ObjectReader reader;
+   /** The URL being connected to */
    private final String url;
+   /** The class of the response */
    private final Class<T> resultType;
 
    /**

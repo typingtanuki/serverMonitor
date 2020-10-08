@@ -1,7 +1,7 @@
 package com.github.typingtanuki.servermonitor.config;
 
 /**
- * Configuration for the wntire server monitor
+ * Configuration for the entire server monitor
  */
 public class MainConfig {
    /** The identity of this server (hostname, ip, nickname, ...) */

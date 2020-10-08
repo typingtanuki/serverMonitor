@@ -16,8 +16,8 @@ public class NetworkMonitor implements Monitor {
    private long prevRecv = -1;
    private long prevSent = -1;
 
-   private final History historyRecv = new History(History.UNLIMITED);
-   private final History historySent = new History(History.UNLIMITED);
+   private final History historyRecv = new History();
+   private final History historySent = new History();
 
    public NetworkMonitor(MainConfig config) {
       super();

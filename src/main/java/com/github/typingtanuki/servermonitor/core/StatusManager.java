@@ -15,12 +15,18 @@ import java.util.*;
 public class StatusManager {
    private static final Object CLUSTER_STATUS_LOCK = new Object[0];
 
+   /** The current configuration */
    private final MainConfig config;
+   /** The current status */
    private Status status;
 
-   private Map<String, SimpleStatus> areaStatus = Collections.emptyMap();
+   /** The current reports from fast-updating reports */
    private List<MonitorReport> fastReports = Collections.emptyList();
+   /** The current reports from slow-updating reports */
    private List<MonitorReport> slowReports = Collections.emptyList();
+   /** The known state of the cluster (all details) */
+   private Map<String, SimpleStatus> areaStatus = Collections.emptyMap();
+   /** The known state of the cluster (minimum details) */
    private Map<String, Map<MonitorType, Boolean>> areaShortStatus =
          Collections.emptyMap();
 
@@ -28,6 +34,12 @@ public class StatusManager {
       this.config = config;
    }
 
+   /**
+    * Update all reports
+    *
+    * @param newFastReports The fast reports updates (can be null if not ready)
+    * @param newSlowReports The slow reports updates (can be null if not ready)
+    */
    public synchronized void updateStatus(List<MonitorReport> newFastReports,
                                          List<MonitorReport> newSlowReports) {
       List<MonitorReport> all = new ArrayList<>();
@@ -43,12 +55,22 @@ public class StatusManager {
       status = new Status(all);
    }
 
+   /**
+    * Update the state of the cluster (full details)
+    *
+    * @param areaStatus The current state
+    */
    public synchronized void updateAreaStatus(Map<String, SimpleStatus> areaStatus) {
       synchronized (CLUSTER_STATUS_LOCK) {
          this.areaStatus = new HashMap<>(areaStatus);
       }
    }
 
+   /**
+    * Update the state of the cluster (minimum details)
+    *
+    * @param areaShortStatus The current state
+    */
    public synchronized void updateAreaShortStatus(
          Map<String, Map<MonitorType, Boolean>> areaShortStatus) {
       synchronized (CLUSTER_STATUS_LOCK) {

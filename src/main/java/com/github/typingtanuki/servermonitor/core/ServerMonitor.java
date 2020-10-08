@@ -88,15 +88,19 @@ public class ServerMonitor {
       }
 
       long lastRun = 0;
-      while (true) {
-         long newTime = Instant.now().toEpochMilli();
-         if (newTime - lastRun > config.getMonitorTime()) {
-            pingFastMonitors();
-            pingSlowMonitors();
-            pingArea();
-            lastRun = newTime;
+      try {
+         while (true) {
+            long newTime = Instant.now().toEpochMilli();
+            if (newTime - lastRun > config.getMonitorTime()) {
+               pingFastMonitors();
+               pingSlowMonitors();
+               pingArea();
+               lastRun = newTime;
+            }
+            Thread.sleep(100);
          }
-         Thread.sleep(100);
+      } catch (InterruptedException e) {
+         Thread.currentThread().interrupt();
       }
    }
 

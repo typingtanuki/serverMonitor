@@ -13,9 +13,6 @@ import static com.github.typingtanuki.servermonitor.utils.SimpleStack.simpleStac
 
 /**
  * A connector reporting through the local logger
- *
- * @author clerc
- * @since 2020/02/04
  */
 public class LoggerConnector implements Connector {
    private static final Logger logger = LoggerFactory.getLogger(LoggerConnector.class);

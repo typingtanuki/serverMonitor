@@ -10,8 +10,8 @@ import oshi.software.os.OSProcess;
  * @since 2020/07/03
  */
 public class ProcessInfo {
-   private final History cpuHistory = new History(100);
-   private final History memoryHistory = new History(100);
+   private final History cpuHistory = new History();
+   private final History memoryHistory = new History();
 
    private String name;
    private boolean running = false;

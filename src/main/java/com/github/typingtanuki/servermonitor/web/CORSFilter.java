@@ -1,22 +1,22 @@
 package com.github.typingtanuki.servermonitor.web;
 
-/**
- * @author clerc
- * @since 2020/02/13
- */
-
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.ext.Provider;
-import java.io.IOException;
 
+/**
+ * Fitler to allow for CORS
+ *
+ * @author clerc
+ * @since 2020/02/13
+ */
 @Provider
 public class CORSFilter implements ContainerResponseFilter {
 
    @Override
    public void filter(ContainerRequestContext request,
-                      ContainerResponseContext response) throws IOException {
+                      ContainerResponseContext response) {
       response.getHeaders().add("Access-Control-Allow-Origin", "*");
       response.getHeaders().add("Access-Control-Allow-Headers",
                                 "origin, content-type, accept, authorization");

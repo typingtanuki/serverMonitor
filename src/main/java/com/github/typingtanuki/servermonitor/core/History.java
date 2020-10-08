@@ -8,20 +8,27 @@ import java.util.List;
 
 import static com.github.typingtanuki.servermonitor.report.ReportUtils.now;
 
+/** Keep a list of at most the X latest longs available */
 public class History {
-   public static final long UNLIMITED = -1L;
-
-   private final long limit;
+   /** The values saved */
    private final Deque<Long> values = new ArrayDeque<>();
+   /** The dates corresponding to the values */
    private final Deque<String> dates = new ArrayDeque<>();
+
+   /** The maximum scale for this data (used to scale charts) */
    private long max;
 
-   public History(long limit) {
+   public History() {
       super();
-
-      this.limit = limit;
    }
 
+   /**
+    * Put a new entry into the history
+    *
+    * @param newData     The value to put in the history
+    * @param historySize The maximum size of the history
+    * @param max         The biggest value which can be recorded
+    */
    public void touch(Long newData, int historySize, Long max) {
       values.add(newData);
       dates.add(now());
@@ -32,10 +39,25 @@ public class History {
       this.max = max;
    }
 
+   /**
+    * Returns a copy of the current values
+    */
    public List<Long> getValues() {
       return Lists.newArrayList(values);
    }
 
+   /**
+    * Returns a copy of the current dates
+    */
+   public List<String> getDates() {
+      return Lists.newArrayList(dates);
+   }
+
+   /**
+    * Returns the max.
+    * <p>
+    * Max can be either hardcoded or the actual biggest value in the history
+    */
    public Long getMax() {
       if (max >= 0) {
          return max;
@@ -47,15 +69,7 @@ public class History {
       return m;
    }
 
-   public List<String> getDates() {
-      return Lists.newArrayList(dates);
-   }
-
    public String getType() {
       return "history";
-   }
-
-   public long getLimit() {
-      return limit;
    }
 }

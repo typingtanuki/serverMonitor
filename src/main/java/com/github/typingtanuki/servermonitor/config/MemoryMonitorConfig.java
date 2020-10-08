@@ -1,5 +1,8 @@
 package com.github.typingtanuki.servermonitor.config;
 
+/**
+ * Settings for the memory monitors
+ */
 public class MemoryMonitorConfig extends MonitorConfig {
    private int maxUsage = 80;
    private int historySize = 1000;
