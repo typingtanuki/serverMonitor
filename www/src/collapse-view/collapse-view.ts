@@ -1,7 +1,15 @@
-import {CSSResult, customElement, html, LitElement, property, TemplateResult, unsafeCSS} from 'lit-element';
+import {
+    CSSResult,
+    customElement,
+    LitElement,
+    property,
+    TemplateResult,
+    unsafeCSS
+} from 'lit-element';
 import progressStyle from "./collapse-view.less";
 import {icon, Icon, iconCollapse} from "../icon-svg/icons";
 import Velocity from "velocity-animate";
+import {collapseViewTemplate} from "./collapse-view-template";
 
 @customElement('collapse-view')
 export class CollapseView extends LitElement {
@@ -15,7 +23,7 @@ export class CollapseView extends LitElement {
     @property({type: Boolean})
     public collapsed: boolean;
     @property({type: Object})
-    private iconCollapse: Icon = icon(iconCollapse);
+    public iconCollapse: Icon = icon(iconCollapse);
 
     constructor() {
         super();
@@ -25,9 +33,7 @@ export class CollapseView extends LitElement {
     }
 
     public render(): TemplateResult {
-        return html`
-<div class="title" @click="${this.toggle}"><icon-svg .icon="${this.iconCollapse}"></icon-svg>${this.title}</div>
-<div class="body"><slot></slot></div>`;
+        return collapseViewTemplate(this);
     }
 
     public attributeChangedCallback(name: string, oldVal: any, newVal: any): void {

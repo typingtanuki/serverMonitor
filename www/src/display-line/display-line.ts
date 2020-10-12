@@ -3,7 +3,6 @@ import {colorNg, colorOk, colorTick} from "../constants/colors";
 import {
     CSSResult,
     customElement,
-    html,
     LitElement,
     property,
     TemplateResult,
@@ -11,6 +10,7 @@ import {
 } from 'lit-element';
 import lineStyle from "./display-line.less";
 import {isAttached} from "../constants/mixins";
+import {echartTemplate} from "../display-gauge/echart-template";
 
 @customElement('display-line')
 export class DisplayLine extends LitElement {
@@ -33,7 +33,7 @@ export class DisplayLine extends LitElement {
     }
 
     public render(): TemplateResult {
-        return html`<div id="chart" class="gauge"></div>`;
+        return echartTemplate();
     }
 
     public attributeChangedCallback(): void {

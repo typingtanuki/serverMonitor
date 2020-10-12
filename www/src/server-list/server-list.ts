@@ -11,6 +11,7 @@ import {RestClient} from "../rest/rest-client";
 import {ServerEntry} from "../server-entry/server-entry";
 import {ServerInfo} from "../rest/types";
 import {ProgressBar} from "../progress-bar/progress-bar";
+import {serverListTemplate} from "./server-list-template";
 
 @customElement('server-list')
 export class ServerList extends LitElement {
@@ -39,8 +40,7 @@ export class ServerList extends LitElement {
     }
 
     public render(): TemplateResult {
-        return html`<div class="root">${this.servers.map(server => ServerList.formatServer(
-            server))}</div>`;
+        return serverListTemplate(this);
     }
 
     public firstUpdated(): void {
@@ -60,10 +60,6 @@ export class ServerList extends LitElement {
             .catch(function (error: string | Error) {
                 window.core.showError(error);
             });
-    }
-
-    private static formatServer(server: ServerInfo): TemplateResult {
-        return html`<server-entry .server="${server}"></server-entry>`;
     }
 
     public resolve(server: ServerInfo, currentServer: string): string {
