@@ -1,4 +1,4 @@
-package com.github.typingtanuki.servermonitor.updates;
+package com.github.typingtanuki.servermonitor.monitors.updates;
 
 import com.github.typingtanuki.servermonitor.config.MainConfig;
 import org.slf4j.Logger;

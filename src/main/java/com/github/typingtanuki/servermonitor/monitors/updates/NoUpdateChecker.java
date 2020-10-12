@@ -1,4 +1,4 @@
-package com.github.typingtanuki.servermonitor.updates;
+package com.github.typingtanuki.servermonitor.monitors.updates;
 
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
 import oshi.SystemInfo;

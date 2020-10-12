@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.github.typingtanuki.servermonitor.monitors.MonitorCategory;
 import com.github.typingtanuki.servermonitor.monitors.MonitorType;
-import com.github.typingtanuki.servermonitor.updates.UpdateReport;
+import com.github.typingtanuki.servermonitor.monitors.updates.UpdateReport;
 
 import java.util.Map;
 

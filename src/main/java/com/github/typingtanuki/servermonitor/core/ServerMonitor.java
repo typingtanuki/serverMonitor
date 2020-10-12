@@ -2,14 +2,14 @@ package com.github.typingtanuki.servermonitor.core;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.typingtanuki.servermonitor.ZipSigner;
 import com.github.typingtanuki.servermonitor.config.MainConfig;
 import com.github.typingtanuki.servermonitor.connectors.Connector;
 import com.github.typingtanuki.servermonitor.connectors.LoggerConnector;
 import com.github.typingtanuki.servermonitor.connectors.teams.TeamsConnector;
 import com.github.typingtanuki.servermonitor.monitors.*;
+import com.github.typingtanuki.servermonitor.monitors.updates.UpdateChecker;
 import com.github.typingtanuki.servermonitor.report.MonitorReport;
-import com.github.typingtanuki.servermonitor.updates.UpdateChecker;
+import com.github.typingtanuki.servermonitor.update.MonitorUpdater;
 import com.github.typingtanuki.servermonitor.utils.Json;
 import com.github.typingtanuki.servermonitor.web.WebServer;
 import com.github.typingtanuki.servermonitor.web.WwwServer;
@@ -21,20 +21,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import oshi.SystemInfo;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.stream.Stream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import static com.github.typingtanuki.servermonitor.utils.SimpleStack.simpleStack;
 
@@ -353,49 +347,6 @@ public class ServerMonitor {
    }
 
    public void updateMonitor(Path uploadedZip, Path uploadedCert) throws IOException {
-      ZipSigner.checkSign(uploadedZip, uploadedCert);
-
-      Path pwd = Paths.get(".");
-      Path updateFolder = pwd.resolve("update");
-      if (Files.exists(updateFolder)) {
-         try (Stream<Path> stream = Files.walk(updateFolder)) {
-            stream.sorted(Comparator.reverseOrder())
-                  .map(Path::toFile)
-                  .forEach(File::delete);
-         }
-      }
-      Files.createDirectories(updateFolder);
-
-      unzip(uploadedZip, updateFolder);
-   }
-
-   private static void unzip(Path uploadedZip, Path updateFolder) throws IOException {
-      try (FileInputStream fis = new FileInputStream(uploadedZip.toFile())) {
-         try (ZipInputStream zis = new ZipInputStream(fis)) {
-            ZipEntry entry = zis.getNextEntry();
-            while (entry != null) {
-               if (!entry.isDirectory()) {
-                  String fileName = entry.getName();
-
-
-                  Path target = updateFolder.resolve(fileName);
-                  System.out.println("Unzipping " +
-                                     fileName +
-                                     " to " +
-                                     target.toAbsolutePath());
-                  if (!Files.exists(target.getParent())) {
-                     System.out.println("Creating  " +
-                                        target.getParent().toAbsolutePath());
-                     Files.createDirectories(target.getParent());
-                  }
-
-                  Files.copy(zis, target, StandardCopyOption.REPLACE_EXISTING);
-               }
-               //close this ZipEntry
-               zis.closeEntry();
-               entry = zis.getNextEntry();
-            }
-         }
-      }
+      MonitorUpdater.updateMonitor(uploadedZip, uploadedCert);
    }
 }
