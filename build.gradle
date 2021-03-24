@@ -1,8 +1,8 @@
 plugins {
-    id("net.ltgt.errorprone") version "1.2.1"
+    id 'java'
+    id 'application'
+    id 'net.ltgt.errorprone' version '2.0.0'
 }
-
-apply plugin: 'java'
 
 repositories {
     jcenter()
@@ -12,19 +12,19 @@ configurations {
     distJar.extendsFrom implementation
 }
 
+def versions = [
+        errorProne: '2.5.1',
+        jackson   : '2.12.2',
+        jaxb      : '2.3.1',
+        jersey    : '3.0.1',
+        jetty     : '11.0.1',
+        logback   : '1.2.3',
+        oshi      : '5.6.1',
+        restEasy  : '4.6.0.Final',
+        slf4j     : '1.7.30',
+        junit     : '4.13'
+]
 dependencies {
-    def versions = [
-            jackson   : '2.11.3',
-            jaxb      : '2.3.1',
-            jersey    : '2.32',
-            jetty     : '9.4.32.v20200930',
-            logback   : '1.2.3',
-            oshi      : '5.2.5',
-            restEasy  : '4.5.8.Final',
-            slf4j     : '1.7.30',
-            errorProne: '2.4.0',
-            junit     : '4.13'
-    ]
 
     errorprone("com.google.errorprone:error_prone_core:${versions.errorProne}")
 
@@ -50,7 +50,12 @@ dependencies {
     implementation group: 'javax.xml.bind', name: 'jaxb-api', version: versions.jaxb
 
     // Logging
-    implementation group: 'org.slf4j', name: 'slf4j-api', version: versions.slf4j
+    implementation(group: 'org.slf4j', name: 'slf4j-api', version: versions.slf4j) {
+        version {
+            strictly versions.slf4j
+        }
+        force = true
+    }
     implementation group: 'ch.qos.logback', name: 'logback-core', version: versions.logback
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: versions.logback
 

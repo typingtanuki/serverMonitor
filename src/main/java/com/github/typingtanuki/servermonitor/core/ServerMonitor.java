@@ -348,5 +348,13 @@ public class ServerMonitor {
 
    public void updateMonitor(Path uploadedZip, Path uploadedCert) throws IOException {
       MonitorUpdater.updateMonitor(uploadedZip, uploadedCert);
+      reboot();
+   }
+
+   public static final String SUN_JAVA_COMMAND = "sun.java.command";
+
+   private void reboot() throws IOException {
+      logger.info("Going to reboot...");
+      // Ping ping
    }
 }
